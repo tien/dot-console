@@ -1,16 +1,11 @@
-import {
-  CodecParam,
-  INCOMPLETE,
-  INVALID,
-  ParamInput,
-  VOID,
-} from "../components/param";
-import { Button, FormLabel, Select } from "../components/ui";
 import { useLookup } from "../hooks/lookup";
 import type { Pallet, Storage, StorageQuery } from "../types";
+import { PalletSelect } from "./pallet-select";
+import { CodecParam, INCOMPLETE, INVALID, ParamInput, VOID } from "./param";
+import { Button, FormLabel, Select } from "./ui";
 import Check from "@w3f/polkadot-icons/solid/Check";
 import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { css } from "styled-system/css";
 
 type StorageKeyProps = {
@@ -47,12 +42,17 @@ function StorageKey({ storage, onChangeKey }: StorageKeyProps) {
   );
 }
 
-type StorageItemProps = {
+type StorageQueryFormProps = {
   pallet: Pallet;
+  palletSelect: ReactNode;
   onAddQuery: (query: StorageQuery) => void;
 };
 
-function _StorageSelect({ pallet, onAddQuery }: StorageItemProps) {
+function _StorageQueryForm({
+  pallet,
+  palletSelect,
+  onAddQuery,
+}: StorageQueryFormProps) {
   const [key, setKey] = useState<ParamInput<unknown>>(INCOMPLETE);
 
   const storageItems = pallet.storage!.items;
@@ -66,7 +66,19 @@ function _StorageSelect({ pallet, onAddQuery }: StorageItemProps) {
   );
 
   return (
-    <>
+    <div
+      className={css({
+        display: "grid",
+        gridTemplateAreas: `
+        "pallet storage"
+        "key    key"
+        "submit submit"
+      `,
+        gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)",
+        gap: "1rem",
+      })}
+    >
+      {palletSelect}
       <Select.Root
         items={pallet.storage!.items}
         // @ts-expect-error TODO: https://github.com/cschroeter/park-ui/issues/351
@@ -134,10 +146,27 @@ function _StorageSelect({ pallet, onAddQuery }: StorageItemProps) {
       >
         Query
       </Button>
-    </>
+    </div>
   );
 }
 
-export function StorageSelect(props: StorageItemProps) {
-  return <_StorageSelect key={props.pallet.index} {...props} />;
+export function StorageQueryForm(
+  props: Omit<StorageQueryFormProps, "pallet" | "palletSelect">,
+) {
+  return (
+    <PalletSelect
+      filter={(pallet) =>
+        pallet.storage !== undefined && pallet.storage.items.length > 0
+      }
+    >
+      {({ pallet, palletSelect }) => (
+        <_StorageQueryForm
+          key={pallet.index}
+          pallet={pallet}
+          palletSelect={palletSelect}
+          {...props}
+        />
+      )}
+    </PalletSelect>
+  );
 }

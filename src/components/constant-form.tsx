@@ -1,16 +1,22 @@
 import type { Constant, ConstantQuery, Pallet } from "../types";
+import { PalletSelect } from "./pallet-select";
 import { Button, Select } from "./ui";
 import Check from "@w3f/polkadot-icons/solid/Check";
 import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { css } from "styled-system/css";
 
-export type ConstantSelectProps = {
+export type ConstantQueryFormProps = {
   pallet: Pallet;
+  palletSelect: ReactNode;
   onAddQuery: (query: ConstantQuery) => void;
 };
 
-export function _ConstantSelect({ pallet, onAddQuery }: ConstantSelectProps) {
+export function _ConstantQueryForm({
+  pallet,
+  palletSelect,
+  onAddQuery,
+}: ConstantQueryFormProps) {
   const defaultConstantName = pallet.constants.at(0)?.name;
 
   if (defaultConstantName === undefined) {
@@ -20,7 +26,19 @@ export function _ConstantSelect({ pallet, onAddQuery }: ConstantSelectProps) {
   const [selectedConstant, setSelectedConstant] = useState(defaultConstantName);
 
   return (
-    <>
+    <div
+      className={css({
+        display: "grid",
+        gridTemplateAreas: `
+        "pallet storage"
+        "key    key"
+        "submit submit"
+      `,
+        gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)",
+        gap: "1rem",
+      })}
+    >
+      {palletSelect}
       <Select.Root
         items={pallet.constants}
         // @ts-expect-error TODO: https://github.com/cschroeter/park-ui/issues/351
@@ -71,10 +89,23 @@ export function _ConstantSelect({ pallet, onAddQuery }: ConstantSelectProps) {
       >
         Query
       </Button>
-    </>
+    </div>
   );
 }
 
-export function ConstantSelect(props: ConstantSelectProps) {
-  return <_ConstantSelect key={props.pallet.index} {...props} />;
+export function ConstantQueryForm(
+  props: Omit<ConstantQueryFormProps, "pallet" | "palletSelect">,
+) {
+  return (
+    <PalletSelect filter={(pallet) => pallet.constants.length > 0}>
+      {({ pallet, palletSelect }) => (
+        <_ConstantQueryForm
+          key={pallet.index}
+          pallet={pallet}
+          palletSelect={palletSelect}
+          {...props}
+        />
+      )}
+    </PalletSelect>
+  );
 }

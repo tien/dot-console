@@ -1,13 +1,10 @@
-import { ConstantSelect } from "./components/constant";
+import { ConstantQueryForm } from "./components/constant-form";
 import { QueryResult } from "./components/query-result";
-import { StorageSelect } from "./components/storage";
-import { Heading, Progress, Select, Tabs } from "./components/ui";
+import { StorageQueryForm } from "./components/storage-form";
+import { Heading, Progress, Tabs } from "./components/ui";
 import config from "./config";
-import { useMetadata } from "./hooks/metadata";
-import type { Pallet, Query } from "./types";
+import type { Query } from "./types";
 import { ReDotChainProvider, ReDotProvider } from "@reactive-dot/react";
-import Check from "@w3f/polkadot-icons/solid/Check";
-import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
 import { registerDotConnect } from "dot-connect";
 import { Suspense, useState } from "react";
 import { css } from "styled-system/css";
@@ -15,16 +12,6 @@ import { css } from "styled-system/css";
 registerDotConnect({ wallets: config.wallets });
 
 function DApp() {
-  const metadata = useMetadata();
-
-  const [palletIndex, setPalletIndex] = useState(
-    metadata.value.pallets.at(0)!.index,
-  );
-
-  const pallet = metadata.value.pallets.find(
-    (pallet) => pallet.index === palletIndex,
-  );
-
   const [queries, setQueries] = useState<Query[]>([]);
 
   const tabOptions = [
@@ -100,78 +87,20 @@ function DApp() {
                 ))}
                 <Tabs.Indicator />
               </Tabs.List>
-              <div
-                className={css({
-                  display: "grid",
-                  gridTemplateAreas: `
-                    "pallet storage"
-                    "key    key"
-                    "submit submit"
-                  `,
-                  gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)",
-                  gap: "1rem",
-                })}
-              >
-                <Select.Root
-                  items={metadata.value.pallets}
-                  // @ts-expect-error TODO: https://github.com/cschroeter/park-ui/issues/351
-                  itemToString={(pallet: Pallet) => pallet.name}
-                  // @ts-expect-error TODO: https://github.com/cschroeter/park-ui/issues/351
-                  itemToValue={(pallet: Pallet) => pallet.index}
-                  // @ts-expect-error ark-ui type error
-                  value={[palletIndex]}
-                  onValueChange={(event) => {
-                    const pallet = event.items.at(0) as Pallet;
-
-                    setPalletIndex(pallet.index);
-                  }}
-                  className={css({ gridArea: "pallet" })}
-                >
-                  <Select.Label>Pallet</Select.Label>
-                  <Select.Control>
-                    <Select.Trigger>
-                      <Select.ValueText placeholder="Select a pallet" />
-                      <ChevronDown />
-                    </Select.Trigger>
-                  </Select.Control>
-                  <Select.Positioner>
-                    <Select.Content
-                      className={css({ maxHeight: "75dvh", overflow: "auto" })}
-                    >
-                      {metadata.value.pallets
-                        .toSorted((a, b) => a.name.localeCompare(b.name))
-                        .map((pallet) => (
-                          <Select.Item key={pallet.index} item={pallet}>
-                            <Select.ItemText>{pallet.name}</Select.ItemText>
-                            <Select.ItemIndicator>
-                              <Check />
-                            </Select.ItemIndicator>
-                          </Select.Item>
-                        ))}
-                    </Select.Content>
-                  </Select.Positioner>
-                </Select.Root>
-                {pallet && (
-                  <>
-                    <Tabs.Content value="storage" asChild>
-                      <StorageSelect
-                        pallet={pallet}
-                        onAddQuery={(query) =>
-                          setQueries((queries) => [...queries, query])
-                        }
-                      />
-                    </Tabs.Content>
-                    <Tabs.Content value="constants" asChild>
-                      <ConstantSelect
-                        pallet={pallet}
-                        onAddQuery={(query) =>
-                          setQueries((queries) => [...queries, query])
-                        }
-                      />
-                    </Tabs.Content>
-                  </>
-                )}
-              </div>
+              <Tabs.Content value="storage" asChild>
+                <StorageQueryForm
+                  onAddQuery={(query) =>
+                    setQueries((queries) => [...queries, query])
+                  }
+                />
+              </Tabs.Content>
+              <Tabs.Content value="constants" asChild>
+                <ConstantQueryForm
+                  onAddQuery={(query) =>
+                    setQueries((queries) => [...queries, query])
+                  }
+                />
+              </Tabs.Content>
             </div>
           </Tabs.Root>
         </aside>
