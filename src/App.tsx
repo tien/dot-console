@@ -3,13 +3,9 @@ import { QueryResult } from "./components/query-result";
 import { StorageSelect } from "./components/storage";
 import { Heading, Progress, Select, Tabs } from "./components/ui";
 import config from "./config";
+import { useMetadata } from "./hooks/metadata";
 import type { Pallet, Query } from "./types";
-import { metadata as metadataCodec } from "@polkadot-api/substrate-bindings";
-import {
-  ReDotChainProvider,
-  ReDotProvider,
-  useLazyLoadQuery,
-} from "@reactive-dot/react";
+import { ReDotChainProvider, ReDotProvider } from "@reactive-dot/react";
 import Check from "@w3f/polkadot-icons/solid/Check";
 import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
 import { registerDotConnect } from "dot-connect";
@@ -19,15 +15,7 @@ import { css } from "styled-system/css";
 registerDotConnect({ wallets: config.wallets });
 
 function DApp() {
-  const rawMetadata = useLazyLoadQuery((builder) =>
-    builder.callApi("Metadata", "metadata", []),
-  );
-
-  const { metadata } = metadataCodec.dec(rawMetadata.asBytes());
-
-  if (metadata.tag !== "v14" && metadata.tag !== "v15") {
-    throw new Error();
-  }
+  const metadata = useMetadata();
 
   const [palletIndex, setPalletIndex] = useState(
     metadata.value.pallets.at(0)!.index,

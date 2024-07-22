@@ -395,7 +395,6 @@ export function AccountIdParam({
       )}
       <Switch
         checked={useCustom}
-        onChange={(event) => console.log(event)}
         onCheckedChange={(event) => setUseCustom(event.checked)}
       >
         Use custom account
