@@ -1,0 +1,59 @@
+{
+  "name": "dot-console",
+  "description": "Substrate development console",
+  "keywords": [
+    "substrate",
+    "polkadot"
+  ],
+  "bugs": {
+    "url": "https://github.com/tien/dot-console/issues",
+    "email": "tien.nguyenkhac@icloud.com"
+  },
+  "license": "AGPL-3.0-only",
+  "author": "Tiến Nguyễn Khắc <tien.nguyenkhac@icloud.com> (https://tien.zone/)",
+  "repository": "github:tien/dot-console",
+  "private": true,
+  "type": "module",
+  "packageManager": "yarn@4.3.1",
+  "volta": {
+    "node": "20.15.0",
+    "yarn": "4.3.1"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint src",
+    "preview": "vite preview",
+    "postinstall": "papi && panda codegen"
+  },
+  "dependencies": {
+    "@ark-ui/react": "^3.5.0",
+    "@reactive-dot/react": "^0.2.0",
+    "@w3f/polkadot-icons": "^1.0.0",
+    "dot-connect": "^0.2.0",
+    "polkadot-api": "^0.11.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@eslint/compat": "^1.1.1",
+    "@eslint/js": "^9.7.0",
+    "@pandacss/dev": "^0.43.0",
+    "@park-ui/panda-preset": "^0.39.0",
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "@tsconfig/strictest": "^2.0.5",
+    "@tsconfig/vite-react": "^3.0.2",
+    "@types/eslint__js": "^8.42.3",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "eslint": "^9.7.0",
+    "eslint-plugin-react": "^7.35.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.3",
+    "typescript-eslint": "^7.16.1",
+    "vite": "^5.3.4",
+    "vite-tsconfig-paths": "^4.3.2"
+  }
+}
