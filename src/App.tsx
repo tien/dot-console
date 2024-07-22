@@ -1,8 +1,9 @@
-import { StorageQueryResult } from "./components/query-result";
-import { StorageItem } from "./components/storage";
+import { ConstantSelect } from "./components/constant";
+import { QueryResult } from "./components/query-result";
+import { StorageSelect } from "./components/storage";
 import { Heading, Progress, Select, Tabs } from "./components/ui";
 import config from "./config";
-import type { Pallet, StorageQuery } from "./types";
+import type { Pallet, Query } from "./types";
 import { metadata as metadataCodec } from "@polkadot-api/substrate-bindings";
 import {
   ReDotChainProvider,
@@ -36,7 +37,7 @@ function DApp() {
     (pallet) => pallet.index === palletIndex,
   );
 
-  const [storageQueries, setStorageQueries] = useState<StorageQuery[]>([]);
+  const [queries, setQueries] = useState<Query[]>([]);
 
   const tabOptions = [
     {
@@ -91,14 +92,14 @@ function DApp() {
             },
           })}
         >
-          <div
-            className={css({
-              display: "flex",
-              flexDirection: "column",
-              gap: "1rem",
-            })}
-          >
-            <Tabs.Root defaultValue="storage">
+          <Tabs.Root defaultValue="storage" lazyMount unmountOnExit>
+            <div
+              className={css({
+                display: "flex",
+                flexDirection: "column",
+                gap: "1rem",
+              })}
+            >
               <Tabs.List>
                 {tabOptions.map((option) => (
                   <Tabs.Trigger
@@ -111,68 +112,80 @@ function DApp() {
                 ))}
                 <Tabs.Indicator />
               </Tabs.List>
-            </Tabs.Root>
-            <div
-              className={css({
-                display: "grid",
-                gridTemplateAreas: `
-              "pallet storage"
-              "key    key"
-              "submit submit"
-            `,
-                gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)",
-                gap: "1rem",
-              })}
-            >
-              <Select.Root
-                items={metadata.value.pallets}
-                // @ts-expect-error TODO: https://github.com/cschroeter/park-ui/issues/351
-                itemToString={(pallet: Pallet) => pallet.name}
-                // @ts-expect-error TODO: https://github.com/cschroeter/park-ui/issues/351
-                itemToValue={(pallet: Pallet) => pallet.index}
-                // @ts-expect-error ark-ui type error
-                value={[palletIndex]}
-                onValueChange={(event) => {
-                  const pallet = event.items.at(0) as Pallet;
-
-                  setPalletIndex(pallet.index);
-                }}
-                className={css({ gridArea: "pallet" })}
+              <div
+                className={css({
+                  display: "grid",
+                  gridTemplateAreas: `
+                    "pallet storage"
+                    "key    key"
+                    "submit submit"
+                  `,
+                  gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)",
+                  gap: "1rem",
+                })}
               >
-                <Select.Label>Pallet</Select.Label>
-                <Select.Control>
-                  <Select.Trigger>
-                    <Select.ValueText placeholder="Select a pallet" />
-                    <ChevronDown />
-                  </Select.Trigger>
-                </Select.Control>
-                <Select.Positioner>
-                  <Select.Content
-                    className={css({ maxHeight: "75dvh", overflow: "auto" })}
-                  >
-                    {metadata.value.pallets
-                      .toSorted((a, b) => a.name.localeCompare(b.name))
-                      .map((pallet) => (
-                        <Select.Item key={pallet.index} item={pallet}>
-                          <Select.ItemText>{pallet.name}</Select.ItemText>
-                          <Select.ItemIndicator>
-                            <Check />
-                          </Select.ItemIndicator>
-                        </Select.Item>
-                      ))}
-                  </Select.Content>
-                </Select.Positioner>
-              </Select.Root>
-              {pallet && (
-                <StorageItem
-                  pallet={pallet}
-                  onAddQuery={(query) =>
-                    setStorageQueries((queries) => [...queries, query])
-                  }
-                />
-              )}
+                <Select.Root
+                  items={metadata.value.pallets}
+                  // @ts-expect-error TODO: https://github.com/cschroeter/park-ui/issues/351
+                  itemToString={(pallet: Pallet) => pallet.name}
+                  // @ts-expect-error TODO: https://github.com/cschroeter/park-ui/issues/351
+                  itemToValue={(pallet: Pallet) => pallet.index}
+                  // @ts-expect-error ark-ui type error
+                  value={[palletIndex]}
+                  onValueChange={(event) => {
+                    const pallet = event.items.at(0) as Pallet;
+
+                    setPalletIndex(pallet.index);
+                  }}
+                  className={css({ gridArea: "pallet" })}
+                >
+                  <Select.Label>Pallet</Select.Label>
+                  <Select.Control>
+                    <Select.Trigger>
+                      <Select.ValueText placeholder="Select a pallet" />
+                      <ChevronDown />
+                    </Select.Trigger>
+                  </Select.Control>
+                  <Select.Positioner>
+                    <Select.Content
+                      className={css({ maxHeight: "75dvh", overflow: "auto" })}
+                    >
+                      {metadata.value.pallets
+                        .toSorted((a, b) => a.name.localeCompare(b.name))
+                        .map((pallet) => (
+                          <Select.Item key={pallet.index} item={pallet}>
+                            <Select.ItemText>{pallet.name}</Select.ItemText>
+                            <Select.ItemIndicator>
+                              <Check />
+                            </Select.ItemIndicator>
+                          </Select.Item>
+                        ))}
+                    </Select.Content>
+                  </Select.Positioner>
+                </Select.Root>
+                {pallet && (
+                  <>
+                    <Tabs.Content value="storage" asChild>
+                      <StorageSelect
+                        pallet={pallet}
+                        onAddQuery={(query) =>
+                          setQueries((queries) => [...queries, query])
+                        }
+                      />
+                    </Tabs.Content>
+                    <Tabs.Content value="constants" asChild>
+                      <ConstantSelect
+                        pallet={pallet}
+                        onAddQuery={(query) =>
+                          setQueries((queries) => [...queries, query])
+                        }
+                      />
+                    </Tabs.Content>
+                  </>
+                )}
+              </div>
             </div>
-          </div>
+          </Tabs.Root>
         </aside>
         <section
           className={css({
@@ -205,12 +218,12 @@ function DApp() {
                 gap: "1rem",
               })}
             >
-              {storageQueries.toReversed().map((query, index) => (
+              {queries.toReversed().map((query, index) => (
                 <Suspense
                   key={index}
                   fallback={<Progress type="linear" value={null} />}
                 >
-                  <StorageQueryResult query={query} />
+                  <QueryResult query={query} />
                 </Suspense>
               ))}
             </div>

@@ -1,38 +1,68 @@
-import { StorageQuery } from "../types";
+import type { Query } from "../types";
 import { stringifyCodec } from "../utils";
 import { VOID } from "./param";
 import { Card, Code, FormLabel } from "./ui";
 import { useLazyLoadQuery } from "@reactive-dot/react";
+import { useMemo } from "react";
 import { css } from "styled-system/css";
 
 type StorageQueryResultProps = {
-  query: StorageQuery;
+  query: Query;
 };
 
-export function StorageQueryResult({ query }: StorageQueryResultProps) {
+export function QueryResult({ query }: StorageQueryResultProps) {
   const queryArgs =
-    query.key === VOID
+    query.type === "constant"
       ? []
-      : Array.isArray(query.key)
-        ? query.key
-        : [query.key];
+      : query.key === VOID
+        ? []
+        : Array.isArray(query.key)
+          ? query.key
+          : [query.key];
 
-  const result = useLazyLoadQuery((builder) =>
-    builder.readStorage(
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      query.pallet as any,
-      query.storage,
-      queryArgs,
-    ),
-  );
+  const result = useLazyLoadQuery((builder) => {
+    switch (query.type) {
+      case "constant":
+        return builder.getConstant(
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          query.pallet as any,
+          query.constant,
+        );
+      case "storage":
+        return builder.readStorage(
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          query.pallet as any,
+          query.storage,
+          queryArgs,
+        );
+    }
+  });
 
   const unwrappedQueryArgs =
     queryArgs.length === 1 ? queryArgs.at(0) : queryArgs;
 
+  const queryPath = useMemo(() => {
+    switch (query.type) {
+      case "constant":
+        return [query.pallet, query.constant] as const;
+      case "storage":
+        return [query.pallet, query.storage] as const;
+    }
+  }, [query]);
+
   return (
     <Card.Root>
       <Card.Header>
-        <Card.Title>Storage</Card.Title>
+        <Card.Title>
+          {useMemo(() => {
+            switch (query.type) {
+              case "constant":
+                return "Constant";
+              case "storage":
+                return "Storage";
+            }
+          }, [query.type])}
+        </Card.Title>
         <Card.Description>
           <div
             className={css({
@@ -42,10 +72,7 @@ export function StorageQueryResult({ query }: StorageQueryResultProps) {
             })}
           >
             <FormLabel className={css({ display: "block" })}>
-              Path:{" "}
-              <Code>
-                {query.pallet}.{query.storage}
-              </Code>
+              Path: <Code>{queryPath.join("/")}</Code>
             </FormLabel>
             {queryArgs.length > 0 && (
               <FormLabel className={css({ display: "block" })}>

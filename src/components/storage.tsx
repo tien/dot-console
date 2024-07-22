@@ -7,7 +7,7 @@ import {
 } from "../components/param";
 import { Button, FormLabel, Select } from "../components/ui";
 import { useLookup } from "../hooks/lookup";
-import { Pallet, Storage } from "../types";
+import type { Pallet, Storage, StorageQuery } from "../types";
 import Check from "@w3f/polkadot-icons/solid/Check";
 import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
 import { useEffect, useState } from "react";
@@ -47,25 +47,23 @@ function StorageKey({ storage, onChangeKey }: StorageKeyProps) {
   );
 }
 
-type StorageQuery = {
-  pallet: string;
-  storage: string;
-  key: unknown;
-};
-
 type StorageItemProps = {
   pallet: Pallet;
   onAddQuery: (query: StorageQuery) => void;
 };
 
-function _StorageItem({ pallet, onAddQuery }: StorageItemProps) {
+function _StorageSelect({ pallet, onAddQuery }: StorageItemProps) {
   const [key, setKey] = useState<ParamInput<unknown>>(INCOMPLETE);
 
   const storageItems = pallet.storage!.items;
 
-  const [storageName, setStorageName] = useState(storageItems.at(0)!.name);
+  const [selectedStorage, setSelectedStorage] = useState(
+    storageItems.at(0)!.name,
+  );
 
-  const storage = storageItems.find((storage) => storage.name === storageName);
+  const storage = storageItems.find(
+    (storage) => storage.name === selectedStorage,
+  );
 
   return (
     <>
@@ -75,11 +73,11 @@ function _StorageItem({ pallet, onAddQuery }: StorageItemProps) {
         itemToString={(storage: Storage) => storage.name}
         // @ts-expect-error TODO: https://github.com/cschroeter/park-ui/issues/351
         itemToValue={(storage: Storage) => storage.name}
-        value={[storageName]}
+        value={[selectedStorage]}
         onValueChange={(event) => {
           const storage = event.items.at(0) as Storage;
 
-          setStorageName(storage.name);
+          setSelectedStorage(storage.name);
         }}
         className={css({ gridArea: "storage" })}
       >
@@ -126,8 +124,9 @@ function _StorageItem({ pallet, onAddQuery }: StorageItemProps) {
         disabled={key === INVALID || key === INCOMPLETE}
         onClick={() =>
           onAddQuery({
+            type: "storage",
             pallet: pallet.name,
-            storage: storageName,
+            storage: selectedStorage,
             key,
           })
         }
@@ -139,6 +138,6 @@ function _StorageItem({ pallet, onAddQuery }: StorageItemProps) {
   );
 }
 
-export function StorageItem(props: StorageItemProps) {
-  return <_StorageItem key={props.pallet.index} {...props} />;
+export function StorageSelect(props: StorageItemProps) {
+  return <_StorageSelect key={props.pallet.index} {...props} />;
 }
