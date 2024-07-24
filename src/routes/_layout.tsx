@@ -1,6 +1,10 @@
-import { Button, Heading, Progress } from "../components/ui";
+import { Button, Heading, Progress, Select } from "../components/ui";
+import type { ChainId } from "@reactive-dot/core";
+import { ReDotChainProvider } from "@reactive-dot/react";
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
-import { Suspense } from "react";
+import Check from "@w3f/polkadot-icons/solid/Check";
+import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
+import { Suspense, useState } from "react";
 import { css } from "styled-system/css";
 
 export const Route = createFileRoute("/_layout")({
@@ -8,6 +12,10 @@ export const Route = createFileRoute("/_layout")({
 });
 
 function Layout() {
+  // TODO: replace with dedicated hook once that is available
+  const chainIds = ["polkadot", "kusama", "paseo"] as const satisfies ChainId[];
+  const [chainId, setChainId] = useState(chainIds["0"] as ChainId);
+
   return (
     <div
       className={css({
@@ -36,6 +44,44 @@ function Layout() {
             gap: "1.5rem",
           })}
         >
+          <Select.Root
+            items={chainIds}
+            // @ts-expect-error TODO: https://github.com/cschroeter/park-ui/issues/351
+            itemToString={(chainId) => chainId}
+            // @ts-expect-error TODO: https://github.com/cschroeter/park-ui/issues/351
+            itemToValue={(chainId) => chainId}
+            value={[chainId]}
+            onValueChange={(event) => {
+              const chainId = event.items.at(0) as ChainId;
+
+              if (chainId !== undefined) {
+                setChainId(chainId);
+              }
+            }}
+          >
+            <Select.Control>
+              <Select.Trigger>
+                <Select.ValueText placeholder="Select a chain" />
+                <Select.Indicator>
+                  <ChevronDown fill="currentcolor" />
+                </Select.Indicator>
+              </Select.Trigger>
+            </Select.Control>
+            <Select.Positioner>
+              <Select.Content
+                className={css({ maxHeight: "75dvh", overflow: "auto" })}
+              >
+                {chainIds.map((chainId) => (
+                  <Select.Item key={chainId} item={chainId}>
+                    <Select.ItemText>{chainId}</Select.ItemText>
+                    <Select.ItemIndicator>
+                      <Check fill="currentcolor" />
+                    </Select.ItemIndicator>
+                  </Select.Item>
+                ))}
+              </Select.Content>
+            </Select.Positioner>
+          </Select.Root>
           <Button variant="ghost" asChild>
             <Link
               to="/query"
@@ -56,9 +102,11 @@ function Layout() {
         <dc-connection-button />
       </header>
       <main className={css({ display: "contents" })}>
-        <Suspense fallback={<Progress type="circular" value={null} />}>
-          <Outlet />
-        </Suspense>
+        <ReDotChainProvider key={chainId} chainId={chainId}>
+          <Suspense fallback={<Progress type="circular" value={null} />}>
+            <Outlet />
+          </Suspense>
+        </ReDotChainProvider>
       </main>
     </div>
   );

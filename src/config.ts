@@ -1,4 +1,4 @@
-import { polkadot } from "@polkadot-api/descriptors";
+import { polkadot, kusama, paseo } from "@polkadot-api/descriptors";
 import type { Config } from "@reactive-dot/core";
 import { InjectedWalletAggregator } from "@reactive-dot/core/wallets.js";
 import { getSmProvider } from "polkadot-api/sm-provider";
@@ -16,6 +16,22 @@ export const config = {
       descriptor: polkadot,
       provider: getSmProvider(
         import("polkadot-api/chains/polkadot").then(({ chainSpec }) =>
+          smoldotPromise.addChain({ chainSpec }),
+        ),
+      ),
+    },
+    kusama: {
+      descriptor: kusama,
+      provider: getSmProvider(
+        import("polkadot-api/chains/ksmcc3").then(({ chainSpec }) =>
+          smoldotPromise.addChain({ chainSpec }),
+        ),
+      ),
+    },
+    paseo: {
+      descriptor: paseo,
+      provider: getSmProvider(
+        import("polkadot-api/chains/paseo").then(({ chainSpec }) =>
           smoldotPromise.addChain({ chainSpec }),
         ),
       ),
