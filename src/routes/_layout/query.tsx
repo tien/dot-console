@@ -22,7 +22,17 @@ function QueryPage() {
   ];
 
   return (
-    <>
+    <div
+      className={css({
+        flex: "1 1 0",
+        display: "flex",
+        flexDirection: "column",
+        overflow: "hidden",
+        "@media(min-width: 68rem)": {
+          flexDirection: "row",
+        },
+      })}
+    >
       <aside
         className={css({
           overflow: "auto",
@@ -136,6 +146,6 @@ function QueryPage() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

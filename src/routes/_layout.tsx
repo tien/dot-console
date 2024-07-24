@@ -1,5 +1,5 @@
-import { Heading, Progress } from "../components/ui";
-import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { Button, Heading, Progress } from "../components/ui";
+import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
 import { Suspense } from "react";
 import { css } from "styled-system/css";
 
@@ -20,6 +20,7 @@ function Layout() {
         className={css({
           display: "flex",
           justifyContent: "space-between",
+          alignItems: "center",
           gap: "1rem",
           padding: "1rem 2rem",
           borderBottom: "1px solid currentcolor",
@@ -28,19 +29,33 @@ function Layout() {
         <Heading as="h1" size="2xl">
           📟 ĐÓTConsole
         </Heading>
+        <nav
+          className={css({
+            display: "flex",
+            alignItems: "center",
+            gap: "1.5rem",
+          })}
+        >
+          <Button variant="ghost" asChild>
+            <Link
+              to="/query"
+              activeProps={{ className: css({ color: "accent.default" }) }}
+            >
+              Query
+            </Link>
+          </Button>
+          <Button variant="ghost" asChild>
+            <Link
+              to="/extrinsic"
+              activeProps={{ className: css({ color: "accent.default" }) }}
+            >
+              Extrinsic
+            </Link>
+          </Button>
+        </nav>
         <dc-connection-button />
       </header>
-      <main
-        className={css({
-          flex: "1 1 0",
-          display: "flex",
-          flexDirection: "column",
-          overflow: "hidden",
-          "@media(min-width: 68rem)": {
-            flexDirection: "row",
-          },
-        })}
-      >
+      <main className={css({ display: "contents" })}>
         <Suspense fallback={<Progress type="circular" value={null} />}>
           <Outlet />
         </Suspense>

@@ -8,10 +8,12 @@ import type {
   OptionVar,
   PrimitiveVar,
   StructVar,
+  SequenceVar,
   TupleVar,
   Var,
 } from "@polkadot-api/metadata-builders";
 import { getSs58AddressInfo } from "@polkadot-api/substrate-bindings";
+import { Binary } from "@polkadot-api/substrate-bindings";
 import { useAccounts } from "@reactive-dot/react";
 import Check from "@w3f/polkadot-icons/solid/Check";
 import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
@@ -26,6 +28,7 @@ import {
 } from "react";
 import { css } from "styled-system/css";
 import type { CssProperties } from "styled-system/types";
+import { useLookup } from "~/hooks/lookup";
 
 export const VOID = Symbol();
 
@@ -405,6 +408,42 @@ export function AccountIdParam({
   );
 }
 
+type SequenceParamProps = ParamProps<Binary> & {
+  sequence: SequenceVar;
+};
+
+function SequenceParam({ sequence, onChangeValue }: SequenceParamProps) {
+  const lookup = useLookup();
+
+  if (sequence.value.type !== "primitive") {
+    throw new Error("Unsupported sequence type", {
+      cause: sequence.value.type,
+    });
+  }
+
+  const primitive = lookup(sequence.value.id);
+
+  if (primitive.type !== "primitive") {
+    throw new Error("Invalid lookup");
+  }
+
+  if (primitive.value !== "u8") {
+    throw new Error("Unsupported primitive sequence type", {
+      cause: primitive.value,
+    });
+  }
+
+  const [value, setValue] = useState("");
+
+  useEffect(() => {
+    onChangeValue(Binary.fromText(value));
+  }, [onChangeValue, value]);
+
+  return (
+    <Input value={value} onChange={(event) => setValue(event.target.value)} />
+  );
+}
+
 type ArrayParamProps<T> = ParamProps<T[]> & {
   array: ArrayVar;
 };
@@ -546,14 +585,14 @@ export function StructParam<T extends Record<string, unknown>>({
 
 const StorageParamDepthContext = createContext(0);
 
-export type StorageParamProps<T = unknown> = ParamProps<T> & {
+export type CodecParamProps<T = unknown> = ParamProps<T> & {
   variable: Var;
 };
 
 export function CodecParam<T = unknown>({
   variable,
   ...props
-}: StorageParamProps<T>) {
+}: CodecParamProps<T>) {
   const depth = useContext(StorageParamDepthContext);
 
   return (
@@ -604,6 +643,13 @@ export function CodecParam<T = unknown>({
                   accountId={variable}
                 />
               );
+            case "sequence":
+              return (
+                <SequenceParam
+                  {...(props as SequenceParamProps)}
+                  sequence={variable}
+                />
+              );
             case "array":
               return (
                 <ArrayParam
@@ -625,7 +671,6 @@ export function CodecParam<T = unknown>({
                   struct={variable}
                 />
               );
-            case "sequence":
             case "bitSequence":
             case "result":
               throw new Error("Unsupported key type", { cause: variable.type });

@@ -14,6 +14,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as IndexImport } from './routes/index'
 import { Route as LayoutQueryImport } from './routes/_layout/query'
+import { Route as LayoutExtrinsicImport } from './routes/_layout/extrinsic'
 
 // Create/Update Routes
 
@@ -29,6 +30,11 @@ const IndexRoute = IndexImport.update({
 
 const LayoutQueryRoute = LayoutQueryImport.update({
   path: '/query',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutExtrinsicRoute = LayoutExtrinsicImport.update({
+  path: '/extrinsic',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -50,6 +56,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutImport
       parentRoute: typeof rootRoute
     }
+    '/_layout/extrinsic': {
+      id: '/_layout/extrinsic'
+      path: '/extrinsic'
+      fullPath: '/extrinsic'
+      preLoaderRoute: typeof LayoutExtrinsicImport
+      parentRoute: typeof LayoutImport
+    }
     '/_layout/query': {
       id: '/_layout/query'
       path: '/query'
@@ -64,7 +77,10 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   IndexRoute,
-  LayoutRoute: LayoutRoute.addChildren({ LayoutQueryRoute }),
+  LayoutRoute: LayoutRoute.addChildren({
+    LayoutExtrinsicRoute,
+    LayoutQueryRoute,
+  }),
 })
 
 /* prettier-ignore-end */
@@ -85,8 +101,13 @@ export const routeTree = rootRoute.addChildren({
     "/_layout": {
       "filePath": "_layout.tsx",
       "children": [
+        "/_layout/extrinsic",
         "/_layout/query"
       ]
+    },
+    "/_layout/extrinsic": {
+      "filePath": "_layout/extrinsic.tsx",
+      "parent": "/_layout"
     },
     "/_layout/query": {
       "filePath": "_layout/query.tsx",
