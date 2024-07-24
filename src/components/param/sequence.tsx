@@ -12,23 +12,23 @@ export type SequenceParamProps<T> = ParamProps<T[]> & {
 
 function _SequenceParam<T>({ sequence, onChangeValue }: SequenceParamProps<T>) {
   const [length, setLength] = useState(1);
-  const [value, setValue] = useState(
+  const [values, setValues] = useState(
     Array.from<ParamInput<T>>({ length }).fill(INCOMPLETE),
   );
 
   const derivedValue = useMemo(
     () =>
-      value.includes(INCOMPLETE)
+      values.includes(INCOMPLETE)
         ? INCOMPLETE
-        : value.includes(INVALID)
+        : values.includes(INVALID)
           ? INVALID
-          : (value as T[]),
-    [value],
+          : (values as T[]),
+    [values],
   );
 
   const increaseLength = () => {
     setLength((length) => length + 1);
-    setValue((value) => [...value, INCOMPLETE]);
+    setValues((value) => [...value, INCOMPLETE]);
   };
 
   const decreaseLength = () => {
@@ -37,7 +37,7 @@ function _SequenceParam<T>({ sequence, onChangeValue }: SequenceParamProps<T>) {
     }
 
     setLength((length) => length - 1);
-    setValue((value) => value.slice(0, -1));
+    setValues((value) => value.slice(0, -1));
   };
 
   useEffect(
@@ -60,12 +60,12 @@ function _SequenceParam<T>({ sequence, onChangeValue }: SequenceParamProps<T>) {
         <Button onClick={increaseLength}>Add</Button>
         <Button onClick={decreaseLength}>Remove</Button>
       </div>
-      {value.map((_, index) => (
+      {values.map((_, index) => (
         <CodecParam
           key={index}
           variable={sequence.value}
           onChangeValue={(value) =>
-            setValue((array) => array.with(index, value as ParamInput<T>))
+            setValues((array) => array.with(index, value as ParamInput<T>))
           }
         />
       ))}

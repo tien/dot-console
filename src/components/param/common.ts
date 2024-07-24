@@ -1,8 +1,8 @@
-export const VOID = Symbol();
+export const VOID = Symbol("DotConsole.void");
 
-export const INCOMPLETE = Symbol();
+export const INCOMPLETE = Symbol("DotConsole.incomplete");
 
-export const INVALID = Symbol();
+export const INVALID = Symbol("DotConsole.invalid");
 
 export type ParamInput<T> = T | typeof INCOMPLETE | typeof INVALID;
 

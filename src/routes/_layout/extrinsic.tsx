@@ -1,3 +1,6 @@
+import { AccountSelect } from "../../components/account-select";
+import { PalletSelect } from "../../components/pallet-select";
+import { CodecParam, INCOMPLETE, INVALID } from "../../components/param";
 import { Button, Select } from "../../components/ui";
 import { useLookup } from "../../hooks/lookup";
 import { Pallet } from "../../types";
@@ -9,9 +12,6 @@ import Check from "@w3f/polkadot-icons/solid/Check";
 import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
 import { useMemo, useState } from "react";
 import { css } from "styled-system/css";
-import { AccountSelect } from "~/components/account-select";
-import { PalletSelect } from "~/components/pallet-select";
-import { CodecParam, INCOMPLETE, INVALID } from "~/components/param";
 
 export const Route = createFileRoute("/_layout/extrinsic")({
   component: ExtrinsicPage,

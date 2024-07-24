@@ -15,7 +15,7 @@ export function StructParam<T extends Record<string, unknown>>({
 }: StructParamProps<T>) {
   const [struct, setStruct] = useState<T>(
     () =>
-      Object.entries(
+      Object.fromEntries(
         Object.keys(structVar.value).map((key) => [key, INCOMPLETE] as const),
       ) as unknown as T,
   );
