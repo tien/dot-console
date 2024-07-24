@@ -46,7 +46,9 @@ export function PalletSelect({ filter, children }: PalletSelectProps) {
         <Select.Control>
           <Select.Trigger>
             <Select.ValueText placeholder="Select a pallet" />
-            <ChevronDown />
+            <Select.Indicator>
+              <ChevronDown fill="currentcolor" />
+            </Select.Indicator>
           </Select.Trigger>
         </Select.Control>
         <Select.Positioner>
@@ -59,7 +61,7 @@ export function PalletSelect({ filter, children }: PalletSelectProps) {
                 <Select.Item key={pallet.index} item={pallet}>
                   <Select.ItemText>{pallet.name}</Select.ItemText>
                   <Select.ItemIndicator>
-                    <Check />
+                    <Check fill="currentcolor" />
                   </Select.ItemIndicator>
                 </Select.Item>
               ))}

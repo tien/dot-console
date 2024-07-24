@@ -308,7 +308,9 @@ function ConnectedAccountParam({ onChangeValue }: ConnectedAccountParamProps) {
       <Select.Control>
         <Select.Trigger>
           <Select.ValueText placeholder="Select a storage" />
-          <ChevronDown />
+          <Select.Indicator>
+            <ChevronDown fill="currentcolor" />
+          </Select.Indicator>
         </Select.Trigger>
       </Select.Control>
       <Select.Positioner>
@@ -321,7 +323,7 @@ function ConnectedAccountParam({ onChangeValue }: ConnectedAccountParamProps) {
                 {account.name ?? account.address}
               </Select.ItemText>
               <Select.ItemIndicator>
-                <Check />
+                <Check fill="currentcolor" />
               </Select.ItemIndicator>
             </Select.Item>
           ))}

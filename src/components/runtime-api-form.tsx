@@ -103,7 +103,9 @@ function _ApiMethodSelect({ api, ...props }: ApiMethodSelectProps) {
         <Select.Control>
           <Select.Trigger>
             <Select.ValueText placeholder="Select a method" />
-            <ChevronDown />
+            <Select.Indicator>
+              <ChevronDown fill="currentcolor" />
+            </Select.Indicator>
           </Select.Trigger>
         </Select.Control>
         <Select.Positioner>
@@ -116,7 +118,7 @@ function _ApiMethodSelect({ api, ...props }: ApiMethodSelectProps) {
                 <Select.Item key={method.name} item={method}>
                   <Select.ItemText>{method.name}</Select.ItemText>
                   <Select.ItemIndicator>
-                    <Check />
+                    <Check fill="currentcolor" />
                   </Select.ItemIndicator>
                 </Select.Item>
               ))}
@@ -176,7 +178,9 @@ export function RuntimeApiForm(props: RuntimeApiFormProps) {
         <Select.Control>
           <Select.Trigger>
             <Select.ValueText placeholder="Select an API" />
-            <ChevronDown />
+            <Select.Indicator>
+              <ChevronDown fill="currentcolor" />
+            </Select.Indicator>
           </Select.Trigger>
         </Select.Control>
         <Select.Positioner>
@@ -189,7 +193,7 @@ export function RuntimeApiForm(props: RuntimeApiFormProps) {
                 <Select.Item key={api.name} item={api}>
                   <Select.ItemText>{api.name}</Select.ItemText>
                   <Select.ItemIndicator>
-                    <Check />
+                    <Check fill="currentcolor" />
                   </Select.ItemIndicator>
                 </Select.Item>
               ))}

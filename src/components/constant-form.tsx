@@ -57,7 +57,9 @@ export function _ConstantQueryForm({
         <Select.Control>
           <Select.Trigger>
             <Select.ValueText placeholder="Select a constant" />
-            <ChevronDown />
+            <Select.Indicator>
+              <ChevronDown fill="currentcolor" />
+            </Select.Indicator>
           </Select.Trigger>
         </Select.Control>
         <Select.Positioner>
@@ -70,7 +72,7 @@ export function _ConstantQueryForm({
                 <Select.Item key={constant.name} item={constant}>
                   <Select.ItemText>{constant.name}</Select.ItemText>
                   <Select.ItemIndicator>
-                    <Check />
+                    <Check fill="currentcolor" />
                   </Select.ItemIndicator>
                 </Select.Item>
               ))}

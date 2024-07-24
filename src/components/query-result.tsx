@@ -1,16 +1,18 @@
 import type { Query } from "../types";
 import { stringifyCodec } from "../utils";
 import { VOID } from "./param";
-import { Card, Code, FormLabel } from "./ui";
+import { Card, Code, FormLabel, IconButton } from "./ui";
 import { useLazyLoadQuery } from "@reactive-dot/react";
+import Close from "@w3f/polkadot-icons/solid/Close";
 import { useMemo } from "react";
 import { css } from "styled-system/css";
 
 type StorageQueryResultProps = {
   query: Query;
+  onDelete: () => void;
 };
 
-export function QueryResult({ query }: StorageQueryResultProps) {
+export function QueryResult({ query, onDelete }: StorageQueryResultProps) {
   const queryArgs = useMemo(() => {
     switch (query.type) {
       case "constant":
@@ -68,7 +70,14 @@ export function QueryResult({ query }: StorageQueryResultProps) {
   return (
     <Card.Root>
       <Card.Header>
-        <Card.Title>
+        <Card.Title
+          className={css({
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            gap: "0.5rem",
+          })}
+        >
           {useMemo(() => {
             switch (query.type) {
               case "constant":
@@ -79,6 +88,9 @@ export function QueryResult({ query }: StorageQueryResultProps) {
                 return "Runtime API";
             }
           }, [query.type])}
+          <IconButton variant="ghost" onClick={() => onDelete()}>
+            <Close fill="currentcolor" />
+          </IconButton>
         </Card.Title>
         <Card.Description>
           <div

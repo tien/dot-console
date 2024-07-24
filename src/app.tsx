@@ -1,4 +1,5 @@
 import { ConstantQueryForm } from "./components/constant-form";
+import { VOID } from "./components/param";
 import { QueryResult } from "./components/query-result";
 import { RuntimeApiForm } from "./components/runtime-api-form";
 import { StorageQueryForm } from "./components/storage-form";
@@ -155,7 +156,16 @@ function DApp() {
                   key={index}
                   fallback={<Progress type="linear" value={null} />}
                 >
-                  <QueryResult query={query} />
+                  <QueryResult
+                    query={query}
+                    onDelete={() =>
+                      setQueries((queries) =>
+                        queries
+                          .with(index, undefined as unknown as Query)
+                          .filter((query) => query !== undefined),
+                      )
+                    }
+                  />
                 </Suspense>
               ))}
             </div>

@@ -97,7 +97,9 @@ function _StorageQueryForm({
         <Select.Control>
           <Select.Trigger>
             <Select.ValueText placeholder="Select a storage" />
-            <ChevronDown />
+            <Select.Indicator>
+              <ChevronDown fill="currentcolor" />
+            </Select.Indicator>
           </Select.Trigger>
         </Select.Control>
         <Select.Positioner>
@@ -110,7 +112,7 @@ function _StorageQueryForm({
                 <Select.Item key={storage.name} item={storage}>
                   <Select.ItemText>{storage.name}</Select.ItemText>
                   <Select.ItemIndicator>
-                    <Check />
+                    <Check fill="currentcolor" />
                   </Select.ItemIndicator>
                 </Select.Item>
               ))}
