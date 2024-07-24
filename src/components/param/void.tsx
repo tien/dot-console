@@ -1,11 +1,11 @@
-import { ParamProps, VOID } from "./common";
+import { ParamProps } from "./common";
 import { useEffect } from "react";
 
-export type VoidParamProps = ParamProps<typeof VOID>;
+export type VoidParamProps = ParamProps<undefined>;
 
 export function VoidParam({ onChangeValue }: VoidParamProps) {
   useEffect(() => {
-    onChangeValue(VOID);
+    onChangeValue(undefined);
   }, [onChangeValue]);
 
   return null;
