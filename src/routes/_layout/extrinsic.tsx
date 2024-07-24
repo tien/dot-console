@@ -61,7 +61,7 @@ function CallParam({ pallet, call, param }: CallParamProps) {
   }, [extrinsicState]);
 
   return (
-    <>
+    <div className={css({ gridArea: "param-and-submit" })}>
       <CodecParam variable={variable} onChangeValue={setArgs} />
       <div
         className={css({
@@ -77,7 +77,7 @@ function CallParam({ pallet, call, param }: CallParamProps) {
           {isPending ? "Submitting transaction" : "Submit transaction"}
         </Button>
       </div>
-    </>
+    </div>
   );
 }
 
@@ -105,8 +105,6 @@ function CallSelect({ pallet }: CallSelectProps) {
   const [selectedCallName, setSelectedCallName] = useState(calls.at(0)!.name);
   const selectedCall = calls.find((call) => call.name === selectedCallName);
 
-  type Call = (typeof calls)[number];
-
   const callItems = calls.map((call) => ({
     label: call.name,
     value: call.name,
@@ -118,12 +116,12 @@ function CallSelect({ pallet }: CallSelectProps) {
         items={callItems}
         value={[selectedCallName]}
         onValueChange={(event) => setSelectedCallName(event.value.at(0)!)}
-        className={css({ gridArea: "method" })}
+        className={css({ gridArea: "call" })}
       >
-        <Select.Label>Methods</Select.Label>
+        <Select.Label>Calls</Select.Label>
         <Select.Control>
           <Select.Trigger>
-            <Select.ValueText placeholder="Select a method" />
+            <Select.ValueText placeholder="Select a call" />
             <Select.Indicator>
               <ChevronDown fill="currentcolor" />
             </Select.Indicator>
@@ -163,13 +161,18 @@ function ExtrinsicPage() {
       {({ account, accountSelect }) => (
         <div
           className={css({
-            display: "flex",
-            flexDirection: "column",
+            display: "grid",
+            gridTemplateAreas: `
+              "account            account"
+              "pallet             call"
+              "param-and-submit   param-and-submit"
+            `,
+            gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)",
             gap: "0.5rem",
             padding: "2rem 4rem",
           })}
         >
-          {accountSelect}
+          <div className={css({ gridArea: "account" })}>{accountSelect}</div>
           {account && (
             <ReDotSignerProvider signer={account.polkadotSigner}>
               <PalletSelect filter={(pallet) => pallet.calls !== undefined}>
