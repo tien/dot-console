@@ -29,8 +29,7 @@ export function CodecParam<T = unknown>({
   return (
     <div
       className={css({
-        marginStart: "calc(0.5rem * var(--storage-depth))",
-        padding: "0.25rem",
+        paddingTop: "0.5rem",
         "&:empty": {
           display: "none",
         },
@@ -38,6 +37,7 @@ export function CodecParam<T = unknown>({
       style={{
         ["--storage-depth" as keyof CssProperties]: depth,
         borderLeft: depth <= 0 ? undefined : "1px dotted currentcolor",
+        paddingLeft: depth <= 0 ? undefined : "1rem",
       }}
     >
       <StorageParamDepthContext.Provider value={depth + 1}>
