@@ -294,7 +294,7 @@ function ConnectedAccountParam({ onChangeValue }: ConnectedAccountParamProps) {
 
   return (
     <Select.Root
-      items={accounts}
+      items={accounts.map(({ wallet, ...account }) => ({ ...account }))}
       // @ts-expect-error TODO: https://github.com/cschroeter/park-ui/issues/351
       itemToString={(account: InjectedPolkadotAccount) =>
         account.name ?? account.address

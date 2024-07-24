@@ -1597,11 +1597,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@reactive-dot/core@npm:0.2.0":
-  version: 0.2.0
-  resolution: "@reactive-dot/core@npm:0.2.0"
+"@reactive-dot/core@npm:^0.3.1":
+  version: 0.3.1
+  resolution: "@reactive-dot/core@npm:0.3.1"
   dependencies:
-    "@reactive-dot/utils": "npm:0.2.0"
+    "@reactive-dot/utils": "npm:^0.3.1"
   peerDependencies:
     "@walletconnect/modal": 2.x
     "@walletconnect/universal-provider": 2.x
@@ -1611,25 +1611,27 @@ __metadata:
       optional: true
     "@walletconnect/universal-provider":
       optional: true
-  checksum: 10c0/9aad9c2eefdc3f847403463b464c7b911484774fc413e5a9c63adc05781b45984db5ab9277523e38009e422138a82994c37cf0c15bc5b121e8b5358f43690264
+  checksum: 10c0/a26ec2731cfb505ff4158ebb6e5f4d0d8efc38495c7b7cb231e571658d0da007429b990ffc74c698b07eb139702dd282aa76132152dd43147cee7a695db6cae1
   languageName: node
   linkType: hard
 
-"@reactive-dot/react@npm:^0.2.0":
-  version: 0.2.0
-  resolution: "@reactive-dot/react@npm:0.2.0"
+"@reactive-dot/react@npm:^0.3.1":
+  version: 0.3.1
+  resolution: "@reactive-dot/react@npm:0.3.1"
   dependencies:
-    "@reactive-dot/core": "npm:0.2.0"
+    "@reactive-dot/core": "npm:^0.3.1"
     jotai: "npm:^2.9.0"
     jotai-scope: "npm:^0.7.0"
-  checksum: 10c0/5639010c1f8f20821aa23fb64855a94a93cd9f5eac0989f1542cbae1098499818914af94d22e1a2ae4789592950eb182b676654201c975292efede46ac5846e3
+  peerDependencies:
+    react: 18.x
+  checksum: 10c0/dc44b2e7aaaf035f8cf73c62b1183fed0b9baf2bd48083a65645659aa34221a7fdc26e4e9af91f639b0685d65e0acf88896b633734474d4434606c8cab35a9db
   languageName: node
   linkType: hard
 
-"@reactive-dot/utils@npm:0.2.0":
-  version: 0.2.0
-  resolution: "@reactive-dot/utils@npm:0.2.0"
-  checksum: 10c0/420c6298ebbf8e15988b8f19190b3263ae80cea4c590aafbda77eb2c52cc8cd2583f2efec7c6511e80c8407f241c879de63007c8606f02a8cff6bf1348c503ad
+"@reactive-dot/utils@npm:^0.3.1":
+  version: 0.3.1
+  resolution: "@reactive-dot/utils@npm:0.3.1"
+  checksum: 10c0/690b6f05f63ac8f3909aa78d4878f4424e665c6d31a5ecb201ba5b57daa514d52d4ef75ea81bddb8498423a29dec4a51441ecb0ea7d3295930df52e4082cef87
   languageName: node
   linkType: hard
 
@@ -4419,7 +4421,7 @@ __metadata:
     "@eslint/js": "npm:^9.7.0"
     "@pandacss/dev": "npm:^0.43.0"
     "@park-ui/panda-preset": "npm:^0.39.0"
-    "@reactive-dot/react": "npm:^0.2.0"
+    "@reactive-dot/react": "npm:^0.3.1"
     "@trivago/prettier-plugin-sort-imports": "npm:^4.3.0"
     "@tsconfig/strictest": "npm:^2.0.5"
     "@tsconfig/vite-react": "npm:^3.0.2"

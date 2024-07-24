@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@ark-ui/react": "^3.5.0",
-    "@reactive-dot/react": "^0.2.0",
+    "@reactive-dot/react": "^0.3.1",
     "@w3f/polkadot-icons": "^1.0.0",
     "dot-connect": "^0.2.0",
     "polkadot-api": "^0.11.2",
