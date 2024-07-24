@@ -107,20 +107,17 @@ function CallSelect({ pallet }: CallSelectProps) {
 
   type Call = (typeof calls)[number];
 
+  const callItems = calls.map((call) => ({
+    label: call.name,
+    value: call.name,
+  }));
+
   return (
     <>
       <Select.Root
-        items={calls}
-        // @ts-expect-error TODO: https://github.com/cschroeter/park-ui/issues/351
-        itemToString={(call: Call) => call.name}
-        // @ts-expect-error TODO: https://github.com/cschroeter/park-ui/issues/351
-        itemToValue={(call: Call) => call.name}
+        items={callItems}
         value={[selectedCallName]}
-        onValueChange={(event) => {
-          const call = event.items.at(0) as Call;
-
-          setSelectedCallName(call.name);
-        }}
+        onValueChange={(event) => setSelectedCallName(event.value.at(0)!)}
         className={css({ gridArea: "method" })}
       >
         <Select.Label>Methods</Select.Label>
@@ -136,11 +133,11 @@ function CallSelect({ pallet }: CallSelectProps) {
           <Select.Content
             className={css({ maxHeight: "75dvh", overflow: "auto" })}
           >
-            {calls
-              .toSorted((a, b) => a.name.localeCompare(b.name))
+            {callItems
+              .toSorted((a, b) => a.label.localeCompare(b.label))
               .map((call) => (
-                <Select.Item key={call.name} item={call}>
-                  <Select.ItemText>{call.name}</Select.ItemText>
+                <Select.Item key={call.label} item={call}>
+                  <Select.ItemText>{call.label}</Select.ItemText>
                   <Select.ItemIndicator>
                     <Check fill="currentcolor" />
                   </Select.ItemIndicator>
