@@ -1,4 +1,4 @@
-import { FormLabel, Input, Select, Switch } from "./ui";
+import { Button, FormLabel, Input, Select, Switch } from "./ui";
 import type {
   AccountId20,
   AccountId32,
@@ -7,13 +7,12 @@ import type {
   EnumVar,
   OptionVar,
   PrimitiveVar,
-  StructVar,
   SequenceVar,
+  StructVar,
   TupleVar,
   Var,
 } from "@polkadot-api/metadata-builders";
-import { getSs58AddressInfo } from "@polkadot-api/substrate-bindings";
-import { Binary } from "@polkadot-api/substrate-bindings";
+import { Binary, getSs58AddressInfo } from "@polkadot-api/substrate-bindings";
 import { useAccounts } from "@reactive-dot/react";
 import Check from "@w3f/polkadot-icons/solid/Check";
 import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
@@ -28,7 +27,6 @@ import {
 } from "react";
 import { css } from "styled-system/css";
 import type { CssProperties } from "styled-system/types";
-import { useLookup } from "~/hooks/lookup";
 
 export const VOID = Symbol();
 
@@ -50,6 +48,32 @@ export function VoidParam({ onChangeValue }: VoidParamProps) {
   }, [onChangeValue]);
 
   return null;
+}
+
+export type BinaryParamProps = ParamProps<Binary>;
+
+export function BinaryParam({ onChangeValue }: BinaryParamProps) {
+  const [value, setValue] = useState("");
+
+  useEffect(
+    () => {
+      if (value.match(/^0x[0-9a-f]+$/i)) {
+        onChangeValue(Binary.fromHex(value));
+      } else {
+        onChangeValue(Binary.fromText(value));
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [value],
+  );
+
+  return (
+    <Input
+      placeholder="Binary (string or hex)"
+      value={value}
+      onChange={(event) => setValue(event.target.value)}
+    />
+  );
 }
 
 export type PrimitiveParamProps = ParamProps<
@@ -117,9 +141,9 @@ export function PrimitiveParam({
         />
       );
     case "char":
-      return <Input {...commonProps} type="text" maxLength={1} />;
+      return <Input {...commonProps} maxLength={1} />;
     case "str":
-      return <Input {...commonProps} type="text" />;
+      return <Input {...commonProps} />;
     case "i8":
       return <Input {...commonNumberProps} min={-128} max={127} />;
     case "u8":
@@ -432,51 +456,87 @@ export function AccountIdParam({
   );
 }
 
-type SequenceParamProps = ParamProps<Binary> & {
+type SequenceParamProps<T> = ParamProps<T[]> & {
   sequence: SequenceVar;
 };
 
-function SequenceParam({ sequence, onChangeValue }: SequenceParamProps) {
-  const lookup = useLookup();
+function _SequenceParam<T>({ sequence, onChangeValue }: SequenceParamProps<T>) {
+  const [length, setLength] = useState(1);
+  const [value, setValue] = useState(
+    Array.from<ParamInput<T>>({ length }).fill(INCOMPLETE),
+  );
 
-  if (sequence.value.type !== "primitive") {
-    throw new Error("Unsupported sequence type", {
-      cause: sequence.value.type,
-    });
-  }
-
-  const primitive = lookup(sequence.value.id);
-
-  if (primitive.type !== "primitive") {
-    throw new Error("Invalid lookup");
-  }
-
-  if (primitive.value !== "u8") {
-    throw new Error("Unsupported primitive sequence type", {
-      cause: primitive.value,
-    });
-  }
-
-  const [value, setValue] = useState("");
-
-  useEffect(
-    () => {
-      onChangeValue(Binary.fromText(value));
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  const derivedValue = useMemo(
+    () =>
+      value.includes(INCOMPLETE)
+        ? INCOMPLETE
+        : value.includes(INVALID)
+          ? INVALID
+          : (value as T[]),
     [value],
   );
 
-  return (
-    <Input value={value} onChange={(event) => setValue(event.target.value)} />
+  const increaseLength = () => {
+    setLength((length) => length + 1);
+    setValue((value) => [...value, INCOMPLETE]);
+  };
+
+  const decreaseLength = () => {
+    if (length === 0) {
+      return;
+    }
+
+    setLength((length) => length - 1);
+    setValue((value) => value.slice(0, -1));
+  };
+
+  useEffect(
+    () => {
+      onChangeValue(derivedValue);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [derivedValue],
   );
+
+  return (
+    <div>
+      <div
+        className={css({
+          display: "flex",
+          gap: "0.5rem",
+          marginBottom: "0.5rem",
+        })}
+      >
+        <Button onClick={increaseLength}>Add</Button>
+        <Button onClick={decreaseLength}>Remove</Button>
+      </div>
+      {value.map((_, index) => (
+        <CodecParam
+          key={index}
+          variable={sequence.value}
+          onChangeValue={(value) =>
+            setValue((array) => array.with(index, value as ParamInput<T>))
+          }
+        />
+      ))}
+    </div>
+  );
+}
+
+function SequenceParam<T>({ sequence, onChangeValue }: SequenceParamProps<T>) {
+  if (sequence.value.type === "primitive" && sequence.value.value === "u8") {
+    // @ts-expect-error TODO: improve typing
+    return <BinaryParam onChangeValue={onChangeValue} />;
+  }
+
+  return <_SequenceParam sequence={sequence} onChangeValue={onChangeValue} />;
 }
 
 type ArrayParamProps<T> = ParamProps<T[]> & {
   array: ArrayVar;
 };
 
-export function ArrayParam<T>({
+export function _ArrayParam<T>({
   array: arrayVar,
   onChangeValue,
 }: ArrayParamProps<T>) {
@@ -523,11 +583,23 @@ export function ArrayParam<T>({
   );
 }
 
+function ArrayParam<T>(props: ArrayParamProps<T>) {
+  if (
+    props.array.value.type === "primitive" &&
+    props.array.value.value === "u8"
+  ) {
+    // @ts-expect-error TODO: Improve typing
+    return <BinaryParam onChangeValue={props.onChangeValue as unknown} />;
+  }
+
+  return <_ArrayParam {...props} />;
+}
+
 export type TupleParamProps<T extends Array<unknown>> = ParamProps<T> & {
   tuple: TupleVar;
 };
 
-export function TupleParam<T extends Array<unknown>>({
+export function _TupleParam<T extends Array<unknown>>({
   tuple: tupleVar,
   onChangeValue,
 }: TupleParamProps<T>) {
@@ -566,6 +638,22 @@ export function TupleParam<T extends Array<unknown>>({
       ))}
     </>
   );
+}
+
+export function TupleParam<T extends Array<unknown>>(
+  props: TupleParamProps<T>,
+) {
+  if (
+    props.tuple.value.every(
+      (lookupEntry) =>
+        lookupEntry.type === "primitive" && lookupEntry.value === "u8",
+    )
+  ) {
+    // @ts-expect-error TODO: Improve typing
+    return <BinaryParam onChangeValue={props.onChangeValue as unknown} />;
+  }
+
+  return <_TupleParam {...props} />;
 }
 
 export type StructParamProps<T extends Record<string, unknown>> =
@@ -639,6 +727,7 @@ export function CodecParam<T = unknown>({
     <div
       className={css({
         marginStart: "calc(0.5rem * var(--storage-depth))",
+        padding: "0.25rem",
       })}
       style={{
         ["--storage-depth" as keyof CssProperties]: depth,
@@ -686,7 +775,7 @@ export function CodecParam<T = unknown>({
             case "sequence":
               return (
                 <SequenceParam
-                  {...(props as SequenceParamProps)}
+                  {...(props as SequenceParamProps<unknown>)}
                   sequence={variable}
                 />
               );
