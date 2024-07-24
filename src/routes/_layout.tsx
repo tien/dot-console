@@ -103,7 +103,20 @@ function Layout() {
       </header>
       <main className={css({ display: "contents" })}>
         <ReDotChainProvider key={chainId} chainId={chainId}>
-          <Suspense fallback={<Progress type="circular" value={null} />}>
+          <Suspense
+            fallback={
+              <div
+                className={css({
+                  flex: 1,
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                })}
+              >
+                <Progress type="circular" value={null} />
+              </div>
+            }
+          >
             <Outlet />
           </Suspense>
         </ReDotChainProvider>
