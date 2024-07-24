@@ -31,6 +31,9 @@ export function CodecParam<T = unknown>({
       className={css({
         marginStart: "calc(0.5rem * var(--storage-depth))",
         padding: "0.25rem",
+        "&:empty": {
+          display: "none",
+        },
       })}
       style={{
         ["--storage-depth" as keyof CssProperties]: depth,
