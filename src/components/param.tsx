@@ -77,32 +77,36 @@ export function PrimitiveParam({
     inputMode: "numeric",
   } as const;
 
-  useEffect(() => {
-    switch (primitive.value) {
-      case "bool":
-        onChangeValue(Boolean(value));
-        break;
-      case "char":
-      case "str":
-        onChangeValue(value);
-        break;
-      case "u8":
-      case "i8":
-      case "u16":
-      case "i16":
-      case "u32":
-      case "i32":
-        onChangeValue(Number(value));
-        break;
-      case "u64":
-      case "i64":
-      case "u128":
-      case "i128":
-      case "u256":
-      case "i256":
-        onChangeValue(BigInt(value));
-    }
-  }, [onChangeValue, primitive.value, value]);
+  useEffect(
+    () => {
+      switch (primitive.value) {
+        case "bool":
+          onChangeValue(Boolean(value));
+          break;
+        case "char":
+        case "str":
+          onChangeValue(value);
+          break;
+        case "u8":
+        case "i8":
+        case "u16":
+        case "i16":
+        case "u32":
+        case "i32":
+          onChangeValue(Number(value));
+          break;
+        case "u64":
+        case "i64":
+        case "u128":
+        case "i128":
+        case "u256":
+        case "i256":
+          onChangeValue(BigInt(value));
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [value],
+  );
 
   switch (primitive.value) {
     case "bool":
@@ -184,9 +188,13 @@ export type CompactParamProps = ParamProps<number | bigint> & {
 export function CompactParam({ compact, onChangeValue }: CompactParamProps) {
   const [value, setValue] = useState("");
 
-  useEffect(() => {
-    onChangeValue(compact.isBig ? BigInt(value) : Number(value));
-  }, [compact.isBig, onChangeValue, value]);
+  useEffect(
+    () => {
+      onChangeValue(compact.isBig ? BigInt(value) : Number(value));
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [value],
+  );
 
   return (
     <Input
@@ -219,9 +227,13 @@ export function OptionParam<T>({ option, onChangeValue }: OptionParamProps<T>) {
     [includeOptional, value],
   );
 
-  useEffect(() => {
-    onChangeValue(derivedValue);
-  }, [onChangeValue, derivedValue]);
+  useEffect(
+    () => {
+      onChangeValue(derivedValue);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [derivedValue],
+  );
 
   return (
     <div>
@@ -259,9 +271,13 @@ export function EnumParam({ onChangeValue, ...props }: EnumParamProps) {
         ? enumValue.value
         : enumValue;
 
-  useEffect(() => {
-    onChangeValue({ type: key, value });
-  }, [key, onChangeValue, value]);
+  useEffect(
+    () => {
+      onChangeValue({ type: key, value });
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [key, value],
+  );
 
   return (
     <div>
@@ -291,9 +307,13 @@ function ConnectedAccountParam({ onChangeValue }: ConnectedAccountParamProps) {
     [value],
   );
 
-  useEffect(() => {
-    onChangeValue(derivedValue);
-  }, [onChangeValue, derivedValue]);
+  useEffect(
+    () => {
+      onChangeValue(derivedValue);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [derivedValue],
+  );
 
   return (
     <Select.Root
@@ -356,9 +376,13 @@ function CustomAccountParam({
     [value],
   );
 
-  useEffect(() => {
-    onChangeValue(derivedValue);
-  }, [derivedValue, onChangeValue]);
+  useEffect(
+    () => {
+      onChangeValue(derivedValue);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [derivedValue],
+  );
 
   return (
     <Input
@@ -435,9 +459,13 @@ function SequenceParam({ sequence, onChangeValue }: SequenceParamProps) {
 
   const [value, setValue] = useState("");
 
-  useEffect(() => {
-    onChangeValue(Binary.fromText(value));
-  }, [onChangeValue, value]);
+  useEffect(
+    () => {
+      onChangeValue(Binary.fromText(value));
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [value],
+  );
 
   return (
     <Input value={value} onChange={(event) => setValue(event.target.value)} />
@@ -466,9 +494,13 @@ export function ArrayParam<T>({
     [array],
   );
 
-  useEffect(() => {
-    onChangeValue(derivedArray);
-  }, [derivedArray, onChangeValue]);
+  useEffect(
+    () => {
+      onChangeValue(derivedArray);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [derivedArray],
+  );
 
   return (
     <div
@@ -513,9 +545,13 @@ export function TupleParam<T extends Array<unknown>>({
     [tuple],
   );
 
-  useEffect(() => {
-    onChangeValue(derivedTuple);
-  }, [derivedTuple, onChangeValue]);
+  useEffect(
+    () => {
+      onChangeValue(derivedTuple);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [derivedTuple],
+  );
 
   return (
     <>
@@ -562,9 +598,13 @@ export function StructParam<T extends Record<string, unknown>>({
     return struct;
   }, [struct]);
 
-  useEffect(() => {
-    onChangeValue(derivedStruct);
-  }, [derivedStruct, onChangeValue]);
+  useEffect(
+    () => {
+      onChangeValue(derivedStruct);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [derivedStruct],
+  );
 
   return (
     <>
