@@ -1,5 +1,6 @@
 import { ConstantQueryForm } from "./components/constant-form";
 import { QueryResult } from "./components/query-result";
+import { RuntimeApiForm } from "./components/runtime-api-form";
 import { StorageQueryForm } from "./components/storage-form";
 import { Heading, Progress, Tabs } from "./components/ui";
 import config from "./config";
@@ -15,11 +16,9 @@ function DApp() {
   const [queries, setQueries] = useState<Query[]>([]);
 
   const tabOptions = [
-    {
-      id: "storage",
-      label: "Storage",
-    },
+    { id: "storage", label: "Storage" },
     { id: "constants", label: "Constants" },
+    { id: "apis", label: "Runtime APIs" },
   ];
 
   return (
@@ -102,6 +101,16 @@ function DApp() {
                 className={css({ display: "contents" })}
               >
                 <ConstantQueryForm
+                  onAddQuery={(query) =>
+                    setQueries((queries) => [...queries, query])
+                  }
+                />
+              </Tabs.Content>
+              <Tabs.Content
+                value="apis"
+                className={css({ display: "contents" })}
+              >
+                <RuntimeApiForm
                   onAddQuery={(query) =>
                     setQueries((queries) => [...queries, query])
                   }

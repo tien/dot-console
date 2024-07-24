@@ -11,14 +11,20 @@ type StorageQueryResultProps = {
 };
 
 export function QueryResult({ query }: StorageQueryResultProps) {
-  const queryArgs =
-    query.type === "constant"
-      ? []
-      : query.key === VOID
-        ? []
-        : Array.isArray(query.key)
-          ? query.key
-          : [query.key];
+  const queryArgs = useMemo(() => {
+    switch (query.type) {
+      case "constant":
+        return [];
+      case "storage":
+        if (query.key === VOID) {
+          return [];
+        }
+
+        return Array.isArray(query.key) ? query.key : [query.key];
+      case "api":
+        return query.args;
+    }
+  }, [query]);
 
   const result = useLazyLoadQuery((builder) => {
     switch (query.type) {
@@ -35,6 +41,13 @@ export function QueryResult({ query }: StorageQueryResultProps) {
           query.storage,
           queryArgs,
         );
+      case "api":
+        return builder.callApi(
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          query.api as any,
+          query.method,
+          queryArgs,
+        );
     }
   });
 
@@ -47,6 +60,8 @@ export function QueryResult({ query }: StorageQueryResultProps) {
         return [query.pallet, query.constant] as const;
       case "storage":
         return [query.pallet, query.storage] as const;
+      case "api":
+        return [query.api, query.method] as const;
     }
   }, [query]);
 
@@ -60,6 +75,8 @@ export function QueryResult({ query }: StorageQueryResultProps) {
                 return "Constant";
               case "storage":
                 return "Storage";
+              case "api":
+                return "Runtime API";
             }
           }, [query.type])}
         </Card.Title>

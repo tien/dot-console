@@ -17,6 +17,10 @@ export type Constant = Pallet["constants"][number];
 
 export type Storage = NonNullable<Pallet["storage"]>["items"][number];
 
+export type RuntimeApi = Metadata["apis"][number];
+
+export type RuntimeApiMethod = RuntimeApi["methods"][number];
+
 export type ConstantQuery = {
   type: "constant";
   pallet: string;
@@ -30,4 +34,11 @@ export type StorageQuery = {
   key: unknown;
 };
 
-export type Query = ConstantQuery | StorageQuery;
+export type RuntimeApiQuery = {
+  type: "api";
+  api: string;
+  method: string;
+  args: unknown[];
+};
+
+export type Query = ConstantQuery | StorageQuery | RuntimeApiQuery;
