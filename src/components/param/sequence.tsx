@@ -3,8 +3,7 @@ import { BinaryParam } from "./binary";
 import { CodecParam } from "./codec";
 import { INCOMPLETE, INVALID, ParamInput, ParamProps } from "./common";
 import type { SequenceVar } from "@polkadot-api/metadata-builders";
-import Add from "@w3f/polkadot-icons/solid/add";
-import Remove from "@w3f/polkadot-icons/solid/remove";
+import Icon from "@w3f/polkadot-icons/Icon";
 import { useEffect, useMemo, useState } from "react";
 import { css } from "styled-system/css";
 
@@ -60,10 +59,10 @@ function _SequenceParam<T>({ sequence, onChangeValue }: SequenceParamProps<T>) {
         })}
       >
         <Button onClick={increaseLength}>
-          Add item <Add fill="currentcolor" />
+          Add item <Icon name="Add" variant="solid" fill="currentcolor" />
         </Button>
         <Button onClick={decreaseLength}>
-          Remove item <Remove fill="currentcolor" />
+          Remove item <Icon name="Remove" variant="solid" fill="currentcolor" />
         </Button>
       </div>
       {values.map((_, index) => (
