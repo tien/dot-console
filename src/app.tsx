@@ -87,14 +87,20 @@ function DApp() {
                 ))}
                 <Tabs.Indicator />
               </Tabs.List>
-              <Tabs.Content value="storage" asChild>
+              <Tabs.Content
+                value="storage"
+                className={css({ display: "contents" })}
+              >
                 <StorageQueryForm
                   onAddQuery={(query) =>
                     setQueries((queries) => [...queries, query])
                   }
                 />
               </Tabs.Content>
-              <Tabs.Content value="constants" asChild>
+              <Tabs.Content
+                value="constants"
+                className={css({ display: "contents" })}
+              >
                 <ConstantQueryForm
                   onAddQuery={(query) =>
                     setQueries((queries) => [...queries, query])
