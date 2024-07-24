@@ -164,7 +164,14 @@ function ExtrinsicPage() {
   return (
     <AccountSelect>
       {({ account, accountSelect }) => (
-        <div className={css({ padding: "2rem 4rem" })}>
+        <div
+          className={css({
+            display: "flex",
+            flexDirection: "column",
+            gap: "0.5rem",
+            padding: "2rem 4rem",
+          })}
+        >
           {accountSelect}
           {account && (
             <ReDotSignerProvider signer={account.polkadotSigner}>
