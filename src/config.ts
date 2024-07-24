@@ -10,7 +10,7 @@ const smoldotPromise = startFromWorker(
   }),
 );
 
-const config = {
+export const config = {
   chains: {
     polkadot: {
       descriptor: polkadot,
@@ -23,5 +23,3 @@ const config = {
   },
   wallets: [new InjectedWalletAggregator()],
 } as const satisfies Config;
-
-export default config;

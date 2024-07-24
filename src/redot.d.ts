@@ -1,5 +1,4 @@
-import type config from "./config";
-import type { polkadot } from "@polkadot-api/descriptors";
+import type { config } from "./config";
 import type { InferChains } from "@reactive-dot/core";
 
 declare module "@reactive-dot/core" {

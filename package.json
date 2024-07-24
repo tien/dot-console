@@ -29,6 +29,7 @@
   "dependencies": {
     "@ark-ui/react": "^3.5.0",
     "@reactive-dot/react": "^0.3.1",
+    "@tanstack/react-router": "^1.45.8",
     "@w3f/polkadot-icons": "^1.0.0",
     "dot-connect": "^0.2.0",
     "polkadot-api": "^0.11.2",
@@ -40,6 +41,8 @@
     "@eslint/js": "^9.7.0",
     "@pandacss/dev": "^0.43.0",
     "@park-ui/panda-preset": "^0.39.0",
+    "@tanstack/router-devtools": "^1.45.8",
+    "@tanstack/router-plugin": "^1.45.8",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@tsconfig/strictest": "^2.0.5",
     "@tsconfig/vite-react": "^3.0.2",
