@@ -17,8 +17,6 @@ jobs:
       - uses: volta-cli/action@v4
 
       - run: yarn install --immutable
-        shell: bash
-
       - run: yarn build
 
       - uses: cloudflare/pages-action@v1
