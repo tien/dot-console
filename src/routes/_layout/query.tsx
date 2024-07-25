@@ -36,12 +36,12 @@ function QueryPage() {
       <aside
         className={css({
           overflow: "auto",
-          borderBottom: "1px solid currentcolor",
+          borderBottom: "1px solid",
           padding: "2rem",
           "@media(min-width: 68rem)": {
             flexBasis: "32rem",
             borderBottom: "none",
-            borderRight: "1px solid currentcolor",
+            borderRight: "1px solid",
           },
         })}
       >

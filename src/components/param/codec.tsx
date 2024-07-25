@@ -36,7 +36,7 @@ export function CodecParam<T = unknown>({
       })}
       style={{
         ["--storage-depth" as keyof CssProperties]: depth,
-        borderLeft: depth <= 0 ? undefined : "1px dotted currentcolor",
+        borderLeft: depth <= 0 ? undefined : "1px dotted",
         paddingLeft: depth <= 0 ? undefined : "1rem",
       }}
     >

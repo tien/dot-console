@@ -35,7 +35,7 @@ function Layout() {
           alignItems: "center",
           gap: "1rem",
           padding: "1rem 2rem",
-          borderBottom: "1px solid currentcolor",
+          borderBottom: "1px solid",
         })}
       >
         <RouterLink to="/">
