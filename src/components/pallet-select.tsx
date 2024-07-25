@@ -40,6 +40,7 @@ export function PalletSelect({ filter, children }: PalletSelectProps) {
 
           setSelectedPallet(pallet.index);
         }}
+        positioning={{ fitViewport: true, sameWidth: true }}
         className={css({ gridArea: "pallet" })}
       >
         <Select.Label>Pallet</Select.Label>
@@ -53,7 +54,10 @@ export function PalletSelect({ filter, children }: PalletSelectProps) {
         </Select.Control>
         <Select.Positioner>
           <Select.Content
-            className={css({ maxHeight: "75dvh", overflow: "auto" })}
+            className={css({
+              maxHeight: "max(50dvh, 8rem)",
+              overflow: "auto",
+            })}
           >
             {pallets
               .toSorted((a, b) => a.name.localeCompare(b.name))

@@ -58,6 +58,7 @@ function Layout() {
                 setChainId(chainId);
               }
             }}
+            positioning={{ fitViewport: true, sameWidth: true }}
           >
             <Select.Control>
               <Select.Trigger>
@@ -69,7 +70,10 @@ function Layout() {
             </Select.Control>
             <Select.Positioner>
               <Select.Content
-                className={css({ maxHeight: "75dvh", overflow: "auto" })}
+                className={css({
+                  maxHeight: "max(50dvh, 8rem)",
+                  overflow: "auto",
+                })}
               >
                 {chainIds.map((chainId) => (
                   <Select.Item key={chainId} item={chainId}>

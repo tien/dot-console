@@ -39,6 +39,7 @@ function ConnectedAccountParam({ onChangeValue }: ConnectedAccountParamProps) {
       itemToValue={(account: InjectedPolkadotAccount) => account.address}
       value={[value].filter((value) => value !== undefined)}
       onValueChange={(event) => setValue(event.value.at(0))}
+      positioning={{ fitViewport: true, sameWidth: true }}
     >
       <Select.Label>Account</Select.Label>
       <Select.Control>
@@ -51,7 +52,7 @@ function ConnectedAccountParam({ onChangeValue }: ConnectedAccountParamProps) {
       </Select.Control>
       <Select.Positioner>
         <Select.Content
-          className={css({ maxHeight: "75dvh", overflow: "auto" })}
+          className={css({ maxHeight: "max(50dvh, 8rem)", overflow: "auto" })}
         >
           {accounts.map((account) => (
             <Select.Item key={account.address} item={account}>

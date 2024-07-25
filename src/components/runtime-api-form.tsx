@@ -97,6 +97,7 @@ function _ApiMethodSelect({ api, ...props }: ApiMethodSelectProps) {
 
           setSelectedMethodName(method.name);
         }}
+        positioning={{ fitViewport: true, sameWidth: true }}
         className={css({ gridArea: "method" })}
       >
         <Select.Label>Methods</Select.Label>
@@ -110,7 +111,10 @@ function _ApiMethodSelect({ api, ...props }: ApiMethodSelectProps) {
         </Select.Control>
         <Select.Positioner>
           <Select.Content
-            className={css({ maxHeight: "75dvh", overflow: "auto" })}
+            className={css({
+              maxHeight: "max(50dvh, 8rem)",
+              overflow: "auto",
+            })}
           >
             {methods
               .toSorted((a, b) => a.name.localeCompare(b.name))
@@ -172,6 +176,7 @@ export function RuntimeApiForm(props: RuntimeApiFormProps) {
 
           setSelectedApiName(api.name);
         }}
+        positioning={{ fitViewport: true, sameWidth: true }}
         className={css({ gridArea: "api" })}
       >
         <Select.Label>Apis</Select.Label>
@@ -185,7 +190,10 @@ export function RuntimeApiForm(props: RuntimeApiFormProps) {
         </Select.Control>
         <Select.Positioner>
           <Select.Content
-            className={css({ maxHeight: "75dvh", overflow: "auto" })}
+            className={css({
+              maxHeight: "max(50dvh, 8rem)",
+              overflow: "auto",
+            })}
           >
             {apis
               .toSorted((a, b) => a.name.localeCompare(b.name))

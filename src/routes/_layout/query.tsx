@@ -39,7 +39,7 @@ function QueryPage() {
           borderBottom: "1px solid currentcolor",
           padding: "2rem",
           "@media(min-width: 68rem)": {
-            flexBasis: "30rem",
+            flexBasis: "32rem",
             borderBottom: "none",
             borderRight: "1px solid currentcolor",
           },

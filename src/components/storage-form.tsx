@@ -91,6 +91,7 @@ function _StorageQueryForm({
 
           setSelectedStorage(storage.name);
         }}
+        positioning={{ fitViewport: true, sameWidth: true }}
         className={css({ gridArea: "storage" })}
       >
         <Select.Label>Storage</Select.Label>
@@ -104,7 +105,10 @@ function _StorageQueryForm({
         </Select.Control>
         <Select.Positioner>
           <Select.Content
-            className={css({ maxHeight: "75dvh", overflow: "auto" })}
+            className={css({
+              maxHeight: "max(50dvh, 8rem)",
+              overflow: "auto",
+            })}
           >
             {pallet
               .storage!.items.toSorted((a, b) => a.name.localeCompare(b.name))

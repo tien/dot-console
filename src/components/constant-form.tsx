@@ -51,6 +51,7 @@ export function _ConstantQueryForm({
 
           setSelectedConstant(constant.name);
         }}
+        positioning={{ fitViewport: true, sameWidth: true }}
         className={css({ gridArea: "storage" })}
       >
         <Select.Label>Constant</Select.Label>
@@ -64,7 +65,10 @@ export function _ConstantQueryForm({
         </Select.Control>
         <Select.Positioner>
           <Select.Content
-            className={css({ maxHeight: "75dvh", overflow: "auto" })}
+            className={css({
+              maxHeight: "max(50dvh, 8rem)",
+              overflow: "auto",
+            })}
           >
             {pallet.constants
               .toSorted((a, b) => a.name.localeCompare(b.name))

@@ -116,6 +116,7 @@ function CallSelect({ pallet }: CallSelectProps) {
         items={callItems}
         value={[selectedCallName]}
         onValueChange={(event) => setSelectedCallName(event.value.at(0)!)}
+        positioning={{ fitViewport: true, sameWidth: true }}
         className={css({ gridArea: "call" })}
       >
         <Select.Label>Calls</Select.Label>
@@ -129,7 +130,10 @@ function CallSelect({ pallet }: CallSelectProps) {
         </Select.Control>
         <Select.Positioner>
           <Select.Content
-            className={css({ maxHeight: "75dvh", overflow: "auto" })}
+            className={css({
+              maxHeight: "max(50dvh, 8rem)",
+              overflow: "auto",
+            })}
           >
             {callItems
               .toSorted((a, b) => a.label.localeCompare(b.label))

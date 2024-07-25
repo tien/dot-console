@@ -53,6 +53,7 @@ export function AccountSelect({ children }: AccountSelectProps) {
                 setSelectedAccountId(id);
               }
             }}
+            positioning={{ fitViewport: true, sameWidth: true }}
           >
             <Select.Label>Account</Select.Label>
             <Select.Control>
@@ -65,7 +66,10 @@ export function AccountSelect({ children }: AccountSelectProps) {
             </Select.Control>
             <Select.Positioner>
               <Select.Content
-                className={css({ maxHeight: "75dvh", overflow: "auto" })}
+                className={css({
+                  maxHeight: "max(50dvh, 8rem)",
+                  overflow: "auto",
+                })}
               >
                 {accountItems.map((item) => (
                   <Select.Item key={item.value} item={item}>
