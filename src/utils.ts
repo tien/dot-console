@@ -21,3 +21,25 @@ export function stringifyCodec(variable: unknown) {
     2,
   );
 }
+
+export function unbinary(data: unknown): unknown {
+  if (data instanceof FixedSizeBinary) {
+    return data.asHex();
+  }
+
+  if (data instanceof Binary) {
+    return data.asText();
+  }
+
+  if (typeof data !== "object") {
+    return data;
+  }
+
+  if (data === null) {
+    return data;
+  }
+
+  return Object.fromEntries(
+    Object.entries(data).map(([key, value]) => [key, unbinary(value)] as const),
+  );
+}

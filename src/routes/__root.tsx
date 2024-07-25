@@ -6,6 +6,9 @@ import { ReDotProvider, useMutationEffect } from "@reactive-dot/react";
 import { createRootRoute, Outlet } from "@tanstack/react-router";
 import Close from "@w3f/polkadot-icons/solid/Close";
 import { registerDotConnect } from "dot-connect";
+import "dot-connect/font.css";
+import "react18-json-view/src/dark.css";
+import "react18-json-view/src/style.css";
 
 registerDotConnect({ wallets: config.wallets });
 
