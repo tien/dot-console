@@ -31,7 +31,14 @@ export type StorageQuery = {
   type: "storage";
   pallet: string;
   storage: string;
-  key: unknown;
+  key: unknown[];
+};
+
+export type StorageEntriesQuery = {
+  type: "storage-entries";
+  pallet: string;
+  storage: string;
+  key: unknown[];
 };
 
 export type RuntimeApiQuery = {
@@ -41,4 +48,8 @@ export type RuntimeApiQuery = {
   args: unknown[];
 };
 
-export type Query = ConstantQuery | StorageQuery | RuntimeApiQuery;
+export type Query =
+  | ConstantQuery
+  | StorageQuery
+  | StorageEntriesQuery
+  | RuntimeApiQuery;

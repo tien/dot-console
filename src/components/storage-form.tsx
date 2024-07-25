@@ -1,60 +1,46 @@
 import { useLookup } from "../hooks/lookup";
-import type { Pallet, Storage, StorageQuery } from "../types";
+import type {
+  Pallet,
+  Storage,
+  StorageEntriesQuery,
+  StorageQuery,
+} from "../types";
 import { PalletSelect } from "./pallet-select";
 import { CodecParam, INCOMPLETE, INVALID, ParamInput, VOID } from "./param";
 import { Button, FormLabel, Select } from "./ui";
 import Check from "@w3f/polkadot-icons/solid/Check";
 import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useMemo, useState } from "react";
 import { css } from "styled-system/css";
 
-type StorageKeyProps = {
-  storage: Storage;
-  onChangeKey: (key: unknown) => void;
+type StorageFormProps = {
+  pallet: Pallet;
+  palletSelect: ReactNode;
+  onAddQuery: (query: StorageQuery | StorageEntriesQuery) => void;
 };
 
-function StorageKey({ storage, onChangeKey }: StorageKeyProps) {
-  const lookup = useLookup();
-
-  const key =
-    storage.type.tag === "plain" ? undefined : lookup(storage.type.value.key);
-
-  useEffect(() => {
-    if (key === undefined) {
-      onChangeKey(VOID);
-    }
-  }, [key, onChangeKey]);
-
-  if (key === undefined) {
-    return null;
-  }
-
+export function StorageForm(
+  props: Omit<StorageFormProps, "pallet" | "palletSelect">,
+) {
   return (
-    <div
-      className={css({
-        display: "flex",
-        flexDirection: "column",
-        gap: "0.5rem",
-      })}
+    <PalletSelect
+      filter={(pallet) =>
+        pallet.storage !== undefined && pallet.storage.items.length > 0
+      }
     >
-      <CodecParam variable={key} onChangeValue={onChangeKey} />
-    </div>
+      {({ pallet, palletSelect }) => (
+        <StorageSelect
+          key={pallet.index}
+          pallet={pallet}
+          palletSelect={palletSelect}
+          {...props}
+        />
+      )}
+    </PalletSelect>
   );
 }
 
-type StorageQueryFormProps = {
-  pallet: Pallet;
-  palletSelect: ReactNode;
-  onAddQuery: (query: StorageQuery) => void;
-};
-
-function _StorageQueryForm({
-  pallet,
-  palletSelect,
-  onAddQuery,
-}: StorageQueryFormProps) {
-  const [key, setKey] = useState<ParamInput<unknown>>(INCOMPLETE);
-
+function StorageSelect({ pallet, palletSelect, onAddQuery }: StorageFormProps) {
   const storages = pallet.storage!.items;
 
   const [selectedStorage, setSelectedStorage] = useState(storages.at(0)!.name);
@@ -117,6 +103,77 @@ function _StorageQueryForm({
         </Select.Positioner>
       </Select.Root>
       {storage && (
+        <StorageKey pallet={pallet} storage={storage} onAddQuery={onAddQuery} />
+      )}
+    </div>
+  );
+}
+
+type StorageKeyProps = {
+  pallet: Pallet;
+  storage: Storage;
+  onAddQuery: (query: StorageQuery | StorageEntriesQuery) => void;
+};
+
+function StorageKey(props: StorageKeyProps) {
+  return (
+    <_StorageKey key={props.pallet.index + props.storage.name} {...props} />
+  );
+}
+
+function _StorageKey({ pallet, storage, onAddQuery }: StorageKeyProps) {
+  const lookup = useLookup();
+
+  const keyLookup =
+    storage.type.tag === "plain" ? undefined : lookup(storage.type.value.key);
+
+  const [key, setKey] = useState<ParamInput<unknown>>(INCOMPLETE);
+
+  const maxKeyLength =
+    keyLookup === undefined
+      ? undefined
+      : keyLookup.type === "tuple"
+        ? keyLookup.value.length
+        : keyLookup.type === "array"
+          ? keyLookup.len
+          : 1;
+
+  const [keyLength, setKeyLength] = useState(maxKeyLength ?? 0);
+
+  const derivedKey = useMemo(() => {
+    if (keyLookup === undefined) {
+      return [];
+    }
+
+    if (key === VOID) {
+      return [];
+    }
+
+    if (Array.isArray(key)) {
+      return key;
+    }
+
+    return [key];
+  }, [key, keyLookup]);
+
+  const lengthLimitedKey = derivedKey.slice(0, keyLength);
+
+  const isEntriesQuery = lengthLimitedKey.length < derivedKey.length;
+
+  const lengthLimitedKeyLookup = useMemo(() => {
+    switch (keyLookup?.type) {
+      case "tuple":
+        return { ...keyLookup, value: keyLookup.value.slice(0, keyLength) };
+      case "array":
+        return { ...keyLookup, len: keyLength };
+      default:
+        return keyLookup;
+    }
+  }, [keyLength, keyLookup]);
+
+  return (
+    <>
+      {lengthLimitedKeyLookup && (
         <section
           className={css({
             gridArea: "key",
@@ -125,47 +182,62 @@ function _StorageQueryForm({
             },
           })}
         >
-          <FormLabel>Storage key</FormLabel>
-          <div className={css({ display: "contents" })}>
-            <StorageKey storage={storage} onChangeKey={setKey} />
+          <div>
+            <FormLabel>Storage key</FormLabel>
+            {maxKeyLength !== undefined && (
+              <span>
+                <br />
+                by{" "}
+                <select
+                  value={keyLength}
+                  onChange={(event) =>
+                    setKeyLength(parseInt(event.target.value))
+                  }
+                >
+                  {Array.from({ length: maxKeyLength + 1 }).map((_, index) => (
+                    <option key={index} value={index}>
+                      {index}
+                    </option>
+                  ))}
+                </select>{" "}
+                element{keyLength > 1 ? "s" : ""}
+              </span>
+            )}
           </div>
+          {keyLength > 0 && (
+            <div className={css({ display: "contents" })}>
+              <div
+                className={css({
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "0.5rem",
+                })}
+              >
+                <CodecParam
+                  variable={lengthLimitedKeyLookup}
+                  onChangeValue={setKey}
+                />
+              </div>
+            </div>
+          )}
         </section>
       )}
       <Button
-        disabled={key === INVALID || key === INCOMPLETE}
+        disabled={
+          keyLookup !== undefined && (key === INVALID || key === INCOMPLETE)
+        }
         onClick={() =>
           onAddQuery({
-            type: "storage",
+            type: isEntriesQuery ? "storage-entries" : "storage",
             pallet: pallet.name,
-            storage: selectedStorage,
-            key,
+            storage: storage.name,
+            key: lengthLimitedKey,
           })
         }
         className={css({ gridArea: "submit" })}
       >
         Query
       </Button>
-    </div>
-  );
-}
-
-export function StorageQueryForm(
-  props: Omit<StorageQueryFormProps, "pallet" | "palletSelect">,
-) {
-  return (
-    <PalletSelect
-      filter={(pallet) =>
-        pallet.storage !== undefined && pallet.storage.items.length > 0
-      }
-    >
-      {({ pallet, palletSelect }) => (
-        <_StorageQueryForm
-          key={pallet.index}
-          pallet={pallet}
-          palletSelect={palletSelect}
-          {...props}
-        />
-      )}
-    </PalletSelect>
+    </>
   );
 }

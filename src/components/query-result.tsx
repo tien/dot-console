@@ -1,6 +1,5 @@
 import type { Query } from "../types";
 import { stringifyCodec, unbinary } from "../utils";
-import { VOID } from "./param";
 import { Card, Code, FormLabel, IconButton } from "./ui";
 import { useLazyLoadQuery } from "@reactive-dot/react";
 import Close from "@w3f/polkadot-icons/solid/Close";
@@ -19,11 +18,8 @@ export function QueryResult({ query, onDelete }: StorageQueryResultProps) {
       case "constant":
         return [];
       case "storage":
-        if (query.key === VOID) {
-          return [];
-        }
-
-        return Array.isArray(query.key) ? query.key : [query.key];
+      case "storage-entries":
+        return query.key;
       case "api":
         return query.args;
     }
@@ -39,6 +35,13 @@ export function QueryResult({ query, onDelete }: StorageQueryResultProps) {
         );
       case "storage":
         return builder.readStorage(
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          query.pallet as any,
+          query.storage,
+          queryArgs,
+        );
+      case "storage-entries":
+        return builder.readStorageEntries(
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           query.pallet as any,
           query.storage,
@@ -62,6 +65,7 @@ export function QueryResult({ query, onDelete }: StorageQueryResultProps) {
       case "constant":
         return [query.pallet, query.constant] as const;
       case "storage":
+      case "storage-entries":
         return [query.pallet, query.storage] as const;
       case "api":
         return [query.api, query.method] as const;
@@ -85,6 +89,8 @@ export function QueryResult({ query, onDelete }: StorageQueryResultProps) {
                 return "Constant";
               case "storage":
                 return "Storage";
+              case "storage-entries":
+                return "Storage entries";
               case "api":
                 return "Runtime API";
             }

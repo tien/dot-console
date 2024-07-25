@@ -1,7 +1,7 @@
 import { ConstantQueryForm } from "../../components/constant-form";
 import { QueryResult } from "../../components/query-result";
 import { RuntimeApiForm } from "../../components/runtime-api-form";
-import { StorageQueryForm } from "../../components/storage-form";
+import { StorageForm } from "../../components/storage-form";
 import { Heading, Progress, Tabs } from "../../components/ui";
 import { Query } from "../../types";
 import { createFileRoute } from "@tanstack/react-router";
@@ -69,7 +69,7 @@ function QueryPage() {
               value="storage"
               className={css({ display: "contents" })}
             >
-              <StorageQueryForm
+              <StorageForm
                 onAddQuery={(query) =>
                   setQueries((queries) => [...queries, query])
                 }
