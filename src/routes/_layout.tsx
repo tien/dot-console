@@ -1,10 +1,10 @@
-import { Button, Heading, Link, Progress, Select } from "../components/ui";
+import { Heading, Link, Progress, Select } from "../components/ui";
 import type { ChainId } from "@reactive-dot/core";
 import { ReDotChainProvider } from "@reactive-dot/react";
 import {
   createFileRoute,
-  Link as RouterLink,
   Outlet,
+  Link as RouterLink,
 } from "@tanstack/react-router";
 import Check from "@w3f/polkadot-icons/solid/Check";
 import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
@@ -25,7 +25,9 @@ function Layout() {
       className={css({
         display: "flex",
         flexDirection: "column",
-        height: "100dvh",
+        "@media(min-width: 68rem)": {
+          height: "100dvh",
+        },
       })}
     >
       <header

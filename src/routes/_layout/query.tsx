@@ -24,24 +24,24 @@ function QueryPage() {
   return (
     <div
       className={css({
-        flex: "1 1 0",
         display: "flex",
         flexDirection: "column",
         overflow: "hidden",
         "@media(min-width: 68rem)": {
+          flex: "1 1 0",
           flexDirection: "row",
         },
       })}
     >
       <aside
         className={css({
-          overflow: "auto",
           borderBottom: "1px solid",
           padding: "2rem",
           "@media(min-width: 68rem)": {
             flexBasis: "32rem",
             borderBottom: "none",
             borderRight: "1px solid",
+            overflow: "auto",
           },
         })}
       >
