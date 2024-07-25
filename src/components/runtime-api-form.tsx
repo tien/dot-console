@@ -2,71 +2,78 @@ import { useLookup } from "../hooks/lookup";
 import { useMetadata } from "../hooks/metadata";
 import { RuntimeApi, RuntimeApiMethod, RuntimeApiQuery } from "../types";
 import { CodecParam, INCOMPLETE, INVALID } from "./param";
-import { Button, Select } from "./ui";
+import { Button, Code, Select } from "./ui";
 import Check from "@w3f/polkadot-icons/solid/Check";
 import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
 import { useState } from "react";
 import { css } from "styled-system/css";
 
-type ApiMethodArgumentsProps = {
-  api: RuntimeApi;
-  method: RuntimeApiMethod;
+export type RuntimeApiFormProps = {
   onAddQuery: (query: RuntimeApiQuery) => void;
 };
 
-function _ApiMethodArguments({
-  api,
-  method,
-  onAddQuery,
-}: ApiMethodArgumentsProps) {
-  const lookup = useLookup();
-  const [args, setArgs] = useState(
-    Array.from({ length: method.inputs.length }).fill(INCOMPLETE),
-  );
+export function RuntimeApiForm(props: RuntimeApiFormProps) {
+  const metadata = useMetadata();
+  const apis = metadata.value.apis;
 
-  const parsedArgs = args.includes(INCOMPLETE)
-    ? INCOMPLETE
-    : args.includes(INVALID)
-      ? INVALID
-      : args;
+  const [selectedApiName, setSelectedApiName] = useState(apis.at(0)!.name);
+  const selectedApi = apis.find((api) => api.name === selectedApiName);
+
+  const apiItems = apis
+    .map((api) => ({ label: api.name, value: api.name }))
+    .toSorted((a, b) => a.label.localeCompare(b.label));
 
   return (
-    <>
-      {method.inputs.length > 0 && (
-        <div
-          className={css({
-            gridArea: "args",
-            display: "flex",
-            flexDirection: "column",
-            gap: "0.5rem",
-          })}
-        >
-          {method.inputs.map((input, index) => (
-            <CodecParam
-              key={input.name}
-              variable={lookup(input.type)}
-              onChangeValue={(value) =>
-                setArgs((args) => args.with(index, value))
-              }
-            />
-          ))}
-        </div>
-      )}
-      <Button
-        disabled={parsedArgs === INVALID || parsedArgs === INCOMPLETE}
-        onClick={() =>
-          onAddQuery({ type: "api", api: api.name, method: method.name, args })
-        }
-        className={css({ gridArea: "submit" })}
+    <div
+      className={css({
+        display: "grid",
+        gridTemplateAreas: `
+          "api    method"
+          "docs   docs"
+          "args   args"
+          "submit submit"
+        `,
+        gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)",
+        gap: "1rem",
+      })}
+    >
+      <Select.Root
+        items={apiItems}
+        value={[selectedApiName]}
+        onValueChange={(event) => setSelectedApiName(event.value.at(0)!)}
+        positioning={{ fitViewport: true, sameWidth: true }}
+        className={css({ gridArea: "api" })}
       >
-        Query
-      </Button>
-    </>
+        <Select.Label>Apis</Select.Label>
+        <Select.Control>
+          <Select.Trigger>
+            <Select.ValueText placeholder="Select an API" />
+            <Select.Indicator>
+              <ChevronDown fill="currentcolor" />
+            </Select.Indicator>
+          </Select.Trigger>
+        </Select.Control>
+        <Select.Positioner>
+          <Select.Content
+            className={css({
+              maxHeight: "max(50dvh, 8rem)",
+              overflow: "auto",
+            })}
+          >
+            {apiItems.map((api) => (
+              <Select.Item key={api.value} item={api}>
+                <Select.ItemText>{api.label}</Select.ItemText>
+                <Select.ItemIndicator>
+                  <Check fill="currentcolor" />
+                </Select.ItemIndicator>
+              </Select.Item>
+            ))}
+          </Select.Content>
+        </Select.Positioner>
+      </Select.Root>
+      {selectedApi && <ApiMethodSelect {...props} api={selectedApi} />}
+    </div>
   );
-}
-
-function ApiMethodArguments(props: ApiMethodArgumentsProps) {
-  return <_ApiMethodArguments key={props.method.name} {...props} />;
 }
 
 type ApiMethodSelectProps = {
@@ -123,6 +130,18 @@ function _ApiMethodSelect({ api, ...props }: ApiMethodSelectProps) {
           </Select.Content>
         </Select.Positioner>
       </Select.Root>
+      {selectedMethod !== undefined && (
+        <Code
+          className={css({
+            gridArea: "docs",
+            display: "block",
+            whiteSpace: "wrap",
+            padding: "1rem",
+          })}
+        >
+          {selectedMethod.docs.join("\n")}
+        </Code>
+      )}
       {selectedMethod && (
         <ApiMethodArguments {...props} api={api} method={selectedMethod} />
       )}
@@ -134,69 +153,63 @@ function ApiMethodSelect(props: ApiMethodSelectProps) {
   return <_ApiMethodSelect key={props.api.name} {...props} />;
 }
 
-export type RuntimeApiFormProps = {
+type ApiMethodArgumentsProps = {
+  api: RuntimeApi;
+  method: RuntimeApiMethod;
   onAddQuery: (query: RuntimeApiQuery) => void;
 };
 
-export function RuntimeApiForm(props: RuntimeApiFormProps) {
-  const metadata = useMetadata();
-  const apis = metadata.value.apis;
+function ApiMethodArguments(props: ApiMethodArgumentsProps) {
+  return <_ApiMethodArguments key={props.method.name} {...props} />;
+}
 
-  const [selectedApiName, setSelectedApiName] = useState(apis.at(0)!.name);
-  const selectedApi = apis.find((api) => api.name === selectedApiName);
+function _ApiMethodArguments({
+  api,
+  method,
+  onAddQuery,
+}: ApiMethodArgumentsProps) {
+  const lookup = useLookup();
+  const [args, setArgs] = useState(
+    Array.from({ length: method.inputs.length }).fill(INCOMPLETE),
+  );
 
-  const apiItems = apis
-    .map((api) => ({ label: api.name, value: api.name }))
-    .toSorted((a, b) => a.label.localeCompare(b.label));
+  const parsedArgs = args.includes(INCOMPLETE)
+    ? INCOMPLETE
+    : args.includes(INVALID)
+      ? INVALID
+      : args;
 
   return (
-    <div
-      className={css({
-        display: "grid",
-        gridTemplateAreas: `
-          "api    method"
-          "args   args"
-          "submit submit"
-        `,
-        gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)",
-        gap: "1rem",
-      })}
-    >
-      <Select.Root
-        items={apiItems}
-        value={[selectedApiName]}
-        onValueChange={(event) => setSelectedApiName(event.value.at(0)!)}
-        positioning={{ fitViewport: true, sameWidth: true }}
-        className={css({ gridArea: "api" })}
+    <>
+      {method.inputs.length > 0 && (
+        <div
+          className={css({
+            gridArea: "args",
+            display: "flex",
+            flexDirection: "column",
+            gap: "0.5rem",
+          })}
+        >
+          {method.inputs.map((input, index) => (
+            <CodecParam
+              key={input.name}
+              variable={lookup(input.type)}
+              onChangeValue={(value) =>
+                setArgs((args) => args.with(index, value))
+              }
+            />
+          ))}
+        </div>
+      )}
+      <Button
+        disabled={parsedArgs === INVALID || parsedArgs === INCOMPLETE}
+        onClick={() =>
+          onAddQuery({ type: "api", api: api.name, method: method.name, args })
+        }
+        className={css({ gridArea: "submit" })}
       >
-        <Select.Label>Apis</Select.Label>
-        <Select.Control>
-          <Select.Trigger>
-            <Select.ValueText placeholder="Select an API" />
-            <Select.Indicator>
-              <ChevronDown fill="currentcolor" />
-            </Select.Indicator>
-          </Select.Trigger>
-        </Select.Control>
-        <Select.Positioner>
-          <Select.Content
-            className={css({
-              maxHeight: "max(50dvh, 8rem)",
-              overflow: "auto",
-            })}
-          >
-            {apiItems.map((api) => (
-              <Select.Item key={api.value} item={api}>
-                <Select.ItemText>{api.label}</Select.ItemText>
-                <Select.ItemIndicator>
-                  <Check fill="currentcolor" />
-                </Select.ItemIndicator>
-              </Select.Item>
-            ))}
-          </Select.Content>
-        </Select.Positioner>
-      </Select.Root>
-      {selectedApi && <ApiMethodSelect {...props} api={selectedApi} />}
-    </div>
+        Query
+      </Button>
+    </>
   );
 }

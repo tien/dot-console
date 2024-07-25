@@ -7,7 +7,7 @@ import type {
 } from "../types";
 import { PalletSelect } from "./pallet-select";
 import { CodecParam, INCOMPLETE, INVALID, ParamInput, VOID } from "./param";
-import { Button, FormLabel, Select, Text } from "./ui";
+import { Button, Code, FormLabel, Select, Text } from "./ui";
 import Check from "@w3f/polkadot-icons/solid/Check";
 import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
 import { ReactNode, useMemo, useState } from "react";
@@ -60,6 +60,7 @@ function StorageSelect({ pallet, palletSelect, onAddQuery }: StorageFormProps) {
         display: "grid",
         gridTemplateAreas: `
         "pallet storage"
+        "docs   docs"
         "key    key"
         "submit submit"
       `,
@@ -102,8 +103,25 @@ function StorageSelect({ pallet, palletSelect, onAddQuery }: StorageFormProps) {
           </Select.Content>
         </Select.Positioner>
       </Select.Root>
+
       {storage && (
-        <StorageKey pallet={pallet} storage={storage} onAddQuery={onAddQuery} />
+        <>
+          <Code
+            className={css({
+              gridArea: "docs",
+              display: "block",
+              whiteSpace: "wrap",
+              padding: "1rem",
+            })}
+          >
+            {storage.docs.join("\n")}
+          </Code>
+          <StorageKey
+            pallet={pallet}
+            storage={storage}
+            onAddQuery={onAddQuery}
+          />
+        </>
       )}
     </div>
   );

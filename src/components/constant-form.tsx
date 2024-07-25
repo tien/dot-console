@@ -1,6 +1,6 @@
 import type { ConstantQuery, Pallet } from "../types";
 import { PalletSelect } from "./pallet-select";
-import { Button, Select } from "./ui";
+import { Button, Code, Select } from "./ui";
 import Check from "@w3f/polkadot-icons/solid/Check";
 import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
 import { ReactNode, useState } from "react";
@@ -11,6 +11,23 @@ export type ConstantQueryFormProps = {
   palletSelect: ReactNode;
   onAddQuery: (query: ConstantQuery) => void;
 };
+
+export function ConstantQueryForm(
+  props: Omit<ConstantQueryFormProps, "pallet" | "palletSelect">,
+) {
+  return (
+    <PalletSelect filter={(pallet) => pallet.constants.length > 0}>
+      {({ pallet, palletSelect }) => (
+        <_ConstantQueryForm
+          key={pallet.index}
+          pallet={pallet}
+          palletSelect={palletSelect}
+          {...props}
+        />
+      )}
+    </PalletSelect>
+  );
+}
 
 export function _ConstantQueryForm({
   pallet,
@@ -23,7 +40,11 @@ export function _ConstantQueryForm({
     throw new Error("Pallet doesn't contains any constant");
   }
 
-  const [selectedConstant, setSelectedConstant] = useState(defaultConstantName);
+  const [selectedConstantName, setSelectedConstantName] =
+    useState(defaultConstantName);
+  const selectedConstant = pallet.constants.find(
+    (constant) => constant.name === selectedConstantName,
+  );
 
   const constantItems = pallet.constants
     .map((constant) => ({
@@ -38,7 +59,7 @@ export function _ConstantQueryForm({
         display: "grid",
         gridTemplateAreas: `
         "pallet storage"
-        "key    key"
+        "docs   docs"
         "submit submit"
       `,
         gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)",
@@ -48,8 +69,8 @@ export function _ConstantQueryForm({
       {palletSelect}
       <Select.Root
         items={constantItems}
-        value={[selectedConstant]}
-        onValueChange={(event) => setSelectedConstant(event.value.at(0)!)}
+        value={[selectedConstantName]}
+        onValueChange={(event) => setSelectedConstantName(event.value.at(0)!)}
         positioning={{ fitViewport: true, sameWidth: true }}
         className={css({ gridArea: "storage" })}
       >
@@ -80,12 +101,24 @@ export function _ConstantQueryForm({
           </Select.Content>
         </Select.Positioner>
       </Select.Root>
+      {selectedConstant && (
+        <Code
+          className={css({
+            gridArea: "docs",
+            display: "block",
+            whiteSpace: "wrap",
+            padding: "1rem",
+          })}
+        >
+          {selectedConstant.docs.join("\n")}
+        </Code>
+      )}
       <Button
         onClick={() =>
           onAddQuery({
             type: "constant",
             pallet: pallet.name,
-            constant: selectedConstant,
+            constant: selectedConstantName,
           })
         }
         className={css({ gridArea: "submit" })}
@@ -93,22 +126,5 @@ export function _ConstantQueryForm({
         Query
       </Button>
     </div>
-  );
-}
-
-export function ConstantQueryForm(
-  props: Omit<ConstantQueryFormProps, "pallet" | "palletSelect">,
-) {
-  return (
-    <PalletSelect filter={(pallet) => pallet.constants.length > 0}>
-      {({ pallet, palletSelect }) => (
-        <_ConstantQueryForm
-          key={pallet.index}
-          pallet={pallet}
-          palletSelect={palletSelect}
-          {...props}
-        />
-      )}
-    </PalletSelect>
   );
 }
