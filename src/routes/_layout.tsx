@@ -1,7 +1,11 @@
-import { Button, Heading, Progress, Select } from "../components/ui";
+import { Button, Heading, Link, Progress, Select } from "../components/ui";
 import type { ChainId } from "@reactive-dot/core";
 import { ReDotChainProvider } from "@reactive-dot/react";
-import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
+import {
+  createFileRoute,
+  Link as RouterLink,
+  Outlet,
+} from "@tanstack/react-router";
 import Check from "@w3f/polkadot-icons/solid/Check";
 import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
 import { Suspense, useState } from "react";
@@ -34,17 +38,42 @@ function Layout() {
           borderBottom: "1px solid currentcolor",
         })}
       >
-        <Heading as="h1" size="2xl">
-          📟 ĐÓTConsole
-        </Heading>
-        <nav
+        <RouterLink to="/">
+          <Heading as="h1" size="2xl">
+            📟 ĐÓTConsole
+          </Heading>
+        </RouterLink>
+        <div
           className={css({
             display: "flex",
-            alignItems: "center",
-            gap: "1.5rem",
+            gap: "1rem",
           })}
         >
+          <nav
+            className={css({
+              display: "flex",
+              gap: "1.5rem",
+            })}
+          >
+            <Link asChild>
+              <RouterLink
+                to="/query"
+                activeProps={{ className: css({ color: "accent.default" }) }}
+              >
+                Query
+              </RouterLink>
+            </Link>
+            <Link asChild>
+              <RouterLink
+                to="/extrinsic"
+                activeProps={{ className: css({ color: "accent.default" }) }}
+              >
+                Extrinsic
+              </RouterLink>
+            </Link>
+          </nav>
           <Select.Root
+            variant="ghost"
             items={chainIds}
             // @ts-expect-error TODO: https://github.com/cschroeter/park-ui/issues/351
             itemToString={(chainId) => chainId}
@@ -59,6 +88,12 @@ function Layout() {
               }
             }}
             positioning={{ fitViewport: true, sameWidth: true }}
+            width={140}
+            className={css({
+              borderRightWidth: 1,
+              borderLeftWidth: 1,
+              padding: "0 0.5rem",
+            })}
           >
             <Select.Control>
               <Select.Trigger>
@@ -86,24 +121,8 @@ function Layout() {
               </Select.Content>
             </Select.Positioner>
           </Select.Root>
-          <Button variant="ghost" asChild>
-            <Link
-              to="/query"
-              activeProps={{ className: css({ color: "accent.default" }) }}
-            >
-              Query
-            </Link>
-          </Button>
-          <Button variant="ghost" asChild>
-            <Link
-              to="/extrinsic"
-              activeProps={{ className: css({ color: "accent.default" }) }}
-            >
-              Extrinsic
-            </Link>
-          </Button>
-        </nav>
-        <dc-connection-button />
+          <dc-connection-button />
+        </div>
       </header>
       <main className={css({ display: "contents" })}>
         <ReDotChainProvider key={chainId} chainId={chainId}>
