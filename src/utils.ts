@@ -39,6 +39,10 @@ export function unbinary(data: unknown): unknown {
     return data;
   }
 
+  if (Array.isArray(data)) {
+    return data.map(unbinary);
+  }
+
   return Object.fromEntries(
     Object.entries(data).map(([key, value]) => [key, unbinary(value)] as const),
   );
