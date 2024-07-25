@@ -1,9 +1,10 @@
 import type { Query } from "../types";
 import { stringifyCodec, unbinary } from "../utils";
 import { Card, Code, FormLabel, IconButton } from "./ui";
-import { useLazyLoadQuery } from "@reactive-dot/react";
+import { useLazyLoadQueryWithRefresh } from "@reactive-dot/react";
 import Close from "@w3f/polkadot-icons/solid/Close";
-import { useMemo } from "react";
+import Refresh from "@w3f/polkadot-icons/solid/RefreshRedo";
+import { useMemo, useTransition } from "react";
 import JsonView from "react18-json-view";
 import { css } from "styled-system/css";
 
@@ -25,7 +26,7 @@ export function QueryResult({ query, onDelete }: StorageQueryResultProps) {
     }
   }, [query]);
 
-  const result = useLazyLoadQuery((builder) => {
+  const [result, refresh] = useLazyLoadQueryWithRefresh((builder) => {
     switch (query.type) {
       case "constant":
         return builder.getConstant(
@@ -56,6 +57,9 @@ export function QueryResult({ query, onDelete }: StorageQueryResultProps) {
         );
     }
   });
+
+  const refreshable = query.type === "api" || query.type === "storage-entries";
+  const [isRefreshing, startRefreshTransition] = useTransition();
 
   const unwrappedQueryArgs =
     queryArgs.length === 1 ? queryArgs.at(0) : queryArgs;
@@ -95,9 +99,20 @@ export function QueryResult({ query, onDelete }: StorageQueryResultProps) {
                 return "Runtime API";
             }
           }, [query.type])}
-          <IconButton variant="ghost" onClick={() => onDelete()}>
-            <Close fill="currentcolor" />
-          </IconButton>
+          <div className={css({ display: "flex", gap: "0.5rem" })}>
+            {refreshable && (
+              <IconButton
+                variant="ghost"
+                disabled={isRefreshing}
+                onClick={() => startRefreshTransition(() => refresh())}
+              >
+                <Refresh fill="currentcolor" />
+              </IconButton>
+            )}
+            <IconButton variant="ghost" onClick={() => onDelete()}>
+              <Close fill="currentcolor" />
+            </IconButton>
+          </div>
         </Card.Title>
         <Card.Description>
           <div
