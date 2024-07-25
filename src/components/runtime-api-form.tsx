@@ -83,20 +83,16 @@ function _ApiMethodSelect({ api, ...props }: ApiMethodSelectProps) {
     (method) => method.name === selectedMethodName,
   );
 
+  const methodItems = methods
+    .map((method) => ({ label: method.name, value: method.name }))
+    .toSorted((a, b) => a.label.localeCompare(b.label));
+
   return (
     <>
       <Select.Root
-        items={methods}
-        // @ts-expect-error TODO: https://github.com/cschroeter/park-ui/issues/351
-        itemToString={(method: RuntimeApiMethod) => method.name}
-        // @ts-expect-error TODO: https://github.com/cschroeter/park-ui/issues/351
-        itemToValue={(method: RuntimeApiMethod) => method.name}
+        items={methodItems}
         value={[selectedMethodName]}
-        onValueChange={(event) => {
-          const method = event.items.at(0) as RuntimeApiMethod;
-
-          setSelectedMethodName(method.name);
-        }}
+        onValueChange={(event) => setSelectedMethodName(event.value.at(0)!)}
         positioning={{ fitViewport: true, sameWidth: true }}
         className={css({ gridArea: "method" })}
       >
@@ -116,16 +112,14 @@ function _ApiMethodSelect({ api, ...props }: ApiMethodSelectProps) {
               overflow: "auto",
             })}
           >
-            {methods
-              .toSorted((a, b) => a.name.localeCompare(b.name))
-              .map((method) => (
-                <Select.Item key={method.name} item={method}>
-                  <Select.ItemText>{method.name}</Select.ItemText>
-                  <Select.ItemIndicator>
-                    <Check fill="currentcolor" />
-                  </Select.ItemIndicator>
-                </Select.Item>
-              ))}
+            {methodItems.map((method) => (
+              <Select.Item key={method.value} item={method}>
+                <Select.ItemText>{method.label}</Select.ItemText>
+                <Select.ItemIndicator>
+                  <Check fill="currentcolor" />
+                </Select.ItemIndicator>
+              </Select.Item>
+            ))}
           </Select.Content>
         </Select.Positioner>
       </Select.Root>
@@ -151,6 +145,10 @@ export function RuntimeApiForm(props: RuntimeApiFormProps) {
   const [selectedApiName, setSelectedApiName] = useState(apis.at(0)!.name);
   const selectedApi = apis.find((api) => api.name === selectedApiName);
 
+  const apiItems = apis
+    .map((api) => ({ label: api.name, value: api.name }))
+    .toSorted((a, b) => a.label.localeCompare(b.label));
+
   return (
     <div
       className={css({
@@ -165,17 +163,9 @@ export function RuntimeApiForm(props: RuntimeApiFormProps) {
       })}
     >
       <Select.Root
-        items={apis}
-        // @ts-expect-error TODO: https://github.com/cschroeter/park-ui/issues/351
-        itemToString={(api: RuntimeApi) => api.name}
-        // @ts-expect-error TODO: https://github.com/cschroeter/park-ui/issues/351
-        itemToValue={(api: RuntimeApi) => api.name}
+        items={apiItems}
         value={[selectedApiName]}
-        onValueChange={(event) => {
-          const api = event.items.at(0) as RuntimeApi;
-
-          setSelectedApiName(api.name);
-        }}
+        onValueChange={(event) => setSelectedApiName(event.value.at(0)!)}
         positioning={{ fitViewport: true, sameWidth: true }}
         className={css({ gridArea: "api" })}
       >
@@ -195,16 +185,14 @@ export function RuntimeApiForm(props: RuntimeApiFormProps) {
               overflow: "auto",
             })}
           >
-            {apis
-              .toSorted((a, b) => a.name.localeCompare(b.name))
-              .map((api) => (
-                <Select.Item key={api.name} item={api}>
-                  <Select.ItemText>{api.name}</Select.ItemText>
-                  <Select.ItemIndicator>
-                    <Check fill="currentcolor" />
-                  </Select.ItemIndicator>
-                </Select.Item>
-              ))}
+            {apiItems.map((api) => (
+              <Select.Item key={api.value} item={api}>
+                <Select.ItemText>{api.label}</Select.ItemText>
+                <Select.ItemIndicator>
+                  <Check fill="currentcolor" />
+                </Select.ItemIndicator>
+              </Select.Item>
+            ))}
           </Select.Content>
         </Select.Positioner>
       </Select.Root>

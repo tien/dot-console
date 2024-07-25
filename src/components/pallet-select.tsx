@@ -24,22 +24,20 @@ export function PalletSelect({ filter, children }: PalletSelectProps) {
 
   const [selectedPallet, setSelectedPallet] = useState(defaultPallet.index);
 
+  const palletItems = pallets
+    .map((pallet) => ({ label: pallet.name, value: pallet.index }))
+    .toSorted((a, b) => a.label.localeCompare(b.label));
+
   return children({
     pallet: pallets.find((pallet) => pallet.index === selectedPallet)!,
     palletSelect: (
       <Select.Root
-        items={pallets}
-        // @ts-expect-error TODO: https://github.com/cschroeter/park-ui/issues/351
-        itemToString={(pallet: Pallet) => pallet.name}
-        // @ts-expect-error TODO: https://github.com/cschroeter/park-ui/issues/351
-        itemToValue={(pallet: Pallet) => pallet.index}
+        items={palletItems}
         // @ts-expect-error ark-ui type error
         value={[selectedPallet]}
-        onValueChange={(event) => {
-          const pallet = event.items.at(0) as Pallet;
-
-          setSelectedPallet(pallet.index);
-        }}
+        onValueChange={(event) =>
+          setSelectedPallet(event.value.at(0) as unknown as number)
+        }
         positioning={{ fitViewport: true, sameWidth: true }}
         className={css({ gridArea: "pallet" })}
       >
@@ -59,16 +57,14 @@ export function PalletSelect({ filter, children }: PalletSelectProps) {
               overflow: "auto",
             })}
           >
-            {pallets
-              .toSorted((a, b) => a.name.localeCompare(b.name))
-              .map((pallet) => (
-                <Select.Item key={pallet.index} item={pallet}>
-                  <Select.ItemText>{pallet.name}</Select.ItemText>
-                  <Select.ItemIndicator>
-                    <Check fill="currentcolor" />
-                  </Select.ItemIndicator>
-                </Select.Item>
-              ))}
+            {palletItems.map((pallet) => (
+              <Select.Item key={pallet.value} item={pallet}>
+                <Select.ItemText>{pallet.label}</Select.ItemText>
+                <Select.ItemIndicator>
+                  <Check fill="currentcolor" />
+                </Select.ItemIndicator>
+              </Select.Item>
+            ))}
           </Select.Content>
         </Select.Positioner>
       </Select.Root>

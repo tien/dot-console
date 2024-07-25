@@ -1,4 +1,4 @@
-import type { Constant, ConstantQuery, Pallet } from "../types";
+import type { ConstantQuery, Pallet } from "../types";
 import { PalletSelect } from "./pallet-select";
 import { Button, Select } from "./ui";
 import Check from "@w3f/polkadot-icons/solid/Check";
@@ -25,6 +25,13 @@ export function _ConstantQueryForm({
 
   const [selectedConstant, setSelectedConstant] = useState(defaultConstantName);
 
+  const constantItems = pallet.constants
+    .map((constant) => ({
+      label: constant.name,
+      value: constant.name,
+    }))
+    .toSorted((a, b) => a.label.localeCompare(b.label));
+
   return (
     <div
       className={css({
@@ -40,17 +47,9 @@ export function _ConstantQueryForm({
     >
       {palletSelect}
       <Select.Root
-        items={pallet.constants}
-        // @ts-expect-error TODO: https://github.com/cschroeter/park-ui/issues/351
-        itemToString={(constant: Constant) => constant.name}
-        // @ts-expect-error TODO: https://github.com/cschroeter/park-ui/issues/351
-        itemToValue={(constant: Constant) => constant.name}
+        items={constantItems}
         value={[selectedConstant]}
-        onValueChange={(event) => {
-          const constant = event.items.at(0) as Constant;
-
-          setSelectedConstant(constant.name);
-        }}
+        onValueChange={(event) => setSelectedConstant(event.value.at(0)!)}
         positioning={{ fitViewport: true, sameWidth: true }}
         className={css({ gridArea: "storage" })}
       >
@@ -70,16 +69,14 @@ export function _ConstantQueryForm({
               overflow: "auto",
             })}
           >
-            {pallet.constants
-              .toSorted((a, b) => a.name.localeCompare(b.name))
-              .map((constant) => (
-                <Select.Item key={constant.name} item={constant}>
-                  <Select.ItemText>{constant.name}</Select.ItemText>
-                  <Select.ItemIndicator>
-                    <Check fill="currentcolor" />
-                  </Select.ItemIndicator>
-                </Select.Item>
-              ))}
+            {constantItems.map((constant) => (
+              <Select.Item key={constant.value} item={constant}>
+                <Select.ItemText>{constant.label}</Select.ItemText>
+                <Select.ItemIndicator>
+                  <Check fill="currentcolor" />
+                </Select.ItemIndicator>
+              </Select.Item>
+            ))}
           </Select.Content>
         </Select.Positioner>
       </Select.Root>

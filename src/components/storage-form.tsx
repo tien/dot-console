@@ -55,15 +55,18 @@ function _StorageQueryForm({
 }: StorageQueryFormProps) {
   const [key, setKey] = useState<ParamInput<unknown>>(INCOMPLETE);
 
-  const storageItems = pallet.storage!.items;
+  const storages = pallet.storage!.items;
 
-  const [selectedStorage, setSelectedStorage] = useState(
-    storageItems.at(0)!.name,
-  );
+  const [selectedStorage, setSelectedStorage] = useState(storages.at(0)!.name);
 
-  const storage = storageItems.find(
-    (storage) => storage.name === selectedStorage,
-  );
+  const storage = storages.find((storage) => storage.name === selectedStorage);
+
+  const storageItems = storages
+    .map((storage) => ({
+      label: storage.name,
+      value: storage.name,
+    }))
+    .toSorted((a, b) => a.label.localeCompare(b.label));
 
   return (
     <div
@@ -80,17 +83,9 @@ function _StorageQueryForm({
     >
       {palletSelect}
       <Select.Root
-        items={pallet.storage!.items}
-        // @ts-expect-error TODO: https://github.com/cschroeter/park-ui/issues/351
-        itemToString={(storage: Storage) => storage.name}
-        // @ts-expect-error TODO: https://github.com/cschroeter/park-ui/issues/351
-        itemToValue={(storage: Storage) => storage.name}
+        items={storageItems}
         value={[selectedStorage]}
-        onValueChange={(event) => {
-          const storage = event.items.at(0) as Storage;
-
-          setSelectedStorage(storage.name);
-        }}
+        onValueChange={(event) => setSelectedStorage(event.value.at(0)!)}
         positioning={{ fitViewport: true, sameWidth: true }}
         className={css({ gridArea: "storage" })}
       >
@@ -110,16 +105,14 @@ function _StorageQueryForm({
               overflow: "auto",
             })}
           >
-            {pallet
-              .storage!.items.toSorted((a, b) => a.name.localeCompare(b.name))
-              .map((storage) => (
-                <Select.Item key={storage.name} item={storage}>
-                  <Select.ItemText>{storage.name}</Select.ItemText>
-                  <Select.ItemIndicator>
-                    <Check fill="currentcolor" />
-                  </Select.ItemIndicator>
-                </Select.Item>
-              ))}
+            {storageItems.map((storage) => (
+              <Select.Item key={storage.value} item={storage}>
+                <Select.ItemText>{storage.label}</Select.ItemText>
+                <Select.ItemIndicator>
+                  <Check fill="currentcolor" />
+                </Select.ItemIndicator>
+              </Select.Item>
+            ))}
           </Select.Content>
         </Select.Positioner>
       </Select.Root>
