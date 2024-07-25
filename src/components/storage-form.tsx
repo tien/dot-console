@@ -7,7 +7,7 @@ import type {
 } from "../types";
 import { PalletSelect } from "./pallet-select";
 import { CodecParam, INCOMPLETE, INVALID, ParamInput, VOID } from "./param";
-import { Button, FormLabel, Select } from "./ui";
+import { Button, FormLabel, Select, Text } from "./ui";
 import Check from "@w3f/polkadot-icons/solid/Check";
 import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
 import { ReactNode, useMemo, useState } from "react";
@@ -185,9 +185,8 @@ function _StorageKey({ pallet, storage, onAddQuery }: StorageKeyProps) {
           <div>
             <FormLabel>Storage key</FormLabel>
             {maxKeyLength !== undefined && (
-              <span>
-                <br />
-                by{" "}
+              <Text as="div" size="sm">
+                {isEntriesQuery ? "All entries" : "One entry"} matching{" "}
                 <select
                   value={keyLength}
                   onChange={(event) =>
@@ -196,12 +195,13 @@ function _StorageKey({ pallet, storage, onAddQuery }: StorageKeyProps) {
                 >
                   {Array.from({ length: maxKeyLength + 1 }).map((_, index) => (
                     <option key={index} value={index}>
-                      {index}
+                      {index === maxKeyLength ? "all" : index}
                     </option>
                   ))}
                 </select>{" "}
-                element{keyLength > 1 ? "s" : ""}
-              </span>
+                key argument
+                {keyLength > 1 || keyLength === maxKeyLength ? "s" : ""}
+              </Text>
             )}
           </div>
           {keyLength > 0 && (
