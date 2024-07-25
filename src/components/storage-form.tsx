@@ -60,9 +60,9 @@ function StorageSelect({ pallet, palletSelect, onAddQuery }: StorageFormProps) {
         display: "grid",
         gridTemplateAreas: `
         "pallet storage"
-        "docs   docs"
         "key    key"
         "submit submit"
+        "docs   docs"
       `,
         gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)",
         gap: "1rem",
@@ -110,7 +110,7 @@ function StorageSelect({ pallet, palletSelect, onAddQuery }: StorageFormProps) {
             className={css({
               gridArea: "docs",
               display: "block",
-              whiteSpace: "wrap",
+              whiteSpace: "pre-wrap",
               padding: "1rem",
             })}
           >

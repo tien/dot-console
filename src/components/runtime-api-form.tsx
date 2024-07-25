@@ -29,9 +29,9 @@ export function RuntimeApiForm(props: RuntimeApiFormProps) {
         display: "grid",
         gridTemplateAreas: `
           "api    method"
-          "docs   docs"
           "args   args"
           "submit submit"
+          "docs   docs"
         `,
         gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)",
         gap: "1rem",
@@ -135,7 +135,7 @@ function _ApiMethodSelect({ api, ...props }: ApiMethodSelectProps) {
           className={css({
             gridArea: "docs",
             display: "block",
-            whiteSpace: "wrap",
+            whiteSpace: "pre-wrap",
             padding: "1rem",
           })}
         >

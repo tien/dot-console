@@ -59,8 +59,8 @@ export function _ConstantQueryForm({
         display: "grid",
         gridTemplateAreas: `
         "pallet storage"
-        "docs   docs"
         "submit submit"
+        "docs   docs"
       `,
         gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)",
         gap: "1rem",
@@ -106,7 +106,7 @@ export function _ConstantQueryForm({
           className={css({
             gridArea: "docs",
             display: "block",
-            whiteSpace: "wrap",
+            whiteSpace: "pre-wrap",
             padding: "1rem",
           })}
         >
