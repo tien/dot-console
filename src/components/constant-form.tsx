@@ -116,6 +116,7 @@ export function _ConstantQueryForm({
       <Button
         onClick={() =>
           onAddQuery({
+            id: globalThis.crypto.randomUUID(),
             type: "constant",
             pallet: pallet.name,
             constant: selectedConstantName,

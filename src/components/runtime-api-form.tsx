@@ -204,7 +204,13 @@ function _ApiMethodArguments({
       <Button
         disabled={parsedArgs === INVALID || parsedArgs === INCOMPLETE}
         onClick={() =>
-          onAddQuery({ type: "api", api: api.name, method: method.name, args })
+          onAddQuery({
+            id: globalThis.crypto.randomUUID(),
+            type: "api",
+            api: api.name,
+            method: method.name,
+            args,
+          })
         }
         className={css({ gridArea: "submit" })}
       >

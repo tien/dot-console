@@ -246,6 +246,7 @@ function _StorageKey({ pallet, storage, onAddQuery }: StorageKeyProps) {
         }
         onClick={() =>
           onAddQuery({
+            id: globalThis.crypto.randomUUID(),
             type: isEntriesQuery ? "storage-entries" : "storage",
             pallet: pallet.name,
             storage: storage.name,

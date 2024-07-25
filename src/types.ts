@@ -21,28 +21,29 @@ export type RuntimeApi = Metadata["apis"][number];
 
 export type RuntimeApiMethod = RuntimeApi["methods"][number];
 
-export type ConstantQuery = {
-  type: "constant";
+type BaseQuery<T> = {
+  id: `${string}-${string}-${string}-${string}-${string}`;
+  type: T;
+};
+
+export type ConstantQuery = BaseQuery<"constant"> & {
   pallet: string;
   constant: string;
 };
 
-export type StorageQuery = {
-  type: "storage";
+export type StorageQuery = BaseQuery<"storage"> & {
   pallet: string;
   storage: string;
   key: unknown[];
 };
 
-export type StorageEntriesQuery = {
-  type: "storage-entries";
+export type StorageEntriesQuery = BaseQuery<"storage-entries"> & {
   pallet: string;
   storage: string;
   key: unknown[];
 };
 
-export type RuntimeApiQuery = {
-  type: "api";
+export type RuntimeApiQuery = BaseQuery<"api"> & {
   api: string;
   method: string;
   args: unknown[];

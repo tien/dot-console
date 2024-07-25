@@ -126,9 +126,9 @@ function QueryPage() {
               gap: "1rem",
             })}
           >
-            {queries.toReversed().map((query, index) => (
+            {queries.toReversed().map((query) => (
               <Suspense
-                key={index}
+                key={query.id}
                 fallback={<Progress type="linear" value={null} />}
               >
                 <QueryResult
@@ -136,7 +136,12 @@ function QueryPage() {
                   onDelete={() =>
                     setQueries((queries) =>
                       queries
-                        .with(index, undefined as unknown as Query)
+                        .with(
+                          queries.findIndex(
+                            (stateQuery) => stateQuery.id === query.id,
+                          ),
+                          undefined as unknown as Query,
+                        )
                         .filter((query) => query !== undefined),
                     )
                   }
