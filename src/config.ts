@@ -14,27 +14,30 @@ export const config = {
   chains: {
     polkadot: {
       descriptor: polkadot,
-      provider: getSmProvider(
-        import("polkadot-api/chains/polkadot").then(({ chainSpec }) =>
-          smoldotPromise.addChain({ chainSpec }),
+      provider: () =>
+        getSmProvider(
+          import("polkadot-api/chains/polkadot").then(({ chainSpec }) =>
+            smoldotPromise.addChain({ chainSpec }),
+          ),
         ),
-      ),
     },
     kusama: {
       descriptor: kusama,
-      provider: getSmProvider(
-        import("polkadot-api/chains/ksmcc3").then(({ chainSpec }) =>
-          smoldotPromise.addChain({ chainSpec }),
+      provider: () =>
+        getSmProvider(
+          import("polkadot-api/chains/ksmcc3").then(({ chainSpec }) =>
+            smoldotPromise.addChain({ chainSpec }),
+          ),
         ),
-      ),
     },
     paseo: {
       descriptor: paseo,
-      provider: getSmProvider(
-        import("polkadot-api/chains/paseo").then(({ chainSpec }) =>
-          smoldotPromise.addChain({ chainSpec }),
+      provider: () =>
+        getSmProvider(
+          import("polkadot-api/chains/paseo").then(({ chainSpec }) =>
+            smoldotPromise.addChain({ chainSpec }),
+          ),
         ),
-      ),
     },
   },
   wallets: [new InjectedWalletAggregator()],
