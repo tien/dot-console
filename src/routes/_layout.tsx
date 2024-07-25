@@ -25,9 +25,7 @@ function Layout() {
       className={css({
         display: "flex",
         flexDirection: "column",
-        "@media(min-width: 68rem)": {
-          height: "100dvh",
-        },
+        minHeight: "100dvh",
       })}
     >
       <header
