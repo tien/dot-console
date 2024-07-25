@@ -61,7 +61,7 @@ function _SequenceParam<T>({ sequence, onChangeValue }: SequenceParamProps<T>) {
         <Button onClick={increaseLength}>
           Add item <Icon name="Add" variant="solid" fill="currentcolor" />
         </Button>
-        <Button onClick={decreaseLength}>
+        <Button onClick={decreaseLength} disabled={length === 0}>
           Remove item <Icon name="Remove" variant="solid" fill="currentcolor" />
         </Button>
       </div>
