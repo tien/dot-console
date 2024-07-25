@@ -16,7 +16,19 @@ export function AccountIdParam({
   onChangeValue,
 }: AccountIdParamProps) {
   const accounts = useAccounts();
+  const [account, setAccount] = useState(accounts.at(0));
+
   const [useCustom, setUseCustom] = useState(accounts.length === 0);
+
+  useEffect(
+    () => {
+      if (account !== undefined) {
+        onChangeValue(account.address);
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [account],
+  );
 
   return (
     <section
@@ -38,14 +50,11 @@ export function AccountIdParam({
           onChangeValue={onChangeValue}
         />
       ) : (
-        // TODO: refactor `AccountSelect` to also provide a controlled component instead
-        <AccountSelect>
-          {({ account, accountSelect }) => {
-            onChangeValue(account?.address ?? INCOMPLETE);
-
-            return accountSelect;
-          }}
-        </AccountSelect>
+        <AccountSelect
+          accounts={accounts}
+          account={account}
+          onChangeAccount={setAccount}
+        />
       )}
     </section>
   );
