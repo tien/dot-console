@@ -45,15 +45,15 @@ export function StructParam<T extends Record<string, unknown>>({
   return (
     <>
       {Object.entries(structVar.value).map(([key, value]) => (
-        <FormLabel key={key}>
-          {key}
+        <section key={key}>
+          <FormLabel>{key}</FormLabel>
           <CodecParam
             variable={value}
             onChangeValue={(value) =>
               setStruct((struct) => ({ ...struct, [key]: value }))
             }
           />
-        </FormLabel>
+        </section>
       ))}
     </>
   );

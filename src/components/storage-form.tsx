@@ -117,7 +117,7 @@ function _StorageQueryForm({
         </Select.Positioner>
       </Select.Root>
       {storage && (
-        <FormLabel
+        <section
           className={css({
             gridArea: "key",
             "&:has(> div:empty)": {
@@ -125,11 +125,11 @@ function _StorageQueryForm({
             },
           })}
         >
-          Storage key
+          <FormLabel>Storage key</FormLabel>
           <div className={css({ display: "contents" })}>
             <StorageKey storage={storage} onChangeKey={setKey} />
           </div>
-        </FormLabel>
+        </section>
       )}
       <Button
         disabled={key === INVALID || key === INCOMPLETE}

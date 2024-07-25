@@ -19,14 +19,19 @@ export function AccountIdParam({
   const [useCustom, setUseCustom] = useState(accounts.length === 0);
 
   return (
-    // TODO: some weird bug where inner input will trigger switch, need to inverse order for some reason
     <section
       className={css({
         display: "flex",
-        flexDirection: "column-reverse",
+        flexDirection: "column",
         gap: "0.5rem",
       })}
     >
+      <Switch
+        checked={useCustom}
+        onCheckedChange={(event) => setUseCustom(event.checked)}
+      >
+        Use custom account
+      </Switch>
       {useCustom ? (
         <CustomAccountParam
           accountId={accountId}
@@ -42,12 +47,6 @@ export function AccountIdParam({
           }}
         </AccountSelect>
       )}
-      <Switch
-        checked={useCustom}
-        onCheckedChange={(event) => setUseCustom(event.checked)}
-      >
-        Use custom account
-      </Switch>
     </section>
   );
 }

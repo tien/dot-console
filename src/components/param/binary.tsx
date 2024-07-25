@@ -11,25 +11,24 @@ export function BinaryParam({ onChangeValue }: BinaryParamProps) {
   const [useFileUpload, setUseFileUpload] = useState(false);
 
   return (
-    // TODO: some weird bug where inner input will trigger switch, need to inverse order for some reason
     <section
       className={css({
         display: "flex",
-        flexDirection: "column-reverse",
+        flexDirection: "column",
         gap: "0.5rem",
       })}
     >
-      {useFileUpload ? (
-        <FileUploadBinaryParam onChangeValue={onChangeValue} />
-      ) : (
-        <TextBinaryParam onChangeValue={onChangeValue} />
-      )}
       <Switch
         checked={useFileUpload}
         onCheckedChange={(event) => setUseFileUpload(event.checked)}
       >
         File upload
       </Switch>
+      {useFileUpload ? (
+        <FileUploadBinaryParam onChangeValue={onChangeValue} />
+      ) : (
+        <TextBinaryParam onChangeValue={onChangeValue} />
+      )}
     </section>
   );
 }
