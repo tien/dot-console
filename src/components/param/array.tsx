@@ -9,6 +9,18 @@ export type ArrayParamProps<T> = ParamProps<T[]> & {
   array: ArrayVar;
 };
 
+export function ArrayParam<T>(props: ArrayParamProps<T>) {
+  if (
+    props.array.value.type === "primitive" &&
+    props.array.value.value === "u8"
+  ) {
+    // @ts-expect-error TODO: Improve typing
+    return <BinaryParam onChangeValue={props.onChangeValue as unknown} />;
+  }
+
+  return <_ArrayParam {...props} />;
+}
+
 export function _ArrayParam<T>({
   array: arrayVar,
   onChangeValue,
@@ -54,16 +66,4 @@ export function _ArrayParam<T>({
       ))}
     </div>
   );
-}
-
-export function ArrayParam<T>(props: ArrayParamProps<T>) {
-  if (
-    props.array.value.type === "primitive" &&
-    props.array.value.value === "u8"
-  ) {
-    // @ts-expect-error TODO: Improve typing
-    return <BinaryParam onChangeValue={props.onChangeValue as unknown} />;
-  }
-
-  return <_ArrayParam {...props} />;
 }

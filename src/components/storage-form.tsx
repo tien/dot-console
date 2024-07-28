@@ -147,14 +147,25 @@ function _StorageKey({ pallet, storage, onAddQuery }: StorageKeyProps) {
 
   const [key, setKey] = useState<ParamInput<unknown>>(INCOMPLETE);
 
-  const maxKeyLength =
-    keyLookup === undefined
-      ? undefined
-      : keyLookup.type === "tuple"
-        ? keyLookup.value.length
-        : keyLookup.type === "array"
-          ? keyLookup.len
-          : 1;
+  const maxKeyLength = useMemo(() => {
+    switch (keyLookup?.type) {
+      case undefined:
+        return undefined;
+      case "tuple":
+        return keyLookup.value.every(
+          (value) => value.type === "primitive" && value.value === "u8",
+        )
+          ? 1
+          : keyLookup.value.length;
+      case "array":
+        return keyLookup.value.type === "primitive" &&
+          keyLookup.value.value === "u8"
+          ? 1
+          : keyLookup.len;
+      default:
+        return 1;
+    }
+  }, [keyLookup]);
 
   const [keyLength, setKeyLength] = useState(maxKeyLength ?? 0);
 

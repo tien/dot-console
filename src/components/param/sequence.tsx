@@ -11,6 +11,18 @@ export type SequenceParamProps<T> = ParamProps<T[]> & {
   sequence: SequenceVar;
 };
 
+export function SequenceParam<T>({
+  sequence,
+  onChangeValue,
+}: SequenceParamProps<T>) {
+  if (sequence.value.type === "primitive" && sequence.value.value === "u8") {
+    // @ts-expect-error TODO: improve typing
+    return <BinaryParam onChangeValue={onChangeValue} />;
+  }
+
+  return <_SequenceParam sequence={sequence} onChangeValue={onChangeValue} />;
+}
+
 function _SequenceParam<T>({ sequence, onChangeValue }: SequenceParamProps<T>) {
   const [length, setLength] = useState(1);
   const [values, setValues] = useState(
@@ -76,16 +88,4 @@ function _SequenceParam<T>({ sequence, onChangeValue }: SequenceParamProps<T>) {
       ))}
     </div>
   );
-}
-
-export function SequenceParam<T>({
-  sequence,
-  onChangeValue,
-}: SequenceParamProps<T>) {
-  if (sequence.value.type === "primitive" && sequence.value.value === "u8") {
-    // @ts-expect-error TODO: improve typing
-    return <BinaryParam onChangeValue={onChangeValue} />;
-  }
-
-  return <_SequenceParam sequence={sequence} onChangeValue={onChangeValue} />;
 }

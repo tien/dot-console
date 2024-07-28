@@ -8,6 +8,22 @@ export type TupleParamProps<T extends Array<unknown>> = ParamProps<T> & {
   tuple: TupleVar;
 };
 
+export function TupleParam<T extends Array<unknown>>(
+  props: TupleParamProps<T>,
+) {
+  if (
+    props.tuple.value.every(
+      (lookupEntry) =>
+        lookupEntry.type === "primitive" && lookupEntry.value === "u8",
+    )
+  ) {
+    // @ts-expect-error TODO: Improve typing
+    return <BinaryParam onChangeValue={props.onChangeValue as unknown} />;
+  }
+
+  return <_TupleParam {...props} />;
+}
+
 export function _TupleParam<T extends Array<unknown>>({
   tuple: tupleVar,
   onChangeValue,
@@ -47,20 +63,4 @@ export function _TupleParam<T extends Array<unknown>>({
       ))}
     </>
   );
-}
-
-export function TupleParam<T extends Array<unknown>>(
-  props: TupleParamProps<T>,
-) {
-  if (
-    props.tuple.value.every(
-      (lookupEntry) =>
-        lookupEntry.type === "primitive" && lookupEntry.value === "u8",
-    )
-  ) {
-    // @ts-expect-error TODO: Improve typing
-    return <BinaryParam onChangeValue={props.onChangeValue as unknown} />;
-  }
-
-  return <_TupleParam {...props} />;
 }
