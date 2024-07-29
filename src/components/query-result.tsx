@@ -1,11 +1,11 @@
 import type { Query } from "../types";
-import { stringifyCodec, unbinary } from "../utils";
+import { stringifyCodec } from "../utils";
+import { CodecView } from "./codec-view";
 import { Card, Code, FormLabel, IconButton } from "./ui";
 import { useLazyLoadQueryWithRefresh } from "@reactive-dot/react";
 import Close from "@w3f/polkadot-icons/solid/Close";
 import Refresh from "@w3f/polkadot-icons/solid/RefreshRedo";
 import { useMemo, useTransition } from "react";
-import JsonView from "react18-json-view";
 import { css } from "styled-system/css";
 
 type StorageQueryResultProps = {
@@ -137,9 +137,7 @@ export function QueryResult({ query, onDelete }: StorageQueryResultProps) {
         <FormLabel className={css({ marginBottom: "0.5rem" })}>
           Result
         </FormLabel>
-        <Code className={css({ display: "block", padding: "0.5rem" })}>
-          <JsonView src={unbinary(result)} theme="atom" dark />
-        </Code>
+        <CodecView value={result} />
       </Card.Body>
     </Card.Root>
   );

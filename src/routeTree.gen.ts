@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as IndexImport } from './routes/index'
+import { Route as LayoutStatisticsImport } from './routes/_layout/statistics'
 import { Route as LayoutQueryImport } from './routes/_layout/query'
 import { Route as LayoutExtrinsicImport } from './routes/_layout/extrinsic'
 
@@ -26,6 +27,11 @@ const LayoutRoute = LayoutImport.update({
 const IndexRoute = IndexImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
+} as any)
+
+const LayoutStatisticsRoute = LayoutStatisticsImport.update({
+  path: '/statistics',
+  getParentRoute: () => LayoutRoute,
 } as any)
 
 const LayoutQueryRoute = LayoutQueryImport.update({
@@ -70,6 +76,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutQueryImport
       parentRoute: typeof LayoutImport
     }
+    '/_layout/statistics': {
+      id: '/_layout/statistics'
+      path: '/statistics'
+      fullPath: '/statistics'
+      preLoaderRoute: typeof LayoutStatisticsImport
+      parentRoute: typeof LayoutImport
+    }
   }
 }
 
@@ -80,6 +93,7 @@ export const routeTree = rootRoute.addChildren({
   LayoutRoute: LayoutRoute.addChildren({
     LayoutExtrinsicRoute,
     LayoutQueryRoute,
+    LayoutStatisticsRoute,
   }),
 })
 
@@ -102,7 +116,8 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_layout.tsx",
       "children": [
         "/_layout/extrinsic",
-        "/_layout/query"
+        "/_layout/query",
+        "/_layout/statistics"
       ]
     },
     "/_layout/extrinsic": {
@@ -111,6 +126,10 @@ export const routeTree = rootRoute.addChildren({
     },
     "/_layout/query": {
       "filePath": "_layout/query.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/statistics": {
+      "filePath": "_layout/statistics.tsx",
       "parent": "/_layout"
     }
   }

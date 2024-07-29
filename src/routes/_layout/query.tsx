@@ -26,10 +26,10 @@ function QueryPage() {
       className={css({
         display: "flex",
         flexDirection: "column",
-        overflow: "hidden",
         "@media(min-width: 68rem)": {
           flex: "1 1 0",
           flexDirection: "row",
+          overflow: "hidden",
         },
       })}
     >

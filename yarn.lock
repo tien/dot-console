@@ -1712,11 +1712,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@reactive-dot/core@npm:^0.3.1":
-  version: 0.3.1
-  resolution: "@reactive-dot/core@npm:0.3.1"
+"@reactive-dot/core@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "@reactive-dot/core@npm:0.4.0"
   dependencies:
-    "@reactive-dot/utils": "npm:^0.3.1"
+    "@reactive-dot/utils": "npm:^0.4.0"
   peerDependencies:
     "@walletconnect/modal": 2.x
     "@walletconnect/universal-provider": 2.x
@@ -1726,27 +1726,27 @@ __metadata:
       optional: true
     "@walletconnect/universal-provider":
       optional: true
-  checksum: 10c0/a26ec2731cfb505ff4158ebb6e5f4d0d8efc38495c7b7cb231e571658d0da007429b990ffc74c698b07eb139702dd282aa76132152dd43147cee7a695db6cae1
+  checksum: 10c0/7ba864cfbb5d0c6f33a47c56787ec812b0765e6a1531738f19254f140d999471c61baf01bda24a8e11aba866dc8eac0ca5271fe65566ba6c2596812353bf6e59
   languageName: node
   linkType: hard
 
-"@reactive-dot/react@npm:^0.3.1":
-  version: 0.3.1
-  resolution: "@reactive-dot/react@npm:0.3.1"
+"@reactive-dot/react@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "@reactive-dot/react@npm:0.4.0"
   dependencies:
-    "@reactive-dot/core": "npm:^0.3.1"
-    jotai: "npm:^2.9.0"
+    "@reactive-dot/core": "npm:^0.4.0"
+    jotai: "npm:^2.9.1"
     jotai-scope: "npm:^0.7.0"
   peerDependencies:
     react: 18.x
-  checksum: 10c0/dc44b2e7aaaf035f8cf73c62b1183fed0b9baf2bd48083a65645659aa34221a7fdc26e4e9af91f639b0685d65e0acf88896b633734474d4434606c8cab35a9db
+  checksum: 10c0/f919393a8ea9ee07fb347d991397c024f7599bbe6529d7430b75a4ef3ba3487f783ee699eeb4e7447a96f0d7ea568fab7c8b2da31d2bc619a149f58a85d938eb
   languageName: node
   linkType: hard
 
-"@reactive-dot/utils@npm:^0.3.1":
-  version: 0.3.1
-  resolution: "@reactive-dot/utils@npm:0.3.1"
-  checksum: 10c0/690b6f05f63ac8f3909aa78d4878f4424e665c6d31a5ecb201ba5b57daa514d52d4ef75ea81bddb8498423a29dec4a51441ecb0ea7d3295930df52e4082cef87
+"@reactive-dot/utils@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "@reactive-dot/utils@npm:0.4.0"
+  checksum: 10c0/55387dee80f9d466878064f52e5487f0c4039f67a88e5f146717d931b9d5a6ebc2c26a57f9e7822e6d8c6fd6534dafb04ded8f0e1f4d41d7761353f8acf2892d
   languageName: node
   linkType: hard
 
@@ -4532,6 +4532,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"date-fns@npm:^3.6.0":
+  version: 3.6.0
+  resolution: "date-fns@npm:3.6.0"
+  checksum: 10c0/0b5fb981590ef2f8e5a3ba6cd6d77faece0ea7f7158948f2eaae7bbb7c80a8f63ae30b01236c2923cf89bb3719c33aeb150c715ea4fe4e86e37dcf06bed42fb6
+  languageName: node
+  linkType: hard
+
 "debug@npm:4, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.4":
   version: 4.3.5
   resolution: "debug@npm:4.3.5"
@@ -4657,7 +4664,7 @@ __metadata:
     "@eslint/js": "npm:^9.7.0"
     "@pandacss/dev": "npm:^0.44.0"
     "@park-ui/panda-preset": "npm:^0.39.0"
-    "@reactive-dot/react": "npm:^0.3.1"
+    "@reactive-dot/react": "npm:^0.4.0"
     "@tanstack/react-router": "npm:^1.45.8"
     "@tanstack/router-devtools": "npm:^1.45.8"
     "@tanstack/router-plugin": "npm:^1.45.8"
@@ -4669,6 +4676,7 @@ __metadata:
     "@types/react-dom": "npm:^18.3.0"
     "@vitejs/plugin-react": "npm:^4.3.1"
     "@w3f/polkadot-icons": "npm:^1.0.0"
+    date-fns: "npm:^3.6.0"
     dot-connect: "npm:^0.2.0"
     eslint: "npm:^9.7.0"
     eslint-plugin-react: "npm:^7.35.0"
@@ -6205,9 +6213,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jotai@npm:^2.9.0":
-  version: 2.9.0
-  resolution: "jotai@npm:2.9.0"
+"jotai@npm:^2.9.1":
+  version: 2.9.1
+  resolution: "jotai@npm:2.9.1"
   peerDependencies:
     "@types/react": ">=17.0.0"
     react: ">=17.0.0"
@@ -6216,7 +6224,7 @@ __metadata:
       optional: true
     react:
       optional: true
-  checksum: 10c0/c5551fb90933bcbc28b11cdb4af681398a12f8eb39a4a49568ec6ce5062c2257dd84a85cbfd7ec7d970d56dfa5023d16a0ec7056bc2697fdf9b3ec94da67c9d1
+  checksum: 10c0/cf3eb74d3400098d65d24f8ded83535917624c8048e2f92a73de3189a2f697f5058542cc95bd1961ca22ef721a908db580daac659c16cc18173b80b3563e4d7c
   languageName: node
   linkType: hard
 
