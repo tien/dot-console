@@ -1,5 +1,5 @@
+import * as ArkNumberInput from "./primitives/number-input";
 import { forwardRef } from "react";
-import { NumberInput as ArkNumberInput } from "~/components/ui/primitives";
 
 export interface NumberInputProps extends ArkNumberInput.RootProps {}
 

@@ -1,7 +1,7 @@
 "use client";
 
+import * as ArkTreeView from "./primitives/tree-view";
 import { forwardRef } from "react";
-import { TreeView as ArkTreeView } from "~/components/ui/primitives";
 
 interface Child {
   value: string;

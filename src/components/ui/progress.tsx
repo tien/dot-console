@@ -1,5 +1,5 @@
+import * as ArkProgress from "./primitives/progress";
 import { forwardRef } from "react";
-import { Progress as ArkProgress } from "~/components/ui/primitives";
 
 export interface ProgressProps extends ArkProgress.RootProps {
   /**

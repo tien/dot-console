@@ -1,0 +1,18 @@
+{
+  "version": 0,
+  "descriptorPath": ".papi/descriptors",
+  "entries": {
+    "polkadot": {
+      "chain": "polkadot",
+      "metadata": "polkadot.scale"
+    },
+    "kusama": {
+      "chain": "ksmcc3",
+      "metadata": "kusama.scale"
+    },
+    "paseo": {
+      "chain": "paseo",
+      "metadata": "paseo.scale"
+    }
+  }
+}

@@ -1,7 +1,7 @@
 "use client";
 
+import * as ArkSlider from "./primitives/slider";
 import { type ReactNode, forwardRef } from "react";
-import { Slider as ArkSlider } from "~/components/ui/primitives";
 
 export interface SliderProps extends ArkSlider.RootProps {
   children?: ReactNode;
