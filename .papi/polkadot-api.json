@@ -4,15 +4,15 @@
   "entries": {
     "polkadot": {
       "chain": "polkadot",
-      "metadata": "polkadot.scale"
+      "metadata": ".papi/metadata/polkadot.scale"
     },
     "kusama": {
       "chain": "ksmcc3",
-      "metadata": "kusama.scale"
+      "metadata": ".papi/metadata/kusama.scale"
     },
     "paseo": {
       "chain": "paseo",
-      "metadata": "paseo.scale"
+      "metadata": ".papi/metadata/paseo.scale"
     }
   }
 }
