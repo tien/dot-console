@@ -1,4 +1,5 @@
-import { Heading, Link, Progress, Select } from "../components/ui";
+import { Heading, Link, Select } from "../components/ui";
+import { Spinner } from "../components/ui/spinner";
 import type { ChainId } from "@reactive-dot/core";
 import { ReDotChainProvider } from "@reactive-dot/react";
 import {
@@ -144,7 +145,7 @@ function Layout() {
                   alignItems: "center",
                 })}
               >
-                <Progress type="circular" value={null} />
+                <Spinner size="xl" />
               </div>
             }
           >
