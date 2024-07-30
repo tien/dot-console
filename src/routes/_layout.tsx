@@ -1,4 +1,4 @@
-import { Heading, Link, Select } from "../components/ui";
+import { Heading, Link, Select, Text } from "../components/ui";
 import { Spinner } from "../components/ui/spinner";
 import type { ChainId } from "@reactive-dot/core";
 import { ReDotChainProvider } from "@reactive-dot/react";
@@ -39,11 +39,22 @@ function Layout() {
           borderBottom: "1px solid",
         })}
       >
-        <RouterLink to="/">
-          <Heading as="h1" size="2xl">
-            📟 ĐÓTConsole
-          </Heading>
-        </RouterLink>
+        <section>
+          <RouterLink to="/">
+            <Heading as="h1" size="2xl">
+              📟 ĐÓTConsole
+            </Heading>
+          </RouterLink>
+          <Text as="p" size="xs" className={css({ fontFamily: "monospace" })}>
+            <Link href="https://reactivedot.dev/" target="_blank">
+              ReactiveDOT
+            </Link>{" "}
+            ×{" "}
+            <Link href="https://papi.how/" target="_blank">
+              PAPI
+            </Link>
+          </Text>
+        </section>
         <div
           className={css({
             display: "flex",
