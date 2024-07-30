@@ -1,5 +1,5 @@
 import { Button, FileUpload, IconButton, Input, Switch } from "../ui";
-import { INCOMPLETE, ParamInput, ParamProps } from "./common";
+import { INCOMPLETE, type ParamInput, type ParamProps } from "./common";
 import { Binary } from "@polkadot-api/substrate-bindings";
 import Delete from "@w3f/polkadot-icons/solid/DeleteCancel";
 import { useEffect, useState } from "react";

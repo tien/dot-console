@@ -1,4 +1,4 @@
-import { ParamProps } from "./common";
+import type { ParamProps } from "./common";
 import { useEffect } from "react";
 
 export type VoidParamProps = ParamProps<undefined>;

@@ -1,4 +1,4 @@
-import {
+import type {
   Codec,
   metadata as metadataCodec,
 } from "@polkadot-api/substrate-bindings";

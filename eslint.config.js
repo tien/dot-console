@@ -10,6 +10,7 @@ export default tseslint.config(
   ...tseslint.configs.recommended,
   {
     rules: {
+      "@typescript-eslint/consistent-type-imports": "error",
       "@typescript-eslint/no-unused-vars": [
         "error",
         {

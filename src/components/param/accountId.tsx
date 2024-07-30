@@ -1,6 +1,6 @@
 import { AccountSelect } from "../account-select";
 import { Input, Switch } from "../ui";
-import { INCOMPLETE, INVALID, ParamProps } from "./common";
+import { INCOMPLETE, INVALID, type ParamProps } from "./common";
 import type { AccountId20, AccountId32 } from "@polkadot-api/metadata-builders";
 import { getSs58AddressInfo } from "@polkadot-api/substrate-bindings";
 import { useAccounts } from "@reactive-dot/react";

@@ -1,7 +1,12 @@
 import { Button } from "../ui";
 import { BinaryParam } from "./binary";
 import { CodecParam } from "./codec";
-import { INCOMPLETE, INVALID, ParamInput, ParamProps } from "./common";
+import {
+  INCOMPLETE,
+  INVALID,
+  type ParamInput,
+  type ParamProps,
+} from "./common";
 import type { SequenceVar } from "@polkadot-api/metadata-builders";
 import Icon from "@w3f/polkadot-icons/Icon";
 import { useEffect, useMemo, useState } from "react";

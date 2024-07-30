@@ -1,6 +1,6 @@
 import { useLookup } from "../hooks/lookup";
 import { useMetadata } from "../hooks/metadata";
-import { RuntimeApi, RuntimeApiMethod, RuntimeApiQuery } from "../types";
+import type { RuntimeApi, RuntimeApiMethod, RuntimeApiQuery } from "../types";
 import { CodecParam, INCOMPLETE, INVALID } from "./param";
 import { Button, Code, Select } from "./ui";
 import Check from "@w3f/polkadot-icons/solid/Check";

@@ -6,11 +6,17 @@ import type {
   StorageQuery,
 } from "../types";
 import { PalletSelect } from "./pallet-select";
-import { CodecParam, INCOMPLETE, INVALID, ParamInput, VOID } from "./param";
+import {
+  CodecParam,
+  INCOMPLETE,
+  INVALID,
+  VOID,
+  type ParamInput,
+} from "./param";
 import { Button, Code, FormLabel, Select, Text } from "./ui";
 import Check from "@w3f/polkadot-icons/solid/Check";
 import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
-import { ReactNode, useMemo, useState } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import { css } from "styled-system/css";
 
 type StorageFormProps = {

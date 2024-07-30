@@ -3,7 +3,7 @@ import { QueryResult } from "../../components/query-result";
 import { RuntimeApiForm } from "../../components/runtime-api-form";
 import { StorageForm } from "../../components/storage-form";
 import { Heading, Progress, Tabs } from "../../components/ui";
-import { Query } from "../../types";
+import type { Query } from "../../types";
 import { createFileRoute } from "@tanstack/react-router";
 import { Suspense, useState } from "react";
 import { css } from "styled-system/css";

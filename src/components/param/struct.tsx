@@ -1,6 +1,6 @@
 import { FormLabel } from "../ui";
 import { CodecParam } from "./codec";
-import { INCOMPLETE, INVALID, ParamProps } from "./common";
+import { INCOMPLETE, INVALID, type ParamProps } from "./common";
 import type { StructVar } from "@polkadot-api/metadata-builders";
 import { useEffect, useMemo, useState } from "react";
 

@@ -3,7 +3,7 @@ import { PalletSelect } from "../../components/pallet-select";
 import { CodecParam, INCOMPLETE, INVALID } from "../../components/param";
 import { Button, Select } from "../../components/ui";
 import { useLookup } from "../../hooks/lookup";
-import { Pallet } from "../../types";
+import type { Pallet } from "../../types";
 import type { LookupEntry, Var } from "@polkadot-api/metadata-builders";
 import { IDLE, PENDING } from "@reactive-dot/core";
 import { ReDotSignerProvider, useMutation } from "@reactive-dot/react";

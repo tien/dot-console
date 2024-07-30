@@ -1,5 +1,5 @@
 import { CodecParam } from "./codec";
-import { ParamProps } from "./common";
+import type { ParamProps } from "./common";
 import type { EnumVar } from "@polkadot-api/metadata-builders";
 import { useEffect, useState } from "react";
 

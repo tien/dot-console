@@ -1,6 +1,6 @@
 import { Switch } from "../ui";
 import { CodecParam } from "./codec";
-import { INCOMPLETE, ParamInput, ParamProps } from "./common";
+import { INCOMPLETE, type ParamInput, type ParamProps } from "./common";
 import type { OptionVar } from "@polkadot-api/metadata-builders";
 import { useEffect, useMemo, useState } from "react";
 

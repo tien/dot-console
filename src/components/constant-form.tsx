@@ -3,7 +3,7 @@ import { PalletSelect } from "./pallet-select";
 import { Button, Code, Select } from "./ui";
 import Check from "@w3f/polkadot-icons/solid/Check";
 import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
-import { ReactNode, useState } from "react";
+import { useState, type ReactNode } from "react";
 import { css } from "styled-system/css";
 
 export type ConstantQueryFormProps = {

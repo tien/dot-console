@@ -1,5 +1,5 @@
 import { Input } from "../ui";
-import { ParamProps } from "./common";
+import type { ParamProps } from "./common";
 import type { CompactVar } from "@polkadot-api/metadata-builders";
 import { useEffect, useState } from "react";
 

@@ -1,18 +1,18 @@
-import { AccountIdParam, AccountIdParamProps } from "./accountId";
-import { ArrayParam, ArrayParamProps } from "./array";
-import { ParamProps } from "./common";
-import { CompactParam, CompactParamProps } from "./compact";
-import { EnumParam, EnumParamProps } from "./enum";
-import { OptionParam, OptionParamProps } from "./options";
-import { PrimitiveParam, PrimitiveParamProps } from "./primitive";
-import { SequenceParam, SequenceParamProps } from "./sequence";
-import { StructParam, StructParamProps } from "./struct";
-import { TupleParam, TupleParamProps } from "./tuple";
-import { VoidParam, VoidParamProps } from "./void";
-import type { Var } from "@polkadot-api/metadata-builders";
+import { AccountIdParam, type AccountIdParamProps } from "./accountId";
+import { ArrayParam, type ArrayParamProps } from "./array";
+import { type ParamProps } from "./common";
+import { CompactParam, type CompactParamProps } from "./compact";
+import { EnumParam, type EnumParamProps } from "./enum";
+import { OptionParam, type OptionParamProps } from "./options";
+import { PrimitiveParam, type PrimitiveParamProps } from "./primitive";
+import { SequenceParam, type SequenceParamProps } from "./sequence";
+import { StructParam, type StructParamProps } from "./struct";
+import { TupleParam, type TupleParamProps } from "./tuple";
+import { VoidParam, type VoidParamProps } from "./void";
+import { type Var } from "@polkadot-api/metadata-builders";
 import { createContext, useContext, useMemo } from "react";
 import { css } from "styled-system/css";
-import type { CssProperties } from "styled-system/types";
+import { type CssProperties } from "styled-system/types";
 
 const StorageParamDepthContext = createContext(0);
 

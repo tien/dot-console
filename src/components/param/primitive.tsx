@@ -1,5 +1,5 @@
 import { Input, Switch } from "../ui";
-import { ParamProps } from "./common";
+import type { ParamProps } from "./common";
 import type { PrimitiveVar } from "@polkadot-api/metadata-builders";
 import { type ChangeEvent, useEffect, useState } from "react";
 

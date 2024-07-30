@@ -8,7 +8,12 @@ import {
 } from "@reactive-dot/react";
 import Close from "@w3f/polkadot-icons/solid/Close";
 import Refresh from "@w3f/polkadot-icons/solid/RefreshRedo";
-import { PropsWithChildren, Suspense, useMemo, useTransition } from "react";
+import {
+  type PropsWithChildren,
+  Suspense,
+  useMemo,
+  useTransition,
+} from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { css } from "styled-system/css";
 

@@ -1,6 +1,11 @@
 import { BinaryParam } from "./binary";
 import { CodecParam } from "./codec";
-import { INCOMPLETE, INVALID, ParamInput, ParamProps } from "./common";
+import {
+  INCOMPLETE,
+  INVALID,
+  type ParamInput,
+  type ParamProps,
+} from "./common";
 import type { ArrayVar } from "@polkadot-api/metadata-builders";
 import { useEffect, useMemo, useState } from "react";
 import { css } from "styled-system/css";
