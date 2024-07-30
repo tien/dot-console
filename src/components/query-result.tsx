@@ -1,11 +1,15 @@
 import type { Query } from "../types";
 import { stringifyCodec } from "../utils";
 import { CodecView } from "./codec-view";
-import { Card, Code, FormLabel, IconButton } from "./ui";
-import { useLazyLoadQueryWithRefresh } from "@reactive-dot/react";
+import { Card, Code, FormLabel, IconButton, Progress } from "./ui";
+import {
+  useLazyLoadQueryWithRefresh,
+  useResetQueryError,
+} from "@reactive-dot/react";
 import Close from "@w3f/polkadot-icons/solid/Close";
 import Refresh from "@w3f/polkadot-icons/solid/RefreshRedo";
-import { useMemo, useTransition } from "react";
+import { PropsWithChildren, Suspense, useMemo, useTransition } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import { css } from "styled-system/css";
 
 type StorageQueryResultProps = {
@@ -13,7 +17,17 @@ type StorageQueryResultProps = {
   onDelete: () => void;
 };
 
-export function QueryResult({ query, onDelete }: StorageQueryResultProps) {
+export function QueryResult(props: StorageQueryResultProps) {
+  return (
+    <QueryErrorBoundary onDelete={props.onDelete}>
+      <Suspense fallback={<Progress type="linear" value={null} />}>
+        <SuspensibleQueryResult {...props} />
+      </Suspense>
+    </QueryErrorBoundary>
+  );
+}
+
+function SuspensibleQueryResult({ query, onDelete }: StorageQueryResultProps) {
   const queryArgs = useMemo(() => {
     switch (query.type) {
       case "constant":
@@ -140,5 +154,49 @@ export function QueryResult({ query, onDelete }: StorageQueryResultProps) {
         <CodecView value={result} />
       </Card.Body>
     </Card.Root>
+  );
+}
+
+type QueryErrorBoundaryProps = PropsWithChildren<{
+  onDelete: () => void;
+}>;
+
+function QueryErrorBoundary({ onDelete, children }: QueryErrorBoundaryProps) {
+  const resetQueryError = useResetQueryError();
+
+  return (
+    <ErrorBoundary
+      fallbackRender={({ error, resetErrorBoundary }) => (
+        <Card.Root>
+          <Card.Header>
+            <Card.Title
+              className={css({
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                gap: "rem",
+              })}
+            >
+              <div>Error fetching query</div>
+              <IconButton
+                variant="ghost"
+                onClick={() => resetErrorBoundary(error)}
+              >
+                <Close fill="currentcolor" />
+              </IconButton>
+            </Card.Title>
+          </Card.Header>
+        </Card.Root>
+      )}
+      onReset={(details) => {
+        onDelete();
+        if (details.reason === "imperative-api") {
+          const [error] = details.args;
+          resetQueryError(error);
+        }
+      }}
+    >
+      {children}
+    </ErrorBoundary>
   );
 }

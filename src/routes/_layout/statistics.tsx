@@ -7,6 +7,7 @@ import { useBlock, useClient, useLazyLoadQuery } from "@reactive-dot/react";
 import { createFileRoute } from "@tanstack/react-router";
 import { differenceInMilliseconds, formatDuration } from "date-fns";
 import { Suspense, useEffect, useState } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import { css, cx } from "styled-system/css";
 
 export const Route = createFileRoute("/_layout/statistics")({
@@ -285,9 +286,23 @@ function Events({ blocks, className }: EventsProps) {
         </Table.Head>
         <Table.Body>
           {blocks.map((block) => (
-            <Suspense key={block.hash}>
-              <BlockEvents blockNumber={block.number} blockHash={block.hash} />
-            </Suspense>
+            <ErrorBoundary
+              key={block.hash}
+              fallback={
+                <Table.Row>
+                  <Table.Cell colSpan={3}>
+                    Error fetching block #{block.number} events
+                  </Table.Cell>
+                </Table.Row>
+              }
+            >
+              <Suspense>
+                <BlockEvents
+                  blockNumber={block.number}
+                  blockHash={block.hash}
+                />
+              </Suspense>
+            </ErrorBoundary>
           ))}
         </Table.Body>
       </Table.Root>
