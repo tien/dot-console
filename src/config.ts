@@ -1,10 +1,10 @@
-import { polkadot, kusama, paseo } from "@polkadot-api/descriptors";
+import { polkadot, kusama, paseo, westend } from "@polkadot-api/descriptors";
 import type { Config } from "@reactive-dot/core";
 import { InjectedWalletAggregator } from "@reactive-dot/core/wallets.js";
 import { getSmProvider } from "polkadot-api/sm-provider";
 import { startFromWorker } from "polkadot-api/smoldot/from-worker";
 
-const smoldotPromise = startFromWorker(
+const smoldot = startFromWorker(
   new Worker(new URL("polkadot-api/smoldot/worker", import.meta.url), {
     type: "module",
   }),
@@ -17,7 +17,7 @@ export const config = {
       provider: () =>
         getSmProvider(
           import("polkadot-api/chains/polkadot").then(({ chainSpec }) =>
-            smoldotPromise.addChain({ chainSpec }),
+            smoldot.addChain({ chainSpec }),
           ),
         ),
     },
@@ -26,7 +26,7 @@ export const config = {
       provider: () =>
         getSmProvider(
           import("polkadot-api/chains/ksmcc3").then(({ chainSpec }) =>
-            smoldotPromise.addChain({ chainSpec }),
+            smoldot.addChain({ chainSpec }),
           ),
         ),
     },
@@ -35,9 +35,17 @@ export const config = {
       provider: () =>
         getSmProvider(
           import("polkadot-api/chains/paseo").then(({ chainSpec }) =>
-            smoldotPromise.addChain({ chainSpec }),
+            smoldot.addChain({ chainSpec }),
           ),
         ),
+    },
+    westend: {
+      descriptor: westend,
+      provider: getSmProvider(
+        import("polkadot-api/chains/westend2").then(({ chainSpec }) =>
+          smoldot.addChain({ chainSpec }),
+        ),
+      ),
     },
   },
   wallets: [new InjectedWalletAggregator()],

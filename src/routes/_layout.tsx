@@ -18,7 +18,12 @@ export const Route = createFileRoute("/_layout")({
 
 function Layout() {
   // TODO: replace with dedicated hook once that is available
-  const chainIds = ["polkadot", "kusama", "paseo"] as const satisfies ChainId[];
+  const chainIds = [
+    "polkadot",
+    "kusama",
+    "paseo",
+    "westend",
+  ] as const satisfies ChainId[];
   const [chainId, setChainId] = useState(chainIds["0"] as ChainId);
 
   return (

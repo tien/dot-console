@@ -13,6 +13,10 @@
     "paseo": {
       "chain": "paseo",
       "metadata": ".papi/metadata/paseo.scale"
+    },
+    "westend": {
+      "chain": "westend2",
+      "metadata": ".papi/metadata/westend.scale"
     }
   }
 }
