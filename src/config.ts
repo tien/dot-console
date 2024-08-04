@@ -42,11 +42,12 @@ export const config = {
     },
     westend: {
       descriptor: westend,
-      provider: getSmProvider(
-        import("polkadot-api/chains/westend2").then(({ chainSpec }) =>
-          smoldot.addChain({ chainSpec }),
+      provider: () =>
+        getSmProvider(
+          import("polkadot-api/chains/westend2").then(({ chainSpec }) =>
+            smoldot.addChain({ chainSpec }),
+          ),
         ),
-      ),
     },
   },
   wallets: [
