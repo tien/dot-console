@@ -10,6 +10,7 @@ import {
 import Check from "@w3f/polkadot-icons/solid/Check";
 import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
 import { Suspense, useState } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import { css } from "styled-system/css";
 
 export const Route = createFileRoute("/_layout")({
@@ -181,9 +182,11 @@ function SuspenseFallback() {
 
 function ProgressText() {
   return (
-    <Suspense fallback={<Text>Syncing light client</Text>}>
-      <DataLoadingText />
-    </Suspense>
+    <ErrorBoundary fallback={null}>
+      <Suspense fallback={<Text>Syncing light client</Text>}>
+        <DataLoadingText />
+      </Suspense>
+    </ErrorBoundary>
   );
 }
 
