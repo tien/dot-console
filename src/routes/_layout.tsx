@@ -1,7 +1,7 @@
 import { Heading, Link, Select, Text } from "../components/ui";
 import { Spinner } from "../components/ui/spinner";
 import type { ChainId } from "@reactive-dot/core";
-import { ReDotChainProvider } from "@reactive-dot/react";
+import { ReDotChainProvider, useBlock } from "@reactive-dot/react";
 import {
   createFileRoute,
   Outlet,
@@ -151,24 +151,46 @@ function Layout() {
       </header>
       <main className={css({ display: "contents" })}>
         <ReDotChainProvider key={chainId} chainId={chainId}>
-          <Suspense
-            fallback={
-              <div
-                className={css({
-                  flex: 1,
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                })}
-              >
-                <Spinner size="xl" />
-              </div>
-            }
-          >
+          <Suspense fallback={<SuspenseFallback />}>
             <Outlet />
           </Suspense>
         </ReDotChainProvider>
       </main>
     </div>
   );
+}
+
+function SuspenseFallback() {
+  return (
+    <div
+      className={css({
+        flex: 1,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: "0.5rem",
+        textAlign: "center",
+      })}
+    >
+      <Spinner size="xl" />
+      <ProgressText />
+    </div>
+  );
+}
+
+function ProgressText() {
+  return (
+    <Suspense fallback={<Text>Syncing light client</Text>}>
+      <DataLoadingText />
+    </Suspense>
+  );
+}
+
+function DataLoadingText() {
+  // Best way to do health check for now
+  // https://github.com/polkadot-api/polkadot-api/issues/222
+  useBlock();
+
+  return <Text>Loading data</Text>;
 }
