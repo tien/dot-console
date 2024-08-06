@@ -30,7 +30,7 @@
     "@ark-ui/react": "^3.6.2",
     "@polkadot-api/descriptors": "portal:.papi/descriptors",
     "@reactive-dot/react": "^0.6.0",
-    "@tanstack/react-router": "^1.46.4",
+    "@tanstack/react-router": "^1.46.7",
     "@w3f/polkadot-icons": "^1.0.0",
     "@walletconnect/modal": "^2.6.2",
     "@walletconnect/universal-provider": "^2.14.0",
@@ -47,8 +47,8 @@
     "@eslint/js": "^9.8.0",
     "@pandacss/dev": "^0.44.0",
     "@park-ui/panda-preset": "^0.42.0",
-    "@tanstack/router-devtools": "^1.46.5",
-    "@tanstack/router-plugin": "^1.45.13",
+    "@tanstack/router-devtools": "^1.46.7",
+    "@tanstack/router-plugin": "^1.46.6",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@tsconfig/strictest": "^2.0.5",
     "@tsconfig/vite-react": "^3.0.2",
@@ -61,7 +61,7 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "prettier": "^3.3.3",
     "typescript": "^5.5.4",
-    "typescript-eslint": "^8.0.0",
+    "typescript-eslint": "^8.0.1",
     "vite": "^5.3.5",
     "vite-tsconfig-paths": "^4.3.2"
   }
