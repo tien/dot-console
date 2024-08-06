@@ -29,7 +29,7 @@
   "dependencies": {
     "@ark-ui/react": "^3.6.2",
     "@polkadot-api/descriptors": "portal:.papi/descriptors",
-    "@reactive-dot/react": "^0.5.0",
+    "@reactive-dot/react": "^0.6.0",
     "@tanstack/react-router": "^1.46.4",
     "@w3f/polkadot-icons": "^1.0.0",
     "@walletconnect/modal": "^2.6.2",

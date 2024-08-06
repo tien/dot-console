@@ -2198,16 +2198,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@reactive-dot/react@npm:^0.5.0":
-  version: 0.5.0
-  resolution: "@reactive-dot/react@npm:0.5.0"
+"@reactive-dot/react@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "@reactive-dot/react@npm:0.6.0"
   dependencies:
     "@reactive-dot/core": "npm:^0.5.0"
     jotai: "npm:^2.9.1"
     jotai-scope: "npm:^0.7.0"
   peerDependencies:
     react: 18.x
-  checksum: 10c0/f19c863740521a6bc79704b244461c9de780f3f6ac7bd4718fb9f64e6c5eb2bcb5a6202d50a93cbf69b809f6042c6d69741b1c84bc2419c20207b1b987bfc14c
+  checksum: 10c0/84e5cac2b8a8be4fd9151b51bae5c6b6dc12a5230a9ff67933d2e29cee515a65f07307b58a64c104eb363010c462a394c8428864b1d8bbadc6afd0064003501f
   languageName: node
   linkType: hard
 
@@ -5854,7 +5854,7 @@ __metadata:
     "@pandacss/dev": "npm:^0.44.0"
     "@park-ui/panda-preset": "npm:^0.42.0"
     "@polkadot-api/descriptors": "portal:.papi/descriptors"
-    "@reactive-dot/react": "npm:^0.5.0"
+    "@reactive-dot/react": "npm:^0.6.0"
     "@tanstack/react-router": "npm:^1.46.4"
     "@tanstack/router-devtools": "npm:^1.46.5"
     "@tanstack/router-plugin": "npm:^1.45.13"

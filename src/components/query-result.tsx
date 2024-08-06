@@ -4,7 +4,7 @@ import { CodecView } from "./codec-view";
 import { Card, Code, FormLabel, IconButton, Progress } from "./ui";
 import {
   useLazyLoadQueryWithRefresh,
-  useResetQueryError,
+  useQueryErrorResetter,
 } from "@reactive-dot/react";
 import Close from "@w3f/polkadot-icons/solid/Close";
 import Refresh from "@w3f/polkadot-icons/solid/RefreshRedo";
@@ -167,7 +167,7 @@ type QueryErrorBoundaryProps = PropsWithChildren<{
 }>;
 
 function QueryErrorBoundary({ onDelete, children }: QueryErrorBoundaryProps) {
-  const resetQueryError = useResetQueryError();
+  const resetQueryError = useQueryErrorResetter();
 
   return (
     <ErrorBoundary
