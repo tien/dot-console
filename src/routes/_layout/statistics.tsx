@@ -1,9 +1,13 @@
 import { CodecView } from "../../components/codec-view";
 import { Heading, Table } from "../../components/ui";
-import { useNativeTokenNumberWithPlanck } from "../../hooks/native-token";
 import { Collapsible } from "@ark-ui/react";
 import { IDLE } from "@reactive-dot/core";
-import { useBlock, useClient, useLazyLoadQuery } from "@reactive-dot/react";
+import {
+  useBlock,
+  useClient,
+  useLazyLoadQuery,
+  useNativeTokenAmountFromPlanck,
+} from "@reactive-dot/react";
 import { createFileRoute } from "@tanstack/react-router";
 import { differenceInMilliseconds, formatDuration } from "date-fns";
 import { Suspense, useEffect, useState } from "react";
@@ -109,7 +113,7 @@ function Statistics({ className }: StatisticsProps) {
           <Heading as="h3">Total issuance</Heading>
         </header>
         <div>
-          {useNativeTokenNumberWithPlanck(totalIssuance).toLocaleString()}
+          {useNativeTokenAmountFromPlanck(totalIssuance).toLocaleString()}
         </div>
       </article>
       <article>
@@ -209,7 +213,7 @@ function TotalStaked() {
           .readStorage("NominationPools", "TotalValueLocked", []),
   );
 
-  return useNativeTokenNumberWithPlanck(
+  return useNativeTokenAmountFromPlanck(
     queryResult === IDLE ? 0n : queryResult[0] + queryResult[1],
   ).toLocaleString();
 }
