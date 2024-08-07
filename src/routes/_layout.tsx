@@ -1,4 +1,11 @@
-import { Heading, Link, Select, Text } from "../components/ui";
+import {
+  Button,
+  Drawer,
+  Heading,
+  IconButton,
+  Link,
+  Text,
+} from "../components/ui";
 import { Spinner } from "../components/ui/spinner";
 import type { ChainId } from "@reactive-dot/core";
 import { ReDotChainProvider, useBlock } from "@reactive-dot/react";
@@ -7,8 +14,7 @@ import {
   Outlet,
   Link as RouterLink,
 } from "@tanstack/react-router";
-import Check from "@w3f/polkadot-icons/solid/Check";
-import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
+import CloseIcon from "@w3f/polkadot-icons/solid/Close";
 import { Suspense, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { css } from "styled-system/css";
@@ -21,9 +27,17 @@ function Layout() {
   // TODO: replace with dedicated hook once that is available
   const chainIds = [
     "polkadot",
+    "polkadot_asset_hub",
+    "polkadot_collectives",
+    "polkadot_people",
     "kusama",
+    "kusama_asset_hub",
+    "kusama_people",
     "paseo",
     "westend",
+    "westend_asset_hub",
+    "westend_collectives",
+    "westend_people",
   ] as const satisfies ChainId[];
   const [chainId, setChainId] = useState(chainIds["0"] as ChainId);
 
@@ -97,56 +111,63 @@ function Layout() {
                 Extrinsic
               </RouterLink>
             </Link>
-          </nav>
-          <Select.Root
-            variant="ghost"
-            items={chainIds}
-            // @ts-expect-error TODO: https://github.com/cschroeter/park-ui/issues/351
-            itemToString={(chainId) => chainId}
-            // @ts-expect-error TODO: https://github.com/cschroeter/park-ui/issues/351
-            itemToValue={(chainId) => chainId}
-            value={[chainId]}
-            onValueChange={(event) => {
-              const chainId = event.items.at(0) as ChainId;
-
-              if (chainId !== undefined) {
-                setChainId(chainId);
-              }
-            }}
-            positioning={{ fitViewport: true, sameWidth: true }}
-            width={140}
-            className={css({
-              borderRightWidth: 1,
-              borderLeftWidth: 1,
-              padding: "0 0.5rem",
-            })}
-          >
-            <Select.Control>
-              <Select.Trigger>
-                <Select.ValueText placeholder="Select a chain" />
-                <Select.Indicator>
-                  <ChevronDown fill="currentcolor" />
-                </Select.Indicator>
-              </Select.Trigger>
-            </Select.Control>
-            <Select.Positioner>
-              <Select.Content
-                className={css({
-                  maxHeight: "max(50dvh, 8rem)",
-                  overflow: "auto",
-                })}
+            <Link asChild>
+              <RouterLink
+                to="/accounts"
+                activeProps={{ className: css({ color: "accent.default" }) }}
               >
-                {chainIds.map((chainId) => (
-                  <Select.Item key={chainId} item={chainId}>
-                    <Select.ItemText>{chainId}</Select.ItemText>
-                    <Select.ItemIndicator>
-                      <Check fill="currentcolor" />
-                    </Select.ItemIndicator>
-                  </Select.Item>
-                ))}
-              </Select.Content>
-            </Select.Positioner>
-          </Select.Root>
+                Accounts
+              </RouterLink>
+            </Link>
+          </nav>
+          <Drawer.Root>
+            <Drawer.Trigger
+              className={css({
+                borderRightWidth: 1,
+                borderLeftWidth: 1,
+                padding: "0 0.5rem",
+              })}
+            >
+              <Button variant="ghost">{chainId}</Button>
+            </Drawer.Trigger>
+            <Drawer.Backdrop />
+            <Drawer.Positioner>
+              <Drawer.Content>
+                <Drawer.Header>
+                  <Drawer.Title>Chain</Drawer.Title>
+                  <Drawer.Description>Select a chain</Drawer.Description>
+                  <Drawer.CloseTrigger
+                    asChild
+                    position="absolute"
+                    top="3"
+                    right="4"
+                  >
+                    <IconButton variant="ghost">
+                      <CloseIcon fill="currentcolor" />
+                    </IconButton>
+                  </Drawer.CloseTrigger>
+                </Drawer.Header>
+                <Drawer.Body className={css({ display: "flex", gap: "1rem" })}>
+                  <Drawer.Context>
+                    {({ setOpen }) =>
+                      chainIds.map((chainId) => (
+                        <Button
+                          key={chainId}
+                          variant="outline"
+                          onClick={() => {
+                            setChainId(chainId);
+                            setOpen(false);
+                          }}
+                        >
+                          {chainId}
+                        </Button>
+                      ))
+                    }
+                  </Drawer.Context>
+                </Drawer.Body>
+              </Drawer.Content>
+            </Drawer.Positioner>
+          </Drawer.Root>
           <dc-connection-button />
         </div>
       </header>
