@@ -104,10 +104,13 @@ function SuspensibleAccountBalances({ account }: AccountBalancesProps) {
   const { free, frozen, reserved } = systemAccount.data;
 
   const spendable = free - frozen - reserved;
+  const clampedSpendable = spendable < 0n ? 0n : spendable;
 
   return (
     <AccountBalancesTemplate
-      spendable={useNativeTokenAmountFromPlanck(spendable).toLocaleString()}
+      spendable={useNativeTokenAmountFromPlanck(
+        clampedSpendable,
+      ).toLocaleString()}
       free={useNativeTokenAmountFromPlanck(free).toLocaleString()}
       frozen={useNativeTokenAmountFromPlanck(frozen).toLocaleString()}
       reserved={useNativeTokenAmountFromPlanck(reserved).toLocaleString()}
