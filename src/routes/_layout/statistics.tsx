@@ -4,6 +4,7 @@ import { Collapsible } from "@ark-ui/react";
 import { IDLE } from "@reactive-dot/core";
 import {
   useBlock,
+  useChainId,
   useClient,
   useLazyLoadQuery,
   useNativeTokenAmountFromPlanck,
@@ -13,6 +14,7 @@ import { differenceInMilliseconds, formatDuration } from "date-fns";
 import { Suspense, useEffect, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { css, cx } from "styled-system/css";
+import { useStakingChainId } from "~/hooks/chain";
 
 export const Route = createFileRoute("/_layout/statistics")({
   component: ExplorerPage,
@@ -116,14 +118,7 @@ function Statistics({ className }: StatisticsProps) {
           {useNativeTokenAmountFromPlanck(totalIssuance).toLocaleString()}
         </div>
       </article>
-      <article>
-        <header>
-          <Heading as="h3">Total staked</Heading>
-        </header>
-        <div>
-          <TotalStaked />
-        </div>
-      </article>
+      <TotalStaked />
       <article>
         <header>
           <Heading as="h3">Last finalised block</Heading>
@@ -145,9 +140,43 @@ function Statistics({ className }: StatisticsProps) {
 }
 
 function BlockTime() {
-  const expectedBlockTime = useLazyLoadQuery((builder) =>
-    builder.getConstant("Babe", "ExpectedBlockTime"),
+  const chainId = useChainId();
+
+  if (
+    chainId === "kusama" ||
+    chainId === "polkadot" ||
+    chainId === "paseo" ||
+    chainId === "westend"
+  ) {
+    // eslint-disable-next-line no-var
+    var babeChainId = chainId;
+  } else {
+    // eslint-disable-next-line no-var
+    var auraChainId = chainId;
+  }
+
+  const expectedBabeBlockTime = useLazyLoadQuery(
+    (builder) =>
+      babeChainId === undefined
+        ? undefined
+        : builder.getConstant("Babe", "ExpectedBlockTime"),
+    { chainId: babeChainId! },
   );
+
+  const auraSlotDuration = useLazyLoadQuery(
+    (builder) =>
+      auraChainId === undefined
+        ? undefined
+        : builder.callApi("AuraApi", "slot_duration", []),
+    { chainId: auraChainId! },
+  );
+
+  const expectedBlockTime =
+    expectedBabeBlockTime !== IDLE
+      ? expectedBabeBlockTime
+      : auraSlotDuration !== IDLE
+        ? auraSlotDuration
+        : undefined;
 
   return (
     <div>
@@ -201,21 +230,38 @@ function BestBlockNumber() {
 }
 
 function TotalStaked() {
-  const activeEra = useLazyLoadQuery((builder) =>
-    builder.readStorage("Staking", "ActiveEra", []),
+  const chainId = useChainId();
+  const stakingChainId = useStakingChainId();
+
+  const activeEra = useLazyLoadQuery(
+    (builder) => builder.readStorage("Staking", "ActiveEra", []),
+    { chainId: stakingChainId },
   );
 
-  const queryResult = useLazyLoadQuery((builder) =>
-    activeEra === undefined
-      ? false
-      : builder
-          .readStorage("Staking", "ErasTotalStake", [activeEra.index])
-          .readStorage("NominationPools", "TotalValueLocked", []),
+  const queryResult = useLazyLoadQuery(
+    (builder) =>
+      activeEra === undefined
+        ? false
+        : builder
+            .readStorage("Staking", "ErasTotalStake", [activeEra.index])
+            .readStorage("NominationPools", "TotalValueLocked", []),
+    { chainId: stakingChainId },
   );
 
-  return useNativeTokenAmountFromPlanck(
-    queryResult === IDLE ? 0n : queryResult[0] + queryResult[1],
-  ).toLocaleString();
+  return (
+    <article>
+      <header>
+        <Heading as="h3">
+          Total staked {chainId !== stakingChainId && `@ relay-chain`}
+        </Heading>
+      </header>
+      <div>
+        {useNativeTokenAmountFromPlanck(
+          queryResult === IDLE ? 0n : queryResult[0] + queryResult[1],
+        ).toLocaleString()}
+      </div>
+    </article>
+  );
 }
 
 type BlocksProps = {

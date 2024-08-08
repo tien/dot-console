@@ -16,6 +16,7 @@ import { Route as IndexImport } from './routes/index'
 import { Route as LayoutStatisticsImport } from './routes/_layout/statistics'
 import { Route as LayoutQueryImport } from './routes/_layout/query'
 import { Route as LayoutExtrinsicImport } from './routes/_layout/extrinsic'
+import { Route as LayoutAccountsImport } from './routes/_layout/accounts'
 
 // Create/Update Routes
 
@@ -44,6 +45,11 @@ const LayoutExtrinsicRoute = LayoutExtrinsicImport.update({
   getParentRoute: () => LayoutRoute,
 } as any)
 
+const LayoutAccountsRoute = LayoutAccountsImport.update({
+  path: '/accounts',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -61,6 +67,13 @@ declare module '@tanstack/react-router' {
       fullPath: ''
       preLoaderRoute: typeof LayoutImport
       parentRoute: typeof rootRoute
+    }
+    '/_layout/accounts': {
+      id: '/_layout/accounts'
+      path: '/accounts'
+      fullPath: '/accounts'
+      preLoaderRoute: typeof LayoutAccountsImport
+      parentRoute: typeof LayoutImport
     }
     '/_layout/extrinsic': {
       id: '/_layout/extrinsic'
@@ -91,6 +104,7 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren({
   IndexRoute,
   LayoutRoute: LayoutRoute.addChildren({
+    LayoutAccountsRoute,
     LayoutExtrinsicRoute,
     LayoutQueryRoute,
     LayoutStatisticsRoute,
@@ -115,10 +129,15 @@ export const routeTree = rootRoute.addChildren({
     "/_layout": {
       "filePath": "_layout.tsx",
       "children": [
+        "/_layout/accounts",
         "/_layout/extrinsic",
         "/_layout/query",
         "/_layout/statistics"
       ]
+    },
+    "/_layout/accounts": {
+      "filePath": "_layout/accounts.tsx",
+      "parent": "/_layout"
     },
     "/_layout/extrinsic": {
       "filePath": "_layout/extrinsic.tsx",
