@@ -47,3 +47,19 @@ export function unbinary(data: unknown): unknown {
     Object.entries(data).map(([key, value]) => [key, unbinary(value)] as const),
   );
 }
+
+export function memoize<TArguments extends unknown[], TReturn>(
+  func: (...args: TArguments) => TReturn,
+): (...args: TArguments) => TReturn {
+  const voidSymbol = Symbol();
+  let value: TReturn | typeof voidSymbol = voidSymbol;
+
+  return (...args: TArguments) => {
+    if (value !== voidSymbol) {
+      return value;
+    }
+
+    value = func(...args);
+    return value;
+  };
+}

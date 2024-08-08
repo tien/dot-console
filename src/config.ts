@@ -1,4 +1,5 @@
 import { kusama_people_spec, westend_people_spec } from "./chain-specs";
+import { memoize } from "./utils";
 import {
   kusama,
   kusama_asset_hub,
@@ -25,20 +26,23 @@ const smoldot = startFromWorker(
   }),
 );
 
-const getPolkadotChain = () =>
+const getPolkadotChain = memoize(() =>
   import("polkadot-api/chains/polkadot").then(({ chainSpec }) =>
     smoldot.addChain({ chainSpec }),
-  );
+  ),
+);
 
-const getKusamaChain = () =>
+const getKusamaChain = memoize(() =>
   import("polkadot-api/chains/ksmcc3").then(({ chainSpec }) =>
     smoldot.addChain({ chainSpec }),
-  );
+  ),
+);
 
-const getWestendChain = () =>
+const getWestendChain = memoize(() =>
   import("polkadot-api/chains/westend2").then(({ chainSpec }) =>
     smoldot.addChain({ chainSpec }),
-  );
+  ),
+);
 
 export const config = {
   chains: {
