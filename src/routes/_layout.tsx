@@ -121,15 +121,17 @@ function Layout() {
             </Link>
           </nav>
           <Drawer.Root>
-            <Drawer.Trigger
+            <div
               className={css({
                 borderRightWidth: 1,
                 borderLeftWidth: 1,
                 padding: "0 0.5rem",
               })}
             >
-              <Button variant="ghost">{chainId}</Button>
-            </Drawer.Trigger>
+              <Drawer.Trigger asChild>
+                <Button variant="ghost">{chainId}</Button>
+              </Drawer.Trigger>
+            </div>
             <Drawer.Backdrop />
             <Drawer.Positioner>
               <Drawer.Content>
