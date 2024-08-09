@@ -15,12 +15,19 @@ import {
   Link as RouterLink,
 } from "@tanstack/react-router";
 import CloseIcon from "@w3f/polkadot-icons/solid/Close";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { css } from "styled-system/css";
 
+type Search = {
+  chain?: ChainId | undefined;
+};
+
 export const Route = createFileRoute("/_layout")({
   component: Layout,
+  validateSearch: (input): Search => ({
+    chain: input["chain"] as ChainId | undefined,
+  }),
 });
 
 function Layout() {
@@ -39,7 +46,15 @@ function Layout() {
     "westend_collectives",
     "westend_people",
   ] as const satisfies ChainId[];
-  const [chainId, setChainId] = useState(chainIds["0"] as ChainId);
+
+  const { chain: searchChainId } = Route.useSearch();
+  const [chainId, setChainId] = useState<ChainId>(searchChainId ?? "polkadot");
+
+  useEffect(() => {
+    if (searchChainId !== undefined) {
+      setChainId(searchChainId);
+    }
+  }, [searchChainId]);
 
   return (
     <div
@@ -153,16 +168,18 @@ function Layout() {
                   <Drawer.Context>
                     {({ setOpen }) =>
                       chainIds.map((chainId) => (
-                        <Button
+                        <RouterLink
                           key={chainId}
-                          variant="outline"
-                          onClick={() => {
-                            setChainId(chainId);
-                            setOpen(false);
-                          }}
+                          search={{ chain: chainId }}
+                          className={css({ display: "contents" })}
                         >
-                          {chainId}
-                        </Button>
+                          <Button
+                            variant="outline"
+                            onClick={() => setOpen(false)}
+                          >
+                            {chainId}
+                          </Button>
+                        </RouterLink>
                       ))
                     }
                   </Drawer.Context>
