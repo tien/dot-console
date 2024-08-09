@@ -20,7 +20,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import { css } from "styled-system/css";
 
 type Search = {
-  chain?: ChainId | undefined;
+  chain?: string | undefined;
 };
 
 export const Route = createFileRoute("/_layout")({
@@ -47,7 +47,11 @@ function Layout() {
     "westend_people",
   ] as const satisfies ChainId[];
 
-  const { chain: searchChainId } = Route.useSearch();
+  const { chain: _searchChainId } = Route.useSearch();
+  const searchChainId = _searchChainId?.replaceAll("-", "_") as
+    | ChainId
+    | undefined;
+
   const [chainId, setChainId] = useState<ChainId>(searchChainId ?? "polkadot");
 
   useEffect(() => {
@@ -144,7 +148,12 @@ function Layout() {
               })}
             >
               <Drawer.Trigger asChild>
-                <Button variant="ghost">{chainId}</Button>
+                <Button
+                  variant="ghost"
+                  className={css({ textTransform: "capitalize" })}
+                >
+                  {chainId.replaceAll("_", " ")}
+                </Button>
               </Drawer.Trigger>
             </div>
             <Drawer.Backdrop />
@@ -170,14 +179,15 @@ function Layout() {
                       chainIds.map((chainId) => (
                         <RouterLink
                           key={chainId}
-                          search={{ chain: chainId }}
+                          search={{ chain: chainId.replaceAll("_", "-") }}
                           className={css({ display: "contents" })}
                         >
                           <Button
                             variant="outline"
                             onClick={() => setOpen(false)}
+                            className={css({ textTransform: "capitalize" })}
                           >
-                            {chainId}
+                            {chainId.replaceAll("_", " ")}
                           </Button>
                         </RouterLink>
                       ))
