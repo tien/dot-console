@@ -132,6 +132,14 @@ function Layout() {
             </Link>
             <Link asChild>
               <RouterLink
+                to="/utilities"
+                activeProps={{ className: css({ color: "accent.default" }) }}
+              >
+                Utilities
+              </RouterLink>
+            </Link>
+            <Link asChild>
+              <RouterLink
                 to="/accounts"
                 activeProps={{ className: css({ color: "accent.default" }) }}
               >
