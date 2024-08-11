@@ -1,4 +1,3 @@
-import Identicon from "../../components/identicon";
 import { Card, Heading, Text } from "../../components/ui";
 import type { PolkadotAccount } from "@reactive-dot/core";
 import {
@@ -9,6 +8,7 @@ import {
 import { createFileRoute } from "@tanstack/react-router";
 import { Fragment, type ReactNode, Suspense } from "react";
 import { css } from "styled-system/css";
+import { AccountListItem } from "~/components/account-list-item";
 import { Spinner } from "~/components/ui/spinner";
 import { usePeopleChainId } from "~/hooks/chain";
 
@@ -53,19 +53,7 @@ function AccountItem({ account }: AccountItemProps) {
           gap: "0.5rem",
         })}
       >
-        <Identicon address={account.address} size="2.2rem" />
-        <div>
-          <Card.Title
-            className={css({
-              display: "flex",
-              alignItems: "center",
-              gap: "0.5rem",
-            })}
-          >
-            <Heading>{account.name}</Heading>
-          </Card.Title>
-          <Card.Description>{account.address}</Card.Description>
-        </div>
+        <AccountListItem address={account.address} name={account.name} />
       </Card.Header>
       <Card.Body className={css({ "& dd": { fontWeight: "bold" } })}>
         <AccountBalances account={account} />
@@ -172,21 +160,27 @@ export function AccountIdentity(props: AccountIdentityProps) {
 }
 
 export function SuspensibleAccountIdentity({ account }: AccountIdentityProps) {
-  const [registration, username] =
-    useLazyLoadQuery(
-      (builder) =>
-        builder.readStorage("Identity", "IdentityOf", [account.address]),
-      { chainId: usePeopleChainId() },
-    ) ?? [];
+  const result = useLazyLoadQuery(
+    (builder) =>
+      builder
+        .readStorage("Identity", "IdentityOf", [account.address])
+        .readStorage("Identity", "SuperOf", [account.address]),
+    { chainId: usePeopleChainId() },
+  );
 
-  if (registration === undefined) {
+  const [registration, username] = result[0] ?? [];
+  const [superAddress, subName] = result[1] ?? [];
+
+  if (registration === undefined && subName === undefined) {
     return null;
   }
 
   const { additional, pgp_fingerprint, ...knowns } =
-    "additional" in registration.info
-      ? registration.info
-      : { ...registration.info, additional: undefined };
+    registration === undefined
+      ? { additional: undefined, pgp_fingerprint: undefined }
+      : "additional" in registration.info
+        ? registration.info
+        : { ...registration.info, additional: undefined };
 
   return (
     <section>
@@ -198,10 +192,18 @@ export function SuspensibleAccountIdentity({ account }: AccountIdentityProps) {
       <dl
         className={css({
           display: "grid",
-          gridTemplateColumns: "min-content minmax(0, 1fr)",
+          gridTemplateColumns: "max-content minmax(0, 1fr)",
           gap: "0.5rem",
         })}
       >
+        {superAddress !== undefined && subName !== undefined && (
+          <>
+            <dt>Super-identity</dt>
+            <dd>{superAddress}</dd>
+            <dt>Sub-identity</dt>
+            <dd>{subName.value?.asText()}</dd>
+          </>
+        )}
         {username !== undefined && (
           <>
             <dt>Username</dt>

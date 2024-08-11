@@ -1,7 +1,7 @@
+import { AccountListItem } from "./account-list-item";
 import { Select } from "./ui";
 import type { PolkadotAccount } from "@reactive-dot/core";
 import { useAccounts } from "@reactive-dot/react";
-import Check from "@w3f/polkadot-icons/solid/Check";
 import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
 import { useState, type ReactNode } from "react";
 import { css } from "styled-system/css";
@@ -61,6 +61,8 @@ export function ControlledAccountSelect({
   const accountItems = accounts.map(({ wallet, ...account }) => ({
     label: account.name ?? account.address,
     value: getAccountId({ ...account, wallet }),
+    address: account.address,
+    name: account.name,
   }));
 
   return (
@@ -83,8 +85,12 @@ export function ControlledAccountSelect({
     >
       <Select.Label>Account</Select.Label>
       <Select.Control>
-        <Select.Trigger>
-          <Select.ValueText placeholder="Select an account" />
+        <Select.Trigger className={css({ height: "unset" })}>
+          {account === undefined ? (
+            <Select.ValueText placeholder="Select an account" />
+          ) : (
+            <AccountListItem address={account.address} name={account.name} />
+          )}
           <Select.Indicator>
             <ChevronDown fill="currentcolor" />
           </Select.Indicator>
@@ -95,14 +101,12 @@ export function ControlledAccountSelect({
           className={css({
             maxHeight: "max(50dvh, 8rem)",
             overflow: "auto",
+            gap: "0.5rem",
           })}
         >
           {accountItems.map((item) => (
             <Select.Item key={item.value} item={item}>
-              <Select.ItemText>{item.label}</Select.ItemText>
-              <Select.ItemIndicator>
-                <Check fill="currentcolor" />
-              </Select.ItemIndicator>
+              <AccountListItem address={item.address} name={item.name} />
             </Select.Item>
           ))}
         </Select.Content>
