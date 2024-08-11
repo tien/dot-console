@@ -5,8 +5,9 @@ import {
   useLazyLoadQuery,
   useNativeTokenAmountFromPlanck,
 } from "@reactive-dot/react";
+import type { DenominatedNumber } from "@reactive-dot/utils";
 import { createFileRoute } from "@tanstack/react-router";
-import { Fragment, type ReactNode, Suspense } from "react";
+import { Fragment, Suspense } from "react";
 import { css } from "styled-system/css";
 import { AccountListItem } from "~/components/account-list-item";
 import { Spinner } from "~/components/ui/spinner";
@@ -72,10 +73,10 @@ function AccountBalances(props: AccountBalancesProps) {
     <Suspense
       fallback={
         <AccountBalancesTemplate
-          spendable={<Spinner />}
-          free={<Spinner />}
-          frozen={<Spinner />}
-          reserved={<Spinner />}
+          spendable="pending"
+          free="pending"
+          frozen="pending"
+          reserved="pending"
         />
       }
     >
@@ -96,21 +97,19 @@ function SuspensibleAccountBalances({ account }: AccountBalancesProps) {
 
   return (
     <AccountBalancesTemplate
-      spendable={useNativeTokenAmountFromPlanck(
-        clampedSpendable,
-      ).toLocaleString()}
-      free={useNativeTokenAmountFromPlanck(free).toLocaleString()}
-      frozen={useNativeTokenAmountFromPlanck(frozen).toLocaleString()}
-      reserved={useNativeTokenAmountFromPlanck(reserved).toLocaleString()}
+      spendable={useNativeTokenAmountFromPlanck(clampedSpendable)}
+      free={useNativeTokenAmountFromPlanck(free)}
+      frozen={useNativeTokenAmountFromPlanck(frozen)}
+      reserved={useNativeTokenAmountFromPlanck(reserved)}
     />
   );
 }
 
 type AccountBalancesTemplateProps = {
-  spendable: ReactNode;
-  free: ReactNode;
-  frozen: ReactNode;
-  reserved: ReactNode;
+  spendable: DenominatedNumber | "pending";
+  free: DenominatedNumber | "pending";
+  frozen: DenominatedNumber | "pending";
+  reserved: DenominatedNumber | "pending";
 };
 
 function AccountBalancesTemplate({
@@ -119,23 +118,32 @@ function AccountBalancesTemplate({
   frozen,
   reserved,
 }: AccountBalancesTemplateProps) {
+  const Amount = ({ value }: { value: DenominatedNumber | "pending" }) => (
+    <Text
+      as="dd"
+      color={value === "pending" || value.planck === 0n ? undefined : "green"}
+    >
+      {value === "pending" ? <Spinner /> : value.toLocaleString()}
+    </Text>
+  );
+
   return (
     <dl className={css({ display: "flex", gap: "1rem", "&>*": { flex: 1 } })}>
       <div>
         <dt>Spendable</dt>
-        <dd>{spendable}</dd>
+        <Amount value={spendable} />
       </div>
       <div>
         <dt>Free</dt>
-        <dd>{free}</dd>
+        <Amount value={free} />
       </div>
       <div>
         <dt>Frozen</dt>
-        <dd>{frozen}</dd>
+        <Amount value={frozen} />
       </div>
       <div>
         <dt>Reserved</dt>
-        <dd>{reserved}</dd>
+        <Amount value={reserved} />
       </div>
     </dl>
   );
@@ -147,13 +155,7 @@ type AccountIdentityProps = {
 
 export function AccountIdentity(props: AccountIdentityProps) {
   return (
-    <Suspense
-      fallback={
-        <Text className={css({ margin: "1rem 0 0.5rem 0" })}>
-          Searching for identities...
-        </Text>
-      }
-    >
+    <Suspense>
       <SuspensibleAccountIdentity {...props} />
     </Suspense>
   );
