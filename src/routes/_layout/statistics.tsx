@@ -48,6 +48,16 @@ function ExplorerPage() {
             newBlocks.set(bestBlock.number, bestBlock);
           }
 
+          const latestBlock = bestBlocks.at(0);
+
+          if (latestBlock !== undefined) {
+            for (const blockNumber of newBlocks.keys()) {
+              if (blockNumber < latestBlock.number - 25) {
+                newBlocks.delete(blockNumber);
+              }
+            }
+          }
+
           return newBlocks;
         }),
     });
