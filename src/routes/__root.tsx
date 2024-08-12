@@ -16,7 +16,7 @@ export const Route = createRootRoute({
   component: Root,
 });
 
-const toaster = createToaster({
+export const toaster = createToaster({
   placement: "bottom-end",
 });
 

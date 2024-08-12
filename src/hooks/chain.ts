@@ -1,6 +1,28 @@
 import type { ChainId } from "@reactive-dot/core";
 import { useChainId } from "@reactive-dot/react";
 
+export function useBabeChainId() {
+  const chainId = useChainId();
+
+  return chainId === "kusama" ||
+    chainId === "polkadot" ||
+    chainId === "paseo" ||
+    chainId === "westend"
+    ? chainId
+    : undefined;
+}
+
+export function useAuraChainId() {
+  const chainId = useChainId();
+
+  return chainId !== "kusama" &&
+    chainId !== "polkadot" &&
+    chainId !== "paseo" &&
+    chainId !== "westend"
+    ? chainId
+    : undefined;
+}
+
 export function usePeopleChainId() {
   const chainId = useChainId();
   switch (chainId) {

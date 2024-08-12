@@ -156,7 +156,11 @@ function AccountListItemTemplate({
             }
           })()}
           <Heading
-            className={css({ overflow: "hidden", textOverflow: "ellipsis" })}
+            className={css({
+              overflow: "hidden",
+              whiteSpace: "nowrap",
+              textOverflow: "ellipsis",
+            })}
             style={
               identityType === undefined
                 ? undefined
@@ -164,7 +168,12 @@ function AccountListItemTemplate({
             }
           >
             {displayName ?? (
-              <span className={css({ fontFamily: "monospace" })}>
+              <span
+                className={css({
+                  fontFamily: "monospace",
+                  display: "contents",
+                })}
+              >
                 {address}
               </span>
             )}

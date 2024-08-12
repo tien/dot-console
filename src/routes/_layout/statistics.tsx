@@ -1,6 +1,7 @@
 import { CodecView } from "../../components/codec-view";
 import { Heading, Table } from "../../components/ui";
 import { Collapsible } from "@ark-ui/react";
+import { ScaleEnum, Struct, u32, u64 } from "@polkadot-api/substrate-bindings";
 import { IDLE } from "@reactive-dot/core";
 import {
   useBlock,
@@ -11,10 +12,16 @@ import {
 } from "@reactive-dot/react";
 import { createFileRoute } from "@tanstack/react-router";
 import { differenceInMilliseconds, formatDuration } from "date-fns";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { css, cx } from "styled-system/css";
-import { useStakingChainId } from "~/hooks/chain";
+import { AccountListItem } from "~/components/account-list-item";
+import { Spinner } from "~/components/ui/spinner";
+import {
+  useAuraChainId,
+  useBabeChainId,
+  useStakingChainId,
+} from "~/hooks/chain";
 
 export const Route = createFileRoute("/_layout/statistics")({
   component: ExplorerPage,
@@ -32,13 +39,21 @@ function ExplorerPage() {
   const client = useClient();
 
   useEffect(() => {
-    const subscription = client.finalizedBlock$.subscribe({
-      next: (block) =>
-        setBlockMap((blocks) => new Map(blocks).set(block.number, block)),
+    const subscription = client.bestBlocks$.subscribe({
+      next: (bestBlocks) =>
+        setBlockMap((blocks) => {
+          const newBlocks = new Map(blocks);
+
+          for (const bestBlock of bestBlocks) {
+            newBlocks.set(bestBlock.number, bestBlock);
+          }
+
+          return newBlocks;
+        }),
     });
 
     return () => subscription.unsubscribe();
-  }, [client.finalizedBlock$]);
+  }, [client.bestBlocks$]);
 
   return (
     <div
@@ -290,19 +305,137 @@ function Blocks({ blocks, className }: BlocksProps) {
           <Table.Row>
             <Table.Header>Number</Table.Header>
             <Table.Header>Hash</Table.Header>
+            <Table.Header>Author</Table.Header>
           </Table.Row>
         </Table.Head>
         <Table.Body>
           {blocks.map((block) => (
             <Table.Row key={block.hash}>
               <Table.Cell>{block.number.toLocaleString()}</Table.Cell>
-              <Table.Cell>{block.hash}</Table.Cell>
+              <Table.Cell
+                className={css({
+                  fontFamily: "monospace",
+                  maxWidth: "20rem",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                })}
+              >
+                {block.hash}
+              </Table.Cell>
+              <Table.Cell
+                className={css({ maxWidth: "20rem", overflow: "hidden" })}
+              >
+                <ErrorBoundary fallback={<>Error fetching block's author</>}>
+                  <Suspense fallback={<Spinner />}>
+                    <BlockAuthor blockHash={block.hash} />
+                  </Suspense>
+                </ErrorBoundary>
+              </Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>
       </Table.Root>
     </article>
   );
+}
+
+const babeDigestCodec = ScaleEnum({
+  authority_index: u32,
+  one: u32,
+  two: u32,
+  three: u32,
+});
+
+const auraDigestCodec = Struct({ slotNumber: u64 });
+
+type BlockAuthorProps = {
+  blockHash: string;
+};
+
+function BlockAuthor({ blockHash }: BlockAuthorProps) {
+  const digest = useLazyLoadQuery((builder) =>
+    builder.readStorage("System", "Digest", [], {
+      at: blockHash as `0x${string}`,
+    }),
+  );
+
+  const digestValue = digest.at(0)?.value;
+
+  const digestData =
+    digestValue === undefined
+      ? undefined
+      : Array.isArray(digestValue)
+        ? digestValue[1]
+        : digestValue;
+
+  const babeChainId = useBabeChainId();
+
+  const authorIdOrSlotNumber = useMemo(() => {
+    if (digestData === undefined) {
+      return undefined;
+    }
+
+    if (babeChainId !== undefined) {
+      return babeDigestCodec.dec(digestData.asBytes()).value;
+    }
+
+    return Number(auraDigestCodec.dec(digestData.asBytes()).slotNumber);
+  }, [babeChainId, digestData]);
+
+  const validators = useLazyLoadQuery(
+    (builder) =>
+      authorIdOrSlotNumber === undefined || babeChainId === undefined
+        ? undefined
+        : builder.readStorage("Session", "Validators", [], {
+            at: blockHash as `0x${string}`,
+          }),
+    { chainId: babeChainId! },
+  );
+
+  const auraChainId = useAuraChainId();
+
+  const collators = useLazyLoadQuery(
+    (builder) =>
+      authorIdOrSlotNumber === undefined || auraChainId === undefined
+        ? undefined
+        : builder.readStorage("CollatorSelection", "Invulnerables", [], {
+            at: blockHash as `0x${string}`,
+          }),
+    { chainId: auraChainId! },
+  );
+
+  const authors = useMemo(() => {
+    if (validators !== IDLE) {
+      return validators;
+    }
+
+    if (collators !== IDLE) {
+      return collators;
+    }
+
+    return undefined;
+  }, [collators, validators]);
+
+  const authorIndex = useMemo(() => {
+    if (authorIdOrSlotNumber === undefined || authors === undefined) {
+      return undefined;
+    }
+
+    if (auraChainId !== undefined) {
+      return authorIdOrSlotNumber % authors.length;
+    }
+
+    return authorIdOrSlotNumber;
+  }, [auraChainId, authorIdOrSlotNumber, authors]);
+
+  const author =
+    authorIndex === undefined ? undefined : authors?.at(authorIndex);
+
+  if (author === undefined) {
+    return null;
+  }
+
+  return <AccountListItem address={author} name={undefined} />;
 }
 
 type EventsProps = {
