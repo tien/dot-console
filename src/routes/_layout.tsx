@@ -8,7 +8,7 @@ import {
 } from "../components/ui";
 import { Spinner } from "../components/ui/spinner";
 import type { ChainId } from "@reactive-dot/core";
-import { ReDotChainProvider, useBlock } from "@reactive-dot/react";
+import { ReDotChainProvider, useBlock, useChainIds } from "@reactive-dot/react";
 import {
   createFileRoute,
   Outlet,
@@ -31,21 +31,7 @@ export const Route = createFileRoute("/_layout")({
 });
 
 function Layout() {
-  // TODO: replace with dedicated hook once that is available
-  const chainIds = [
-    "polkadot",
-    "polkadot_asset_hub",
-    "polkadot_collectives",
-    "polkadot_people",
-    "kusama",
-    "kusama_asset_hub",
-    "kusama_people",
-    "paseo",
-    "westend",
-    "westend_asset_hub",
-    "westend_collectives",
-    "westend_people",
-  ] as const satisfies ChainId[];
+  const chainIds = useChainIds();
 
   const { chain: _searchChainId } = Route.useSearch();
   const searchChainId = _searchChainId?.replaceAll("-", "_") as

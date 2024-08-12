@@ -4,6 +4,7 @@ import {
   useAccounts,
   useLazyLoadQuery,
   useNativeTokenAmountFromPlanck,
+  useSpendableBalance,
 } from "@reactive-dot/react";
 import type { DenominatedNumber } from "@reactive-dot/utils";
 import { createFileRoute } from "@tanstack/react-router";
@@ -92,12 +93,13 @@ function SuspensibleAccountBalances({ account }: AccountBalancesProps) {
 
   const { free, frozen, reserved } = systemAccount.data;
 
-  const spendable = free - frozen - reserved;
-  const clampedSpendable = spendable < 0n ? 0n : spendable;
+  const spendable = useSpendableBalance(account.address, {
+    includesExistentialDeposit: true,
+  });
 
   return (
     <AccountBalancesTemplate
-      spendable={useNativeTokenAmountFromPlanck(clampedSpendable)}
+      spendable={spendable}
       free={useNativeTokenAmountFromPlanck(free)}
       frozen={useNativeTokenAmountFromPlanck(frozen)}
       reserved={useNativeTokenAmountFromPlanck(reserved)}
