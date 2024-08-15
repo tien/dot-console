@@ -12,7 +12,7 @@ import {
 } from "@reactive-dot/react";
 import { createFileRoute } from "@tanstack/react-router";
 import { differenceInMilliseconds, formatDuration } from "date-fns";
-import { Suspense, useEffect, useMemo, useState } from "react";
+import { Fragment, Suspense, useEffect, useMemo, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { css, cx } from "styled-system/css";
 import { AccountListItem } from "~/components/account-list-item";
@@ -301,6 +301,8 @@ type BlocksProps = {
 };
 
 function Blocks({ blocks, className }: BlocksProps) {
+  const finalizedBlock = useBlock("finalized");
+
   return (
     <article>
       <header
@@ -326,28 +328,60 @@ function Blocks({ blocks, className }: BlocksProps) {
         </Table.Head>
         <Table.Body>
           {blocks.map((block) => (
-            <Table.Row key={block.hash}>
-              <Table.Cell>{block.number.toLocaleString()}</Table.Cell>
-              <Table.Cell
-                className={css({
-                  fontFamily: "monospace",
-                  maxWidth: "20rem",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                })}
+            <Fragment key={block.hash}>
+              {block.number === finalizedBlock.number && (
+                <tr>
+                  <td colSpan={3}>
+                    <div
+                      className={css({
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.5rem",
+                        color: "var(--colors-accent-text)",
+                        "&>div": {
+                          flex: 1,
+                          height: "1px",
+                          backgroundColor: "var(--colors-accent-default)",
+                        },
+                      })}
+                    >
+                      <div />
+                      ⬇️ Finalised ⬇️
+                      <div />
+                    </div>
+                  </td>
+                </tr>
+              )}
+              <Table.Row
+                style={{
+                  borderBottom:
+                    block.number === finalizedBlock.number + 1
+                      ? "none"
+                      : undefined,
+                }}
               >
-                {block.hash}
-              </Table.Cell>
-              <Table.Cell
-                className={css({ maxWidth: "20rem", overflow: "hidden" })}
-              >
-                <ErrorBoundary fallback={<>Error fetching block's author</>}>
-                  <Suspense fallback={<Spinner />}>
-                    <BlockAuthor blockHash={block.hash} />
-                  </Suspense>
-                </ErrorBoundary>
-              </Table.Cell>
-            </Table.Row>
+                <Table.Cell>{block.number.toLocaleString()}</Table.Cell>
+                <Table.Cell
+                  className={css({
+                    fontFamily: "monospace",
+                    maxWidth: "20rem",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  })}
+                >
+                  {block.hash}
+                </Table.Cell>
+                <Table.Cell
+                  className={css({ maxWidth: "20rem", overflow: "hidden" })}
+                >
+                  <ErrorBoundary fallback={<>Error fetching block's author</>}>
+                    <Suspense fallback={<Spinner />}>
+                      <BlockAuthor blockHash={block.hash} />
+                    </Suspense>
+                  </ErrorBoundary>
+                </Table.Cell>
+              </Table.Row>
+            </Fragment>
           ))}
         </Table.Body>
       </Table.Root>
