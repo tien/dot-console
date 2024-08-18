@@ -14,6 +14,15 @@ export function EnumParam({ onChangeValue, ...props }: EnumParamProps) {
 
   const keys = Object.keys(enumVar.value);
   const [key, setKey] = useState(keys.at(0)!);
+
+  useEffect(
+    () => {
+      setKey(keys.at(0)!);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [JSON.stringify(keys)],
+  );
+
   const [value, setValue] = useState();
 
   const enumValue = enumVar.value[key];
