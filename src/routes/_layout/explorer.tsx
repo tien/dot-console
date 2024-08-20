@@ -7,8 +7,9 @@ import {
   blockInViewAtom,
   blockMapAtom,
 } from "../../features/explorer/stores/blocks";
+import { useAuraChainId, useBabeChainId } from "../../hooks/chain";
 import { unstable_getBlockExtrinsics } from "@reactive-dot/core";
-import { useClient, useTypedApi } from "@reactive-dot/react";
+import { useClient, useTypedApi, useQueryLoader } from "@reactive-dot/react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useAtom, useSetAtom } from "jotai";
 import { useEffect } from "react";
@@ -33,14 +34,57 @@ function ExplorerPage() {
     };
   }, [setBlockInView, setBlockMap]);
 
+  const loadQuery = useQueryLoader();
+
+  const babeChainId = useBabeChainId();
+  const auraChainId = useAuraChainId();
+
   useEffect(() => {
     const subscription = client.bestBlocks$.subscribe({
       next: (bestBlocks) =>
         setBlockMap((blocks) => {
           const newBlocks = new Map(blocks);
 
-          for (const bestBlock of bestBlocks) {
-            newBlocks.set(bestBlock.number, bestBlock);
+          for (const block of bestBlocks) {
+            newBlocks.set(block.number, block);
+
+            void loadQuery((builder) =>
+              builder
+                .readStorage("System", "Digest", [], {
+                  at: block.hash as `0x${string}`,
+                })
+                .readStorage("Session", "Validators", [], {
+                  at: block.hash as `0x${string}`,
+                })
+                .readStorage("System", "Events", [], {
+                  at: block.hash as `0x${string}`,
+                }),
+            );
+
+            if (babeChainId !== undefined) {
+              loadQuery(
+                (builder) =>
+                  builder.readStorage("Session", "Validators", [], {
+                    at: block.hash as `0x${string}`,
+                  }),
+                { chainId: babeChainId },
+              );
+            }
+
+            if (auraChainId !== undefined) {
+              void loadQuery(
+                (builder) =>
+                  builder.readStorage(
+                    "CollatorSelection",
+                    "Invulnerables",
+                    [],
+                    {
+                      at: block.hash as `0x${string}`,
+                    },
+                  ),
+                { chainId: auraChainId },
+              );
+            }
           }
 
           return newBlocks;
@@ -48,7 +92,7 @@ function ExplorerPage() {
     });
 
     return () => subscription.unsubscribe();
-  }, [client.bestBlocks$, setBlockMap]);
+  }, [auraChainId, babeChainId, client.bestBlocks$, loadQuery, setBlockMap]);
 
   const setBlockExtrinsicsMap = useSetAtom(blockExtrinsicsMapAtom);
 
@@ -93,14 +137,7 @@ function ExplorerPage() {
     return () => subscription.unsubscribe();
   }, [client, setBlockExtrinsicsMap, typedApi]);
 
-  return (
-    <>
-      <div style={{ display: blockInView === undefined ? "contents" : "none" }}>
-        <LiveView />
-      </div>
-      {blockInView !== undefined && <BlockDetail />}
-    </>
-  );
+  return blockInView === undefined ? <LiveView /> : <BlockDetail />;
 }
 
 function LiveView() {

@@ -2277,11 +2277,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@reactive-dot/core@npm:^0.8.0":
-  version: 0.8.0
-  resolution: "@reactive-dot/core@npm:0.8.0"
+"@reactive-dot/core@npm:0.0.0-snapshot.92":
+  version: 0.0.0-snapshot.92
+  resolution: "@reactive-dot/core@npm:0.0.0-snapshot.92"
   dependencies:
-    "@reactive-dot/utils": "npm:^0.8.0"
+    "@reactive-dot/utils": "npm:^0.0.0-snapshot.92"
   peerDependencies:
     "@walletconnect/modal": 2.x
     "@walletconnect/universal-provider": 2.x
@@ -2291,27 +2291,27 @@ __metadata:
       optional: true
     "@walletconnect/universal-provider":
       optional: true
-  checksum: 10c0/b508e13e5b20b7ea9dd863727815f9f235abade7085f701fd26029305c4053c769090494a1f658783d41788993e3485551c7960b105d32cecf8fa84a00941c4b
+  checksum: 10c0/923aca2e8d9f27359bcfb9e9dc6a1fbb9a480eaee7e0eaa83b1ce5aab1698585d5b259133066eb9a840ce9bc5cde19f9fbe37b07edbe376c9de8b130243787f0
   languageName: node
   linkType: hard
 
-"@reactive-dot/react@npm:^0.8.0":
-  version: 0.8.0
-  resolution: "@reactive-dot/react@npm:0.8.0"
+"@reactive-dot/react@npm:0.0.0-snapshot.92":
+  version: 0.0.0-snapshot.92
+  resolution: "@reactive-dot/react@npm:0.0.0-snapshot.92"
   dependencies:
-    "@reactive-dot/core": "npm:^0.8.0"
+    "@reactive-dot/core": "npm:^0.0.0-snapshot.92"
     jotai: "npm:^2.9.3"
     jotai-scope: "npm:^0.7.0"
   peerDependencies:
     react: 18.x
-  checksum: 10c0/ed10dd69a1e0dc77972e400607a5ddeb684d40a7cdbb73a689c78ebb276a585004c652680b83ff343860f339a814105f357241afd04a9f0d6301770b3ed2ada4
+  checksum: 10c0/cf538a5fee58cce71bb6660dcb0c76b3fcc5352e77fb2d95f3063b2a871a3ab76eeaf76b6c8675b22eaec511623bf0f6388781cf96c5ea946ff4680a3c335ebc
   languageName: node
   linkType: hard
 
-"@reactive-dot/utils@npm:^0.8.0":
-  version: 0.8.0
-  resolution: "@reactive-dot/utils@npm:0.8.0"
-  checksum: 10c0/e17be1fe37f567999bbb0871916f5321cbf2879fee9d2af76618792e641ec8929a9c864c835956e6ea970a7508b5d38c8523071192cc268a436f260ba8f11bc0
+"@reactive-dot/utils@npm:0.0.0-snapshot.92":
+  version: 0.0.0-snapshot.92
+  resolution: "@reactive-dot/utils@npm:0.0.0-snapshot.92"
+  checksum: 10c0/01c014e35ddc71adbda7c6938874f8e995ebb2920ff2905e28f38d9a74ebeac890d4d662a8178e603859e8a2631393f39a69c68e2b7db5b12eb847fefdba5269
   languageName: node
   linkType: hard
 
