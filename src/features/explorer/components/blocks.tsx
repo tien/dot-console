@@ -4,8 +4,7 @@ import { blockInViewAtom, blocksAtom } from "../stores/blocks";
 import { BlockAuthor } from "./block-author";
 import { useBlock } from "@reactive-dot/react";
 import { useAtomValue, useSetAtom } from "jotai";
-import { Fragment, Suspense } from "react";
-import { ErrorBoundary } from "react-error-boundary";
+import { Fragment } from "react";
 import { css } from "styled-system/css";
 
 export type BlocksProps = {
@@ -90,11 +89,7 @@ export function Blocks({ className }: BlocksProps) {
                 <Table.Cell
                   className={css({ maxWidth: "20rem", overflow: "hidden" })}
                 >
-                  <ErrorBoundary fallback={<>Error fetching block's author</>}>
-                    <Suspense fallback={<Spinner />}>
-                      <BlockAuthor blockHash={block.hash} />
-                    </Suspense>
-                  </ErrorBoundary>
+                  <BlockAuthor blockHash={block.hash} />
                 </Table.Cell>
                 <Table.Cell>
                   {block.extrinsics?.length.toLocaleString() ?? <Spinner />}

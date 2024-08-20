@@ -3,7 +3,9 @@ import { useAuraChainId, useBabeChainId } from "../../../hooks/chain";
 import { ScaleEnum, Struct, u32, u64 } from "@polkadot-api/substrate-bindings";
 import { IDLE } from "@reactive-dot/core";
 import { useLazyLoadQuery } from "@reactive-dot/react";
-import { useMemo } from "react";
+import { Suspense, useMemo } from "react";
+import { ErrorBoundary } from "react-error-boundary";
+import { Spinner } from "~/components/ui/spinner";
 
 const babeDigestCodec = ScaleEnum({
   authority_index: u32,
@@ -18,7 +20,17 @@ export type BlockAuthorProps = {
   blockHash: string;
 };
 
-export function BlockAuthor({ blockHash }: BlockAuthorProps) {
+export function BlockAuthor(props: BlockAuthorProps) {
+  return (
+    <ErrorBoundary fallback={<>Error fetching block's author</>}>
+      <Suspense fallback={<Spinner />}>
+        <SuspensibleBlockAuthor {...props} />
+      </Suspense>
+    </ErrorBoundary>
+  );
+}
+
+export function SuspensibleBlockAuthor({ blockHash }: BlockAuthorProps) {
   const digest = useLazyLoadQuery((builder) =>
     builder.readStorage("System", "Digest", [], {
       at: blockHash as `0x${string}`,
