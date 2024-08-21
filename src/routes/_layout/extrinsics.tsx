@@ -1,15 +1,21 @@
 import { AccountSelect } from "../../components/account-select";
 import { PalletSelect } from "../../components/pallet-select";
 import { CodecParam, INCOMPLETE, INVALID } from "../../components/param";
-import { Button, Select } from "../../components/ui";
+import { Button } from "../../components/ui/button";
+import { Select } from "../../components/ui/select";
 import { useLookup } from "../../hooks/lookup";
 import type { Pallet } from "../../types";
 import type { LookupEntry, Var } from "@polkadot-api/metadata-builders";
 import { IDLE, PENDING } from "@reactive-dot/core";
-import { ReDotSignerProvider, useMutation } from "@reactive-dot/react";
+import {
+  ReDotSignerProvider,
+  useMutation,
+  useSigner,
+} from "@reactive-dot/react";
 import { createFileRoute } from "@tanstack/react-router";
 import Check from "@w3f/polkadot-icons/solid/Check";
 import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
+import SignATransactionIcon from "@w3f/polkadot-icons/solid/SignATransaction";
 import { useMemo, useState } from "react";
 import { css } from "styled-system/css";
 
@@ -34,6 +40,8 @@ function CallParam({ pallet, call, param }: CallParamProps) {
     param.type === "lookupEntry" ? lookup(param.value.id) : param;
 
   const [args, setArgs] = useState<unknown>(INCOMPLETE);
+
+  const signer = useSigner();
 
   const [extrinsicState, submit] = useMutation((tx) =>
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -72,10 +80,14 @@ function CallParam({ pallet, call, param }: CallParamProps) {
         })}
       >
         <Button
-          disabled={args === INCOMPLETE || args === INVALID}
+          loading={isPending}
+          disabled={
+            signer === undefined || args === INCOMPLETE || args === INVALID
+          }
           onClick={() => submit()}
         >
-          {isPending ? "Submitting transaction" : "Submit transaction"}
+          Sign and submit
+          <SignATransactionIcon fill="currentcolor" />
         </Button>
       </div>
     </div>
@@ -178,18 +190,16 @@ function ExtrinsicPage() {
           })}
         >
           <div className={css({ gridArea: "account" })}>{accountSelect}</div>
-          {account && (
-            <ReDotSignerProvider signer={account.polkadotSigner}>
-              <PalletSelect filter={(pallet) => pallet.calls !== undefined}>
-                {({ pallet, palletSelect }) => (
-                  <>
-                    {palletSelect}
-                    <CallSelect key={pallet.index} pallet={pallet} />
-                  </>
-                )}
-              </PalletSelect>
-            </ReDotSignerProvider>
-          )}
+          <ReDotSignerProvider signer={account?.polkadotSigner}>
+            <PalletSelect filter={(pallet) => pallet.calls !== undefined}>
+              {({ pallet, palletSelect }) => (
+                <>
+                  {palletSelect}
+                  <CallSelect key={pallet.index} pallet={pallet} />
+                </>
+              )}
+            </PalletSelect>
+          </ReDotSignerProvider>
         </div>
       )}
     </AccountSelect>
