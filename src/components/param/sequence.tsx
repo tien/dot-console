@@ -75,10 +75,10 @@ function _SequenceParam<T>({ sequence, onChangeValue }: SequenceParamProps<T>) {
           marginBottom: "0.5rem",
         })}
       >
-        <Button onClick={increaseLength}>
+        <Button size="xs" onClick={increaseLength}>
           Add item <Icon name="Add" variant="solid" fill="currentcolor" />
         </Button>
-        <Button onClick={decreaseLength} disabled={length === 0}>
+        <Button size="xs" onClick={decreaseLength} disabled={length === 0}>
           Remove item <Icon name="Remove" variant="solid" fill="currentcolor" />
         </Button>
       </div>
