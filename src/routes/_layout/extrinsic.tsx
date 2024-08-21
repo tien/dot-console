@@ -63,6 +63,7 @@ function CallParam({ pallet, call, param }: CallParamProps) {
   return (
     <div className={css({ gridArea: "param-and-submit" })}>
       <CodecParam variable={variable} onChangeValue={setArgs} />
+      <hr className={css({ margin: "2rem 0 1rem 0" })} />
       <div
         className={css({
           display: "flex",

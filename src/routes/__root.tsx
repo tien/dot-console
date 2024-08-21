@@ -1,4 +1,4 @@
-import { Toast } from "../components/ui";
+import { IconButton, Toast } from "../components/ui";
 import { createToaster, Toaster } from "../components/ui/primitives/toast";
 import { config } from "../config";
 import { PENDING } from "@reactive-dot/core";
@@ -51,8 +51,10 @@ function MutationToaster() {
         <Toast.Root key={toast.id}>
           <Toast.Title>{toast.title}</Toast.Title>
           <Toast.Description>{toast.description}</Toast.Description>
-          <Toast.CloseTrigger>
-            <Close fill="currentcolor" />
+          <Toast.CloseTrigger asChild>
+            <IconButton variant="link" size="sm">
+              <Close fill="currentcolor" />
+            </IconButton>
           </Toast.CloseTrigger>
         </Toast.Root>
       )}
