@@ -15,6 +15,7 @@ import {
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
+import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import {
   arrayMove,
   SortableContext,
@@ -111,6 +112,7 @@ function _SequenceParam<T>({ sequence, onChangeValue }: SequenceParamProps<T>) {
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
+        modifiers={[restrictToVerticalAxis]}
         onDragEnd={({ active, over }) => {
           if (over !== null && active.id !== over.id) {
             setSortableValues((items) => {
