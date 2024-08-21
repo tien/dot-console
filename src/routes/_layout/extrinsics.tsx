@@ -13,7 +13,7 @@ import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
 import { useMemo, useState } from "react";
 import { css } from "styled-system/css";
 
-export const Route = createFileRoute("/_layout/extrinsic")({
+export const Route = createFileRoute("/_layout/extrinsics")({
   component: ExtrinsicPage,
 });
 

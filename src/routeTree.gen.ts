@@ -15,8 +15,8 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRoute } from './routes/__root'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as IndexImport } from './routes/index'
-import { Route as LayoutQueryImport } from './routes/_layout/query'
-import { Route as LayoutExtrinsicImport } from './routes/_layout/extrinsic'
+import { Route as LayoutQueriesImport } from './routes/_layout/queries'
+import { Route as LayoutExtrinsicsImport } from './routes/_layout/extrinsics'
 import { Route as LayoutExplorerImport } from './routes/_layout/explorer'
 import { Route as LayoutAccountsImport } from './routes/_layout/accounts'
 import { Route as LayoutUtilitiesIndexImport } from './routes/_layout/utilities/index'
@@ -44,13 +44,13 @@ const LayoutUtilitiesRoute = LayoutUtilitiesImport.update({
   getParentRoute: () => LayoutRoute,
 } as any)
 
-const LayoutQueryRoute = LayoutQueryImport.update({
-  path: '/query',
+const LayoutQueriesRoute = LayoutQueriesImport.update({
+  path: '/queries',
   getParentRoute: () => LayoutRoute,
 } as any)
 
-const LayoutExtrinsicRoute = LayoutExtrinsicImport.update({
-  path: '/extrinsic',
+const LayoutExtrinsicsRoute = LayoutExtrinsicsImport.update({
+  path: '/extrinsics',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -112,18 +112,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutExplorerImport
       parentRoute: typeof LayoutImport
     }
-    '/_layout/extrinsic': {
-      id: '/_layout/extrinsic'
-      path: '/extrinsic'
-      fullPath: '/extrinsic'
-      preLoaderRoute: typeof LayoutExtrinsicImport
+    '/_layout/extrinsics': {
+      id: '/_layout/extrinsics'
+      path: '/extrinsics'
+      fullPath: '/extrinsics'
+      preLoaderRoute: typeof LayoutExtrinsicsImport
       parentRoute: typeof LayoutImport
     }
-    '/_layout/query': {
-      id: '/_layout/query'
-      path: '/query'
-      fullPath: '/query'
-      preLoaderRoute: typeof LayoutQueryImport
+    '/_layout/queries': {
+      id: '/_layout/queries'
+      path: '/queries'
+      fullPath: '/queries'
+      preLoaderRoute: typeof LayoutQueriesImport
       parentRoute: typeof LayoutImport
     }
     '/_layout/utilities': {
@@ -164,8 +164,8 @@ export const routeTree = rootRoute.addChildren({
   LayoutRoute: LayoutRoute.addChildren({
     LayoutAccountsRoute,
     LayoutExplorerRoute,
-    LayoutExtrinsicRoute,
-    LayoutQueryRoute,
+    LayoutExtrinsicsRoute,
+    LayoutQueriesRoute,
     LayoutUtilitiesRoute: LayoutUtilitiesRoute.addChildren({
       LayoutUtilitiesLayoutRoute: LayoutUtilitiesLayoutRoute.addChildren({
         LayoutUtilitiesLayoutPlanckConvertorRoute,
@@ -195,8 +195,8 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/_layout/accounts",
         "/_layout/explorer",
-        "/_layout/extrinsic",
-        "/_layout/query",
+        "/_layout/extrinsics",
+        "/_layout/queries",
         "/_layout/utilities"
       ]
     },
@@ -208,12 +208,12 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_layout/explorer.tsx",
       "parent": "/_layout"
     },
-    "/_layout/extrinsic": {
-      "filePath": "_layout/extrinsic.tsx",
+    "/_layout/extrinsics": {
+      "filePath": "_layout/extrinsics.tsx",
       "parent": "/_layout"
     },
-    "/_layout/query": {
-      "filePath": "_layout/query.tsx",
+    "/_layout/queries": {
+      "filePath": "_layout/queries.tsx",
       "parent": "/_layout"
     },
     "/_layout/utilities": {

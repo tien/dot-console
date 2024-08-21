@@ -8,7 +8,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Suspense, useState } from "react";
 import { css } from "styled-system/css";
 
-export const Route = createFileRoute("/_layout/query")({
+export const Route = createFileRoute("/_layout/queries")({
   component: QueryPage,
 });
 

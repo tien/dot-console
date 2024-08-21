@@ -102,18 +102,18 @@ function Layout() {
             </Link>
             <Link asChild>
               <RouterLink
-                to="/query"
+                to="/queries"
                 activeProps={{ className: css({ color: "accent.default" }) }}
               >
-                Query
+                Queries
               </RouterLink>
             </Link>
             <Link asChild>
               <RouterLink
-                to="/extrinsic"
+                to="/extrinsics"
                 activeProps={{ className: css({ color: "accent.default" }) }}
               >
-                Extrinsic
+                Extrinsics
               </RouterLink>
             </Link>
             <Link asChild>
