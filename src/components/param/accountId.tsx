@@ -1,14 +1,13 @@
 import { AccountSelect } from "../account-select";
 import { Input, Switch } from "../ui";
 import { INCOMPLETE, INVALID, type ParamProps } from "./common";
-import type { AccountId20, AccountId32 } from "@polkadot-api/metadata-builders";
 import { getSs58AddressInfo } from "@polkadot-api/substrate-bindings";
 import { useAccounts } from "@reactive-dot/react";
 import { useEffect, useMemo, useState } from "react";
 import { css } from "styled-system/css";
 
 export type AccountIdParamProps = ParamProps<string> & {
-  accountId: AccountId20 | AccountId32;
+  accountId: { codec: "AccountId" | "ethAccount" };
 };
 
 export function AccountIdParam({
@@ -61,7 +60,7 @@ export function AccountIdParam({
 }
 
 type CustomAccountParamProps = ParamProps<string> & {
-  accountId: AccountId20 | AccountId32;
+  accountId: { codec: "AccountId" | "ethAccount" };
 };
 
 function CustomAccountParam({
@@ -91,7 +90,7 @@ function CustomAccountParam({
   return (
     <Input
       type="text"
-      placeholder={accountId.type}
+      placeholder={accountId.codec}
       value={value}
       onChange={(event) => setValue(event.target.value)}
     />

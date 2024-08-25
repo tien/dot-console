@@ -2571,6 +2571,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@polkadot-api/view-builder@npm:^0.3.5":
+  version: 0.3.5
+  resolution: "@polkadot-api/view-builder@npm:0.3.5"
+  dependencies:
+    "@polkadot-api/metadata-builders": "npm:0.7.0"
+    "@polkadot-api/substrate-bindings": "npm:0.7.0"
+    "@polkadot-api/utils": "npm:0.1.1"
+  checksum: 10c0/aa382ff64afe90cab5c1a1a11f9f82fd4f866e008d69f58be502e1928916748807927a9dd214cc1edc0595a4618b649aac72f9cc856eea80e55ae334d6383a39
+  languageName: node
+  linkType: hard
+
 "@polkadot-api/wasm-executor@npm:^0.1.1":
   version: 0.1.1
   resolution: "@polkadot-api/wasm-executor@npm:0.1.1"
@@ -6390,6 +6401,7 @@ __metadata:
     "@pandacss/dev": "npm:^0.46.0"
     "@park-ui/panda-preset": "npm:^0.42.0"
     "@polkadot-api/descriptors": "portal:.papi/descriptors"
+    "@polkadot-api/view-builder": "npm:^0.3.5"
     "@reactive-dot/react": "npm:^0.14.0"
     "@reactive-dot/wallet-walletconnect": "npm:^0.14.0"
     "@tanstack/react-router": "npm:^1.57.15"

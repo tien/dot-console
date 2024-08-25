@@ -1,35 +1,18 @@
-import { BinaryParam } from "./binary";
 import { CodecParam } from "./codec";
 import { INCOMPLETE, INVALID, type ParamProps } from "./common";
-import type { TupleVar } from "@polkadot-api/metadata-builders";
+import type { TupleShape } from "@polkadot-api/view-builder";
 import { useEffect, useMemo, useState } from "react";
 
 export type TupleParamProps<T extends Array<unknown>> = ParamProps<T> & {
-  tuple: TupleVar;
+  tuple: TupleShape;
 };
 
-export function TupleParam<T extends Array<unknown>>(
-  props: TupleParamProps<T>,
-) {
-  if (
-    props.tuple.value.every(
-      (lookupEntry) =>
-        lookupEntry.type === "primitive" && lookupEntry.value === "u8",
-    )
-  ) {
-    // @ts-expect-error TODO: Improve typing
-    return <BinaryParam onChangeValue={props.onChangeValue as unknown} />;
-  }
-
-  return <_TupleParam {...props} />;
-}
-
-export function _TupleParam<T extends Array<unknown>>({
+export function TupleParam<T extends Array<unknown>>({
   tuple: tupleVar,
   onChangeValue,
 }: TupleParamProps<T>) {
   const [tuple, setTuple] = useState<T>(
-    Array.from({ length: tupleVar.value.length }).fill(INCOMPLETE) as T,
+    Array.from({ length: tupleVar.shape.length }).fill(INCOMPLETE) as T,
   );
 
   const derivedTuple = useMemo(
@@ -52,10 +35,10 @@ export function _TupleParam<T extends Array<unknown>>({
 
   return (
     <>
-      {tupleVar.value.map((entry, index) => (
+      {tupleVar.shape.map((entry, index) => (
         <CodecParam
           key={index}
-          variable={entry}
+          shape={entry}
           onChangeValue={(value) =>
             setTuple((tuple) => tuple.with(index, value) as T)
           }

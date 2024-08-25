@@ -1,18 +1,18 @@
 import { CodecParam } from "./codec";
 import type { ParamProps } from "./common";
-import type { EnumVar } from "@polkadot-api/metadata-builders";
+import type { EnumShape } from "@polkadot-api/view-builder";
 import { useEffect, useState } from "react";
 
 export type EnumParamProps = ParamProps<
   { type: string } | { type: string; value: unknown }
 > & {
-  enum: EnumVar;
+  enum: EnumShape;
 };
 
 export function EnumParam({ onChangeValue, ...props }: EnumParamProps) {
   const enumVar = props.enum;
 
-  const keys = Object.keys(enumVar.value);
+  const keys = Object.keys(enumVar.shape);
   const [key, setKey] = useState(keys.at(0)!);
 
   useEffect(
@@ -25,13 +25,7 @@ export function EnumParam({ onChangeValue, ...props }: EnumParamProps) {
 
   const [value, setValue] = useState();
 
-  const enumValue = enumVar.value[key];
-  const variable =
-    enumValue === undefined
-      ? undefined
-      : enumValue.type === "lookupEntry"
-        ? enumValue.value
-        : enumValue;
+  const enumShape = enumVar.shape[key];
 
   useEffect(
     () => {
@@ -50,9 +44,9 @@ export function EnumParam({ onChangeValue, ...props }: EnumParamProps) {
           </option>
         ))}
       </select>
-      {variable && (
+      {enumShape && (
         // @ts-expect-error TODO: improve Enum type
-        <CodecParam variable={variable} onChangeValue={setValue} />
+        <CodecParam shape={enumShape} onChangeValue={setValue} />
       )}
     </div>
   );

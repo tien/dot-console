@@ -1,5 +1,4 @@
 import { Button, IconButton } from "../ui";
-import { BinaryParam } from "./binary";
 import { CodecParam } from "./codec";
 import {
   INCOMPLETE,
@@ -24,7 +23,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import type { SequenceVar } from "@polkadot-api/metadata-builders";
+import type { SequenceShape } from "@polkadot-api/view-builder";
 import AddIcon from "@w3f/polkadot-icons/solid/Add";
 import CloseIcon from "@w3f/polkadot-icons/solid/Close";
 import MoreMenuIcon from "@w3f/polkadot-icons/solid/MoreMenu";
@@ -32,33 +31,18 @@ import { type PropsWithChildren, useEffect, useMemo, useState } from "react";
 import { css } from "styled-system/css";
 
 export type SequenceParamProps<T> = ParamProps<T[]> & {
-  sequence: SequenceVar;
+  sequence: SequenceShape;
 };
-
-export function SequenceParam<T>({
-  sequence,
-  onChangeValue,
-}: SequenceParamProps<T>) {
-  if (sequence.value.type === "primitive" && sequence.value.value === "u8") {
-    // @ts-expect-error TODO: improve typing
-    return <BinaryParam onChangeValue={onChangeValue} />;
-  }
-
-  return (
-    <_SequenceParam
-      key={sequence.value.id}
-      sequence={sequence}
-      onChangeValue={onChangeValue}
-    />
-  );
-}
 
 type SortableValue<T> = {
   id: string;
   value: T;
 };
 
-function _SequenceParam<T>({ sequence, onChangeValue }: SequenceParamProps<T>) {
+export function SequenceParam<T>({
+  sequence,
+  onChangeValue,
+}: SequenceParamProps<T>) {
   const [length, setLength] = useState(1);
   const [sortableValues, setSortableValues] = useState(
     Array.from({ length }).map(
@@ -140,7 +124,7 @@ function _SequenceParam<T>({ sequence, onChangeValue }: SequenceParamProps<T>) {
               }
             >
               <CodecParam
-                variable={sequence.value}
+                shape={sequence.shape}
                 onChangeValue={(value) =>
                   setSortableValues((array) =>
                     array.with(index, {

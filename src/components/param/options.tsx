@@ -1,11 +1,11 @@
 import { Switch } from "../ui";
 import { CodecParam } from "./codec";
 import { INCOMPLETE, type ParamInput, type ParamProps } from "./common";
-import type { OptionVar } from "@polkadot-api/metadata-builders";
+import type { OptionShape } from "@polkadot-api/view-builder";
 import { useEffect, useMemo, useState } from "react";
 
 export type OptionParamProps<T> = ParamProps<undefined | T> & {
-  option: OptionVar;
+  option: OptionShape;
 };
 
 export function OptionParam<T>({ option, onChangeValue }: OptionParamProps<T>) {
@@ -34,7 +34,7 @@ export function OptionParam<T>({ option, onChangeValue }: OptionParamProps<T>) {
         Include optional
       </Switch>
       {includeOptional && (
-        <CodecParam variable={option.value} onChangeValue={setValue} />
+        <CodecParam shape={option.shape} onChangeValue={setValue} />
       )}
     </div>
   );

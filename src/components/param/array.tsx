@@ -1,4 +1,3 @@
-import { BinaryParam } from "./binary";
 import { CodecParam } from "./codec";
 import {
   INCOMPLETE,
@@ -6,27 +5,15 @@ import {
   type ParamInput,
   type ParamProps,
 } from "./common";
-import type { ArrayVar } from "@polkadot-api/metadata-builders";
+import type { ArrayShape } from "@polkadot-api/view-builder";
 import { useEffect, useMemo, useState } from "react";
 import { css } from "styled-system/css";
 
 export type ArrayParamProps<T> = ParamProps<T[]> & {
-  array: ArrayVar;
+  array: ArrayShape;
 };
 
-export function ArrayParam<T>(props: ArrayParamProps<T>) {
-  if (
-    props.array.value.type === "primitive" &&
-    props.array.value.value === "u8"
-  ) {
-    // @ts-expect-error TODO: Improve typing
-    return <BinaryParam onChangeValue={props.onChangeValue as unknown} />;
-  }
-
-  return <_ArrayParam {...props} />;
-}
-
-export function _ArrayParam<T>({
+export function ArrayParam<T>({
   array: arrayVar,
   onChangeValue,
 }: ArrayParamProps<T>) {
@@ -63,7 +50,7 @@ export function _ArrayParam<T>({
       {Array.from<T>({ length: arrayVar.len }).map((_, index) => (
         <CodecParam
           key={index}
-          variable={arrayVar.value}
+          shape={arrayVar.shape}
           onChangeValue={(value) =>
             setArray((array) => array.with(index, value as T))
           }
