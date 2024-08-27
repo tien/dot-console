@@ -4,10 +4,15 @@ import { useEffect, useState } from "react";
 
 export type CompactParamProps = ParamProps<number | bigint> & {
   compact: { codec: "compactNumber" | "compactBn" };
+  defaultValue: { value: number | bigint } | undefined;
 };
 
-export function CompactParam({ compact, onChangeValue }: CompactParamProps) {
-  const [value, setValue] = useState("");
+export function CompactParam({
+  compact,
+  defaultValue,
+  onChangeValue,
+}: CompactParamProps) {
+  const [value, setValue] = useState(defaultValue?.value.toString() ?? "");
 
   const isBig = compact.codec === "compactBn";
 
@@ -24,6 +29,7 @@ export function CompactParam({ compact, onChangeValue }: CompactParamProps) {
       type="number"
       inputMode="numeric"
       placeholder="Compact"
+      value={value}
       min={
         isBig
           ? "-57896044618658097711785492504343953926634992332820282019728792003956564819968"

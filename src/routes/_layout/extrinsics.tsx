@@ -1,11 +1,15 @@
 import { AccountSelect } from "../../components/account-select";
 import { PalletSelect } from "../../components/pallet-select";
 import { CodecParam, INCOMPLETE, INVALID } from "../../components/param";
-import { Code } from "../../components/ui";
+import { Editable } from "../../components/ui";
 import { Button } from "../../components/ui/button";
 import { Select } from "../../components/ui/select";
+import { useDynamicBuilder } from "../../hooks/metadata-builder";
+import { useViewBuilder } from "../../hooks/view-builder";
 import type { Pallet } from "../../types";
-import type { Shape } from "@polkadot-api/view-builder";
+import { mergeUint8 } from "../../utils";
+import { toaster } from "../__root";
+import type { Decoded, Shape } from "@polkadot-api/view-builder";
 import { idle, pending } from "@reactive-dot/core";
 import { SignerProvider, useMutation, useSigner } from "@reactive-dot/react";
 import { createFileRoute } from "@tanstack/react-router";
@@ -15,8 +19,6 @@ import SignATransactionIcon from "@w3f/polkadot-icons/solid/SignATransaction";
 import { Binary } from "polkadot-api";
 import { useEffect, useMemo, useState } from "react";
 import { css } from "styled-system/css";
-import { useDynamicBuilder } from "~/hooks/metadata-builder";
-import { useViewBuilder } from "~/hooks/view-builder";
 
 export const Route = createFileRoute("/_layout/extrinsics")({
   component: ExtrinsicPage,
@@ -42,10 +44,14 @@ function ExtrinsicPage() {
           <div className={css({ gridArea: "account" })}>{accountSelect}</div>
           <SignerProvider signer={account?.polkadotSigner}>
             <PalletSelect filter={(pallet) => pallet.calls !== undefined}>
-              {({ pallet, palletSelect }) => (
+              {({
+                pallet,
+                unstable_changePallet: changePallet,
+                palletSelect,
+              }) => (
                 <>
                   {palletSelect}
-                  <CallSelect key={pallet.index} pallet={pallet} />
+                  <CallSelect pallet={pallet} onChangePallet={changePallet} />
                 </>
               )}
             </PalletSelect>
@@ -58,15 +64,19 @@ function ExtrinsicPage() {
 
 type CallSelectProps = {
   pallet: Pallet;
+  onChangePallet: (palletIndex: number) => void;
 };
 
-function CallSelect({ pallet }: CallSelectProps) {
+function CallSelect({ pallet, onChangePallet }: CallSelectProps) {
   if (pallet.calls === undefined) {
     throw new Error("Pallet doesn't have any calls");
   }
 
   const viewBuilder = useViewBuilder();
-  const callsEntry = viewBuilder.buildDefinition(pallet.calls);
+  const callsEntry = useMemo(
+    () => viewBuilder.buildDefinition(pallet.calls!),
+    [pallet.calls, viewBuilder],
+  );
 
   if (callsEntry.shape.codec !== "Enum") {
     throw new Error("Invalid calls type", { cause: callsEntry.shape.codec });
@@ -77,7 +87,14 @@ function CallSelect({ pallet }: CallSelectProps) {
     param,
   }));
 
-  const [selectedCallName, setSelectedCallName] = useState(calls.at(0)!.name);
+  const defaultCallName = calls.at(0)!.name;
+
+  const [selectedCallName, setSelectedCallName] = useState(defaultCallName);
+
+  useEffect(() => {
+    setSelectedCallName(defaultCallName);
+  }, [defaultCallName]);
+
   const selectedCall = calls.find((call) => call.name === selectedCallName);
 
   const callItems = calls.map((call) => ({
@@ -128,6 +145,8 @@ function CallSelect({ pallet }: CallSelectProps) {
           pallet={pallet}
           call={selectedCall.name}
           param={selectedCall.param}
+          onChangePallet={onChangePallet}
+          onChangeCall={setSelectedCallName}
         />
       )}
     </>
@@ -138,9 +157,17 @@ type CallParamProps = {
   pallet: Pallet;
   call: string;
   param: Shape;
+  onChangePallet: (palletIndex: number) => void;
+  onChangeCall: (callName: string) => void;
 };
 
-function CallParam({ pallet, call, param }: CallParamProps) {
+function CallParam({
+  pallet,
+  call,
+  param,
+  onChangePallet,
+  onChangeCall,
+}: CallParamProps) {
   const [args, setArgs] = useState<unknown>(INCOMPLETE);
 
   const signer = useSigner();
@@ -173,6 +200,8 @@ function CallParam({ pallet, call, param }: CallParamProps) {
   const dynamicBuilder = useDynamicBuilder();
   const viewBuilder = useViewBuilder();
 
+  const [decodedArgs, setDecodedArgs] = useState<Decoded>();
+
   const callData = useMemo(() => {
     if (args === INCOMPLETE || args === INVALID) {
       return undefined;
@@ -192,16 +221,74 @@ function CallParam({ pallet, call, param }: CallParamProps) {
     }
   }, [args, call, dynamicBuilder, pallet.name]);
 
+  const callDataHex = callData?.asHex();
+
+  const [draftCallDataInput, setDraftCallDataInput] = useState(
+    callData?.asHex() ?? "",
+  );
+  const [callDataInput, setCallDataInput] = useState(draftCallDataInput);
+
   useEffect(() => {
-    if (callData !== undefined) {
-      console.log(viewBuilder.callDecoder(callData.asBytes()));
+    if (callDataHex !== undefined) {
+      setDraftCallDataInput(callDataHex);
+      setCallDataInput(callDataHex);
     }
-  }, [callData, viewBuilder]);
+  }, [callDataHex]);
 
   return (
     <div className={css({ gridArea: "param-and-submit" })}>
-      <CodecParam shape={param} onChangeValue={setArgs} />
+      <CodecParam
+        key={decodedArgs?.input}
+        shape={param}
+        defaultValue={decodedArgs}
+        onChangeValue={setArgs}
+      />
       <hr className={css({ margin: "2rem 0 1rem 0" })} />
+      <Editable.Root
+        placeholder="0x0"
+        value={draftCallDataInput}
+        onValueChange={(event) => setDraftCallDataInput(event.value)}
+        onValueRevert={() => setDraftCallDataInput(callDataInput)}
+        onValueCommit={(event) => {
+          try {
+            const decodedCall = viewBuilder.callDecoder(event.value);
+
+            onChangePallet(decodedCall.pallet.value.idx);
+            onChangeCall(decodedCall.call.value.name);
+            setDecodedArgs(decodedCall.args.value);
+            setCallDataInput(draftCallDataInput);
+          } catch {
+            setDraftCallDataInput(callDataInput);
+            toaster.error({ title: "Invalid call data" });
+          }
+        }}
+      >
+        <Editable.Label>Encoded call data</Editable.Label>
+        <Editable.Area>
+          <Editable.Input />
+          <Editable.Preview />
+        </Editable.Area>
+        <Editable.Context>
+          {(editable) => (
+            <Editable.Control>
+              {editable.editing ? (
+                <>
+                  <Editable.SubmitTrigger asChild>
+                    <Button variant="link">Save</Button>
+                  </Editable.SubmitTrigger>
+                  <Editable.CancelTrigger asChild>
+                    <Button variant="link">Cancel</Button>
+                  </Editable.CancelTrigger>
+                </>
+              ) : (
+                <Editable.EditTrigger asChild>
+                  <Button variant="link">Edit</Button>
+                </Editable.EditTrigger>
+              )}
+            </Editable.Control>
+          )}
+        </Editable.Context>
+      </Editable.Root>
       <div
         className={css({
           display: "flex",
@@ -220,25 +307,6 @@ function CallParam({ pallet, call, param }: CallParamProps) {
           <SignATransactionIcon fill="currentcolor" />
         </Button>
       </div>
-      {callData !== undefined && (
-        <article>
-          <header>Encoded call data</header>
-          <Code>{callData.asHex()}</Code>
-        </article>
-      )}
     </div>
   );
-}
-
-function mergeUint8(...inputs: Array<Uint8Array>): Uint8Array {
-  const totalLen = inputs.reduce((acc, a) => acc + a.byteLength, 0);
-  const result = new Uint8Array(totalLen);
-
-  for (let idx = 0, at = 0; idx < inputs.length; idx++) {
-    const current = inputs[idx];
-    result.set(current!, at);
-    at += current!.byteLength;
-  }
-
-  return result;
 }

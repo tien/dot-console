@@ -9,7 +9,11 @@ import { css } from "styled-system/css";
 
 export type PalletSelectProps = {
   filter: (pallet: Pallet) => boolean;
-  children: (props: { pallet: Pallet; palletSelect: ReactNode }) => ReactNode;
+  children: (props: {
+    pallet: Pallet;
+    palletSelect: ReactNode;
+    unstable_changePallet: (palletIndex: number) => void;
+  }) => ReactNode;
 };
 
 const previouslySelectedPalletAtom = atom<number | undefined>();
@@ -43,6 +47,7 @@ export function PalletSelect({ filter, children }: PalletSelectProps) {
 
   return children({
     pallet: pallets.find((pallet) => pallet.index === selectedPallet)!,
+    unstable_changePallet: (palletIndex) => setSelectedPallet(palletIndex),
     palletSelect: (
       <Select.Root
         items={palletItems}

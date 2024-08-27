@@ -1,16 +1,18 @@
 import { FormLabel } from "../ui";
 import { CodecParam } from "./codec";
 import { INCOMPLETE, INVALID, type ParamProps } from "./common";
-import type { StructShape } from "@polkadot-api/view-builder";
+import type { StructDecoded, StructShape } from "@polkadot-api/view-builder";
 import { useEffect, useMemo, useState } from "react";
 
 export type StructParamProps<T extends Record<string, unknown>> =
   ParamProps<T> & {
     struct: StructShape;
+    defaultValue: StructDecoded | undefined;
   };
 
 export function StructParam<T extends Record<string, unknown>>({
   struct: structVar,
+  defaultValue,
   onChangeValue,
 }: StructParamProps<T>) {
   const [struct, setStruct] = useState<T>(
@@ -49,6 +51,7 @@ export function StructParam<T extends Record<string, unknown>>({
           <FormLabel>{key}</FormLabel>
           <CodecParam
             shape={value}
+            defaultValue={defaultValue?.value[key]}
             onChangeValue={(value) =>
               setStruct((struct) => ({ ...struct, [key]: value }))
             }

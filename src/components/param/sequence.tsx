@@ -23,7 +23,10 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import type { SequenceShape } from "@polkadot-api/view-builder";
+import type {
+  SequenceDecoded,
+  SequenceShape,
+} from "@polkadot-api/view-builder";
 import AddIcon from "@w3f/polkadot-icons/solid/Add";
 import CloseIcon from "@w3f/polkadot-icons/solid/Close";
 import MoreMenuIcon from "@w3f/polkadot-icons/solid/MoreMenu";
@@ -32,6 +35,7 @@ import { css } from "styled-system/css";
 
 export type SequenceParamProps<T> = ParamProps<T[]> & {
   sequence: SequenceShape;
+  defaultValue: SequenceDecoded | undefined;
 };
 
 type SortableValue<T> = {
@@ -41,9 +45,10 @@ type SortableValue<T> = {
 
 export function SequenceParam<T>({
   sequence,
+  defaultValue,
   onChangeValue,
 }: SequenceParamProps<T>) {
-  const [length, setLength] = useState(1);
+  const [length, setLength] = useState(defaultValue?.value.length ?? 1);
   const [sortableValues, setSortableValues] = useState(
     Array.from({ length }).map(
       (): SortableValue<ParamInput<T>> => ({
@@ -125,6 +130,7 @@ export function SequenceParam<T>({
             >
               <CodecParam
                 shape={sequence.shape}
+                defaultValue={defaultValue?.value.at(index)}
                 onChangeValue={(value) =>
                   setSortableValues((array) =>
                     array.with(index, {

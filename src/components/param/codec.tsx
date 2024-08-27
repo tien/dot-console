@@ -10,7 +10,7 @@ import { SequenceParam, type SequenceParamProps } from "./sequence";
 import { StructParam, type StructParamProps } from "./struct";
 import { TupleParam, type TupleParamProps } from "./tuple";
 import { VoidParam, type VoidParamProps } from "./void";
-import type { Shape } from "@polkadot-api/view-builder";
+import type { Decoded, Shape } from "@polkadot-api/view-builder";
 import { createContext, useContext, useMemo } from "react";
 import { css } from "styled-system/css";
 import { type CssProperties } from "styled-system/types";
@@ -19,6 +19,7 @@ const StorageParamDepthContext = createContext(0);
 
 export type CodecParamProps<T = unknown> = ParamProps<T> & {
   shape: Shape;
+  defaultValue: Decoded | undefined;
 };
 
 export function CodecParam<T = unknown>({

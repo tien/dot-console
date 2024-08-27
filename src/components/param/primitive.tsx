@@ -19,13 +19,15 @@ export type PrimitiveParamProps = ParamProps<
   primitive: {
     codec: Exclude<PrimitiveDecoded["codec"], ComplexPrimitive>;
   };
+  defaultValue: { value: boolean | number | string } | undefined;
 };
 
 export function PrimitiveParam({
   primitive,
+  defaultValue,
   onChangeValue,
 }: PrimitiveParamProps) {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(defaultValue?.value.toString() ?? "");
 
   const commonProps = {
     placeholder: primitive.codec,
