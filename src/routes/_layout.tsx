@@ -15,6 +15,7 @@ import {
   Link as RouterLink,
 } from "@tanstack/react-router";
 import CloseIcon from "@w3f/polkadot-icons/solid/Close";
+import { ConnectionButton } from "dot-connect/react.js";
 import { Suspense, useEffect, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { css } from "styled-system/css";
@@ -191,7 +192,7 @@ function Layout() {
               </Drawer.Content>
             </Drawer.Positioner>
           </Drawer.Root>
-          <dc-connection-button />
+          <ConnectionButton />
         </div>
       </header>
       <main className={css({ display: "contents" })}>
