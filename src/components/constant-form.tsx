@@ -1,6 +1,7 @@
 import type { ConstantQuery, Pallet } from "../types";
 import { PalletSelect } from "./pallet-select";
 import { Button, Code, Select } from "./ui";
+import { useChainId } from "@reactive-dot/react";
 import Check from "@w3f/polkadot-icons/solid/Check";
 import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
 import { useState, type ReactNode } from "react";
@@ -34,6 +35,7 @@ export function _ConstantQueryForm({
   palletSelect,
   onAddQuery,
 }: ConstantQueryFormProps) {
+  const chainId = useChainId();
   const defaultConstantName = pallet.constants.at(0)?.name;
 
   if (defaultConstantName === undefined) {
@@ -117,6 +119,7 @@ export function _ConstantQueryForm({
         onClick={() =>
           onAddQuery({
             id: globalThis.crypto.randomUUID(),
+            chainId,
             type: "constant",
             pallet: pallet.name,
             constant: selectedConstantName,

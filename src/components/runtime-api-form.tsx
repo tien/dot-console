@@ -3,6 +3,7 @@ import { useMetadata } from "../hooks/metadata";
 import type { RuntimeApi, RuntimeApiMethod, RuntimeApiQuery } from "../types";
 import { CodecParam, INCOMPLETE, INVALID } from "./param";
 import { Button, Code, Select } from "./ui";
+import { useChainId } from "@reactive-dot/react";
 import Check from "@w3f/polkadot-icons/solid/Check";
 import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
 import { useState } from "react";
@@ -168,6 +169,7 @@ function _ApiMethodArguments({
   method,
   onAddQuery,
 }: ApiMethodArgumentsProps) {
+  const chainId = useChainId();
   const lookup = useLookup();
   const [args, setArgs] = useState(
     Array.from({ length: method.inputs.length }).fill(INCOMPLETE),
@@ -206,6 +208,7 @@ function _ApiMethodArguments({
         onClick={() =>
           onAddQuery({
             id: globalThis.crypto.randomUUID(),
+            chainId,
             type: "api",
             api: api.name,
             method: method.name,

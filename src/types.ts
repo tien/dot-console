@@ -2,6 +2,7 @@ import type {
   Codec,
   metadata as metadataCodec,
 } from "@polkadot-api/substrate-bindings";
+import type { ChainId } from "@reactive-dot/core";
 
 type _Metadata =
   typeof metadataCodec extends Codec<infer Metadata>
@@ -23,6 +24,7 @@ export type RuntimeApiMethod = RuntimeApi["methods"][number];
 
 type BaseQuery<T> = {
   id: `${string}-${string}-${string}-${string}-${string}`;
+  chainId: ChainId;
   type: T;
 };
 

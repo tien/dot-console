@@ -5,15 +5,19 @@ import { StorageForm } from "../../components/storage-form";
 import { Heading, Progress, Tabs } from "../../components/ui";
 import type { Query } from "../../types";
 import { createFileRoute } from "@tanstack/react-router";
-import { Suspense, useState } from "react";
+import { atom, useAtom } from "jotai";
+import { Suspense } from "react";
 import { css } from "styled-system/css";
+import { Spinner } from "~/components/ui/spinner";
 
 export const Route = createFileRoute("/_layout/queries")({
   component: QueryPage,
 });
 
+const queriesAtom = atom([] as Query[]);
+
 function QueryPage() {
-  const [queries, setQueries] = useState<Query[]>([]);
+  const [queries, setQueries] = useAtom(queriesAtom);
 
   const tabOptions = [
     { id: "storage", label: "Storage" },
@@ -45,55 +49,73 @@ function QueryPage() {
           },
         })}
       >
-        <Tabs.Root defaultValue="storage" lazyMount unmountOnExit>
-          <div
-            className={css({
-              display: "flex",
-              flexDirection: "column",
-              gap: "1rem",
-            })}
-          >
-            <Tabs.List>
-              {tabOptions.map((option) => (
-                <Tabs.Trigger
-                  key={option.id}
-                  value={option.id}
-                  disabled={option.id === "svelte"}
-                >
-                  {option.label}
-                </Tabs.Trigger>
-              ))}
-              <Tabs.Indicator />
-            </Tabs.List>
-            <Tabs.Content
-              value="storage"
-              className={css({ display: "contents" })}
+        <Suspense
+          fallback={
+            <div
+              className={css({
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              })}
             >
-              <StorageForm
-                onAddQuery={(query) =>
-                  setQueries((queries) => [...queries, query])
-                }
-              />
-            </Tabs.Content>
-            <Tabs.Content
-              value="constants"
-              className={css({ display: "contents" })}
+              <Spinner size="xl" />
+            </div>
+          }
+        >
+          <Tabs.Root defaultValue="storage" lazyMount unmountOnExit>
+            <div
+              className={css({
+                display: "flex",
+                flexDirection: "column",
+                gap: "1rem",
+              })}
             >
-              <ConstantQueryForm
-                onAddQuery={(query) =>
-                  setQueries((queries) => [...queries, query])
-                }
-              />
-            </Tabs.Content>
-            <Tabs.Content value="apis" className={css({ display: "contents" })}>
-              <RuntimeApiForm
-                onAddQuery={(query) =>
-                  setQueries((queries) => [...queries, query])
-                }
-              />
-            </Tabs.Content>
-          </div>
-        </Tabs.Root>
+              <Tabs.List>
+                {tabOptions.map((option) => (
+                  <Tabs.Trigger
+                    key={option.id}
+                    value={option.id}
+                    disabled={option.id === "svelte"}
+                  >
+                    {option.label}
+                  </Tabs.Trigger>
+                ))}
+                <Tabs.Indicator />
+              </Tabs.List>
+              <Tabs.Content
+                value="storage"
+                className={css({ display: "contents" })}
+              >
+                <StorageForm
+                  onAddQuery={(query) =>
+                    setQueries((queries) => [...queries, query])
+                  }
+                />
+              </Tabs.Content>
+              <Tabs.Content
+                value="constants"
+                className={css({ display: "contents" })}
+              >
+                <ConstantQueryForm
+                  onAddQuery={(query) =>
+                    setQueries((queries) => [...queries, query])
+                  }
+                />
+              </Tabs.Content>
+              <Tabs.Content
+                value="apis"
+                className={css({ display: "contents" })}
+              >
+                <RuntimeApiForm
+                  onAddQuery={(query) =>
+                    setQueries((queries) => [...queries, query])
+                  }
+                />
+              </Tabs.Content>
+            </div>
+          </Tabs.Root>
+        </Suspense>
       </aside>
       <section
         className={css({
