@@ -45,37 +45,40 @@ function SuspensibleQueryResult({ query, onDelete }: StorageQueryResultProps) {
     }
   }, [query]);
 
-  const [result, refresh] = useLazyLoadQueryWithRefresh((builder) => {
-    switch (query.type) {
-      case "constant":
-        return builder.getConstant(
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          query.pallet as any,
-          query.constant,
-        );
-      case "storage":
-        return builder.readStorage(
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          query.pallet as any,
-          query.storage,
-          queryArgs,
-        );
-      case "storage-entries":
-        return builder.readStorageEntries(
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          query.pallet as any,
-          query.storage,
-          queryArgs,
-        );
-      case "api":
-        return builder.callApi(
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          query.api as any,
-          query.method,
-          queryArgs,
-        );
-    }
-  });
+  const [result, refresh] = useLazyLoadQueryWithRefresh(
+    (builder) => {
+      switch (query.type) {
+        case "constant":
+          return builder.getConstant(
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            query.pallet as any,
+            query.constant,
+          );
+        case "storage":
+          return builder.readStorage(
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            query.pallet as any,
+            query.storage,
+            queryArgs,
+          );
+        case "storage-entries":
+          return builder.readStorageEntries(
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            query.pallet as any,
+            query.storage,
+            queryArgs,
+          );
+        case "api":
+          return builder.callApi(
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            query.api as any,
+            query.method,
+            queryArgs,
+          );
+      }
+    },
+    { chainId: query.chainId },
+  );
 
   const refreshable = query.type === "api" || query.type === "storage-entries";
   const [isRefreshing, startRefreshTransition] = useTransition();
@@ -141,6 +144,9 @@ function SuspensibleQueryResult({ query, onDelete }: StorageQueryResultProps) {
               gap: "0.5rem",
             })}
           >
+            <FormLabel className={css({ display: "block" })}>
+              Chain ID: <Code>{query.chainId}</Code>
+            </FormLabel>
             <FormLabel className={css({ display: "block" })}>
               Path: <Code>{queryPath.join("/")}</Code>
             </FormLabel>

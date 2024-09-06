@@ -14,6 +14,7 @@ import {
   type ParamInput,
 } from "./param";
 import { Button, Code, FormLabel, Select, Text } from "./ui";
+import { useChainId } from "@reactive-dot/react";
 import Check from "@w3f/polkadot-icons/solid/Check";
 import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
 import { useMemo, useState, type ReactNode } from "react";
@@ -146,6 +147,7 @@ function StorageKey(props: StorageKeyProps) {
 }
 
 function _StorageKey({ pallet, storage, onAddQuery }: StorageKeyProps) {
+  const chainId = useChainId();
   const lookup = useLookup();
 
   const keyLookup =
@@ -264,6 +266,7 @@ function _StorageKey({ pallet, storage, onAddQuery }: StorageKeyProps) {
         onClick={() =>
           onAddQuery({
             id: globalThis.crypto.randomUUID(),
+            chainId,
             type: isEntriesQuery ? "storage-entries" : "storage",
             pallet: pallet.name,
             storage: storage.name,
