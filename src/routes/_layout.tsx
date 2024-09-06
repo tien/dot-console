@@ -97,59 +97,10 @@ function Layout() {
             overflow: "auto",
             "@media(min-width: 68rem)": {
               justifySelf: "end",
+              flexDirection: "row-reverse",
             },
           })}
         >
-          <nav
-            className={css({
-              display: "flex",
-              gap: "1.5rem",
-              "@media(min-width: 68rem)": {
-                justifyContent: "end",
-              },
-            })}
-          >
-            <Link asChild>
-              <RouterLink
-                to="/explorer"
-                activeProps={{ className: css({ color: "accent.default" }) }}
-              >
-                Explorer
-              </RouterLink>
-            </Link>
-            <Link asChild>
-              <RouterLink
-                to="/queries"
-                activeProps={{ className: css({ color: "accent.default" }) }}
-              >
-                Queries
-              </RouterLink>
-            </Link>
-            <Link asChild>
-              <RouterLink
-                to="/extrinsics"
-                activeProps={{ className: css({ color: "accent.default" }) }}
-              >
-                Extrinsics
-              </RouterLink>
-            </Link>
-            <Link asChild>
-              <RouterLink
-                to="/utilities"
-                activeProps={{ className: css({ color: "accent.default" }) }}
-              >
-                Utilities
-              </RouterLink>
-            </Link>
-            <Link asChild>
-              <RouterLink
-                to="/accounts"
-                activeProps={{ className: css({ color: "accent.default" }) }}
-              >
-                Accounts
-              </RouterLink>
-            </Link>
-          </nav>
           <Drawer.Root>
             <div
               className={css({
@@ -208,6 +159,56 @@ function Layout() {
               </Drawer.Content>
             </Drawer.Positioner>
           </Drawer.Root>
+          <nav
+            className={css({
+              display: "flex",
+              gap: "1.5rem",
+              "@media(min-width: 68rem)": {
+                justifyContent: "end",
+              },
+            })}
+          >
+            <Link asChild>
+              <RouterLink
+                to="/explorer"
+                activeProps={{ className: css({ color: "accent.default" }) }}
+              >
+                Explorer
+              </RouterLink>
+            </Link>
+            <Link asChild>
+              <RouterLink
+                to="/queries"
+                activeProps={{ className: css({ color: "accent.default" }) }}
+              >
+                Queries
+              </RouterLink>
+            </Link>
+            <Link asChild>
+              <RouterLink
+                to="/extrinsics"
+                activeProps={{ className: css({ color: "accent.default" }) }}
+              >
+                Extrinsics
+              </RouterLink>
+            </Link>
+            <Link asChild>
+              <RouterLink
+                to="/utilities"
+                activeProps={{ className: css({ color: "accent.default" }) }}
+              >
+                Utilities
+              </RouterLink>
+            </Link>
+            <Link asChild>
+              <RouterLink
+                to="/accounts"
+                activeProps={{ className: css({ color: "accent.default" }) }}
+              >
+                Accounts
+              </RouterLink>
+            </Link>
+          </nav>
         </div>
         <ConnectionButton
           className={css({ gridArea: "wallet-connection", justifySelf: "end" })}
