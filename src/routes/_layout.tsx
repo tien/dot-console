@@ -57,15 +57,23 @@ function Layout() {
     >
       <header
         className={css({
-          display: "flex",
-          justifyContent: "space-between",
+          display: "grid",
+          gridTemplateAreas: `
+            "branding       wallet-connection"
+            "nav            nav"
+          `,
+          gridTemplateColumns: "max-content 1fr",
           alignItems: "center",
           gap: "1rem",
           padding: "1rem 2rem",
           borderBottom: "1px solid",
+          "@media(min-width: 68rem)": {
+            gridTemplateAreas: `"branding nav wallet-connection"`,
+            gridTemplateColumns: "max-content 1fr max-content max-content",
+          },
         })}
       >
-        <section>
+        <section className={css({ gridArea: "branding" })}>
           <RouterLink to="/">
             <Heading as="h1" size="2xl">
               📟 ĐÓTConsole
@@ -83,14 +91,22 @@ function Layout() {
         </section>
         <div
           className={css({
+            gridArea: "nav",
             display: "flex",
             gap: "1rem",
+            overflow: "auto",
+            "@media(min-width: 68rem)": {
+              justifySelf: "end",
+            },
           })}
         >
           <nav
             className={css({
               display: "flex",
               gap: "1.5rem",
+              "@media(min-width: 68rem)": {
+                justifyContent: "end",
+              },
             })}
           >
             <Link asChild>
@@ -192,8 +208,10 @@ function Layout() {
               </Drawer.Content>
             </Drawer.Positioner>
           </Drawer.Root>
-          <ConnectionButton />
         </div>
+        <ConnectionButton
+          className={css({ gridArea: "wallet-connection", justifySelf: "end" })}
+        />
       </header>
       <main className={css({ display: "contents" })}>
         <ReDotChainProvider key={chainId} chainId={chainId}>
