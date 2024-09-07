@@ -159,21 +159,140 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren({
-  IndexRoute,
-  LayoutRoute: LayoutRoute.addChildren({
-    LayoutAccountsRoute,
-    LayoutExplorerRoute,
-    LayoutExtrinsicsRoute,
-    LayoutQueriesRoute,
-    LayoutUtilitiesRoute: LayoutUtilitiesRoute.addChildren({
-      LayoutUtilitiesLayoutRoute: LayoutUtilitiesLayoutRoute.addChildren({
-        LayoutUtilitiesLayoutPlanckConvertorRoute,
-      }),
-      LayoutUtilitiesIndexRoute,
-    }),
-  }),
-})
+interface LayoutUtilitiesLayoutRouteChildren {
+  LayoutUtilitiesLayoutPlanckConvertorRoute: typeof LayoutUtilitiesLayoutPlanckConvertorRoute
+}
+
+const LayoutUtilitiesLayoutRouteChildren: LayoutUtilitiesLayoutRouteChildren = {
+  LayoutUtilitiesLayoutPlanckConvertorRoute:
+    LayoutUtilitiesLayoutPlanckConvertorRoute,
+}
+
+const LayoutUtilitiesLayoutRouteWithChildren =
+  LayoutUtilitiesLayoutRoute._addFileChildren(
+    LayoutUtilitiesLayoutRouteChildren,
+  )
+
+interface LayoutUtilitiesRouteChildren {
+  LayoutUtilitiesLayoutRoute: typeof LayoutUtilitiesLayoutRouteWithChildren
+  LayoutUtilitiesIndexRoute: typeof LayoutUtilitiesIndexRoute
+}
+
+const LayoutUtilitiesRouteChildren: LayoutUtilitiesRouteChildren = {
+  LayoutUtilitiesLayoutRoute: LayoutUtilitiesLayoutRouteWithChildren,
+  LayoutUtilitiesIndexRoute: LayoutUtilitiesIndexRoute,
+}
+
+const LayoutUtilitiesRouteWithChildren = LayoutUtilitiesRoute._addFileChildren(
+  LayoutUtilitiesRouteChildren,
+)
+
+interface LayoutRouteChildren {
+  LayoutAccountsRoute: typeof LayoutAccountsRoute
+  LayoutExplorerRoute: typeof LayoutExplorerRoute
+  LayoutExtrinsicsRoute: typeof LayoutExtrinsicsRoute
+  LayoutQueriesRoute: typeof LayoutQueriesRoute
+  LayoutUtilitiesRoute: typeof LayoutUtilitiesRouteWithChildren
+}
+
+const LayoutRouteChildren: LayoutRouteChildren = {
+  LayoutAccountsRoute: LayoutAccountsRoute,
+  LayoutExplorerRoute: LayoutExplorerRoute,
+  LayoutExtrinsicsRoute: LayoutExtrinsicsRoute,
+  LayoutQueriesRoute: LayoutQueriesRoute,
+  LayoutUtilitiesRoute: LayoutUtilitiesRouteWithChildren,
+}
+
+const LayoutRouteWithChildren =
+  LayoutRoute._addFileChildren(LayoutRouteChildren)
+
+export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute
+  '': typeof LayoutRouteWithChildren
+  '/accounts': typeof LayoutAccountsRoute
+  '/explorer': typeof LayoutExplorerRoute
+  '/extrinsics': typeof LayoutExtrinsicsRoute
+  '/queries': typeof LayoutQueriesRoute
+  '/utilities': typeof LayoutUtilitiesLayoutRouteWithChildren
+  '/utilities/': typeof LayoutUtilitiesIndexRoute
+  '/utilities/planck-convertor': typeof LayoutUtilitiesLayoutPlanckConvertorRoute
+}
+
+export interface FileRoutesByTo {
+  '/': typeof IndexRoute
+  '': typeof LayoutRouteWithChildren
+  '/accounts': typeof LayoutAccountsRoute
+  '/explorer': typeof LayoutExplorerRoute
+  '/extrinsics': typeof LayoutExtrinsicsRoute
+  '/queries': typeof LayoutQueriesRoute
+  '/utilities': typeof LayoutUtilitiesIndexRoute
+  '/utilities/planck-convertor': typeof LayoutUtilitiesLayoutPlanckConvertorRoute
+}
+
+export interface FileRoutesById {
+  __root__: typeof rootRoute
+  '/': typeof IndexRoute
+  '/_layout': typeof LayoutRouteWithChildren
+  '/_layout/accounts': typeof LayoutAccountsRoute
+  '/_layout/explorer': typeof LayoutExplorerRoute
+  '/_layout/extrinsics': typeof LayoutExtrinsicsRoute
+  '/_layout/queries': typeof LayoutQueriesRoute
+  '/_layout/utilities': typeof LayoutUtilitiesRouteWithChildren
+  '/_layout/utilities/_layout': typeof LayoutUtilitiesLayoutRouteWithChildren
+  '/_layout/utilities/': typeof LayoutUtilitiesIndexRoute
+  '/_layout/utilities/_layout/planck-convertor': typeof LayoutUtilitiesLayoutPlanckConvertorRoute
+}
+
+export interface FileRouteTypes {
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths:
+    | '/'
+    | ''
+    | '/accounts'
+    | '/explorer'
+    | '/extrinsics'
+    | '/queries'
+    | '/utilities'
+    | '/utilities/'
+    | '/utilities/planck-convertor'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | ''
+    | '/accounts'
+    | '/explorer'
+    | '/extrinsics'
+    | '/queries'
+    | '/utilities'
+    | '/utilities/planck-convertor'
+  id:
+    | '__root__'
+    | '/'
+    | '/_layout'
+    | '/_layout/accounts'
+    | '/_layout/explorer'
+    | '/_layout/extrinsics'
+    | '/_layout/queries'
+    | '/_layout/utilities'
+    | '/_layout/utilities/_layout'
+    | '/_layout/utilities/'
+    | '/_layout/utilities/_layout/planck-convertor'
+  fileRoutesById: FileRoutesById
+}
+
+export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
+  LayoutRoute: typeof LayoutRouteWithChildren
+}
+
+const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
+  LayoutRoute: LayoutRouteWithChildren,
+}
+
+export const routeTree = rootRoute
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()
 
 /* prettier-ignore-end */
 
