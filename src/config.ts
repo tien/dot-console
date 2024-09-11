@@ -16,7 +16,7 @@ import {
 } from "@polkadot-api/descriptors";
 import type { Config } from "@reactive-dot/core";
 import { InjectedWalletAggregator } from "@reactive-dot/core/wallets.js";
-import { WalletConnect } from "@reactive-dot/core/wallets/wallet-connect.js";
+import { WalletConnect } from "@reactive-dot/wallet-walletconnect";
 import { getSmProvider } from "polkadot-api/sm-provider";
 import { startFromWorker } from "polkadot-api/smoldot/from-worker";
 
@@ -171,7 +171,9 @@ export const config = {
           icons: ["/logo.png"],
         },
       },
-      chainIds: [],
+      chainIds: [
+        "polkadot:91b171bb158e2d3848fa23a9f1c25182", // Polkadot
+      ],
       optionalChainIds: [
         "polkadot:91b171bb158e2d3848fa23a9f1c25182", // Polkadot
         "polkadot:b0a8d493285c2df73290dfb7e61f870f", // Kusama
