@@ -25,12 +25,12 @@ export function AccountListItem(props: AccountListItemProps) {
         />
       }
     >
-      <SuspensibleAccountListItem {...props} />
+      <SuspendableAccountListItem {...props} />
     </Suspense>
   );
 }
 
-export function SuspensibleAccountListItem({
+export function SuspendableAccountListItem({
   address,
   name,
   className,

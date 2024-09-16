@@ -26,13 +26,13 @@ export function QueryResult(props: StorageQueryResultProps) {
   return (
     <QueryErrorBoundary onDelete={props.onDelete}>
       <Suspense fallback={<Progress type="linear" value={null} />}>
-        <SuspensibleQueryResult {...props} />
+        <SuspendableQueryResult {...props} />
       </Suspense>
     </QueryErrorBoundary>
   );
 }
 
-function SuspensibleQueryResult({ query, onDelete }: StorageQueryResultProps) {
+function SuspendableQueryResult({ query, onDelete }: StorageQueryResultProps) {
   const queryArgs = useMemo(() => {
     switch (query.type) {
       case "constant":

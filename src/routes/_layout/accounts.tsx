@@ -81,12 +81,12 @@ function AccountBalances(props: AccountBalancesProps) {
         />
       }
     >
-      <SuspensibleAccountBalances {...props} />
+      <SuspendableAccountBalances {...props} />
     </Suspense>
   );
 }
 
-function SuspensibleAccountBalances({ account }: AccountBalancesProps) {
+function SuspendableAccountBalances({ account }: AccountBalancesProps) {
   const systemAccount = useLazyLoadQuery((builder) =>
     builder.readStorage("System", "Account", [account.address]),
   );
@@ -158,12 +158,12 @@ type AccountIdentityProps = {
 export function AccountIdentity(props: AccountIdentityProps) {
   return (
     <Suspense>
-      <SuspensibleAccountIdentity {...props} />
+      <SuspendableAccountIdentity {...props} />
     </Suspense>
   );
 }
 
-export function SuspensibleAccountIdentity({ account }: AccountIdentityProps) {
+export function SuspendableAccountIdentity({ account }: AccountIdentityProps) {
   const result = useLazyLoadQuery(
     (builder) =>
       builder

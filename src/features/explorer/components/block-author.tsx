@@ -24,13 +24,13 @@ export function BlockAuthor(props: BlockAuthorProps) {
   return (
     <ErrorBoundary fallback={<>Error fetching block's author</>}>
       <Suspense fallback={<Spinner />}>
-        <SuspensibleBlockAuthor {...props} />
+        <SuspendableBlockAuthor {...props} />
       </Suspense>
     </ErrorBoundary>
   );
 }
 
-export function SuspensibleBlockAuthor({ blockHash }: BlockAuthorProps) {
+export function SuspendableBlockAuthor({ blockHash }: BlockAuthorProps) {
   const digest = useLazyLoadQuery((builder) =>
     builder.readStorage("System", "Digest", [], {
       at: blockHash as `0x${string}`,
