@@ -6,7 +6,7 @@ import { Select } from "../../components/ui/select";
 import { useLookup } from "../../hooks/lookup";
 import type { Pallet } from "../../types";
 import type { LookupEntry, Var } from "@polkadot-api/metadata-builders";
-import { IDLE, PENDING } from "@reactive-dot/core";
+import { idle, pending } from "@reactive-dot/core";
 import {
   ReDotSignerProvider,
   useMutation,
@@ -50,9 +50,9 @@ function CallParam({ pallet, call, param }: CallParamProps) {
 
   const isPending = useMemo(() => {
     switch (extrinsicState) {
-      case PENDING:
+      case pending:
         return true;
-      case IDLE:
+      case idle:
         return false;
       default:
         if (extrinsicState instanceof Error) {

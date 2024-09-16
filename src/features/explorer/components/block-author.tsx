@@ -1,7 +1,7 @@
 import { AccountListItem } from "../../../components/account-list-item";
 import { useAuraChainId, useBabeChainId } from "../../../hooks/chain";
 import { ScaleEnum, Struct, u32, u64 } from "@polkadot-api/substrate-bindings";
-import { IDLE } from "@reactive-dot/core";
+import { idle } from "@reactive-dot/core";
 import { useLazyLoadQuery } from "@reactive-dot/react";
 import { Suspense, useMemo } from "react";
 import { ErrorBoundary } from "react-error-boundary";
@@ -83,11 +83,11 @@ export function SuspensibleBlockAuthor({ blockHash }: BlockAuthorProps) {
   );
 
   const authors = useMemo(() => {
-    if (validators !== IDLE) {
+    if (validators !== idle) {
       return validators;
     }
 
-    if (collators !== IDLE) {
+    if (collators !== idle) {
       return collators;
     }
 

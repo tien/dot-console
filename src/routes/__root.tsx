@@ -1,7 +1,7 @@
 import { IconButton, Toast } from "../components/ui";
 import { createToaster, Toaster } from "../components/ui/primitives/toast";
 import { config } from "../config";
-import { PENDING } from "@reactive-dot/core";
+import { pending } from "@reactive-dot/core";
 import { ReDotProvider, useMutationEffect } from "@reactive-dot/react";
 import { createRootRoute, Outlet } from "@tanstack/react-router";
 import Close from "@w3f/polkadot-icons/solid/Close";
@@ -22,7 +22,7 @@ export const toaster = createToaster({
 
 function MutationToaster() {
   useMutationEffect((event) => {
-    if (event.value === PENDING) {
+    if (event.value === pending) {
       toaster.loading({ id: event.id, title: "Submitting transaction" });
       return;
     }

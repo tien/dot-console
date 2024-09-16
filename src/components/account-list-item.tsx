@@ -1,7 +1,7 @@
 import Identicon from "./identicon";
 import { Heading, Text } from "./ui";
 import { Icon } from "./ui/icon";
-import { IDLE } from "@reactive-dot/core";
+import { idle } from "@reactive-dot/core";
 import { useLazyLoadQuery } from "@reactive-dot/react";
 import IdentityIcon from "@w3f/polkadot-icons/solid/Identity";
 import SubIdentityIcon from "@w3f/polkadot-icons/solid/Infrastructure";
@@ -50,7 +50,7 @@ export function SuspensibleAccountListItem({
 
   const superAccountIdentity = useLazyLoadQuery(
     (builder) =>
-      superIdentity === IDLE || superIdentity === undefined
+      superIdentity === idle || superIdentity === undefined
         ? undefined
         : builder.readStorage("Identity", "IdentityOf", [superIdentity[0]]),
     { chainId: usePeopleChainId() },
@@ -58,9 +58,9 @@ export function SuspensibleAccountListItem({
 
   const identityDisplay =
     identity?.[0]?.info.display.value?.asText() ??
-    (superIdentity === IDLE ||
+    (superIdentity === idle ||
     superIdentity === undefined ||
-    superAccountIdentity === IDLE ||
+    superAccountIdentity === idle ||
     superAccountIdentity === undefined
       ? undefined
       : `${superAccountIdentity[0].info.display.value?.asText()}/${superIdentity[1].value?.asText()}`);
@@ -71,7 +71,7 @@ export function SuspensibleAccountListItem({
 
   const isSubIdentity =
     !hasOnChainIdentity &&
-    superIdentity !== IDLE &&
+    superIdentity !== idle &&
     superIdentity !== undefined;
 
   return (

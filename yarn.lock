@@ -2603,27 +2603,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@reactive-dot/core@npm:^0.12.0":
-  version: 0.12.0
-  resolution: "@reactive-dot/core@npm:0.12.0"
+"@reactive-dot/core@npm:^0.13.0":
+  version: 0.13.0
+  resolution: "@reactive-dot/core@npm:0.13.0"
   dependencies:
     "@reactive-dot/utils": "npm:^0.8.0"
   peerDependencies:
     polkadot-api: 1.x
-  checksum: 10c0/73bec704f83acf1df3af0633dd171094ec2ea1087e0587b129e77379f88b9c0ae1149cbdbb229f253b95a44b0373e6ff89b106c23e3c66237ea7c8d94877e3ec
+  checksum: 10c0/b350c85134f060c906aeef78bcce76a708f2d0a76a9e182a6891268f1ab3fb5e972b39c0e43ea598c2b4e1e2f20c2f4b6ee3682ce7be22df9bba608555891362
   languageName: node
   linkType: hard
 
-"@reactive-dot/react@npm:^0.12.0":
-  version: 0.12.0
-  resolution: "@reactive-dot/react@npm:0.12.0"
+"@reactive-dot/react@npm:^0.13.0":
+  version: 0.13.0
+  resolution: "@reactive-dot/react@npm:0.13.0"
   dependencies:
-    "@reactive-dot/core": "npm:^0.12.0"
+    "@reactive-dot/core": "npm:^0.13.0"
     jotai: "npm:^2.9.3"
     jotai-scope: "npm:^0.7.2"
   peerDependencies:
     react: 18.x
-  checksum: 10c0/f721acda664085c9151b750926f5395bdb4ede71132bda0e16e1fcc6acc3380f7e6f2b5dd7f3d9c61642e0a288b5752a6696c9ecaef0b3b345a01a30166ef5fd
+  checksum: 10c0/2c1afe72f4f88f5a1768623bebb81ddab4f00cd2e6d9cf19f0e8309aea52a1615c208c4af6f8bc1b2c8f99d9f782b470833a93afa2ba77374469b286a31c0aa3
   languageName: node
   linkType: hard
 
@@ -6361,9 +6361,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dot-connect@npm:^0.8.0":
-  version: 0.8.0
-  resolution: "dot-connect@npm:0.8.0"
+"dot-connect@npm:^0.8.1":
+  version: 0.8.1
+  resolution: "dot-connect@npm:0.8.1"
   dependencies:
     "@lit-labs/preact-signals": "npm:^1.0.2"
     "@lit/react": "npm:^1.0.5"
@@ -6375,7 +6375,7 @@ __metadata:
   peerDependenciesMeta:
     react:
       optional: true
-  checksum: 10c0/c5af52fd3d4304fbcd83129c7129966065b81a14b50b486de922e6fa0b286884ee75628a203f7ec1f649506b0c332824b97a99bdb2d6c5131c67505c28130f15
+  checksum: 10c0/a5532077e9dd82280e3f3a9a837dacc87042c974a698948d92ea5cddb6c509a46534b855172fa496836a4fbd46d6092a8af64b5322137e3e760934180aee36a8
   languageName: node
   linkType: hard
 
@@ -6392,7 +6392,7 @@ __metadata:
     "@pandacss/dev": "npm:^0.46.0"
     "@park-ui/panda-preset": "npm:^0.42.0"
     "@polkadot-api/descriptors": "portal:.papi/descriptors"
-    "@reactive-dot/react": "npm:^0.12.0"
+    "@reactive-dot/react": "npm:^0.13.0"
     "@reactive-dot/wallet-walletconnect": "npm:^0.12.0"
     "@tanstack/react-router": "npm:^1.57.15"
     "@tanstack/router-devtools": "npm:^1.57.15"
@@ -6406,7 +6406,7 @@ __metadata:
     "@vitejs/plugin-react": "npm:^4.3.1"
     "@w3f/polkadot-icons": "npm:^1.0.0"
     date-fns: "npm:^3.6.0"
-    dot-connect: "npm:^0.8.0"
+    dot-connect: "npm:^0.8.1"
     eslint: "npm:^9.10.0"
     eslint-plugin-react: "npm:^7.36.1"
     eslint-plugin-react-hooks: "npm:^4.6.2"

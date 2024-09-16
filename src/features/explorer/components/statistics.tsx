@@ -1,6 +1,6 @@
 import { Heading } from "../../../components/ui";
 import { useStakingChainId } from "../../../hooks/chain";
-import { IDLE } from "@reactive-dot/core";
+import { idle } from "@reactive-dot/core";
 import {
   useBlock,
   useChainId,
@@ -112,9 +112,9 @@ function BlockTime() {
   );
 
   const expectedBlockTime =
-    expectedBabeBlockTime !== IDLE
+    expectedBabeBlockTime !== idle
       ? expectedBabeBlockTime
-      : auraSlotDuration !== IDLE
+      : auraSlotDuration !== idle
         ? auraSlotDuration
         : undefined;
 
@@ -203,7 +203,7 @@ function TotalStaked() {
       </header>
       <div>
         {useNativeTokenAmountFromPlanck(
-          queryResult === IDLE ? 0n : queryResult[0] + queryResult[1],
+          queryResult === idle ? 0n : queryResult[0] + queryResult[1],
         ).toLocaleString()}
       </div>
     </article>
