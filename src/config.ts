@@ -1,5 +1,3 @@
-import { kusama_people_spec, westend_people_spec } from "./chain-specs";
-import { memoize } from "./utils";
 import {
   kusama,
   kusama_asset_hub,
@@ -19,6 +17,7 @@ import { InjectedWalletAggregator } from "@reactive-dot/core/wallets.js";
 import { WalletConnect } from "@reactive-dot/wallet-walletconnect";
 import { getSmProvider } from "polkadot-api/sm-provider";
 import { startFromWorker } from "polkadot-api/smoldot/from-worker";
+import { getWsProvider } from "polkadot-api/ws-provider/web";
 
 const smoldot = startFromWorker(
   new Worker(new URL("polkadot-api/smoldot/worker", import.meta.url), {
@@ -26,94 +25,40 @@ const smoldot = startFromWorker(
   }),
 );
 
-const getPolkadotChain = memoize(() =>
-  import("polkadot-api/chains/polkadot").then(({ chainSpec }) =>
-    smoldot.addChain({ chainSpec }),
-  ),
-);
-
-const getKusamaChain = memoize(() =>
-  import("polkadot-api/chains/ksmcc3").then(({ chainSpec }) =>
-    smoldot.addChain({ chainSpec }),
-  ),
-);
-
-const getWestendChain = memoize(() =>
-  import("polkadot-api/chains/westend2").then(({ chainSpec }) =>
-    smoldot.addChain({ chainSpec }),
-  ),
-);
-
 export const config = {
   chains: {
     polkadot: {
       descriptor: polkadot,
-      provider: getSmProvider(getPolkadotChain()),
+      provider: () => getWsProvider("wss://polkadot-rpc.publicnode.com"),
     },
     polkadot_asset_hub: {
       descriptor: polkadot_asset_hub,
-      provider: getSmProvider(
-        import("polkadot-api/chains/polkadot_asset_hub").then(
-          async ({ chainSpec }) =>
-            smoldot.addChain({
-              chainSpec,
-              potentialRelayChains: [await getPolkadotChain()],
-            }),
-        ),
-      ),
+      provider: () => getWsProvider("wss://polkadot-asset-hub-rpc.polkadot.io"),
     },
     polkadot_collectives: {
       descriptor: polkadot_collectives,
-      provider: getSmProvider(
-        import("polkadot-api/chains/polkadot_collectives").then(
-          async ({ chainSpec }) =>
-            smoldot.addChain({
-              chainSpec,
-              potentialRelayChains: [await getPolkadotChain()],
-            }),
-        ),
-      ),
+      provider: () =>
+        getWsProvider("wss://polkadot-collectives-rpc.polkadot.io"),
     },
     polkadot_people: {
       descriptor: polkadot_people,
-      provider: getSmProvider(
-        import("polkadot-api/chains/polkadot_people").then(
-          async ({ chainSpec }) =>
-            smoldot.addChain({
-              chainSpec,
-              potentialRelayChains: [await getPolkadotChain()],
-            }),
-        ),
-      ),
+      provider: () => getWsProvider("wss://polkadot-people-rpc.polkadot.io"),
     },
     kusama: {
       descriptor: kusama,
-      provider: getSmProvider(getKusamaChain()),
+      provider: () => getWsProvider("wss://kusama-rpc.publicnode.com"),
     },
     kusama_asset_hub: {
       descriptor: kusama_asset_hub,
-      provider: getSmProvider(
-        import("polkadot-api/chains/ksmcc3_asset_hub").then(
-          async ({ chainSpec }) =>
-            smoldot.addChain({
-              chainSpec,
-              potentialRelayChains: [await getKusamaChain()],
-            }),
-        ),
-      ),
+      provider: () => getWsProvider("wss://kusama-asset-hub-rpc.polkadot.io"),
     },
     kusama_people: {
       descriptor: kusama_people,
-      provider: getSmProvider(
-        (async () =>
-          smoldot.addChain({
-            chainSpec: kusama_people_spec,
-            potentialRelayChains: [await getKusamaChain()],
-          }))(),
-      ),
+      provider: () => getWsProvider("wss://kusama-people-rpc.polkadot.io"),
     },
     paseo: {
       descriptor: paseo,
+      // TODO: paseo node still hasn't been updated, hence still need to use Smoldot
       provider: getSmProvider(
         import("polkadot-api/chains/paseo").then(({ chainSpec }) =>
           smoldot.addChain({ chainSpec }),
@@ -122,41 +67,20 @@ export const config = {
     },
     westend: {
       descriptor: westend,
-      provider: getSmProvider(getWestendChain()),
+      provider: () => getWsProvider("wss://westend-rpc.polkadot.io"),
     },
     westend_asset_hub: {
       descriptor: westend_asset_hub,
-      provider: getSmProvider(
-        import("polkadot-api/chains/westend2_asset_hub").then(
-          async ({ chainSpec }) =>
-            smoldot.addChain({
-              chainSpec,
-              potentialRelayChains: [await getWestendChain()],
-            }),
-        ),
-      ),
+      provider: () => getWsProvider("wss://westend-asset-hub-rpc.polkadot.io"),
     },
     westend_people: {
       descriptor: westend_people,
-      provider: getSmProvider(
-        (async () =>
-          smoldot.addChain({
-            chainSpec: westend_people_spec,
-            potentialRelayChains: [await getWestendChain()],
-          }))(),
-      ),
+      provider: () => getWsProvider("wss://westend-people-rpc.polkadot.io"),
     },
     westend_collectives: {
       descriptor: westend_collectives,
-      provider: getSmProvider(
-        import("polkadot-api/chains/westend2_collectives").then(
-          async ({ chainSpec }) =>
-            smoldot.addChain({
-              chainSpec,
-              potentialRelayChains: [await getWestendChain()],
-            }),
-        ),
-      ),
+      provider: () =>
+        getWsProvider("wss://westend-collectives-rpc.polkadot.io"),
     },
   },
   wallets: [

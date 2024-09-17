@@ -239,25 +239,7 @@ function SuspenseFallback() {
       })}
     >
       <Spinner size="xl" />
-      <ProgressText />
+      <Text>Loading data</Text>
     </div>
   );
-}
-
-function ProgressText() {
-  return (
-    <ErrorBoundary fallback={null}>
-      <Suspense fallback={<Text>Syncing light client</Text>}>
-        <DataLoadingText />
-      </Suspense>
-    </ErrorBoundary>
-  );
-}
-
-function DataLoadingText() {
-  // Best way to do health check for now
-  // https://github.com/polkadot-api/polkadot-api/issues/222
-  useBlock();
-
-  return <Text>Loading data</Text>;
 }
