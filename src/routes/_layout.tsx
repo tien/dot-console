@@ -8,7 +8,7 @@ import {
 } from "../components/ui";
 import { Spinner } from "../components/ui/spinner";
 import type { ChainId } from "@reactive-dot/core";
-import { ReDotChainProvider, useBlock, useChainIds } from "@reactive-dot/react";
+import { ChainProvider, useChainIds } from "@reactive-dot/react";
 import {
   createFileRoute,
   Outlet,
@@ -17,7 +17,6 @@ import {
 import CloseIcon from "@w3f/polkadot-icons/solid/Close";
 import { ConnectionButton } from "dot-connect/react.js";
 import { Suspense, useEffect, useState } from "react";
-import { ErrorBoundary } from "react-error-boundary";
 import { css } from "styled-system/css";
 
 type Search = {
@@ -215,11 +214,11 @@ function Layout() {
         />
       </header>
       <main className={css({ display: "contents" })}>
-        <ReDotChainProvider key={chainId} chainId={chainId}>
+        <ChainProvider key={chainId} chainId={chainId}>
           <Suspense fallback={<SuspenseFallback />}>
             <Outlet />
           </Suspense>
-        </ReDotChainProvider>
+        </ChainProvider>
       </main>
     </div>
   );

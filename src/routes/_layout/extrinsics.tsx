@@ -7,11 +7,7 @@ import { useLookup } from "../../hooks/lookup";
 import type { Pallet } from "../../types";
 import type { LookupEntry, Var } from "@polkadot-api/metadata-builders";
 import { idle, pending } from "@reactive-dot/core";
-import {
-  ReDotSignerProvider,
-  useMutation,
-  useSigner,
-} from "@reactive-dot/react";
+import { SignerProvider, useMutation, useSigner } from "@reactive-dot/react";
 import { createFileRoute } from "@tanstack/react-router";
 import Check from "@w3f/polkadot-icons/solid/Check";
 import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
@@ -190,7 +186,7 @@ function ExtrinsicPage() {
           })}
         >
           <div className={css({ gridArea: "account" })}>{accountSelect}</div>
-          <ReDotSignerProvider signer={account?.polkadotSigner}>
+          <SignerProvider signer={account?.polkadotSigner}>
             <PalletSelect filter={(pallet) => pallet.calls !== undefined}>
               {({ pallet, palletSelect }) => (
                 <>
@@ -199,7 +195,7 @@ function ExtrinsicPage() {
                 </>
               )}
             </PalletSelect>
-          </ReDotSignerProvider>
+          </SignerProvider>
         </div>
       )}
     </AccountSelect>

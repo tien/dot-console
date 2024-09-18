@@ -2,7 +2,7 @@ import { IconButton, Toast } from "../components/ui";
 import { createToaster, Toaster } from "../components/ui/primitives/toast";
 import { config } from "../config";
 import { pending } from "@reactive-dot/core";
-import { ReDotProvider, useMutationEffect } from "@reactive-dot/react";
+import { ReactiveDotProvider, useMutationEffect } from "@reactive-dot/react";
 import { createRootRoute, Outlet } from "@tanstack/react-router";
 import Close from "@w3f/polkadot-icons/solid/Close";
 import { registerDotConnect } from "dot-connect";
@@ -64,9 +64,9 @@ function MutationToaster() {
 
 function Root() {
   return (
-    <ReDotProvider config={config}>
+    <ReactiveDotProvider config={config}>
       <Outlet />
       <MutationToaster />
-    </ReDotProvider>
+    </ReactiveDotProvider>
   );
 }
