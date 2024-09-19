@@ -39,6 +39,7 @@
     "@w3f/polkadot-icons": "^1.0.0",
     "date-fns": "^4.1.0",
     "dot-connect": "^0.8.1",
+    "dot-identicon": "^0.1.0",
     "jotai": "^2.9.3",
     "polkadot-api": "^1.2.1",
     "react": "^18.3.1",

@@ -1905,6 +1905,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@noble/hashes@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "@noble/hashes@npm:1.5.0"
+  checksum: 10c0/1b46539695fbfe4477c0822d90c881a04d4fa2921c08c552375b444a48cac9930cb1ee68de0a3c7859e676554d0f3771999716606dc4d8f826e414c11692cdd9
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -6417,6 +6424,7 @@ __metadata:
     "@w3f/polkadot-icons": "npm:^1.0.0"
     date-fns: "npm:^4.1.0"
     dot-connect: "npm:^0.8.1"
+    dot-identicon: "npm:^0.1.0"
     eslint: "npm:^9.10.0"
     eslint-plugin-react: "npm:^7.36.1"
     eslint-plugin-react-hooks: "npm:^4.6.2"
@@ -6433,6 +6441,23 @@ __metadata:
     vite-tsconfig-paths: "npm:^5.0.1"
   languageName: unknown
   linkType: soft
+
+"dot-identicon@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "dot-identicon@npm:0.1.0"
+  dependencies:
+    "@lit-labs/preact-signals": "npm:^1.0.2"
+    "@lit/react": "npm:^1.0.5"
+    "@noble/hashes": "npm:^1.5.0"
+    lit: "npm:^3.2.0"
+  peerDependencies:
+    react: ">= 18"
+  peerDependenciesMeta:
+    react:
+      optional: true
+  checksum: 10c0/43a11faa45cb25499ea59ed2a204fd228a4ccddeb2315031122e2968be7308abb64ebd56a2ba457b115827d5ad0925b6b0f39eb4e72ffea1cde422491cf56f89
+  languageName: node
+  linkType: hard
 
 "duplexify@npm:^4.1.2":
   version: 4.1.3

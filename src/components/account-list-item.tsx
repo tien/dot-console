@@ -1,10 +1,10 @@
-import Identicon from "./identicon";
 import { Heading, Text } from "./ui";
 import { Icon } from "./ui/icon";
 import { idle } from "@reactive-dot/core";
 import { useLazyLoadQuery } from "@reactive-dot/react";
 import IdentityIcon from "@w3f/polkadot-icons/solid/Identity";
 import SubIdentityIcon from "@w3f/polkadot-icons/solid/Infrastructure";
+import { PolkadotIdenticon } from "dot-identicon/react.js";
 import { Suspense } from "react";
 import { css, cx } from "styled-system/css";
 import { usePeopleChainId } from "~/hooks/chain";
@@ -117,7 +117,11 @@ function AccountListItemTemplate({
         }),
       )}
     >
-      <Identicon address={address} size="2.2rem" />
+      <PolkadotIdenticon
+        address={address}
+        size="2.2rem"
+        backgroundColor="var(--colors-fg-default)"
+      />
       <div className={css({ overflow: "hidden" })}>
         <header
           title={(() => {
