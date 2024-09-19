@@ -1,4 +1,3 @@
-import { BinaryParam } from "./binary";
 import { CodecParam } from "./codec";
 import {
   INCOMPLETE,
@@ -6,32 +5,28 @@ import {
   type ParamInput,
   type ParamProps,
 } from "./common";
-import type { ArrayVar } from "@polkadot-api/metadata-builders";
+import type { ArrayDecoded, ArrayShape } from "@polkadot-api/view-builder";
 import { useEffect, useMemo, useState } from "react";
 import { css } from "styled-system/css";
 
 export type ArrayParamProps<T> = ParamProps<T[]> & {
-  array: ArrayVar;
+  array: ArrayShape;
+  defaultValue: ArrayDecoded | undefined;
 };
 
 export function ArrayParam<T>(props: ArrayParamProps<T>) {
-  if (
-    props.array.value.type === "primitive" &&
-    props.array.value.value === "u8"
-  ) {
-    // @ts-expect-error TODO: Improve typing
-    return <BinaryParam onChangeValue={props.onChangeValue as unknown} />;
-  }
-
-  return <_ArrayParam {...props} />;
+  return <_ArrayParam key={props.array.len} {...props} />;
 }
 
-export function _ArrayParam<T>({
-  array: arrayVar,
+function _ArrayParam<T>({
+  array: arrayShape,
+  defaultValue,
   onChangeValue,
 }: ArrayParamProps<T>) {
   const [array, setArray] = useState(
-    Array.from<ParamInput<T>>({ length: arrayVar.len }).fill(INCOMPLETE),
+    Array.from<ParamInput<T>>({
+      length: arrayShape.len,
+    }).fill(INCOMPLETE),
   );
 
   const derivedArray = useMemo(
@@ -60,10 +55,11 @@ export function _ArrayParam<T>({
         gap: "0.5rem",
       })}
     >
-      {Array.from<T>({ length: arrayVar.len }).map((_, index) => (
+      {Array.from<T>({ length: arrayShape.len }).map((_, index) => (
         <CodecParam
           key={index}
-          variable={arrayVar.value}
+          shape={arrayShape.shape}
+          defaultValue={defaultValue?.value.at(index)}
           onChangeValue={(value) =>
             setArray((array) => array.with(index, value as T))
           }

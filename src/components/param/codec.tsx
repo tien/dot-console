@@ -1,5 +1,6 @@
 import { AccountIdParam, type AccountIdParamProps } from "./accountId";
 import { ArrayParam, type ArrayParamProps } from "./array";
+import { BinaryParam, type BinaryParamProps } from "./binary";
 import { type ParamProps } from "./common";
 import { CompactParam, type CompactParamProps } from "./compact";
 import { EnumParam, type EnumParamProps } from "./enum";
@@ -9,7 +10,7 @@ import { SequenceParam, type SequenceParamProps } from "./sequence";
 import { StructParam, type StructParamProps } from "./struct";
 import { TupleParam, type TupleParamProps } from "./tuple";
 import { VoidParam, type VoidParamProps } from "./void";
-import { type Var } from "@polkadot-api/metadata-builders";
+import type { Decoded, Shape } from "@polkadot-api/view-builder";
 import { createContext, useContext, useMemo } from "react";
 import { css } from "styled-system/css";
 import { type CssProperties } from "styled-system/types";
@@ -17,11 +18,12 @@ import { type CssProperties } from "styled-system/types";
 const StorageParamDepthContext = createContext(0);
 
 export type CodecParamProps<T = unknown> = ParamProps<T> & {
-  variable: Var;
+  shape: Shape;
+  defaultValue: Decoded | undefined;
 };
 
 export function CodecParam<T = unknown>({
-  variable,
+  shape,
   ...props
 }: CodecParamProps<T>) {
   const depth = useContext(StorageParamDepthContext);
@@ -42,75 +44,94 @@ export function CodecParam<T = unknown>({
     >
       <StorageParamDepthContext.Provider value={depth + 1}>
         {useMemo(() => {
-          switch (variable.type) {
-            case "void":
+          switch (shape.codec) {
+            case "_void":
               return <VoidParam {...(props as VoidParamProps)} />;
-            case "primitive":
-              return (
-                <PrimitiveParam
-                  {...(props as PrimitiveParamProps)}
-                  primitive={variable}
-                />
-              );
-            case "compact":
-              return (
-                <CompactParam
-                  {...(props as CompactParamProps)}
-                  compact={variable}
-                />
-              );
-            case "option":
+            case "Option":
               return (
                 <OptionParam
                   {...(props as OptionParamProps<unknown>)}
-                  option={variable}
+                  option={shape}
                 />
               );
-            case "enum":
-              return (
-                <EnumParam {...(props as EnumParamProps)} enum={variable} />
-              );
-            case "AccountId20":
-            case "AccountId32":
+            case "Enum":
+              return <EnumParam {...(props as EnumParamProps)} enum={shape} />;
+            case "AccountId":
+            case "ethAccount":
               return (
                 <AccountIdParam
                   {...(props as AccountIdParamProps)}
-                  accountId={variable}
+                  // @ts-expect-error TypeScript bug
+                  accountId={shape}
                 />
               );
-            case "sequence":
+            case "Sequence":
               return (
                 <SequenceParam
                   {...(props as SequenceParamProps<unknown>)}
-                  sequence={variable}
+                  sequence={shape}
                 />
               );
-            case "array":
+            case "Array":
               return (
                 <ArrayParam
                   {...(props as ArrayParamProps<unknown>)}
-                  array={variable}
+                  array={shape}
                 />
               );
-            case "tuple":
+            case "Tuple":
               return (
                 <TupleParam
                   {...(props as TupleParamProps<unknown[]>)}
-                  tuple={variable}
+                  tuple={shape}
                 />
               );
-            case "struct":
+            case "Struct":
               return (
                 <StructParam
                   {...(props as StructParamProps<Record<string, unknown>>)}
-                  struct={variable}
+                  struct={shape}
+                />
+              );
+            case "Bytes":
+            case "BytesArray":
+              return <BinaryParam {...(props as BinaryParamProps)} />;
+            case "compactBn":
+            case "compactNumber":
+              return (
+                <CompactParam
+                  {...(props as CompactParamProps)}
+                  // @ts-expect-error TypeScript bug
+                  compact={shape}
+                />
+              );
+            case "bool":
+            case "char":
+            case "i128":
+            case "i16":
+            case "i256":
+            case "i32":
+            case "i64":
+            case "i8":
+            case "str":
+            case "u128":
+            case "u16":
+            case "u256":
+            case "u32":
+            case "u64":
+            case "u8":
+              return (
+                <PrimitiveParam
+                  {...(props as PrimitiveParamProps)}
+                  // @ts-expect-error TypeScript bug
+                  primitive={shape}
                 />
               );
             case "bitSequence":
-            case "result":
-              throw new Error("Unsupported key type", { cause: variable.type });
+            case "Result":
+              throw new Error("Unsupported codec type", { cause: shape.codec });
           }
-        }, [props, variable])}
+        }, [props, shape])}
       </StorageParamDepthContext.Provider>
     </div>
   );

@@ -1,4 +1,3 @@
-import { useLookup } from "../hooks/lookup";
 import { useMetadata } from "../hooks/metadata";
 import type { RuntimeApi, RuntimeApiMethod, RuntimeApiQuery } from "../types";
 import { CodecParam, INCOMPLETE, INVALID } from "./param";
@@ -8,6 +7,7 @@ import Check from "@w3f/polkadot-icons/solid/Check";
 import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
 import { useState } from "react";
 import { css } from "styled-system/css";
+import { useViewBuilder } from "~/hooks/view-builder";
 
 export type RuntimeApiFormProps = {
   onAddQuery: (query: RuntimeApiQuery) => void;
@@ -170,7 +170,8 @@ function _ApiMethodArguments({
   onAddQuery,
 }: ApiMethodArgumentsProps) {
   const chainId = useChainId();
-  const lookup = useLookup();
+  const viewBuilder = useViewBuilder();
+
   const [args, setArgs] = useState(
     Array.from({ length: method.inputs.length }).fill(INCOMPLETE),
   );
@@ -195,7 +196,7 @@ function _ApiMethodArguments({
           {method.inputs.map((input, index) => (
             <CodecParam
               key={input.name}
-              variable={lookup(input.type)}
+              shape={viewBuilder.buildDefinition(input.type).shape}
               onChangeValue={(value) =>
                 setArgs((args) => args.with(index, value))
               }

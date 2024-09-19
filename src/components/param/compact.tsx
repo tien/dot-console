@@ -1,18 +1,24 @@
 import { Input } from "../ui";
 import type { ParamProps } from "./common";
-import type { CompactVar } from "@polkadot-api/metadata-builders";
 import { useEffect, useState } from "react";
 
 export type CompactParamProps = ParamProps<number | bigint> & {
-  compact: CompactVar;
+  compact: { codec: "compactNumber" | "compactBn" };
+  defaultValue: { value: number | bigint } | undefined;
 };
 
-export function CompactParam({ compact, onChangeValue }: CompactParamProps) {
-  const [value, setValue] = useState("");
+export function CompactParam({
+  compact,
+  defaultValue,
+  onChangeValue,
+}: CompactParamProps) {
+  const [value, setValue] = useState(defaultValue?.value.toString() ?? "");
+
+  const isBig = compact.codec === "compactBn";
 
   useEffect(
     () => {
-      onChangeValue(compact.isBig ? BigInt(value) : Number(value));
+      onChangeValue(isBig ? BigInt(value) : Number(value));
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [value],
@@ -23,14 +29,13 @@ export function CompactParam({ compact, onChangeValue }: CompactParamProps) {
       type="number"
       inputMode="numeric"
       placeholder="Compact"
+      value={value}
       min={
-        compact.isBig
+        isBig
           ? "-57896044618658097711785492504343953926634992332820282019728792003956564819968"
           : -2147483648
       }
-      max={
-        compact.isBig ? "170141183460469231731687303715884105727" : 4294967295
-      }
+      max={isBig ? "170141183460469231731687303715884105727" : 4294967295}
       onChange={(event) => setValue(event.target.value)}
     />
   );

@@ -2,12 +2,15 @@ import { Button, FileUpload, IconButton, Input, Switch } from "../ui";
 import { INCOMPLETE, type ParamInput, type ParamProps } from "./common";
 import { Binary } from "@polkadot-api/substrate-bindings";
 import Delete from "@w3f/polkadot-icons/solid/DeleteCancel";
+import type { HexString } from "polkadot-api";
 import { useEffect, useState } from "react";
 import { css } from "styled-system/css";
 
-export type BinaryParamProps = ParamProps<Binary>;
+export type BinaryParamProps = ParamProps<Binary> & {
+  defaultValue?: { value: HexString } | undefined;
+};
 
-export function BinaryParam({ onChangeValue }: BinaryParamProps) {
+export function BinaryParam({ onChangeValue, defaultValue }: BinaryParamProps) {
   const [useFileUpload, setUseFileUpload] = useState(false);
 
   return (
@@ -27,14 +30,21 @@ export function BinaryParam({ onChangeValue }: BinaryParamProps) {
       {useFileUpload ? (
         <FileUploadBinaryParam onChangeValue={onChangeValue} />
       ) : (
-        <TextBinaryParam onChangeValue={onChangeValue} />
+        <TextBinaryParam
+          defaultValue={defaultValue}
+          onChangeValue={onChangeValue}
+        />
       )}
     </section>
   );
 }
 
-function TextBinaryParam({ onChangeValue }: BinaryParamProps) {
-  const [value, setValue] = useState("");
+function TextBinaryParam({ onChangeValue, defaultValue }: BinaryParamProps) {
+  const [value, setValue] = useState(
+    defaultValue !== undefined
+      ? Binary.fromHex(defaultValue.value).asText()
+      : "",
+  );
 
   useEffect(
     () => {

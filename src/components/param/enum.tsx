@@ -1,37 +1,32 @@
 import { CodecParam } from "./codec";
 import type { ParamProps } from "./common";
-import type { EnumVar } from "@polkadot-api/metadata-builders";
+import type { EnumDecoded, EnumShape } from "@polkadot-api/view-builder";
 import { useEffect, useState } from "react";
 
 export type EnumParamProps = ParamProps<
   { type: string } | { type: string; value: unknown }
 > & {
-  enum: EnumVar;
+  enum: EnumShape;
+  defaultValue: EnumDecoded | undefined;
 };
 
-export function EnumParam({ onChangeValue, ...props }: EnumParamProps) {
-  const enumVar = props.enum;
+export function EnumParam(props: EnumParamProps) {
+  return <_EnumParam key={Object.keys(props.enum.shape).join()} {...props} />;
+}
 
-  const keys = Object.keys(enumVar.value);
-  const [key, setKey] = useState(keys.at(0)!);
+export function _EnumParam({
+  onChangeValue,
+  defaultValue,
+  ...props
+}: EnumParamProps) {
+  const enumShape = props.enum;
 
-  useEffect(
-    () => {
-      setKey(keys.at(0)!);
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [JSON.stringify(keys)],
-  );
+  const keys = Object.keys(enumShape.shape);
+  const [key, setKey] = useState(defaultValue?.value.type ?? keys.at(0)!);
 
   const [value, setValue] = useState();
 
-  const enumValue = enumVar.value[key];
-  const variable =
-    enumValue === undefined
-      ? undefined
-      : enumValue.type === "lookupEntry"
-        ? enumValue.value
-        : enumValue;
+  const valueShape = enumShape.shape[key];
 
   useEffect(
     () => {
@@ -50,9 +45,13 @@ export function EnumParam({ onChangeValue, ...props }: EnumParamProps) {
           </option>
         ))}
       </select>
-      {variable && (
-        // @ts-expect-error TODO: improve Enum type
-        <CodecParam variable={variable} onChangeValue={setValue} />
+      {valueShape && (
+        <CodecParam
+          shape={valueShape}
+          defaultValue={defaultValue?.value.value}
+          // @ts-expect-error TODO: improve Enum type
+          onChangeValue={setValue}
+        />
       )}
     </div>
   );

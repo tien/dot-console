@@ -1,4 +1,3 @@
-import { useLookup } from "../hooks/lookup";
 import type {
   Pallet,
   Storage,
@@ -19,6 +18,7 @@ import Check from "@w3f/polkadot-icons/solid/Check";
 import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
 import { useMemo, useState, type ReactNode } from "react";
 import { css } from "styled-system/css";
+import { useViewBuilder } from "~/hooks/view-builder";
 
 type StorageFormProps = {
   pallet: Pallet;
@@ -148,37 +148,32 @@ function StorageKey(props: StorageKeyProps) {
 
 function _StorageKey({ pallet, storage, onAddQuery }: StorageKeyProps) {
   const chainId = useChainId();
-  const lookup = useLookup();
+  const viewBuilder = useViewBuilder();
 
-  const keyLookup =
-    storage.type.tag === "plain" ? undefined : lookup(storage.type.value.key);
+  const keyShapeDecoder =
+    storage.type.tag === "plain"
+      ? undefined
+      : viewBuilder.buildDefinition(storage.type.value.key);
 
   const [key, setKey] = useState<ParamInput<unknown>>(INCOMPLETE);
 
   const maxKeyLength = useMemo(() => {
-    switch (keyLookup?.type) {
+    switch (keyShapeDecoder?.shape.codec) {
       case undefined:
         return undefined;
-      case "tuple":
-        return keyLookup.value.every(
-          (value) => value.type === "primitive" && value.value === "u8",
-        )
-          ? 1
-          : keyLookup.value.length;
-      case "array":
-        return keyLookup.value.type === "primitive" &&
-          keyLookup.value.value === "u8"
-          ? 1
-          : keyLookup.len;
+      case "Tuple":
+        return keyShapeDecoder.shape.shape.length;
+      case "Array":
+        return keyShapeDecoder.shape.len;
       default:
         return 1;
     }
-  }, [keyLookup]);
+  }, [keyShapeDecoder]);
 
   const [keyLength, setKeyLength] = useState(maxKeyLength ?? 0);
 
   const derivedKey = useMemo(() => {
-    if (keyLookup === undefined) {
+    if (keyShapeDecoder === undefined) {
       return [];
     }
 
@@ -191,26 +186,35 @@ function _StorageKey({ pallet, storage, onAddQuery }: StorageKeyProps) {
     }
 
     return [key];
-  }, [key, keyLookup]);
+  }, [key, keyShapeDecoder]);
 
   const lengthLimitedKey = derivedKey.slice(0, keyLength);
 
   const isEntriesQuery = lengthLimitedKey.length < derivedKey.length;
 
-  const lengthLimitedKeyLookup = useMemo(() => {
-    switch (keyLookup?.type) {
-      case "tuple":
-        return { ...keyLookup, value: keyLookup.value.slice(0, keyLength) };
-      case "array":
-        return { ...keyLookup, len: keyLength };
+  const lengthLimitedKeyShapeDecoder = useMemo(() => {
+    switch (keyShapeDecoder?.shape.codec) {
+      case "Tuple":
+        return {
+          ...keyShapeDecoder,
+          shape: {
+            ...keyShapeDecoder.shape,
+            shape: keyShapeDecoder.shape.shape.slice(0, keyLength),
+          },
+        };
+      case "Array":
+        return {
+          ...keyShapeDecoder,
+          shape: { ...keyShapeDecoder.shape, len: keyLength },
+        };
       default:
-        return keyLookup;
+        return keyShapeDecoder;
     }
-  }, [keyLength, keyLookup]);
+  }, [keyLength, keyShapeDecoder]);
 
   return (
     <>
-      {lengthLimitedKeyLookup && (
+      {lengthLimitedKeyShapeDecoder && (
         <section
           className={css({
             gridArea: "key",
@@ -251,7 +255,7 @@ function _StorageKey({ pallet, storage, onAddQuery }: StorageKeyProps) {
                 })}
               >
                 <CodecParam
-                  variable={lengthLimitedKeyLookup}
+                  shape={lengthLimitedKeyShapeDecoder.shape}
                   onChangeValue={setKey}
                 />
               </div>
@@ -261,7 +265,8 @@ function _StorageKey({ pallet, storage, onAddQuery }: StorageKeyProps) {
       )}
       <Button
         disabled={
-          keyLookup !== undefined && (key === INVALID || key === INCOMPLETE)
+          keyShapeDecoder !== undefined &&
+          (key === INVALID || key === INCOMPLETE)
         }
         onClick={() =>
           onAddQuery({

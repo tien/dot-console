@@ -1,22 +1,36 @@
 import { Input, Switch } from "../ui";
 import type { ParamProps } from "./common";
-import type { PrimitiveVar } from "@polkadot-api/metadata-builders";
+import type { PrimitiveDecoded } from "@polkadot-api/view-builder";
 import { type ChangeEvent, useEffect, useState } from "react";
+
+type ComplexPrimitive =
+  | "AccountId"
+  | "Bytes"
+  | "BytesArray"
+  | "_void"
+  | "bitSequence"
+  | "compactBn"
+  | "compactNumber"
+  | "ethAccount";
 
 export type PrimitiveParamProps = ParamProps<
   string | boolean | number | bigint
 > & {
-  primitive: PrimitiveVar;
+  primitive: {
+    codec: Exclude<PrimitiveDecoded["codec"], ComplexPrimitive>;
+  };
+  defaultValue: { value: boolean | number | string } | undefined;
 };
 
 export function PrimitiveParam({
   primitive,
+  defaultValue,
   onChangeValue,
 }: PrimitiveParamProps) {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(defaultValue?.value.toString() ?? "");
 
   const commonProps = {
-    placeholder: primitive.value,
+    placeholder: primitive.codec,
     value,
     onChange: (event: ChangeEvent<HTMLInputElement>) =>
       setValue(event.target.value),
@@ -30,7 +44,7 @@ export function PrimitiveParam({
 
   useEffect(
     () => {
-      switch (primitive.value) {
+      switch (primitive.codec) {
         case "bool":
           onChangeValue(Boolean(value));
           break;
@@ -59,7 +73,7 @@ export function PrimitiveParam({
     [value],
   );
 
-  switch (primitive.value) {
+  switch (primitive.codec) {
     case "bool":
       return (
         <Switch
