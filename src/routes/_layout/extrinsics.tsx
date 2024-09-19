@@ -24,135 +24,6 @@ export const Route = createFileRoute("/_layout/extrinsics")({
   component: ExtrinsicPage,
 });
 
-function ExtrinsicPage() {
-  return (
-    <AccountSelect>
-      {({ account, accountSelect }) => (
-        <div
-          className={css({
-            display: "grid",
-            gridTemplateAreas: `
-              "account            account"
-              "pallet             call"
-              "param-and-submit   param-and-submit"
-            `,
-            gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)",
-            gap: "0.5rem",
-            padding: "2rem 4rem",
-          })}
-        >
-          <div className={css({ gridArea: "account" })}>{accountSelect}</div>
-          <SignerProvider signer={account?.polkadotSigner}>
-            <PalletSelect filter={(pallet) => pallet.calls !== undefined}>
-              {({
-                pallet,
-                unstable_changePallet: changePallet,
-                palletSelect,
-              }) => (
-                <>
-                  {palletSelect}
-                  <CallSelect pallet={pallet} onChangePallet={changePallet} />
-                </>
-              )}
-            </PalletSelect>
-          </SignerProvider>
-        </div>
-      )}
-    </AccountSelect>
-  );
-}
-
-type CallSelectProps = {
-  pallet: Pallet;
-  onChangePallet: (palletIndex: number) => void;
-};
-
-function CallSelect({ pallet, onChangePallet }: CallSelectProps) {
-  if (pallet.calls === undefined) {
-    throw new Error("Pallet doesn't have any calls");
-  }
-
-  const viewBuilder = useViewBuilder();
-  const callsEntry = useMemo(
-    () => viewBuilder.buildDefinition(pallet.calls!),
-    [pallet.calls, viewBuilder],
-  );
-
-  if (callsEntry.shape.codec !== "Enum") {
-    throw new Error("Invalid calls type", { cause: callsEntry.shape.codec });
-  }
-
-  const calls = Object.entries(callsEntry.shape.shape).map(([name, param]) => ({
-    name,
-    param,
-  }));
-
-  const defaultCallName = calls.at(0)!.name;
-
-  const [selectedCallName, setSelectedCallName] = useState(defaultCallName);
-
-  useEffect(() => {
-    setSelectedCallName(defaultCallName);
-  }, [defaultCallName]);
-
-  const selectedCall = calls.find((call) => call.name === selectedCallName);
-
-  const callItems = calls.map((call) => ({
-    label: call.name,
-    value: call.name,
-  }));
-
-  return (
-    <>
-      <Select.Root
-        items={callItems}
-        value={[selectedCallName]}
-        onValueChange={(event) => setSelectedCallName(event.value.at(0)!)}
-        positioning={{ fitViewport: true, sameWidth: true }}
-        className={css({ gridArea: "call" })}
-      >
-        <Select.Label>Calls</Select.Label>
-        <Select.Control>
-          <Select.Trigger>
-            <Select.ValueText placeholder="Select a call" />
-            <Select.Indicator>
-              <ChevronDown fill="currentcolor" />
-            </Select.Indicator>
-          </Select.Trigger>
-        </Select.Control>
-        <Select.Positioner>
-          <Select.Content
-            className={css({
-              maxHeight: "max(50dvh, 8rem)",
-              overflow: "auto",
-            })}
-          >
-            {callItems
-              .toSorted((a, b) => a.label.localeCompare(b.label))
-              .map((call) => (
-                <Select.Item key={call.label} item={call}>
-                  <Select.ItemText>{call.label}</Select.ItemText>
-                  <Select.ItemIndicator>
-                    <Check fill="currentcolor" />
-                  </Select.ItemIndicator>
-                </Select.Item>
-              ))}
-          </Select.Content>
-        </Select.Positioner>
-      </Select.Root>
-      {selectedCall && (
-        <CallParam
-          pallet={pallet}
-          call={selectedCall.name}
-          param={selectedCall.param}
-          onChangePallet={onChangePallet}
-          onChangeCall={setSelectedCallName}
-        />
-      )}
-    </>
-  );
-}
-
 type CallParamProps = {
   pallet: Pallet;
   call: string;
@@ -315,5 +186,134 @@ function CallParam({
         </Button>
       </div>
     </div>
+  );
+}
+
+type CallSelectProps = {
+  pallet: Pallet;
+  onChangePallet: (palletIndex: number) => void;
+};
+
+function CallSelect({ pallet, onChangePallet }: CallSelectProps) {
+  if (pallet.calls === undefined) {
+    throw new Error("Pallet doesn't have any calls");
+  }
+
+  const viewBuilder = useViewBuilder();
+  const callsEntry = useMemo(
+    () => viewBuilder.buildDefinition(pallet.calls!),
+    [pallet.calls, viewBuilder],
+  );
+
+  if (callsEntry.shape.codec !== "Enum") {
+    throw new Error("Invalid calls type", { cause: callsEntry.shape.codec });
+  }
+
+  const calls = Object.entries(callsEntry.shape.shape).map(([name, param]) => ({
+    name,
+    param,
+  }));
+
+  const defaultCallName = calls.at(0)!.name;
+
+  const [selectedCallName, setSelectedCallName] = useState(defaultCallName);
+
+  useEffect(() => {
+    setSelectedCallName(defaultCallName);
+  }, [defaultCallName]);
+
+  const selectedCall = calls.find((call) => call.name === selectedCallName);
+
+  const callItems = calls.map((call) => ({
+    label: call.name,
+    value: call.name,
+  }));
+
+  return (
+    <>
+      <Select.Root
+        items={callItems}
+        value={[selectedCallName]}
+        onValueChange={(event) => setSelectedCallName(event.value.at(0)!)}
+        positioning={{ fitViewport: true, sameWidth: true }}
+        className={css({ gridArea: "call" })}
+      >
+        <Select.Label>Calls</Select.Label>
+        <Select.Control>
+          <Select.Trigger>
+            <Select.ValueText placeholder="Select a call" />
+            <Select.Indicator>
+              <ChevronDown fill="currentcolor" />
+            </Select.Indicator>
+          </Select.Trigger>
+        </Select.Control>
+        <Select.Positioner>
+          <Select.Content
+            className={css({
+              maxHeight: "max(50dvh, 8rem)",
+              overflow: "auto",
+            })}
+          >
+            {callItems
+              .toSorted((a, b) => a.label.localeCompare(b.label))
+              .map((call) => (
+                <Select.Item key={call.label} item={call}>
+                  <Select.ItemText>{call.label}</Select.ItemText>
+                  <Select.ItemIndicator>
+                    <Check fill="currentcolor" />
+                  </Select.ItemIndicator>
+                </Select.Item>
+              ))}
+          </Select.Content>
+        </Select.Positioner>
+      </Select.Root>
+      {selectedCall && (
+        <CallParam
+          pallet={pallet}
+          call={selectedCall.name}
+          param={selectedCall.param}
+          onChangePallet={onChangePallet}
+          onChangeCall={setSelectedCallName}
+        />
+      )}
+    </>
+  );
+}
+
+function ExtrinsicPage() {
+  return (
+    <AccountSelect>
+      {({ account, accountSelect }) => (
+        <div
+          className={css({
+            display: "grid",
+            gridTemplateAreas: `
+              "account            account"
+              "pallet             call"
+              "param-and-submit   param-and-submit"
+            `,
+            gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)",
+            gap: "0.5rem",
+            padding: "2rem 4rem",
+          })}
+        >
+          <div className={css({ gridArea: "account" })}>{accountSelect}</div>
+          <SignerProvider signer={account?.polkadotSigner}>
+            <PalletSelect filter={(pallet) => pallet.calls !== undefined}>
+              {({
+                pallet,
+                unstable_changePallet: changePallet,
+                palletSelect,
+              }) => (
+                <>
+                  {palletSelect}
+                  <CallSelect pallet={pallet} onChangePallet={changePallet} />
+                </>
+              )}
+            </PalletSelect>
+          </SignerProvider>
+        </div>
+      )}
+    </AccountSelect>
   );
 }
