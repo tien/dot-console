@@ -49,14 +49,15 @@ export function SequenceParam<T>({
   onChangeValue,
 }: SequenceParamProps<T>) {
   const [length, setLength] = useState(defaultValue?.value.length ?? 1);
-  const [sortableValues, setSortableValues] = useState(
-    Array.from({ length }).map(
-      (): SortableValue<ParamInput<T>> => ({
-        id: globalThis.crypto.randomUUID(),
-        value: INCOMPLETE,
-      }),
-    ),
+
+  const defaultValues = Array.from({ length }).map(
+    (): SortableValue<ParamInput<T>> => ({
+      id: globalThis.crypto.randomUUID(),
+      value: INCOMPLETE,
+    }),
   );
+
+  const [sortableValues, setSortableValues] = useState(defaultValues);
 
   const values = useMemo(
     () => sortableValues.map((value) => value.value),

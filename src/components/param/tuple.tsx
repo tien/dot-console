@@ -13,10 +13,18 @@ export function TupleParam<T extends Array<unknown>>({
   defaultValue,
   onChangeValue,
 }: TupleParamProps<T>) {
-  const [tuple, setTuple] = useState<T>(
-    Array.from({
-      length: defaultValue?.value.length ?? tupleShape.shape.length,
-    }).fill(INCOMPLETE) as T,
+  const defaultTuple = Array.from({
+    length: tupleShape.shape.length,
+  }).fill(INCOMPLETE) as T;
+
+  const [tuple, setTuple] = useState(defaultTuple);
+
+  useEffect(
+    () => {
+      setTuple(defaultTuple);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [tupleShape.shape.length],
   );
 
   const derivedTuple = useMemo(

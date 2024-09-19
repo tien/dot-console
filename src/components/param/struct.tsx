@@ -19,7 +19,15 @@ export function StructParam<T extends Record<string, unknown>>({
     Object.keys(structShape.shape).map((key) => [key, INCOMPLETE] as const),
   ) as unknown as T;
 
-  const [struct, setStruct] = useState<T>(defaultStruct);
+  const [struct, setStruct] = useState(defaultStruct);
+
+  useEffect(
+    () => {
+      setStruct(defaultStruct);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [Object.keys(structShape.shape).join()],
+  );
 
   const derivedStruct = useMemo(() => {
     const values = Object.values(struct);
@@ -35,14 +43,12 @@ export function StructParam<T extends Record<string, unknown>>({
     return struct;
   }, [struct]);
 
-  const structId = Object.keys(structShape.shape).join();
-
   useEffect(
     () => {
       onChangeValue(derivedStruct);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [structId, derivedStruct],
+    [derivedStruct],
   );
 
   return (

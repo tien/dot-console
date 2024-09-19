@@ -19,10 +19,18 @@ export function ArrayParam<T>({
   defaultValue,
   onChangeValue,
 }: ArrayParamProps<T>) {
-  const [array, setArray] = useState(
-    Array.from<ParamInput<T>>({
-      length: defaultValue?.value.length ?? arrayShape.len,
-    }).fill(INCOMPLETE),
+  const defaultArray = Array.from<ParamInput<T>>({
+    length: arrayShape.len,
+  }).fill(INCOMPLETE);
+
+  const [array, setArray] = useState(defaultArray);
+
+  useEffect(
+    () => {
+      setArray(defaultArray);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [arrayShape.len],
   );
 
   const derivedArray = useMemo(
