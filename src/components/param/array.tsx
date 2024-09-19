@@ -15,13 +15,13 @@ export type ArrayParamProps<T> = ParamProps<T[]> & {
 };
 
 export function ArrayParam<T>({
-  array: arrayVar,
+  array: arrayShape,
   defaultValue,
   onChangeValue,
 }: ArrayParamProps<T>) {
   const [array, setArray] = useState(
     Array.from<ParamInput<T>>({
-      length: defaultValue?.value.length ?? arrayVar.len,
+      length: defaultValue?.value.length ?? arrayShape.len,
     }).fill(INCOMPLETE),
   );
 
@@ -51,10 +51,10 @@ export function ArrayParam<T>({
         gap: "0.5rem",
       })}
     >
-      {Array.from<T>({ length: arrayVar.len }).map((_, index) => (
+      {Array.from<T>({ length: arrayShape.len }).map((_, index) => (
         <CodecParam
           key={index}
-          shape={arrayVar.shape}
+          shape={arrayShape.shape}
           defaultValue={defaultValue?.value.at(index)}
           onChangeValue={(value) =>
             setArray((array) => array.with(index, value as T))

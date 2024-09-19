@@ -9,13 +9,13 @@ export type TupleParamProps<T extends Array<unknown>> = ParamProps<T> & {
 };
 
 export function TupleParam<T extends Array<unknown>>({
-  tuple: tupleVar,
+  tuple: tupleShape,
   defaultValue,
   onChangeValue,
 }: TupleParamProps<T>) {
   const [tuple, setTuple] = useState<T>(
     Array.from({
-      length: defaultValue?.value.length ?? tupleVar.shape.length,
+      length: defaultValue?.value.length ?? tupleShape.shape.length,
     }).fill(INCOMPLETE) as T,
   );
 
@@ -39,7 +39,7 @@ export function TupleParam<T extends Array<unknown>>({
 
   return (
     <>
-      {tupleVar.shape.map((entry, index) => (
+      {tupleShape.shape.map((entry, index) => (
         <CodecParam
           key={index}
           shape={entry}

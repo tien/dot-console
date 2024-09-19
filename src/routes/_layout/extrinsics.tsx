@@ -177,7 +177,7 @@ function CallParam({
     (tx as any)[pallet.name]![call]!(args),
   );
 
-  const ispending = useMemo(() => {
+  const isPending = useMemo(() => {
     switch (extrinsicState) {
       case pending:
         return true;
@@ -200,7 +200,10 @@ function CallParam({
   const dynamicBuilder = useDynamicBuilder();
   const viewBuilder = useViewBuilder();
 
-  const [decodedArgs, setDecodedArgs] = useState<Decoded>();
+  const [defaultArgs, setDefaultArgs] = useState<{
+    id: string;
+    decoded: Decoded;
+  }>();
 
   const callData = useMemo(() => {
     if (args === INCOMPLETE || args === INVALID) {
@@ -238,14 +241,15 @@ function CallParam({
   return (
     <div className={css({ gridArea: "param-and-submit" })}>
       <CodecParam
-        key={decodedArgs?.input}
+        key={defaultArgs?.id}
         shape={param}
-        defaultValue={decodedArgs}
+        defaultValue={defaultArgs?.decoded}
         onChangeValue={setArgs}
       />
       <hr className={css({ margin: "2rem 0 1rem 0" })} />
       <Editable.Root
         placeholder="0x0"
+        autoResize
         value={draftCallDataInput}
         onValueChange={(event) => setDraftCallDataInput(event.value)}
         onValueRevert={() => setDraftCallDataInput(callDataInput)}
@@ -255,7 +259,10 @@ function CallParam({
 
             onChangePallet(decodedCall.pallet.value.idx);
             onChangeCall(decodedCall.call.value.name);
-            setDecodedArgs(decodedCall.args.value);
+            setDefaultArgs({
+              id: globalThis.crypto.randomUUID(),
+              decoded: decodedCall.args.value,
+            });
             setCallDataInput(draftCallDataInput);
           } catch {
             setDraftCallDataInput(callDataInput);
@@ -297,7 +304,7 @@ function CallParam({
         })}
       >
         <Button
-          loading={ispending}
+          loading={isPending}
           disabled={
             signer === undefined || args === INCOMPLETE || args === INVALID
           }

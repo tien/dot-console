@@ -15,9 +15,9 @@ export function EnumParam({
   defaultValue,
   ...props
 }: EnumParamProps) {
-  const enumVar = props.enum;
+  const enumShape = props.enum;
 
-  const keys = Object.keys(enumVar.shape);
+  const keys = Object.keys(enumShape.shape);
   const defaultKey = defaultValue?.value.type ?? keys.at(0)!;
   const [key, setKey] = useState(defaultKey);
 
@@ -31,7 +31,7 @@ export function EnumParam({
 
   const [value, setValue] = useState();
 
-  const enumShape = enumVar.shape[key];
+  const valueShape = enumShape.shape[key];
 
   useEffect(
     () => {
@@ -50,9 +50,9 @@ export function EnumParam({
           </option>
         ))}
       </select>
-      {enumShape && (
+      {valueShape && (
         <CodecParam
-          shape={enumShape}
+          shape={valueShape}
           defaultValue={defaultValue?.value.value}
           // @ts-expect-error TODO: improve Enum type
           onChangeValue={setValue}
