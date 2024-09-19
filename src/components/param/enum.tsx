@@ -10,7 +10,11 @@ export type EnumParamProps = ParamProps<
   defaultValue: EnumDecoded | undefined;
 };
 
-export function EnumParam({
+export function EnumParam(props: EnumParamProps) {
+  return <_EnumParam key={Object.keys(props.enum.shape).join()} {...props} />;
+}
+
+export function _EnumParam({
   onChangeValue,
   defaultValue,
   ...props
@@ -18,16 +22,7 @@ export function EnumParam({
   const enumShape = props.enum;
 
   const keys = Object.keys(enumShape.shape);
-  const defaultKey = defaultValue?.value.type ?? keys.at(0)!;
-  const [key, setKey] = useState(defaultKey);
-
-  useEffect(
-    () => {
-      setKey(defaultKey);
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [keys.join()],
-  );
+  const [key, setKey] = useState(defaultValue?.value.type ?? keys.at(0)!);
 
   const [value, setValue] = useState();
 

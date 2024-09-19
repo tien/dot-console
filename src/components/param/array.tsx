@@ -14,23 +14,19 @@ export type ArrayParamProps<T> = ParamProps<T[]> & {
   defaultValue: ArrayDecoded | undefined;
 };
 
-export function ArrayParam<T>({
+export function ArrayParam<T>(props: ArrayParamProps<T>) {
+  return <_ArrayParam key={props.array.len} {...props} />;
+}
+
+function _ArrayParam<T>({
   array: arrayShape,
   defaultValue,
   onChangeValue,
 }: ArrayParamProps<T>) {
-  const defaultArray = Array.from<ParamInput<T>>({
-    length: arrayShape.len,
-  }).fill(INCOMPLETE);
-
-  const [array, setArray] = useState(defaultArray);
-
-  useEffect(
-    () => {
-      setArray(defaultArray);
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [arrayShape.len],
+  const [array, setArray] = useState(
+    Array.from<ParamInput<T>>({
+      length: arrayShape.len,
+    }).fill(INCOMPLETE),
   );
 
   const derivedArray = useMemo(

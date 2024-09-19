@@ -10,23 +10,23 @@ export type StructParamProps<T extends Record<string, unknown>> =
     defaultValue: StructDecoded | undefined;
   };
 
-export function StructParam<T extends Record<string, unknown>>({
+export function StructParam<T extends Record<string, unknown>>(
+  props: StructParamProps<T>,
+) {
+  return (
+    <_StructParam key={Object.keys(props.struct.shape).join()} {...props} />
+  );
+}
+
+function _StructParam<T extends Record<string, unknown>>({
   struct: structShape,
   defaultValue,
   onChangeValue,
 }: StructParamProps<T>) {
-  const defaultStruct = Object.fromEntries(
-    Object.keys(structShape.shape).map((key) => [key, INCOMPLETE] as const),
-  ) as unknown as T;
-
-  const [struct, setStruct] = useState(defaultStruct);
-
-  useEffect(
-    () => {
-      setStruct(defaultStruct);
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [Object.keys(structShape.shape).join()],
+  const [struct, setStruct] = useState(
+    Object.fromEntries(
+      Object.keys(structShape.shape).map((key) => [key, INCOMPLETE] as const),
+    ) as unknown as T,
   );
 
   const derivedStruct = useMemo(() => {

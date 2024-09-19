@@ -8,23 +8,21 @@ export type TupleParamProps<T extends Array<unknown>> = ParamProps<T> & {
   defaultValue: TupleDecoded | undefined;
 };
 
-export function TupleParam<T extends Array<unknown>>({
+export function TupleParam<T extends Array<unknown>>(
+  props: TupleParamProps<T>,
+) {
+  return <_TupleParam key={props.tuple.shape.length} {...props} />;
+}
+
+function _TupleParam<T extends Array<unknown>>({
   tuple: tupleShape,
   defaultValue,
   onChangeValue,
 }: TupleParamProps<T>) {
-  const defaultTuple = Array.from({
-    length: tupleShape.shape.length,
-  }).fill(INCOMPLETE) as T;
-
-  const [tuple, setTuple] = useState(defaultTuple);
-
-  useEffect(
-    () => {
-      setTuple(defaultTuple);
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [tupleShape.shape.length],
+  const [tuple, setTuple] = useState(
+    Array.from({
+      length: tupleShape.shape.length,
+    }).fill(INCOMPLETE) as T,
   );
 
   const derivedTuple = useMemo(
