@@ -58,7 +58,7 @@ function _StructParam<T extends Record<string, unknown>>({
           <FormLabel>{key}</FormLabel>
           <CodecParam
             shape={value}
-            defaultValue={defaultValue?.value[key]}
+            defaultValue={defaultValue?.value?.[key]}
             onChangeValue={(value) =>
               setStruct((struct) => ({ ...struct, [key]: value }))
             }
