@@ -204,6 +204,7 @@ function TotalStaked() {
       <div>
         {useNativeTokenAmountFromPlanck(
           queryResult === idle ? 0n : queryResult[0] + queryResult[1],
+          { chainId: stakingChainId },
         ).toLocaleString()}
       </div>
     </article>

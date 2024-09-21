@@ -30,6 +30,7 @@ export function usePeopleChainId() {
     case "polkadot_asset_hub":
     case "polkadot_collectives":
     case "polkadot_people":
+    case "hydration":
       return "polkadot_people" satisfies ChainId;
     case "kusama":
     case "kusama_asset_hub":
@@ -52,6 +53,7 @@ export function useStakingChainId() {
     case "polkadot_asset_hub":
     case "polkadot_collectives":
     case "polkadot_people":
+    case "hydration":
       return "polkadot" satisfies ChainId;
     case "kusama":
     case "kusama_asset_hub":

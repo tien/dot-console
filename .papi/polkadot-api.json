@@ -49,6 +49,10 @@
     "westend_people": {
       "wsUrl": "wss://westend-people-rpc.polkadot.io",
       "metadata": ".papi/metadata/westend_people.scale"
+    },
+    "hydration": {
+      "wsUrl": "wss://rpc.hydradx.cloud",
+      "metadata": ".papi/metadata/hydration.scale"
     }
   }
 }

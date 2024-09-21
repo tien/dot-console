@@ -1,4 +1,5 @@
 import {
+  hydration,
   kusama,
   kusama_asset_hub,
   kusama_people,
@@ -15,6 +16,7 @@ import {
 import type { Config } from "@reactive-dot/core";
 import { InjectedWalletAggregator } from "@reactive-dot/core/wallets.js";
 import { WalletConnect } from "@reactive-dot/wallet-walletconnect";
+import { withPolkadotSdkCompat } from "polkadot-api/polkadot-sdk-compat";
 import { getSmProvider } from "polkadot-api/sm-provider";
 import { startFromWorker } from "polkadot-api/smoldot/from-worker";
 import { getWsProvider } from "polkadot-api/ws-provider/web";
@@ -43,6 +45,11 @@ export const config = {
     polkadot_people: {
       descriptor: polkadot_people,
       provider: () => getWsProvider("wss://polkadot-people-rpc.polkadot.io"),
+    },
+    hydration: {
+      descriptor: hydration,
+      provider: () =>
+        withPolkadotSdkCompat(getWsProvider("wss://rpc.hydradx.cloud")),
     },
     kusama: {
       descriptor: kusama,
