@@ -266,7 +266,7 @@ function _StorageKey({ pallet, storage, onAddQuery }: StorageKeyProps) {
       <Button
         disabled={
           keyShapeDecoder !== undefined &&
-          (key === INVALID || key === INCOMPLETE)
+          lengthLimitedKey.some((key) => key === INVALID || key === INCOMPLETE)
         }
         onClick={() =>
           onAddQuery({

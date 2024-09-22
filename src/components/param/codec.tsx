@@ -19,7 +19,7 @@ const StorageParamDepthContext = createContext(0);
 
 export type CodecParamProps<T = unknown> = ParamProps<T> & {
   shape: Shape;
-  defaultValue: Decoded | undefined;
+  defaultValue?: Decoded | undefined;
 };
 
 export function CodecParam<T = unknown>({
