@@ -12,6 +12,7 @@ import {
   westend_asset_hub,
   westend_collectives,
   westend_people,
+  tinkernet,
 } from "@polkadot-api/descriptors";
 import type { Config } from "@reactive-dot/core";
 import { InjectedWalletAggregator } from "@reactive-dot/core/wallets.js";
@@ -62,6 +63,11 @@ export const config = {
     kusama_people: {
       descriptor: kusama_people,
       provider: () => getWsProvider("wss://kusama-people-rpc.polkadot.io"),
+    },
+    tinkernet: {
+      descriptor: tinkernet,
+      provider: () =>
+        withPolkadotSdkCompat(getWsProvider("wss://tinkernet-rpc.dwellir.com")),
     },
     paseo: {
       descriptor: paseo,

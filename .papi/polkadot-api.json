@@ -18,6 +18,10 @@
       "chain": "polkadot_people",
       "metadata": ".papi/metadata/polkadot_people.scale"
     },
+    "hydration": {
+      "wsUrl": "wss://rpc.hydradx.cloud",
+      "metadata": ".papi/metadata/hydration.scale"
+    },
     "kusama": {
       "chain": "ksmcc3",
       "metadata": ".papi/metadata/kusama.scale"
@@ -29,6 +33,10 @@
     "kusama_people": {
       "wsUrl": "wss://kusama-people-rpc.polkadot.io",
       "metadata": ".papi/metadata/kusama_people.scale"
+    },
+    "tinkernet": {
+      "wsUrl": "wss://tinkernet-rpc.dwellir.com",
+      "metadata": ".papi/metadata/tinkernet.scale"
     },
     "paseo": {
       "chain": "paseo",
@@ -49,10 +57,6 @@
     "westend_people": {
       "wsUrl": "wss://westend-people-rpc.polkadot.io",
       "metadata": ".papi/metadata/westend_people.scale"
-    },
-    "hydration": {
-      "wsUrl": "wss://rpc.hydradx.cloud",
-      "metadata": ".papi/metadata/hydration.scale"
     }
   }
 }
