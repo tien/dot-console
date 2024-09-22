@@ -190,7 +190,8 @@ function _StorageKey({ pallet, storage, onAddQuery }: StorageKeyProps) {
 
   const lengthLimitedKey = derivedKey.slice(0, keyLength);
 
-  const isEntriesQuery = lengthLimitedKey.length < derivedKey.length;
+  const isEntriesQuery =
+    maxKeyLength !== undefined && lengthLimitedKey.length < maxKeyLength;
 
   const lengthLimitedKeyShapeDecoder = useMemo(() => {
     switch (keyShapeDecoder?.shape.codec) {
