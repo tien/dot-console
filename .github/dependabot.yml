@@ -1,0 +1,17 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: daily
+    groups:
+      development:
+        dependency-type: development
+      reactive-dot:
+        patterns:
+          - "@reactive-dot/*"
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
