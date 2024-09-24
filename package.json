@@ -35,7 +35,7 @@
     "@polkadot-api/view-builder": "^0.3.5",
     "@reactive-dot/react": "^0.14.0",
     "@reactive-dot/wallet-walletconnect": "^0.14.0",
-    "@tanstack/react-router": "^1.58.3",
+    "@tanstack/react-router": "^1.58.7",
     "@w3f/polkadot-icons": "^1.0.0",
     "date-fns": "^4.1.0",
     "dot-connect": "^0.9.0",
