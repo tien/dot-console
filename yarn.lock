@@ -2466,6 +2466,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@polkadot-api/metadata-builders@npm:0.7.1":
+  version: 0.7.1
+  resolution: "@polkadot-api/metadata-builders@npm:0.7.1"
+  dependencies:
+    "@polkadot-api/substrate-bindings": "npm:0.8.0"
+    "@polkadot-api/utils": "npm:0.1.1"
+  checksum: 10c0/f956f15f24b3e3768a8524ad6bc8ff0d74cd9180e72d6bf8b91179f6992acc916b549f8c65b0d12143c140c5abeb7a141f03fe98b37743e49840ff12b4e060b4
+  languageName: node
+  linkType: hard
+
 "@polkadot-api/metadata-compatibility@npm:0.1.5":
   version: 0.1.5
   resolution: "@polkadot-api/metadata-compatibility@npm:0.1.5"
@@ -2575,6 +2585,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@polkadot-api/substrate-bindings@npm:0.8.0":
+  version: 0.8.0
+  resolution: "@polkadot-api/substrate-bindings@npm:0.8.0"
+  dependencies:
+    "@noble/hashes": "npm:^1.4.0"
+    "@polkadot-api/utils": "npm:0.1.1"
+    "@scure/base": "npm:^1.1.7"
+    scale-ts: "npm:^1.6.0"
+  checksum: 10c0/c42f3850043fba83a347d904d9d75a03e7d75741182f70e9bee27864a968c25b9d5953409fbde425909ce998452d3e192f2e8a03ead1d6cc748e98602707d578
+  languageName: node
+  linkType: hard
+
 "@polkadot-api/substrate-client@npm:0.2.1":
   version: 0.2.1
   resolution: "@polkadot-api/substrate-client@npm:0.2.1"
@@ -2592,14 +2614,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@polkadot-api/view-builder@npm:^0.3.5":
-  version: 0.3.5
-  resolution: "@polkadot-api/view-builder@npm:0.3.5"
+"@polkadot-api/view-builder@npm:^0.3.6":
+  version: 0.3.6
+  resolution: "@polkadot-api/view-builder@npm:0.3.6"
   dependencies:
-    "@polkadot-api/metadata-builders": "npm:0.7.0"
-    "@polkadot-api/substrate-bindings": "npm:0.7.0"
+    "@polkadot-api/metadata-builders": "npm:0.7.1"
+    "@polkadot-api/substrate-bindings": "npm:0.8.0"
     "@polkadot-api/utils": "npm:0.1.1"
-  checksum: 10c0/aa382ff64afe90cab5c1a1a11f9f82fd4f866e008d69f58be502e1928916748807927a9dd214cc1edc0595a4618b649aac72f9cc856eea80e55ae334d6383a39
+  checksum: 10c0/056a23dc5361ad7fbc4d53026fc8e49bc9f3946c9c98847b291d5a8d29bfd71527fb0052aeea0de6f58ab940f4e00a0d1a7970359434bfb0eb71a2aac2b02a47
   languageName: node
   linkType: hard
 
@@ -6317,7 +6339,7 @@ __metadata:
     "@pandacss/dev": "npm:^0.46.1"
     "@park-ui/panda-preset": "npm:^0.42.0"
     "@polkadot-api/descriptors": "portal:.papi/descriptors"
-    "@polkadot-api/view-builder": "npm:^0.3.5"
+    "@polkadot-api/view-builder": "npm:^0.3.6"
     "@reactive-dot/react": "npm:^0.14.0"
     "@reactive-dot/wallet-walletconnect": "npm:^0.14.0"
     "@tanstack/react-router": "npm:^1.58.3"
