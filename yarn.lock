@@ -61,9 +61,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ark-ui/react@npm:^3.13.0":
-  version: 3.13.0
-  resolution: "@ark-ui/react@npm:3.13.0"
+"@ark-ui/react@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "@ark-ui/react@npm:4.0.0"
   dependencies:
     "@internationalized/date": "npm:3.5.5"
     "@zag-js/accordion": "npm:0.71.0"
@@ -73,6 +73,7 @@ __metadata:
     "@zag-js/checkbox": "npm:0.71.0"
     "@zag-js/clipboard": "npm:0.71.0"
     "@zag-js/collapsible": "npm:0.71.0"
+    "@zag-js/collection": "npm:0.71.0"
     "@zag-js/color-picker": "npm:0.71.0"
     "@zag-js/color-utils": "npm:0.71.0"
     "@zag-js/combobox": "npm:0.71.0"
@@ -116,7 +117,7 @@ __metadata:
   peerDependencies:
     react: ">=18.0.0"
     react-dom: ">=18.0.0"
-  checksum: 10c0/387905d172bf7cef77ef31704bd8119cd12ebb11fe766fc44473bb85d7e9471597a77430d4f20da2e05668db8dfb62e8257382ac099558249844d92038bbba8c
+  checksum: 10c0/f074c3d8988e11878a84251741a69f1dbbef7a8cba1cebc2462d08a6c2603f1b68c6fb9e3caef709caa5500bf5a47e88c6d839323d9ff08d8c4a50fc4561e9c3
   languageName: node
   linkType: hard
 
@@ -6310,7 +6311,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "dot-console@workspace:."
   dependencies:
-    "@ark-ui/react": "npm:^3.13.0"
+    "@ark-ui/react": "npm:^4.0.0"
     "@dnd-kit/core": "npm:^6.1.0"
     "@dnd-kit/modifiers": "npm:^7.0.0"
     "@dnd-kit/sortable": "npm:^8.0.0"
