@@ -3015,17 +3015,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/router-devtools@npm:^1.58.9":
-  version: 1.58.9
-  resolution: "@tanstack/router-devtools@npm:1.58.9"
+"@tanstack/router-devtools@npm:^1.58.11":
+  version: 1.58.11
+  resolution: "@tanstack/router-devtools@npm:1.58.11"
   dependencies:
     clsx: "npm:^2.1.1"
     goober: "npm:^2.1.14"
   peerDependencies:
-    "@tanstack/react-router": ^1.58.9
+    "@tanstack/react-router": ^1.58.11
     react: ">=18"
     react-dom: ">=18"
-  checksum: 10c0/91a0d59504d9414fce021f155a616daeee094fe8e4ed50da7a3bdf90cd07daaae3084c254e62b4ad9fd7376ed99017a4f0bcc28ecf5e693d668cc4aa48ccf771
+  checksum: 10c0/7a29927521869ca4c0f45525252e03b6e1b9bf1af25b336fdb6f1c2c8bdf3476a79551a74ad6d287c22f7dc84d09349e0fdcf9cfcf75d1fa0bd46877c391b53a
   languageName: node
   linkType: hard
 
@@ -6323,7 +6323,7 @@ __metadata:
     "@reactive-dot/react": "npm:^0.15.0"
     "@reactive-dot/wallet-walletconnect": "npm:^0.15.0"
     "@tanstack/react-router": "npm:^1.58.9"
-    "@tanstack/router-devtools": "npm:^1.58.9"
+    "@tanstack/router-devtools": "npm:^1.58.11"
     "@tanstack/router-plugin": "npm:^1.58.10"
     "@trivago/prettier-plugin-sort-imports": "npm:^4.3.0"
     "@tsconfig/strictest": "npm:^2.0.5"
@@ -6337,7 +6337,7 @@ __metadata:
     dot-connect: "npm:^0.9.0"
     dot-identicon: "npm:^0.1.0"
     eslint: "npm:^9.11.1"
-    eslint-plugin-react: "npm:^7.36.1"
+    eslint-plugin-react: "npm:^7.37.0"
     eslint-plugin-react-hooks: "npm:^4.6.2"
     jotai: "npm:^2.10.0"
     polkadot-api: "npm:^1.3.3"
@@ -6980,9 +6980,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react@npm:^7.36.1":
-  version: 7.36.1
-  resolution: "eslint-plugin-react@npm:7.36.1"
+"eslint-plugin-react@npm:^7.37.0":
+  version: 7.37.0
+  resolution: "eslint-plugin-react@npm:7.37.0"
   dependencies:
     array-includes: "npm:^3.1.8"
     array.prototype.findlast: "npm:^1.2.5"
@@ -7004,7 +7004,7 @@ __metadata:
     string.prototype.repeat: "npm:^1.0.0"
   peerDependencies:
     eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9.7
-  checksum: 10c0/8cb37f7fb351213bc44263580ff77627e14e27870fd81dae593e3de2826340b9bd8bbac7ae00fd5de69751a0660b2e51bd26760596f4ae85548f6b1bd76706e6
+  checksum: 10c0/c9b02cd425c2a7c36b07fe223e405ae235500ac98f04898529cd8842c78fdd5b54f7c29189db5d6eab390ac5ac531af6e7b94a1f3fe9ad1e6564f7d78fd0eb6b
   languageName: node
   linkType: hard
 
