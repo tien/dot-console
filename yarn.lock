@@ -1802,6 +1802,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@lit/reactive-element@npm:^1.0.0 || ^2.0.0, @lit/reactive-element@npm:^2.0.4":
+  version: 2.0.4
+  resolution: "@lit/reactive-element@npm:2.0.4"
+  dependencies:
+    "@lit-labs/ssr-dom-shim": "npm:^1.2.0"
+  checksum: 10c0/359cc19ea9ee8b65e1417eb9c12f40dddba8f0a5ab32f0e5facaecee6060629e44eb4ca27d9af945fe6eda8c033aa636abaa5f0c4e6a529b224d78674acf47ba
+  languageName: node
+  linkType: hard
+
 "@lit/reactive-element@npm:^1.3.0, @lit/reactive-element@npm:^1.6.0":
   version: 1.6.3
   resolution: "@lit/reactive-element@npm:1.6.3"
@@ -1811,12 +1820,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lit/reactive-element@npm:^2.0.4":
-  version: 2.0.4
-  resolution: "@lit/reactive-element@npm:2.0.4"
+"@lit/task@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@lit/task@npm:1.0.1"
   dependencies:
-    "@lit-labs/ssr-dom-shim": "npm:^1.2.0"
-  checksum: 10c0/359cc19ea9ee8b65e1417eb9c12f40dddba8f0a5ab32f0e5facaecee6060629e44eb4ca27d9af945fe6eda8c033aa636abaa5f0c4e6a529b224d78674acf47ba
+    "@lit/reactive-element": "npm:^1.0.0 || ^2.0.0"
+  checksum: 10c0/44ad2187f0a05dbd6cd9cb9638ae9031102fcf8ba7693fb9420cbb49e5274c57229fc6ddf2d3573d761d3b0bbe1502abd358b53ae9c65394b25a59fe7f6253ab
   languageName: node
   linkType: hard
 
@@ -6288,12 +6297,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dot-connect@npm:^0.9.0":
-  version: 0.9.0
-  resolution: "dot-connect@npm:0.9.0"
+"dot-connect@npm:^0.10.0":
+  version: 0.10.0
+  resolution: "dot-connect@npm:0.10.0"
   dependencies:
     "@lit-labs/preact-signals": "npm:^1.0.2"
     "@lit/react": "npm:^1.0.5"
+    "@lit/task": "npm:^1.0.1"
+    dot-identicon: "npm:^0.1.0"
     lit: "npm:^3.2.0"
     qrcode: "npm:^1.5.4"
   peerDependencies:
@@ -6302,7 +6313,7 @@ __metadata:
   peerDependenciesMeta:
     react:
       optional: true
-  checksum: 10c0/68ef7dfe144f7ffd43ff375e1eec263fe2d65d1e2cd35a0d08c6211b6f7789c5f441bc729d29303fe46c9f75ff5840e66dcec8211b431ea42a6ed66e21f68b89
+  checksum: 10c0/384480da505d2a65bf3279a98de781860374d90d9697fe8fa6c66e8e0d0af2385a0be1728fdf3546ca5caa6e3f3a6e64343d69d25b938d905888c57189b74694
   languageName: node
   linkType: hard
 
@@ -6334,7 +6345,7 @@ __metadata:
     "@vitejs/plugin-react": "npm:^4.3.1"
     "@w3f/polkadot-icons": "npm:^1.0.0"
     date-fns: "npm:^4.1.0"
-    dot-connect: "npm:^0.9.0"
+    dot-connect: "npm:^0.10.0"
     dot-identicon: "npm:^0.1.0"
     eslint: "npm:^9.11.1"
     eslint-plugin-react: "npm:^7.36.1"
