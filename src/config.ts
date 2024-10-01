@@ -16,6 +16,7 @@ import {
 } from "@polkadot-api/descriptors";
 import type { Config } from "@reactive-dot/core";
 import { InjectedWalletAggregator } from "@reactive-dot/core/wallets.js";
+import { LedgerWallet } from "@reactive-dot/wallet-ledger";
 import { WalletConnect } from "@reactive-dot/wallet-walletconnect";
 import { withPolkadotSdkCompat } from "polkadot-api/polkadot-sdk-compat";
 import { getSmProvider } from "polkadot-api/sm-provider";
@@ -98,6 +99,7 @@ export const config = {
   },
   wallets: [
     new InjectedWalletAggregator(),
+    new LedgerWallet(),
     new WalletConnect({
       projectId: import.meta.env.VITE_APP_WALLET_CONNECT_PROJECT_ID,
       providerOptions: {
