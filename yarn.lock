@@ -3036,17 +3036,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/router-devtools@npm:^1.58.16":
-  version: 1.58.16
-  resolution: "@tanstack/router-devtools@npm:1.58.16"
+"@tanstack/router-devtools@npm:^1.58.17":
+  version: 1.58.17
+  resolution: "@tanstack/router-devtools@npm:1.58.17"
   dependencies:
     clsx: "npm:^2.1.1"
     goober: "npm:^2.1.14"
   peerDependencies:
-    "@tanstack/react-router": ^1.58.16
+    "@tanstack/react-router": ^1.58.17
     react: ">=18"
     react-dom: ">=18"
-  checksum: 10c0/9ad0543f8ec035d9f53fb11e4beae601f4f75d68a45ca0ddb5710148a541466ecbf8959cd3f2189224f7326a0632dac48f1d531ccef248ad78e399d75b5e2afa
+  checksum: 10c0/890867e1563dd90a1bfb31c780b45cb2f4917a53b5bbce423cee2e82f900bcfcbfaee0429356eda5f01dfeaaed961c400f13abfd274817b15d32d588beea3265
   languageName: node
   linkType: hard
 
@@ -3289,13 +3289,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:^18.3.10":
-  version: 18.3.10
-  resolution: "@types/react@npm:18.3.10"
+"@types/react@npm:^18.3.11":
+  version: 18.3.11
+  resolution: "@types/react@npm:18.3.11"
   dependencies:
     "@types/prop-types": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: 10c0/f5be1de1b0331c1fdb33d577f4cf7f1b949d4bded5347b2351a537f03c51dade5be115e21b161dcf1b37061954d320f6a0bdf8d7b70e24eda51071fdd614383d
+  checksum: 10c0/ce80512246ca5bda69db85b9f4f1835189334acfb6b2c4f3eda8cabff1ff1a3ea9ce4f3b895bdbc18c94140aa45592331aa3fdeb557f525c1b048de7ce84fc0e
   languageName: node
   linkType: hard
 
@@ -6343,13 +6343,13 @@ __metadata:
     "@reactive-dot/wallet-ledger": "npm:^0.16.1"
     "@reactive-dot/wallet-walletconnect": "npm:^0.16.0"
     "@tanstack/react-router": "npm:^1.58.16"
-    "@tanstack/router-devtools": "npm:^1.58.16"
+    "@tanstack/router-devtools": "npm:^1.58.17"
     "@tanstack/router-plugin": "npm:^1.58.12"
     "@trivago/prettier-plugin-sort-imports": "npm:^4.3.0"
     "@tsconfig/strictest": "npm:^2.0.5"
     "@tsconfig/vite-react": "npm:^3.0.2"
     "@types/eslint__js": "npm:^8.42.3"
-    "@types/react": "npm:^18.3.10"
+    "@types/react": "npm:^18.3.11"
     "@types/react-dom": "npm:^18.3.0"
     "@vitejs/plugin-react": "npm:^4.3.2"
     "@w3f/polkadot-icons": "npm:^1.0.0"
