@@ -1,6 +1,7 @@
 import type { ConstantQuery, Pallet } from "../types";
 import { PalletSelect } from "./pallet-select";
-import { Button, Code, Select } from "./ui";
+import { Select } from "./select";
+import { Button, Code } from "./ui";
 import { useChainId } from "@reactive-dot/react";
 import Check from "@w3f/polkadot-icons/solid/Check";
 import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
@@ -69,40 +70,12 @@ export function _ConstantQueryForm({
       })}
     >
       {palletSelect}
-      <Select.Root
-        items={constantItems}
-        value={[selectedConstantName]}
-        onValueChange={(event) => setSelectedConstantName(event.value.at(0)!)}
-        positioning={{ fitViewport: true, sameWidth: true }}
-        className={css({ gridArea: "storage" })}
-      >
-        <Select.Label>Constant</Select.Label>
-        <Select.Control>
-          <Select.Trigger>
-            <Select.ValueText placeholder="Select a constant" />
-            <Select.Indicator>
-              <ChevronDown fill="currentcolor" />
-            </Select.Indicator>
-          </Select.Trigger>
-        </Select.Control>
-        <Select.Positioner>
-          <Select.Content
-            className={css({
-              maxHeight: "max(50dvh, 8rem)",
-              overflow: "auto",
-            })}
-          >
-            {constantItems.map((constant) => (
-              <Select.Item key={constant.value} item={constant}>
-                <Select.ItemText>{constant.label}</Select.ItemText>
-                <Select.ItemIndicator>
-                  <Check fill="currentcolor" />
-                </Select.ItemIndicator>
-              </Select.Item>
-            ))}
-          </Select.Content>
-        </Select.Positioner>
-      </Select.Root>
+      <Select
+        label="Constant"
+        options={constantItems}
+        value={selectedConstantName}
+        onChangeValue={setSelectedConstantName}
+      />
       {selectedConstant && (
         <Code
           className={css({

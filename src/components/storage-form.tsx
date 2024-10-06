@@ -12,10 +12,9 @@ import {
   VOID,
   type ParamInput,
 } from "./param";
-import { Button, Code, FormLabel, Select, Text } from "./ui";
+import { Select } from "./select";
+import { Button, Code, FormLabel, Text } from "./ui";
 import { useChainId } from "@reactive-dot/react";
-import Check from "@w3f/polkadot-icons/solid/Check";
-import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
 import { useMemo, useState, type ReactNode } from "react";
 import { css } from "styled-system/css";
 import { useViewBuilder } from "~/hooks/view-builder";
@@ -76,41 +75,12 @@ function StorageSelect({ pallet, palletSelect, onAddQuery }: StorageFormProps) {
       })}
     >
       {palletSelect}
-      <Select.Root
-        items={storageItems}
-        value={[selectedStorage]}
-        onValueChange={(event) => setSelectedStorage(event.value.at(0)!)}
-        positioning={{ fitViewport: true, sameWidth: true }}
-        className={css({ gridArea: "storage" })}
-      >
-        <Select.Label>Storage</Select.Label>
-        <Select.Control>
-          <Select.Trigger>
-            <Select.ValueText placeholder="Select a storage" />
-            <Select.Indicator>
-              <ChevronDown fill="currentcolor" />
-            </Select.Indicator>
-          </Select.Trigger>
-        </Select.Control>
-        <Select.Positioner>
-          <Select.Content
-            className={css({
-              maxHeight: "max(50dvh, 8rem)",
-              overflow: "auto",
-            })}
-          >
-            {storageItems.map((storage) => (
-              <Select.Item key={storage.value} item={storage}>
-                <Select.ItemText>{storage.label}</Select.ItemText>
-                <Select.ItemIndicator>
-                  <Check fill="currentcolor" />
-                </Select.ItemIndicator>
-              </Select.Item>
-            ))}
-          </Select.Content>
-        </Select.Positioner>
-      </Select.Root>
-
+      <Select
+        label="Storage"
+        options={storageItems}
+        value={selectedStorage}
+        onChangeValue={setSelectedStorage}
+      />
       {storage && (
         <>
           <Code
