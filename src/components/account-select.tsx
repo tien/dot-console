@@ -1,20 +1,18 @@
 import { AccountListItem } from "./account-list-item";
-import { Select } from "./ui";
-import type { PolkadotAccount } from "@reactive-dot/core";
+import { Select } from "./select";
+import type { WalletAccount } from "@reactive-dot/core/wallets.js";
 import { useAccounts } from "@reactive-dot/react";
-import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
 import { useState, type ReactNode } from "react";
-import { css } from "styled-system/css";
 
 type ControlledAccountSelectProps = {
-  accounts: PolkadotAccount[];
-  account: PolkadotAccount | undefined;
-  onChangeAccount: (account: PolkadotAccount) => void;
+  accounts: WalletAccount[];
+  account: WalletAccount | undefined;
+  onChangeAccount: (account: WalletAccount) => void;
 };
 
 type UnControlledAccountSelectProps = {
   children: (props: {
-    account: PolkadotAccount | undefined;
+    account: WalletAccount | undefined;
     accountSelect: ReactNode;
   }) => ReactNode;
 };
@@ -66,55 +64,29 @@ export function ControlledAccountSelect({
   }));
 
   return (
-    <Select.Root
-      items={accountItems}
-      value={[account === undefined ? undefined : getAccountId(account)].filter(
-        (value) => value !== undefined,
+    <Select
+      label="Account"
+      options={accountItems}
+      renderOption={(option) => (
+        <AccountListItem address={option.address} name={option.name} />
       )}
-      onValueChange={(event) => {
-        const id = event.value.at(0);
+      value={account === undefined ? undefined : getAccountId(account)}
+      renderValue={(value) => (
+        <AccountListItem address={value.address} name={value.name} />
+      )}
+      onChangeValue={(value) => {
         const selectedAccount = accounts.find(
-          (account) => getAccountId(account) === id,
+          (account) => getAccountId(account) === value,
         );
 
         if (selectedAccount !== undefined) {
           onChangeAccount(selectedAccount);
         }
       }}
-      positioning={{ fitViewport: true, sameWidth: true }}
-    >
-      <Select.Label>Account</Select.Label>
-      <Select.Control>
-        <Select.Trigger className={css({ height: "unset" })}>
-          {account === undefined ? (
-            <Select.ValueText placeholder="Select an account" />
-          ) : (
-            <AccountListItem address={account.address} name={account.name} />
-          )}
-          <Select.Indicator>
-            <ChevronDown fill="currentcolor" />
-          </Select.Indicator>
-        </Select.Trigger>
-      </Select.Control>
-      <Select.Positioner>
-        <Select.Content
-          className={css({
-            maxHeight: "max(50dvh, 8rem)",
-            overflow: "auto",
-            gap: "0.5rem",
-          })}
-        >
-          {accountItems.map((item) => (
-            <Select.Item key={item.value} item={item}>
-              <AccountListItem address={item.address} name={item.name} />
-            </Select.Item>
-          ))}
-        </Select.Content>
-      </Select.Positioner>
-    </Select.Root>
+    />
   );
 }
 
-function getAccountId(account: PolkadotAccount) {
+function getAccountId(account: WalletAccount) {
   return `${account.wallet.id}/${account.address}`;
 }

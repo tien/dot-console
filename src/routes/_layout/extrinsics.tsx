@@ -1,9 +1,9 @@
 import { AccountSelect } from "../../components/account-select";
 import { PalletSelect } from "../../components/pallet-select";
 import { CodecParam, INCOMPLETE, INVALID } from "../../components/param";
+import { Select } from "../../components/select";
 import { Editable } from "../../components/ui";
 import { Button } from "../../components/ui/button";
-import { Select } from "../../components/ui/select";
 import { useDynamicBuilder } from "../../hooks/metadata-builder";
 import { useViewBuilder } from "../../hooks/view-builder";
 import type { Pallet } from "../../types";
@@ -13,8 +13,6 @@ import type { Decoded, Shape } from "@polkadot-api/view-builder";
 import { idle, pending } from "@reactive-dot/core";
 import { SignerProvider, useMutation, useSigner } from "@reactive-dot/react";
 import { createFileRoute } from "@tanstack/react-router";
-import Check from "@w3f/polkadot-icons/solid/Check";
-import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
 import SignATransactionIcon from "@w3f/polkadot-icons/solid/SignATransaction";
 import { Binary } from "polkadot-api";
 import { useEffect, useMemo, useState } from "react";
@@ -231,42 +229,12 @@ function CallSelect({ pallet, onChangePallet }: CallSelectProps) {
 
   return (
     <>
-      <Select.Root
-        items={callItems}
-        value={[selectedCallName]}
-        onValueChange={(event) => setSelectedCallName(event.value.at(0)!)}
-        positioning={{ fitViewport: true, sameWidth: true }}
-        className={css({ gridArea: "call" })}
-      >
-        <Select.Label>Calls</Select.Label>
-        <Select.Control>
-          <Select.Trigger>
-            <Select.ValueText placeholder="Select a call" />
-            <Select.Indicator>
-              <ChevronDown fill="currentcolor" />
-            </Select.Indicator>
-          </Select.Trigger>
-        </Select.Control>
-        <Select.Positioner>
-          <Select.Content
-            className={css({
-              maxHeight: "max(50dvh, 8rem)",
-              overflow: "auto",
-            })}
-          >
-            {callItems
-              .toSorted((a, b) => a.label.localeCompare(b.label))
-              .map((call) => (
-                <Select.Item key={call.label} item={call}>
-                  <Select.ItemText>{call.label}</Select.ItemText>
-                  <Select.ItemIndicator>
-                    <Check fill="currentcolor" />
-                  </Select.ItemIndicator>
-                </Select.Item>
-              ))}
-          </Select.Content>
-        </Select.Positioner>
-      </Select.Root>
+      <Select
+        label="Call"
+        options={callItems}
+        value={selectedCallName}
+        onChangeValue={setSelectedCallName}
+      />
       {selectedCall && (
         <CallParam
           pallet={pallet}

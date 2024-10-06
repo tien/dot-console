@@ -1,10 +1,9 @@
 import { useMetadata } from "../hooks/metadata";
 import type { RuntimeApi, RuntimeApiMethod, RuntimeApiQuery } from "../types";
 import { CodecParam, INCOMPLETE, INVALID } from "./param";
-import { Button, Code, Select } from "./ui";
+import { Select } from "./select";
+import { Button, Code } from "./ui";
 import { useChainId } from "@reactive-dot/react";
-import Check from "@w3f/polkadot-icons/solid/Check";
-import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
 import { useState } from "react";
 import { css } from "styled-system/css";
 import { useViewBuilder } from "~/hooks/view-builder";
@@ -38,40 +37,12 @@ export function RuntimeApiForm(props: RuntimeApiFormProps) {
         gap: "1rem",
       })}
     >
-      <Select.Root
-        items={apiItems}
-        value={[selectedApiName]}
-        onValueChange={(event) => setSelectedApiName(event.value.at(0)!)}
-        positioning={{ fitViewport: true, sameWidth: true }}
-        className={css({ gridArea: "api" })}
-      >
-        <Select.Label>Apis</Select.Label>
-        <Select.Control>
-          <Select.Trigger>
-            <Select.ValueText placeholder="Select an API" />
-            <Select.Indicator>
-              <ChevronDown fill="currentcolor" />
-            </Select.Indicator>
-          </Select.Trigger>
-        </Select.Control>
-        <Select.Positioner>
-          <Select.Content
-            className={css({
-              maxHeight: "max(50dvh, 8rem)",
-              overflow: "auto",
-            })}
-          >
-            {apiItems.map((api) => (
-              <Select.Item key={api.value} item={api}>
-                <Select.ItemText>{api.label}</Select.ItemText>
-                <Select.ItemIndicator>
-                  <Check fill="currentcolor" />
-                </Select.ItemIndicator>
-              </Select.Item>
-            ))}
-          </Select.Content>
-        </Select.Positioner>
-      </Select.Root>
+      <Select
+        label="API"
+        options={apiItems}
+        value={selectedApiName}
+        onChangeValue={setSelectedApiName}
+      />
       {selectedApi && <ApiMethodSelect {...props} api={selectedApi} />}
     </div>
   );
@@ -97,40 +68,12 @@ function _ApiMethodSelect({ api, ...props }: ApiMethodSelectProps) {
 
   return (
     <>
-      <Select.Root
-        items={methodItems}
-        value={[selectedMethodName]}
-        onValueChange={(event) => setSelectedMethodName(event.value.at(0)!)}
-        positioning={{ fitViewport: true, sameWidth: true }}
-        className={css({ gridArea: "method" })}
-      >
-        <Select.Label>Methods</Select.Label>
-        <Select.Control>
-          <Select.Trigger>
-            <Select.ValueText placeholder="Select a method" />
-            <Select.Indicator>
-              <ChevronDown fill="currentcolor" />
-            </Select.Indicator>
-          </Select.Trigger>
-        </Select.Control>
-        <Select.Positioner>
-          <Select.Content
-            className={css({
-              maxHeight: "max(50dvh, 8rem)",
-              overflow: "auto",
-            })}
-          >
-            {methodItems.map((method) => (
-              <Select.Item key={method.value} item={method}>
-                <Select.ItemText>{method.label}</Select.ItemText>
-                <Select.ItemIndicator>
-                  <Check fill="currentcolor" />
-                </Select.ItemIndicator>
-              </Select.Item>
-            ))}
-          </Select.Content>
-        </Select.Positioner>
-      </Select.Root>
+      <Select
+        label="Method"
+        options={methodItems}
+        value={selectedMethodName}
+        onChangeValue={setSelectedMethodName}
+      />
       {selectedMethod !== undefined && (
         <Code
           className={css({

@@ -1,11 +1,8 @@
 import { useMetadata } from "../hooks/metadata";
 import type { Pallet } from "../types";
-import { Select } from "./ui";
-import Check from "@w3f/polkadot-icons/solid/Check";
-import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
+import { Select } from "./select";
 import { atom, useAtom } from "jotai";
 import { useState, type ReactNode } from "react";
-import { css } from "styled-system/css";
 
 export type PalletSelectProps = {
   filter: (pallet: Pallet) => boolean;
@@ -49,43 +46,12 @@ export function PalletSelect({ filter, children }: PalletSelectProps) {
     pallet: pallets.find((pallet) => pallet.index === selectedPallet)!,
     unstable_changePallet: (palletIndex) => setSelectedPallet(palletIndex),
     palletSelect: (
-      <Select.Root
-        items={palletItems}
-        // @ts-expect-error ark-ui type error
-        value={[selectedPallet]}
-        onValueChange={(event) =>
-          setSelectedPallet(event.value.at(0) as unknown as number)
-        }
-        positioning={{ fitViewport: true, sameWidth: true }}
-        className={css({ gridArea: "pallet" })}
-      >
-        <Select.Label>Pallet</Select.Label>
-        <Select.Control>
-          <Select.Trigger>
-            <Select.ValueText placeholder="Select a pallet" />
-            <Select.Indicator>
-              <ChevronDown fill="currentcolor" />
-            </Select.Indicator>
-          </Select.Trigger>
-        </Select.Control>
-        <Select.Positioner>
-          <Select.Content
-            className={css({
-              maxHeight: "max(50dvh, 8rem)",
-              overflow: "auto",
-            })}
-          >
-            {palletItems.map((pallet) => (
-              <Select.Item key={pallet.value} item={pallet}>
-                <Select.ItemText>{pallet.label}</Select.ItemText>
-                <Select.ItemIndicator>
-                  <Check fill="currentcolor" />
-                </Select.ItemIndicator>
-              </Select.Item>
-            ))}
-          </Select.Content>
-        </Select.Positioner>
-      </Select.Root>
+      <Select
+        label="Pallet"
+        options={palletItems}
+        value={selectedPallet}
+        onChangeValue={setSelectedPallet}
+      />
     ),
   });
 }
