@@ -47,7 +47,7 @@ export function Select<
       onValueChange={(event) => {
         const value = event.value.at(0);
         const selectedValue = collection.items.find(
-          (item) => item.value === value,
+          (item) => String(item.value) === value,
         );
 
         if (selectedValue !== undefined) {
