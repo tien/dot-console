@@ -1948,6 +1948,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@lit/react@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "@lit/react@npm:1.0.6"
+  peerDependencies:
+    "@types/react": 17 || 18
+  checksum: 10c0/9d80548dbf9fde8dad1ed82a0dd570428d98700db39ebd7e2b86552bb53bd8e371047332db5a1498ca80fff08d245f5b077397e885a6cca352301ee94ba707c6
+  languageName: node
+  linkType: hard
+
 "@lit/reactive-element@npm:^1.0.0 || ^2.0.0, @lit/reactive-element@npm:^2.0.4":
   version: 2.0.4
   resolution: "@lit/reactive-element@npm:2.0.4"
@@ -6577,15 +6586,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dot-connect@npm:^0.10.0":
-  version: 0.10.0
-  resolution: "dot-connect@npm:0.10.0"
+"dot-connect@npm:^0.11.0":
+  version: 0.11.0
+  resolution: "dot-connect@npm:0.11.0"
   dependencies:
     "@lit-labs/preact-signals": "npm:^1.0.2"
-    "@lit/react": "npm:^1.0.5"
+    "@lit/react": "npm:^1.0.6"
     "@lit/task": "npm:^1.0.1"
     dot-identicon: "npm:^0.1.0"
-    lit: "npm:^3.2.0"
+    lit: "npm:^3.2.1"
     qrcode: "npm:^1.5.4"
   peerDependencies:
     "@reactive-dot/core": "*"
@@ -6593,7 +6602,7 @@ __metadata:
   peerDependenciesMeta:
     react:
       optional: true
-  checksum: 10c0/384480da505d2a65bf3279a98de781860374d90d9697fe8fa6c66e8e0d0af2385a0be1728fdf3546ca5caa6e3f3a6e64343d69d25b938d905888c57189b74694
+  checksum: 10c0/1d47846f722bd48b439f21ea0ccb5d813f8c75e9ed21108c9a14fa5cfbd0ac5038659f4a11a225bd5118d2c44dea05bbc4e7aa06817af6db53b74146879e525d
   languageName: node
   linkType: hard
 
@@ -6626,7 +6635,7 @@ __metadata:
     "@vitejs/plugin-react": "npm:^4.3.2"
     "@w3f/polkadot-icons": "npm:^1.0.0"
     date-fns: "npm:^4.1.0"
-    dot-connect: "npm:^0.10.0"
+    dot-connect: "npm:^0.11.0"
     dot-identicon: "npm:^0.1.0"
     eslint: "npm:^9.12.0"
     eslint-plugin-react: "npm:^7.37.1"
@@ -9036,6 +9045,17 @@ __metadata:
     lit-element: "npm:^4.1.0"
     lit-html: "npm:^3.2.0"
   checksum: 10c0/ed2251eba7b13e71a54b7f53bdd899778c54f29d531d5d3b97d55fa1f4298e7ff4992cca414998501ff462d4976594148513cf6fe113c22de930c2898971ecd8
+  languageName: node
+  linkType: hard
+
+"lit@npm:^3.2.1":
+  version: 3.2.1
+  resolution: "lit@npm:3.2.1"
+  dependencies:
+    "@lit/reactive-element": "npm:^2.0.4"
+    lit-element: "npm:^4.1.0"
+    lit-html: "npm:^3.2.0"
+  checksum: 10c0/064a31459fe54ad052c0685d058dd5aef089ddc97a247888ef91a0356dfef60c8cc531e48077bbd2cb4e9f48cb86f0ff0951bb535f1d9f144d2351f253291f66
   languageName: node
   linkType: hard
 

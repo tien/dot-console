@@ -39,7 +39,7 @@
     "@tanstack/react-router": "^1.58.18",
     "@w3f/polkadot-icons": "^1.0.0",
     "date-fns": "^4.1.0",
-    "dot-connect": "^0.10.0",
+    "dot-connect": "^0.11.0",
     "dot-identicon": "^0.1.0",
     "jotai": "^2.10.0",
     "polkadot-api": "^1.4.0",
