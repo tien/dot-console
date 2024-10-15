@@ -41,7 +41,7 @@
     "date-fns": "^4.1.0",
     "dot-connect": "^0.11.0",
     "dot-identicon": "^0.1.0",
-    "jotai": "^2.10.0",
+    "jotai": "^2.10.1",
     "polkadot-api": "^1.4.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
