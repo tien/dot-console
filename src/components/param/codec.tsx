@@ -11,7 +11,7 @@ import { StructParam, type StructParamProps } from "./struct";
 import { TupleParam, type TupleParamProps } from "./tuple";
 import { VoidParam, type VoidParamProps } from "./void";
 import type { Decoded, Shape } from "@polkadot-api/view-builder";
-import { createContext, useContext, useMemo } from "react";
+import { createContext, Suspense, useContext, useMemo } from "react";
 import { css } from "styled-system/css";
 import { type CssProperties } from "styled-system/types";
 
@@ -59,11 +59,14 @@ export function CodecParam<T = unknown>({
             case "AccountId":
             case "ethAccount":
               return (
-                <AccountIdParam
-                  {...(props as AccountIdParamProps)}
-                  // @ts-expect-error TypeScript bug
-                  accountId={shape}
-                />
+                // TODO: investigate why this keep suspending on every render
+                <Suspense>
+                  <AccountIdParam
+                    {...(props as AccountIdParamProps)}
+                    // @ts-expect-error TypeScript bug
+                    accountId={shape}
+                  />
+                </Suspense>
               );
             case "Sequence":
               return (
