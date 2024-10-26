@@ -3436,35 +3436,35 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-router@npm:^1.70.1":
-  version: 1.70.1
-  resolution: "@tanstack/react-router@npm:1.70.1"
+"@tanstack/react-router@npm:^1.76.3":
+  version: 1.76.3
+  resolution: "@tanstack/react-router@npm:1.76.3"
   dependencies:
     "@tanstack/history": "npm:1.61.1"
-    "@tanstack/react-store": "npm:^0.5.5"
+    "@tanstack/react-store": "npm:^0.5.6"
     tiny-invariant: "npm:^1.3.3"
     tiny-warning: "npm:^1.0.3"
   peerDependencies:
-    "@tanstack/router-generator": 1.69.1
+    "@tanstack/router-generator": 1.74.2
     react: ">=18"
     react-dom: ">=18"
   peerDependenciesMeta:
     "@tanstack/router-generator":
       optional: true
-  checksum: 10c0/977888d771dd7544dc960064fbcfd0c37b121ca797c2c63835e3e3c8a956d13c2ce0b82e8d8638d6a6265707a857865d0fd8061d7d53f1eb4f76dcd449669b4f
+  checksum: 10c0/19e8f27c8a074ef12c3d312671cd2f10e90cc6e0936784f271cb82fe6d1867a2f8bcb5d4ede8ead9a69b997d3db2933f9d38925d7acc61d721626563eeedb453
   languageName: node
   linkType: hard
 
-"@tanstack/react-store@npm:^0.5.5":
-  version: 0.5.5
-  resolution: "@tanstack/react-store@npm:0.5.5"
+"@tanstack/react-store@npm:^0.5.6":
+  version: 0.5.6
+  resolution: "@tanstack/react-store@npm:0.5.6"
   dependencies:
     "@tanstack/store": "npm:0.5.5"
     use-sync-external-store: "npm:^1.2.2"
   peerDependencies:
     react: ^17.0.0 || ^18.0.0
     react-dom: ^17.0.0 || ^18.0.0
-  checksum: 10c0/69064c4b45dc2f42f1d0375612fc629fa6f5a42e1f2af5c42897103a71e15c6faf4f1855f157bb8c876fe6d8215a7b9f6df84466a27fad47d15dbec4d98fa1b8
+  checksum: 10c0/8c9ce27565772ba2f933afe876315de984a98fc90d5416312ed110a9a71e0de1a3ed3a845039fcdcdf5736e1327338263bbc69c18ad1e5e35625dacf5521e467
   languageName: node
   linkType: hard
 
@@ -6812,7 +6812,7 @@ __metadata:
     "@reactive-dot/react": "npm:^0.24.0"
     "@reactive-dot/wallet-ledger": "npm:^0.16.13"
     "@reactive-dot/wallet-walletconnect": "npm:^0.16.13"
-    "@tanstack/react-router": "npm:^1.70.1"
+    "@tanstack/react-router": "npm:^1.76.3"
     "@tanstack/router-devtools": "npm:^1.70.1"
     "@tanstack/router-plugin": "npm:^1.69.1"
     "@trivago/prettier-plugin-sort-imports": "npm:^4.3.0"
