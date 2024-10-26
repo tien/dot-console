@@ -15,7 +15,7 @@ import {
   westend_people,
 } from "@polkadot-api/descriptors";
 import { defineConfig } from "@reactive-dot/core";
-import { InjectedWalletAggregator } from "@reactive-dot/core/wallets.js";
+import { InjectedWalletProvider } from "@reactive-dot/core/wallets.js";
 import { LedgerWallet } from "@reactive-dot/wallet-ledger";
 import { WalletConnect } from "@reactive-dot/wallet-walletconnect";
 import { withPolkadotSdkCompat } from "polkadot-api/polkadot-sdk-compat";
@@ -98,7 +98,7 @@ export const config = defineConfig({
     },
   },
   wallets: [
-    new InjectedWalletAggregator(),
+    new InjectedWalletProvider(),
     new LedgerWallet(),
     new WalletConnect({
       projectId: import.meta.env.VITE_APP_WALLET_CONNECT_PROJECT_ID,
