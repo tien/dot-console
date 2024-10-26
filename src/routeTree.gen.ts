@@ -35,36 +35,43 @@ const LayoutRoute = LayoutImport.update({
 } as any)
 
 const IndexRoute = IndexImport.update({
+  id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
 } as any)
 
 const LayoutUtilitiesRoute = LayoutUtilitiesImport.update({
+  id: '/utilities',
   path: '/utilities',
   getParentRoute: () => LayoutRoute,
 } as any)
 
 const LayoutQueriesRoute = LayoutQueriesImport.update({
+  id: '/queries',
   path: '/queries',
   getParentRoute: () => LayoutRoute,
 } as any)
 
 const LayoutExtrinsicsRoute = LayoutExtrinsicsImport.update({
+  id: '/extrinsics',
   path: '/extrinsics',
   getParentRoute: () => LayoutRoute,
 } as any)
 
 const LayoutExplorerRoute = LayoutExplorerImport.update({
+  id: '/explorer',
   path: '/explorer',
   getParentRoute: () => LayoutRoute,
 } as any)
 
 const LayoutAccountsRoute = LayoutAccountsImport.update({
+  id: '/accounts',
   path: '/accounts',
   getParentRoute: () => LayoutRoute,
 } as any)
 
 const LayoutUtilitiesIndexRoute = LayoutUtilitiesIndexImport.update({
+  id: '/',
   path: '/',
   getParentRoute: () => LayoutUtilitiesRoute,
 } as any)
@@ -76,6 +83,7 @@ const LayoutUtilitiesLayoutRoute = LayoutUtilitiesLayoutImport.update({
 
 const LayoutUtilitiesLayoutPlanckConvertorRoute =
   LayoutUtilitiesLayoutPlanckConvertorImport.update({
+    id: '/planck-convertor',
     path: '/planck-convertor',
     getParentRoute: () => LayoutUtilitiesLayoutRoute,
   } as any)
