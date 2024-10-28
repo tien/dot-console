@@ -3468,17 +3468,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/router-devtools@npm:^1.76.3":
-  version: 1.76.3
-  resolution: "@tanstack/router-devtools@npm:1.76.3"
+"@tanstack/router-devtools@npm:^1.77.5":
+  version: 1.77.5
+  resolution: "@tanstack/router-devtools@npm:1.77.5"
   dependencies:
     clsx: "npm:^2.1.1"
     goober: "npm:^2.1.16"
   peerDependencies:
-    "@tanstack/react-router": ^1.76.3
+    "@tanstack/react-router": ^1.77.5
     react: ">=18"
     react-dom: ">=18"
-  checksum: 10c0/76d5d448f70742b5e820711ecdef6e484c265fb5b4577210118111a4fd51526cc1e44de379632a0fc18265a69ae81c1d2cc6840659fa9c6c5115ddcf302489d7
+  checksum: 10c0/819f16d5eabafd68a3604fdb0dd4878edd986e6c3cc52a4595bccbf24d509f15d56a9e7787072ef7d0f4fe680485cfc1f6ae5177b3f86e5036f01cfbdf4e1678
   languageName: node
   linkType: hard
 
@@ -3494,9 +3494,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/router-plugin@npm:^1.76.0":
-  version: 1.76.0
-  resolution: "@tanstack/router-plugin@npm:1.76.0"
+"@tanstack/router-plugin@npm:^1.76.4":
+  version: 1.76.4
+  resolution: "@tanstack/router-plugin@npm:1.76.4"
   dependencies:
     "@babel/core": "npm:^7.25.8"
     "@babel/generator": "npm:^7.25.7"
@@ -3527,7 +3527,7 @@ __metadata:
       optional: true
     webpack:
       optional: true
-  checksum: 10c0/0819f4dc32a2f25c7ec660e89d1ed10044ae0a1ec15ff79ce398224bbf1d3fd0b96601ce1298f2de465998a34c35b55335cb577e726812b888c3c2ada026f273
+  checksum: 10c0/b197539ac4fb9ce7cbde9dee515cfe1b785c9fe68fe78859a749bed5ef8bdddcc6a42ff92488dad28b27bae1db565ef12d755227a911eced9b385bea68e07139
   languageName: node
   linkType: hard
 
@@ -6834,8 +6834,8 @@ __metadata:
     "@reactive-dot/wallet-ledger": "npm:^0.16.13"
     "@reactive-dot/wallet-walletconnect": "npm:^0.16.13"
     "@tanstack/react-router": "npm:^1.76.3"
-    "@tanstack/router-devtools": "npm:^1.76.3"
-    "@tanstack/router-plugin": "npm:^1.76.0"
+    "@tanstack/router-devtools": "npm:^1.77.5"
+    "@tanstack/router-plugin": "npm:^1.76.4"
     "@trivago/prettier-plugin-sort-imports": "npm:^4.3.0"
     "@tsconfig/strictest": "npm:^2.0.5"
     "@tsconfig/vite-react": "npm:^3.0.2"
