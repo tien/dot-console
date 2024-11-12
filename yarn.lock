@@ -3395,19 +3395,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/history@npm:1.61.1":
-  version: 1.61.1
-  resolution: "@tanstack/history@npm:1.61.1"
-  checksum: 10c0/714275d352c0111360b91094082d87b499d9850cc1fee5c9013a70fdda884eb36a3cdafe8c8978aa01719d94be831a4bc2fafc9ad184e94d393f4f1294b9cbda
+"@tanstack/history@npm:1.81.3":
+  version: 1.81.3
+  resolution: "@tanstack/history@npm:1.81.3"
+  checksum: 10c0/84f2f3e3729cc5ce59fa51f58a3772e1d2f0ac9a78b4ad0dfb34d90191a7d81b55df46d7d0ef4e3da51cbe47d272e09b8e7f0f0d98aa8f260fcc291b5e394d27
   languageName: node
   linkType: hard
 
-"@tanstack/react-router@npm:^1.81.1":
-  version: 1.81.1
-  resolution: "@tanstack/react-router@npm:1.81.1"
+"@tanstack/react-router@npm:^1.81.4":
+  version: 1.81.4
+  resolution: "@tanstack/react-router@npm:1.81.4"
   dependencies:
-    "@tanstack/history": "npm:1.61.1"
+    "@tanstack/history": "npm:1.81.3"
     "@tanstack/react-store": "npm:^0.5.6"
+    jsesc: "npm:^3.0.2"
     tiny-invariant: "npm:^1.3.3"
     tiny-warning: "npm:^1.0.3"
   peerDependencies:
@@ -3417,7 +3418,7 @@ __metadata:
   peerDependenciesMeta:
     "@tanstack/router-generator":
       optional: true
-  checksum: 10c0/cf57e6eae70601513efadbf9f20761d55c92045d6cc095cfbf2c6f7c52a98bfdb2bf729b5c4e086b086ce2f66d124accd3408992a7b27cf53f6328383d5134df
+  checksum: 10c0/1b8fb656dfe414a6724ee8cd9b37e4e8426117f2be8cbe93d8f805581b27ec24d346a7d10174803059e1ea8c38d47ddd5d19e9244fa0ae2b0e5c772897f52c9a
   languageName: node
   linkType: hard
 
@@ -6808,7 +6809,7 @@ __metadata:
     "@reactive-dot/react": "npm:^0.25.1"
     "@reactive-dot/wallet-ledger": "npm:^0.16.15"
     "@reactive-dot/wallet-walletconnect": "npm:^0.16.15"
-    "@tanstack/react-router": "npm:^1.81.1"
+    "@tanstack/react-router": "npm:^1.81.4"
     "@tanstack/router-devtools": "npm:^1.81.1"
     "@tanstack/router-plugin": "npm:^1.79.0"
     "@trivago/prettier-plugin-sort-imports": "npm:^4.3.0"
