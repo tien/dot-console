@@ -1625,15 +1625,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/compat@npm:^1.2.2":
-  version: 1.2.2
-  resolution: "@eslint/compat@npm:1.2.2"
+"@eslint/compat@npm:^1.2.3":
+  version: 1.2.3
+  resolution: "@eslint/compat@npm:1.2.3"
   peerDependencies:
     eslint: ^9.10.0
   peerDependenciesMeta:
     eslint:
       optional: true
-  checksum: 10c0/c19e1765673520daf6f08bb82f957c6b42079389725ceda99a4387c403fccd5f9a99d142feec43ed032cb240038ea67db9748b17bf8de4ceb8b2fba382089780
+  checksum: 10c0/b7439e62f73b9a05abea3b54ad8edc171e299171fc4673fc5a2c84d97a584bb9487a7f0bee397342f6574bd53597819a8abe52f1ca72184378cf387275b84e32
   languageName: node
   linkType: hard
 
@@ -3030,26 +3030,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@reactive-dot/core@npm:^0.26.0":
-  version: 0.26.0
-  resolution: "@reactive-dot/core@npm:0.26.0"
+"@reactive-dot/core@npm:^0.26.2":
+  version: 0.26.2
+  resolution: "@reactive-dot/core@npm:0.26.2"
   dependencies:
     "@reactive-dot/utils": "npm:^0.9.0"
   peerDependencies:
     polkadot-api: 1.x
-  checksum: 10c0/1f2d5b322113177c600d8834748a7b80b10c704d9df4320e500713c87a156fcf615f2f01fe4ff1cb327ca5e06ea3e0be40161e5fc0d01d65ce6aba2be4805ef3
+  checksum: 10c0/0b953f6f485b85eb8e15ce142cad72e0f81e37e1d7bc69fa50f6109cfbc39c75a12f71bb705d7dbe5fbcbede35d136ddc38414132237c2a4b2f2cc576908d6bb
   languageName: node
   linkType: hard
 
-"@reactive-dot/react@npm:^0.26.0":
-  version: 0.26.0
-  resolution: "@reactive-dot/react@npm:0.26.0"
+"@reactive-dot/react@npm:^0.26.2":
+  version: 0.26.2
+  resolution: "@reactive-dot/react@npm:0.26.2"
   dependencies:
-    "@reactive-dot/core": "npm:^0.26.0"
+    "@reactive-dot/core": "npm:^0.26.2"
     jotai: "npm:^2.10.2"
   peerDependencies:
     react: 18.x
-  checksum: 10c0/e5d46a2575a2233df63150eb2e6999804176da6ad6a07a4dea79d5bdf8f2da6c1cfbfa2d5b5df0979bc87beb178a021a7ce16fcf4684c747b7c1c63890524009
+  checksum: 10c0/73f863f8a6223c6166bba1f60be404be3b69920834e8a91aec658332c19ded557f432d061cc19902c6a1305d5079ba9f5a1d1bfe547f3d270fb87d59fbfc14f1
   languageName: node
   linkType: hard
 
@@ -3060,26 +3060,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@reactive-dot/wallet-ledger@npm:^0.16.16":
-  version: 0.16.16
-  resolution: "@reactive-dot/wallet-ledger@npm:0.16.16"
+"@reactive-dot/wallet-ledger@npm:^0.16.18":
+  version: 0.16.18
+  resolution: "@reactive-dot/wallet-ledger@npm:0.16.18"
   dependencies:
     "@ledgerhq/hw-transport-webusb": "npm:^6.29.4"
     "@polkadot-api/ledger-signer": "npm:^0.1.6"
-    "@reactive-dot/core": "npm:^0.26.0"
+    "@reactive-dot/core": "npm:^0.26.2"
     buffer: "npm:^6.0.3"
-  checksum: 10c0/4006eb8a32a5a6070ddb82a73ee23e0c5c12e1c42f1151b15ae569a75c95bba1ff4bf3789924d1efabbb264b5355261912906d31a7164c84f9de8b5935577773
+  checksum: 10c0/20f22eb50524fe67b0ac782d243188a8377bb45c37a28dc551f5c61a0e7002e24d18b81995fd0a0e018187d81f722bdee52d39bce89fd1afb3f4847644abcbe5
   languageName: node
   linkType: hard
 
-"@reactive-dot/wallet-walletconnect@npm:^0.16.16":
-  version: 0.16.16
-  resolution: "@reactive-dot/wallet-walletconnect@npm:0.16.16"
+"@reactive-dot/wallet-walletconnect@npm:^0.16.18":
+  version: 0.16.18
+  resolution: "@reactive-dot/wallet-walletconnect@npm:0.16.18"
   dependencies:
-    "@reactive-dot/core": "npm:^0.26.0"
+    "@reactive-dot/core": "npm:^0.26.2"
     "@walletconnect/modal": "npm:^2.7.0"
     "@walletconnect/universal-provider": "npm:^2.17.2"
-  checksum: 10c0/9ce1d89fc71ffe5bc77a2d75fa9374d0d8b600c2b91cec75692ec56ea32c3bf2c0a21ca00adb3fa2a6c223f78ebf8698394118a5930718f0e7dc46320948d5ec
+  checksum: 10c0/5aa77d3e611ec402a9106d71f31dc21a10d3a2b7b476457c29011828875bd0c7c13ec96150a7f5b1fb1de99b35cdb9f92784fe84acb30a8e3a21390e70b42d69
   languageName: node
   linkType: hard
 
@@ -3395,30 +3395,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/history@npm:1.81.3":
-  version: 1.81.3
-  resolution: "@tanstack/history@npm:1.81.3"
-  checksum: 10c0/84f2f3e3729cc5ce59fa51f58a3772e1d2f0ac9a78b4ad0dfb34d90191a7d81b55df46d7d0ef4e3da51cbe47d272e09b8e7f0f0d98aa8f260fcc291b5e394d27
+"@tanstack/history@npm:1.81.9":
+  version: 1.81.9
+  resolution: "@tanstack/history@npm:1.81.9"
+  checksum: 10c0/90d01d7f1ad16613505cf9dbce59008702ece2fb460f2e1ac6c6e08dea99d87d6727ab06082c88030de24b985f79fd35d44034ec6cce44967f56af2091edb628
   languageName: node
   linkType: hard
 
-"@tanstack/react-router@npm:^1.81.5":
-  version: 1.81.5
-  resolution: "@tanstack/react-router@npm:1.81.5"
+"@tanstack/react-router@npm:^1.81.9":
+  version: 1.81.9
+  resolution: "@tanstack/react-router@npm:1.81.9"
   dependencies:
-    "@tanstack/history": "npm:1.81.3"
+    "@tanstack/history": "npm:1.81.9"
     "@tanstack/react-store": "npm:^0.5.6"
     jsesc: "npm:^3.0.2"
     tiny-invariant: "npm:^1.3.3"
     tiny-warning: "npm:^1.0.3"
   peerDependencies:
-    "@tanstack/router-generator": 1.79.0
+    "@tanstack/router-generator": 1.81.9
     react: ">=18"
     react-dom: ">=18"
   peerDependenciesMeta:
     "@tanstack/router-generator":
       optional: true
-  checksum: 10c0/0dcd93ae70313ff09f8c51c91b052ae14fae92c372ef0bf4d3ffb63b60fa54c4b979c92f0576abaf284221a2c08e31326023b02c36c2c121155781d41d832e48
+  checksum: 10c0/68c6b8c999516bf20c6d6246ce9b2a4fb85de72e40961ba1492d2fd6e813911f884e0195ca494b1b73312048ff33fb0f8bed0cc0c3681b9d0d125e3ef57720f9
   languageName: node
   linkType: hard
 
@@ -3435,35 +3435,35 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/router-devtools@npm:^1.81.5":
-  version: 1.81.5
-  resolution: "@tanstack/router-devtools@npm:1.81.5"
+"@tanstack/router-devtools@npm:^1.81.9":
+  version: 1.81.9
+  resolution: "@tanstack/router-devtools@npm:1.81.9"
   dependencies:
     clsx: "npm:^2.1.1"
     goober: "npm:^2.1.16"
   peerDependencies:
-    "@tanstack/react-router": ^1.81.5
+    "@tanstack/react-router": ^1.81.9
     react: ">=18"
     react-dom: ">=18"
-  checksum: 10c0/9b006e36762e7057c87316a1ce267a811ab6a63004c67b82ef981df86c78c6ae84692506e802fac5d5815df0719eba0694b056658e2f1adf40435b3c96b3f4d8
+  checksum: 10c0/014ceecdd7bbc8ea3fc0e756bfb76ff5e18f6217ac1db0fc8d1c7fcb958ff9e10f77ad811e02dd8d0d0a198e258fda7c312a354c23584498dda149788bbac641
   languageName: node
   linkType: hard
 
-"@tanstack/router-generator@npm:^1.79.0":
-  version: 1.79.0
-  resolution: "@tanstack/router-generator@npm:1.79.0"
+"@tanstack/router-generator@npm:^1.81.9":
+  version: 1.81.9
+  resolution: "@tanstack/router-generator@npm:1.81.9"
   dependencies:
-    "@tanstack/virtual-file-routes": "npm:^1.64.0"
+    "@tanstack/virtual-file-routes": "npm:^1.81.9"
     prettier: "npm:^3.3.3"
     tsx: "npm:^4.19.2"
     zod: "npm:^3.23.8"
-  checksum: 10c0/0b30d376680c183b8150587f64514a68802c0b4223e717bcbdc4cd2f521fa674e6318b926b34eb0ad6015eb1c150c78c63e7cbe16ce5976bb2b09317f80d7bca
+  checksum: 10c0/01ad0c67636067763247c2ac6fe9632bc9f44d08b3a65b50eb5d416d076cb316cbb78ef7c8c547a128d19277c0abcd5922aaa2280f5bd07adab2c21acb95508a
   languageName: node
   linkType: hard
 
-"@tanstack/router-plugin@npm:^1.79.0":
-  version: 1.79.0
-  resolution: "@tanstack/router-plugin@npm:1.79.0"
+"@tanstack/router-plugin@npm:^1.81.9":
+  version: 1.81.9
+  resolution: "@tanstack/router-plugin@npm:1.81.9"
   dependencies:
     "@babel/core": "npm:^7.26.0"
     "@babel/generator": "npm:^7.26.2"
@@ -3473,8 +3473,8 @@ __metadata:
     "@babel/template": "npm:^7.25.9"
     "@babel/traverse": "npm:^7.25.9"
     "@babel/types": "npm:^7.26.0"
-    "@tanstack/router-generator": "npm:^1.79.0"
-    "@tanstack/virtual-file-routes": "npm:^1.64.0"
+    "@tanstack/router-generator": "npm:^1.81.9"
+    "@tanstack/virtual-file-routes": "npm:^1.81.9"
     "@types/babel__core": "npm:^7.20.5"
     "@types/babel__generator": "npm:^7.6.8"
     "@types/babel__template": "npm:^7.4.4"
@@ -3494,7 +3494,7 @@ __metadata:
       optional: true
     webpack:
       optional: true
-  checksum: 10c0/6fd5365756d910ec6dd8f867d741bdf2eaf51795fb3625887ba424a0b4a8e8f5e339bd3eb85e379541070c0db112e9d43c15420825f57874e55f3a380adb0924
+  checksum: 10c0/70e82ea53be5cb720ec40fc29f489f434a59c072ee076c3bd4ded1d2d7384694e3ab44347469d11dc54bc4e85504f57d22517fc0141e8fe36f15f12d4fe96e5f
   languageName: node
   linkType: hard
 
@@ -3505,10 +3505,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/virtual-file-routes@npm:^1.64.0":
-  version: 1.64.0
-  resolution: "@tanstack/virtual-file-routes@npm:1.64.0"
-  checksum: 10c0/bdd8a0adcff32e9a40a456e9aa4a4af837bff3bbddd8af5d728aac22285fd868a987e98892dce390cfdb2c20e2b7a7cafdc18ca85bdad8f9f7d7e31cf466567d
+"@tanstack/virtual-file-routes@npm:^1.81.9":
+  version: 1.81.9
+  resolution: "@tanstack/virtual-file-routes@npm:1.81.9"
+  checksum: 10c0/e9f8f66198d2ec2741bbfec66f880052424da74ee86d4e9f702445333d567806f7ae3884a6a6cd9f30c1a1c653a9d1a2fcef7cb81462278f9ef3ea0ad5935415
   languageName: node
   linkType: hard
 
@@ -6800,18 +6800,18 @@ __metadata:
     "@dnd-kit/core": "npm:^6.1.0"
     "@dnd-kit/modifiers": "npm:^7.0.0"
     "@dnd-kit/sortable": "npm:^8.0.0"
-    "@eslint/compat": "npm:^1.2.2"
+    "@eslint/compat": "npm:^1.2.3"
     "@eslint/js": "npm:^9.14.0"
     "@pandacss/dev": "npm:^0.47.1"
     "@park-ui/panda-preset": "npm:^0.42.0"
     "@polkadot-api/descriptors": "portal:.papi/descriptors"
     "@polkadot-api/view-builder": "npm:^0.3.11"
-    "@reactive-dot/react": "npm:^0.26.0"
-    "@reactive-dot/wallet-ledger": "npm:^0.16.16"
-    "@reactive-dot/wallet-walletconnect": "npm:^0.16.16"
-    "@tanstack/react-router": "npm:^1.81.5"
-    "@tanstack/router-devtools": "npm:^1.81.5"
-    "@tanstack/router-plugin": "npm:^1.79.0"
+    "@reactive-dot/react": "npm:^0.26.2"
+    "@reactive-dot/wallet-ledger": "npm:^0.16.18"
+    "@reactive-dot/wallet-walletconnect": "npm:^0.16.18"
+    "@tanstack/react-router": "npm:^1.81.9"
+    "@tanstack/router-devtools": "npm:^1.81.9"
+    "@tanstack/router-plugin": "npm:^1.81.9"
     "@trivago/prettier-plugin-sort-imports": "npm:^4.3.0"
     "@tsconfig/strictest": "npm:^2.0.5"
     "@tsconfig/vite-react": "npm:^3.0.2"
