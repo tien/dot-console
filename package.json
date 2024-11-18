@@ -42,7 +42,7 @@
     "dot-connect": "^0.12.1",
     "dot-identicon": "^0.1.0",
     "jotai": "^2.10.2",
-    "polkadot-api": "^1.7.3",
+    "polkadot-api": "^1.7.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-error-boundary": "^4.1.2",
