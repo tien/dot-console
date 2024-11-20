@@ -2,13 +2,15 @@ import { ConstantQueryForm } from "../../components/constant-form";
 import { QueryResult } from "../../components/query-result";
 import { RuntimeApiForm } from "../../components/runtime-api-form";
 import { StorageForm } from "../../components/storage-form";
-import { Heading, Progress, Tabs } from "../../components/ui";
 import type { Query } from "../../types";
 import { createFileRoute } from "@tanstack/react-router";
 import { atom, useAtom } from "jotai";
 import { Suspense } from "react";
 import { css } from "styled-system/css";
+import { Heading } from "~/components/ui/heading";
+import { Progress } from "~/components/ui/progress";
 import { Spinner } from "~/components/ui/spinner";
+import { Tabs } from "~/components/ui/tabs";
 
 export const Route = createFileRoute("/_layout/queries")({
   component: QueryPage,

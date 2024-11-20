@@ -1,4 +1,5 @@
-import { Input, Switch } from "../ui";
+import { Input } from "../ui/input";
+import { Switch } from "../ui/switch";
 import type { ParamProps } from "./common";
 import type { PrimitiveDecoded } from "@polkadot-api/view-builder";
 import { type ChangeEvent, useEffect, useState } from "react";

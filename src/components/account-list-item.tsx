@@ -1,5 +1,6 @@
-import { Heading, Text } from "./ui";
+import { Heading } from "./ui/heading";
 import { Icon } from "./ui/icon";
+import { Text } from "./ui/text";
 import { idle } from "@reactive-dot/core";
 import { useLazyLoadQuery } from "@reactive-dot/react";
 import IdentityIcon from "@w3f/polkadot-icons/solid/Identity";
@@ -146,13 +147,13 @@ function AccountListItemTemplate({
               case "on-chain":
                 return (
                   <Icon size="sm">
-                    <IdentityIcon fill="var(--colors-accent-emphasized)" />
+                    <IdentityIcon fill="var(--colors-color-palette-emphasized)" />
                   </Icon>
                 );
               case "sub-identity":
                 return (
                   <Icon size="sm">
-                    <SubIdentityIcon fill="var(--colors-accent-emphasized)" />
+                    <SubIdentityIcon fill="var(--colors-color-palette-emphasized)" />
                   </Icon>
                 );
               default:
@@ -168,7 +169,7 @@ function AccountListItemTemplate({
             style={
               identityType === undefined
                 ? undefined
-                : { color: "var(--colors-accent-emphasized)" }
+                : { color: "var(--colors-color-palette-emphasized)" }
             }
           >
             {displayName ?? (

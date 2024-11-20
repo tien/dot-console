@@ -1,7 +1,7 @@
 import {
   Spinner as StyledSpinner,
   type SpinnerProps as StyledSpinnerProps,
-} from "./primitives/spinner";
+} from "./styled/spinner";
 import { forwardRef } from "react";
 import { styled } from "styled-system/jsx";
 

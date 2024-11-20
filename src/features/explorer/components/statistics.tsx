@@ -1,4 +1,3 @@
-import { Heading } from "../../../components/ui";
 import { useStakingChainId } from "../../../hooks/chain";
 import { idle } from "@reactive-dot/core";
 import {
@@ -11,6 +10,7 @@ import {
 import { differenceInMilliseconds, formatDuration } from "date-fns";
 import { useEffect, useState } from "react";
 import { css, cx } from "styled-system/css";
+import { Heading } from "~/components/ui/heading";
 
 export type StatisticsProps = {
   className?: string | undefined;

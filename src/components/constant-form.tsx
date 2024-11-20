@@ -1,10 +1,9 @@
 import type { ConstantQuery, Pallet } from "../types";
 import { PalletSelect } from "./pallet-select";
 import { Select } from "./select";
-import { Button, Code } from "./ui";
+import { Button } from "./ui/button";
+import { Code } from "./ui/code";
 import { useChainId } from "@reactive-dot/react";
-import Check from "@w3f/polkadot-icons/solid/Check";
-import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
 import { useState, type ReactNode } from "react";
 import { css } from "styled-system/css";
 

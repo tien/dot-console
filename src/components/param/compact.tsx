@@ -1,4 +1,4 @@
-import { Input } from "../ui";
+import { Input } from "../ui/input";
 import type { ParamProps } from "./common";
 import { useEffect, useState } from "react";
 

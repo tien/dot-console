@@ -1,4 +1,4 @@
-import { Select as BaseSelect } from "./ui";
+import { Select as BaseSelect } from "./ui/select";
 import { createListCollection } from "@ark-ui/react";
 import Check from "@w3f/polkadot-icons/solid/Check";
 import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";

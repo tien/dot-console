@@ -1,7 +1,11 @@
 import type { Query } from "../types";
 import { stringifyCodec } from "../utils";
 import { CodecView } from "./codec-view";
-import { Card, Code, FormLabel, IconButton, Progress } from "./ui";
+import { Card } from "./ui/card";
+import { Code } from "./ui/code";
+import { FormLabel } from "./ui/form-label";
+import { IconButton } from "./ui/icon-button";
+import { Progress } from "./ui/progress";
 import {
   useLazyLoadQueryWithRefresh,
   useQueryErrorResetter,
@@ -177,7 +181,7 @@ function QueryErrorBoundary({ onDelete, children }: QueryErrorBoundaryProps) {
 
   return (
     <ErrorBoundary
-      fallbackRender={({ error, resetErrorBoundary }) => (
+      fallbackRender={({ resetErrorBoundary }) => (
         <Card.Root>
           <Card.Header>
             <Card.Title
@@ -189,22 +193,16 @@ function QueryErrorBoundary({ onDelete, children }: QueryErrorBoundaryProps) {
               })}
             >
               <div>Error fetching query</div>
-              <IconButton
-                variant="ghost"
-                onClick={() => resetErrorBoundary(error)}
-              >
+              <IconButton variant="ghost" onClick={() => resetErrorBoundary()}>
                 <Close fill="currentcolor" />
               </IconButton>
             </Card.Title>
           </Card.Header>
         </Card.Root>
       )}
-      onReset={(details) => {
+      onReset={() => {
         onDelete();
-        if (details.reason === "imperative-api") {
-          const [error] = details.args;
-          resetQueryError(error);
-        }
+        resetQueryError();
       }}
     >
       {children}

@@ -1,13 +1,14 @@
 import { CodecView } from "../../../components/codec-view";
-import { Heading, Table } from "../../../components/ui";
 import { blocksAtom } from "../stores/blocks";
 import type { BlockInfo } from "../types";
-import { Collapsible } from "@ark-ui/react";
 import { useLazyLoadQuery } from "@reactive-dot/react";
 import { useAtomValue } from "jotai";
 import { type ReactNode, Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { css } from "styled-system/css";
+import { Collapsible } from "~/components/ui/collapsible";
+import { Heading } from "~/components/ui/heading";
+import { Table } from "~/components/ui/table";
 
 export type EventsProps = {
   className?: string | undefined;

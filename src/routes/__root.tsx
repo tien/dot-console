@@ -1,5 +1,3 @@
-import { IconButton, Toast } from "../components/ui";
-import { createToaster, Toaster } from "../components/ui/primitives/toast";
 import { config } from "../config";
 import { pending } from "@reactive-dot/core";
 import { ReactiveDotProvider, useMutationEffect } from "@reactive-dot/react";
@@ -9,8 +7,11 @@ import { registerDotConnect } from "dot-connect";
 import "dot-connect/font.css";
 import "react18-json-view/src/dark.css";
 import "react18-json-view/src/style.css";
+import { IconButton } from "~/components/ui/icon-button";
+import { createToaster, Toaster } from "~/components/ui/styled/toast";
+import { Toast } from "~/components/ui/toast";
 
-registerDotConnect({ wallets: config.wallets });
+registerDotConnect({ wallets: config.wallets ?? [] });
 
 export const Route = createRootRoute({
   component: Root,

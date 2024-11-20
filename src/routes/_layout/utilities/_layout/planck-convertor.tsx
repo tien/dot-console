@@ -1,15 +1,13 @@
-import {
-  Card,
-  Field,
-  Link,
-  NumberInput,
-  Text,
-} from "../../../../components/ui";
 import { useChainSpecData } from "@reactive-dot/react";
 import { DenominatedNumber } from "@reactive-dot/utils";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { css } from "styled-system/css";
+import { Card } from "~/components/ui/card";
+import { Field } from "~/components/ui/field";
+import { Link } from "~/components/ui/link";
+import { NumberInput } from "~/components/ui/number-input";
+import { Text } from "~/components/ui/text";
 
 export const Route = createFileRoute(
   "/_layout/utilities/_layout/planck-convertor",

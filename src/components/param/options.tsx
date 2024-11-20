@@ -1,4 +1,4 @@
-import { Switch } from "../ui";
+import { Switch } from "../ui/switch";
 import { CodecParam } from "./codec";
 import { INCOMPLETE, type ParamInput, type ParamProps } from "./common";
 import type { OptionDecoded, OptionShape } from "@polkadot-api/view-builder";

@@ -13,7 +13,10 @@ import {
   type ParamInput,
 } from "./param";
 import { Select } from "./select";
-import { Button, Code, FormLabel, Text } from "./ui";
+import { Button } from "./ui/button";
+import { Code } from "./ui/code";
+import { FormLabel } from "./ui/form-label";
+import { Text } from "./ui/text";
 import { useChainId } from "@reactive-dot/react";
 import { useMemo, useState, type ReactNode } from "react";
 import { css } from "styled-system/css";

@@ -1,11 +1,13 @@
-import { Button, Heading, Table } from "../../../components/ui";
-import { Spinner } from "../../../components/ui/spinner";
 import { blockInViewAtom, blocksAtom } from "../stores/blocks";
 import { BlockAuthor } from "./block-author";
 import { useBlock } from "@reactive-dot/react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { Fragment } from "react";
 import { css } from "styled-system/css";
+import { Button } from "~/components/ui/button";
+import { Heading } from "~/components/ui/heading";
+import { Spinner } from "~/components/ui/spinner";
+import { Table } from "~/components/ui/table";
 
 export type BlocksProps = {
   className?: string | undefined;
@@ -51,11 +53,12 @@ export function Blocks({ className }: BlocksProps) {
                         display: "flex",
                         alignItems: "center",
                         gap: "0.5rem",
-                        color: "var(--colors-accent-text)",
+                        color: "var(--colors-color-palette-text)",
                         "&>div": {
                           flex: 1,
                           height: "1px",
-                          backgroundColor: "var(--colors-accent-default)",
+                          backgroundColor:
+                            "var(--colors-color-palette-default)",
                         },
                       })}
                     >
@@ -79,7 +82,7 @@ export function Blocks({ className }: BlocksProps) {
                     variant="link"
                     onClick={() => setBlockInView(block.number)}
                     className={css({
-                      color: "var(--colors-accent-text)",
+                      color: "var(--colors-color-palette-text)",
                       "&:hover": { textDecoration: "underline" },
                     })}
                   >

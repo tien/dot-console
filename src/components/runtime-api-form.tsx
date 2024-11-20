@@ -2,7 +2,7 @@ import { useMetadata } from "../hooks/metadata";
 import type { RuntimeApi, RuntimeApiMethod, RuntimeApiQuery } from "../types";
 import { CodecParam, INCOMPLETE, INVALID } from "./param";
 import { Select } from "./select";
-import { Button, Code } from "./ui";
+import { Button } from "./ui/button";
 import { useChainId } from "@reactive-dot/react";
 import { useState } from "react";
 import { css } from "styled-system/css";

@@ -1,5 +1,5 @@
 import { unbinary } from "../utils";
-import { Code } from "./ui";
+import { Code } from "./ui/code";
 import JsonView from "react18-json-view";
 import { css, cx } from "styled-system/css";
 

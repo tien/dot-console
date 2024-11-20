@@ -1,12 +1,3 @@
-import {
-  Button,
-  Drawer,
-  Heading,
-  IconButton,
-  Link,
-  Text,
-} from "../components/ui";
-import { Spinner } from "../components/ui/spinner";
 import type { ChainId } from "@reactive-dot/core";
 import { ChainProvider, useChainIds } from "@reactive-dot/react";
 import {
@@ -18,6 +9,13 @@ import CloseIcon from "@w3f/polkadot-icons/solid/Close";
 import { ConnectionButton } from "dot-connect/react.js";
 import { Suspense, useEffect, useState } from "react";
 import { css } from "styled-system/css";
+import { Button } from "~/components/ui/button";
+import { Drawer } from "~/components/ui/drawer";
+import { Heading } from "~/components/ui/heading";
+import { IconButton } from "~/components/ui/icon-button";
+import { Link } from "~/components/ui/link";
+import { Spinner } from "~/components/ui/spinner";
+import { Text } from "~/components/ui/text";
 
 type Search = {
   chain?: string | undefined;

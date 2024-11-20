@@ -1,5 +1,6 @@
 import { AccountSelect } from "../account-select";
-import { Input, Switch } from "../ui";
+import { Input } from "../ui/input";
+import { Switch } from "../ui/switch";
 import { INCOMPLETE, INVALID, type ParamProps } from "./common";
 import { getSs58AddressInfo } from "@polkadot-api/substrate-bindings";
 import type {

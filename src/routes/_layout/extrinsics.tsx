@@ -1,9 +1,6 @@
 import { AccountSelect } from "../../components/account-select";
 import { PalletSelect } from "../../components/pallet-select";
 import { CodecParam, INCOMPLETE, INVALID } from "../../components/param";
-import { Select } from "../../components/select";
-import { Editable } from "../../components/ui";
-import { Button } from "../../components/ui/button";
 import { useDynamicBuilder } from "../../hooks/metadata-builder";
 import { useViewBuilder } from "../../hooks/view-builder";
 import type { Pallet } from "../../types";
@@ -17,6 +14,9 @@ import SignATransactionIcon from "@w3f/polkadot-icons/solid/SignATransaction";
 import { Binary } from "polkadot-api";
 import { useEffect, useMemo, useState } from "react";
 import { css } from "styled-system/css";
+import { Select } from "~/components/select";
+import { Button } from "~/components/ui/button";
+import { Editable } from "~/components/ui/editable";
 
 export const Route = createFileRoute("/_layout/extrinsics")({
   component: ExtrinsicPage,

@@ -1,8 +1,8 @@
 import { CodecView } from "../../../components/codec-view";
-import { Table } from "../../../components/ui";
 import type { BlockInfo } from "../types";
-import { Collapsible } from "@ark-ui/react";
 import { css } from "styled-system/css";
+import { Collapsible } from "~/components/ui/collapsible";
+import { Table } from "~/components/ui/table";
 
 export type BlockExtrinsicsTableProps = {
   block: BlockInfo;

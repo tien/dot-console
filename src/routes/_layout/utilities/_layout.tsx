@@ -1,4 +1,3 @@
-import { Tabs } from "../../../components/ui";
 import {
   createFileRoute,
   Link,
@@ -6,6 +5,7 @@ import {
   useLocation,
 } from "@tanstack/react-router";
 import { css } from "styled-system/css";
+import { Tabs } from "~/components/ui/tabs";
 
 export const Route = createFileRoute("/_layout/utilities/_layout")({
   component: UtilitiesPage,

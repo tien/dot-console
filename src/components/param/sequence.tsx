@@ -1,4 +1,5 @@
-import { Button, IconButton } from "../ui";
+import { Button } from "../ui/button";
+import { IconButton } from "../ui/icon-button";
 import { CodecParam } from "./codec";
 import {
   INCOMPLETE,

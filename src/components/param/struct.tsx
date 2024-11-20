@@ -1,4 +1,4 @@
-import { FormLabel } from "../ui";
+import { FormLabel } from "../ui/form-label";
 import { CodecParam } from "./codec";
 import { INCOMPLETE, INVALID, type ParamProps } from "./common";
 import type { StructDecoded, StructShape } from "@polkadot-api/view-builder";

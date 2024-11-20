@@ -1,14 +1,3 @@
-import {
-  Button,
-  Card,
-  Clipboard,
-  Heading,
-  IconButton,
-  Progress,
-  Tabs,
-  Text,
-} from "../../../components/ui";
-import { Spinner } from "../../../components/ui/spinner";
 import { blockInViewAtom } from "../stores/blocks";
 import { BlockAuthor } from "./block-author";
 import { BlockEventsTable } from "./block-events";
@@ -21,6 +10,15 @@ import CopyIcon from "@w3f/polkadot-icons/solid/Copy";
 import { useAtom } from "jotai";
 import { Suspense } from "react";
 import { css } from "styled-system/css";
+import { Button } from "~/components/ui/button";
+import { Card } from "~/components/ui/card";
+import { Clipboard } from "~/components/ui/clipboard";
+import { Heading } from "~/components/ui/heading";
+import { IconButton } from "~/components/ui/icon-button";
+import { Progress } from "~/components/ui/progress";
+import { Spinner } from "~/components/ui/spinner";
+import { Tabs } from "~/components/ui/tabs";
+import { Text } from "~/components/ui/text";
 
 export function BlockDetail() {
   const finalizedBlock = useBlock("finalized");

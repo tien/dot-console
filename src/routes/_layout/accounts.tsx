@@ -1,5 +1,4 @@
-import { Card, Heading, Text } from "../../components/ui";
-import type { PolkadotAccount } from "@reactive-dot/core";
+import type { PolkadotAccount } from "@reactive-dot/core/wallets.js";
 import {
   useAccounts,
   useLazyLoadQuery,
@@ -11,7 +10,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Fragment, Suspense } from "react";
 import { css } from "styled-system/css";
 import { AccountListItem } from "~/components/account-list-item";
+import { Card } from "~/components/ui/card";
+import { Heading } from "~/components/ui/heading";
 import { Spinner } from "~/components/ui/spinner";
+import { Text } from "~/components/ui/text";
 import { usePeopleChainId } from "~/hooks/chain";
 
 export const Route = createFileRoute("/_layout/accounts")({
