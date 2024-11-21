@@ -21,7 +21,7 @@ jobs:
       - run: yarn install --immutable
       - run: yarn build
         env:
-          VITE_APP_WALLET_CONNECT_PROJECT_ID: ${{ secrets.WALLET_CONNECT_PROJECT_ID }}
+          PUBLIC_WALLET_CONNECT_PROJECT_ID: ${{ secrets.WALLET_CONNECT_PROJECT_ID }}
 
       # There's a bug on version 1.4.1
       # change this back to latest version after

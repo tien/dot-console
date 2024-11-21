@@ -1,10 +1,13 @@
 {
   "extends": [
-    "@tsconfig/strictest/tsconfig.json",
-    "@tsconfig/vite-react/tsconfig.json"
+    "@tsconfig/recommended/tsconfig.json",
+    "@tsconfig/strictest/tsconfig.json"
   ],
   "compilerOptions": {
-    "lib": ["ESNext"],
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
       "~/*": ["./src/*"]

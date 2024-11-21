@@ -101,7 +101,7 @@ export const config = defineConfig({
     new InjectedWalletProvider(),
     new LedgerWallet(),
     new WalletConnect({
-      projectId: import.meta.env.VITE_APP_WALLET_CONNECT_PROJECT_ID,
+      projectId: import.meta.env.PUBLIC_WALLET_CONNECT_PROJECT_ID,
       providerOptions: {
         metadata: {
           name: "ĐÓTConsole",

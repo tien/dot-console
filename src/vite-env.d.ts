@@ -1,7 +1,7 @@
-/// <reference types="vite/client" />
+/// <reference types="@rsbuild/core/types" />
 
 interface ImportMetaEnv {
-  readonly VITE_APP_WALLET_CONNECT_PROJECT_ID: string;
+  readonly PUBLIC_WALLET_CONNECT_PROJECT_ID: string;
 }
 
 interface ImportMeta {
