@@ -115,11 +115,14 @@ type StorageKeyProps = {
 
 function StorageKey(props: StorageKeyProps) {
   return (
-    <_StorageKey key={props.pallet.index + props.storage.name} {...props} />
+    <INTERNAL_StorageKey
+      key={props.pallet.index + props.storage.name}
+      {...props}
+    />
   );
 }
 
-function _StorageKey({ pallet, storage, onAddQuery }: StorageKeyProps) {
+function INTERNAL_StorageKey({ pallet, storage, onAddQuery }: StorageKeyProps) {
   const chainId = useChainId();
   const viewBuilder = useViewBuilder();
 

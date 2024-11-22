@@ -10,7 +10,10 @@ type _Metadata =
       Metadata["metadata"]
     : never;
 
-export type Metadata = Extract<_Metadata, { tag: "v14" | "v15" }>["value"];
+export type Metadata = Extract<
+  INTERNAL_Metadata,
+  { tag: "v14" | "v15" }
+>["value"];
 
 export type Pallet = Metadata["pallets"][number];
 

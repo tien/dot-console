@@ -11,10 +11,10 @@ export type TupleParamProps<T extends Array<unknown>> = ParamProps<T> & {
 export function TupleParam<T extends Array<unknown>>(
   props: TupleParamProps<T>,
 ) {
-  return <_TupleParam key={props.tuple.shape.length} {...props} />;
+  return <INTERNAL_TupleParam key={props.tuple.shape.length} {...props} />;
 }
 
-function _TupleParam<T extends Array<unknown>>({
+function INTERNAL_TupleParam<T extends Array<unknown>>({
   tuple: tupleShape,
   defaultValue,
   onChangeValue,

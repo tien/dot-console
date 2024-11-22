@@ -54,7 +54,7 @@ type ApiMethodSelectProps = {
   onAddQuery: (query: RuntimeApiQuery) => void;
 };
 
-function _ApiMethodSelect({ api, ...props }: ApiMethodSelectProps) {
+function INTERNAL_ApiMethodSelect({ api, ...props }: ApiMethodSelectProps) {
   const methods = api.methods;
   const [selectedMethodName, setSelectedMethodName] = useState(
     methods.at(0)!.name,
@@ -95,7 +95,7 @@ function _ApiMethodSelect({ api, ...props }: ApiMethodSelectProps) {
 }
 
 function ApiMethodSelect(props: ApiMethodSelectProps) {
-  return <_ApiMethodSelect key={props.api.name} {...props} />;
+  return <INTERNAL_ApiMethodSelect key={props.api.name} {...props} />;
 }
 
 type ApiMethodArgumentsProps = {
@@ -105,10 +105,10 @@ type ApiMethodArgumentsProps = {
 };
 
 function ApiMethodArguments(props: ApiMethodArgumentsProps) {
-  return <_ApiMethodArguments key={props.method.name} {...props} />;
+  return <INTERNAL_ApiMethodArguments key={props.method.name} {...props} />;
 }
 
-function _ApiMethodArguments({
+function INTERNAL_ApiMethodArguments({
   api,
   method,
   onAddQuery,

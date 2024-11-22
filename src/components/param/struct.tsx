@@ -14,11 +14,14 @@ export function StructParam<T extends Record<string, unknown>>(
   props: StructParamProps<T>,
 ) {
   return (
-    <_StructParam key={Object.keys(props.struct.shape).join()} {...props} />
+    <INTERNAL_StructParam
+      key={Object.keys(props.struct.shape).join()}
+      {...props}
+    />
   );
 }
 
-function _StructParam<T extends Record<string, unknown>>({
+function INTERNAL_StructParam<T extends Record<string, unknown>>({
   struct: structShape,
   defaultValue,
   onChangeValue,

@@ -15,10 +15,10 @@ export type ArrayParamProps<T> = ParamProps<T[]> & {
 };
 
 export function ArrayParam<T>(props: ArrayParamProps<T>) {
-  return <_ArrayParam key={props.array.len} {...props} />;
+  return <INTERNAL_ArrayParam key={props.array.len} {...props} />;
 }
 
-function _ArrayParam<T>({
+function INTERNAL_ArrayParam<T>({
   array: arrayShape,
   defaultValue,
   onChangeValue,

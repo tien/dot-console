@@ -19,7 +19,7 @@ export function ConstantQueryForm(
   return (
     <PalletSelect filter={(pallet) => pallet.constants.length > 0}>
       {({ pallet, palletSelect }) => (
-        <_ConstantQueryForm
+        <INTERNAL_ConstantQueryForm
           key={pallet.index}
           pallet={pallet}
           palletSelect={palletSelect}
@@ -30,7 +30,7 @@ export function ConstantQueryForm(
   );
 }
 
-export function _ConstantQueryForm({
+export function INTERNAL_ConstantQueryForm({
   pallet,
   palletSelect,
   onAddQuery,

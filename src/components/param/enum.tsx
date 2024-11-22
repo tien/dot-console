@@ -11,10 +11,12 @@ export type EnumParamProps = ParamProps<
 };
 
 export function EnumParam(props: EnumParamProps) {
-  return <_EnumParam key={Object.keys(props.enum.shape).join()} {...props} />;
+  return (
+    <INTERNAL_EnumParam key={Object.keys(props.enum.shape).join()} {...props} />
+  );
 }
 
-export function _EnumParam({
+export function INTERNAL_EnumParam({
   onChangeValue,
   defaultValue,
   ...props
