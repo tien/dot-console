@@ -3311,17 +3311,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/router-devtools@npm:^1.82.1":
-  version: 1.82.1
-  resolution: "@tanstack/router-devtools@npm:1.82.1"
+"@tanstack/router-devtools@npm:^1.82.2":
+  version: 1.82.2
+  resolution: "@tanstack/router-devtools@npm:1.82.2"
   dependencies:
     clsx: "npm:^2.1.1"
     goober: "npm:^2.1.16"
   peerDependencies:
-    "@tanstack/react-router": ^1.82.1
+    "@tanstack/react-router": ^1.82.2
     react: ">=18"
     react-dom: ">=18"
-  checksum: 10c0/2c88f9e09ac4cadb24e017a90e1532391d427f7a47088f0dab58ee9086de1244c426bf4482b3c2746d132c251d0e713100465967a50ca237844790a1950b7cd6
+  checksum: 10c0/17c432e2e51ff03f9d8f623222547b343c841c2e1b5a0943ba352291dfbd0a167cbf25c975ec92505ff43380fa5b9b227ceb61750150a3e3dd292c13c8031bfb
   languageName: node
   linkType: hard
 
@@ -6697,7 +6697,7 @@ __metadata:
     "@rsbuild/core": "npm:^1.1.4"
     "@rsbuild/plugin-react": "npm:^1.0.7"
     "@tanstack/react-router": "npm:^1.82.1"
-    "@tanstack/router-devtools": "npm:^1.82.1"
+    "@tanstack/router-devtools": "npm:^1.82.2"
     "@tanstack/router-plugin": "npm:^1.81.9"
     "@trivago/prettier-plugin-sort-imports": "npm:^4.3.0"
     "@tsconfig/recommended": "npm:^1.0.8"

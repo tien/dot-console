@@ -55,7 +55,7 @@
     "@park-ui/panda-preset": "^0.43.0",
     "@rsbuild/core": "^1.1.4",
     "@rsbuild/plugin-react": "^1.0.7",
-    "@tanstack/router-devtools": "^1.82.1",
+    "@tanstack/router-devtools": "^1.82.2",
     "@tanstack/router-plugin": "^1.81.9",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@tsconfig/recommended": "^1.0.8",
