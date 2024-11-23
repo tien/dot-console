@@ -6,6 +6,7 @@ import reactRecommended from "eslint-plugin-react/configs/recommended.js";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config(
+  { ignores: ["src/components/ui/"] },
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
   {
