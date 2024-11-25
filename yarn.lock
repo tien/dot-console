@@ -3319,9 +3319,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-router@npm:^1.82.2":
-  version: 1.82.2
-  resolution: "@tanstack/react-router@npm:1.82.2"
+"@tanstack/react-router@npm:^1.82.8":
+  version: 1.82.8
+  resolution: "@tanstack/react-router@npm:1.82.8"
   dependencies:
     "@tanstack/history": "npm:1.81.9"
     "@tanstack/react-store": "npm:^0.5.6"
@@ -3335,7 +3335,7 @@ __metadata:
   peerDependenciesMeta:
     "@tanstack/router-generator":
       optional: true
-  checksum: 10c0/b3e41fbca08663f28e2ad980c88c06791619bd62e30932e665154293a3e0949da71ae5c86a4cdbb6fb4024f0f0c41413cc61349b1fb08dfc0c5e7f42e1575670
+  checksum: 10c0/e0a3a051e002a93872372329221ef4a2811fb210ced75c38a8ffd6b992eb8165a71e8aeeb6b15e5a2faf248a10811acc81d123dfefc6227f20c3c9e224d99646
   languageName: node
   linkType: hard
 
@@ -6746,7 +6746,7 @@ __metadata:
     "@reactive-dot/wallet-walletconnect": "npm:^0.16.18"
     "@rsbuild/core": "npm:^1.1.4"
     "@rsbuild/plugin-react": "npm:^1.0.7"
-    "@tanstack/react-router": "npm:^1.82.2"
+    "@tanstack/react-router": "npm:^1.82.8"
     "@tanstack/router-devtools": "npm:^1.82.2"
     "@tanstack/router-plugin": "npm:^1.81.9"
     "@trivago/prettier-plugin-sort-imports": "npm:^4.3.0"
