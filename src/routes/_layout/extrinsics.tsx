@@ -164,58 +164,67 @@ function CallParam({
         defaultValue={defaultArgs}
         onChangeValue={setArgs}
       />
-      <hr className={css({ margin: "2rem 0 1rem 0" })} />
-      <Editable.Root
-        placeholder="0x0"
-        autoResize
-        value={draftCallDataInput}
-        onValueChange={(event) => setDraftCallDataInput(event.value)}
-        onValueRevert={() => setDraftCallDataInput(callDataInput)}
-        onValueCommit={(event) => setCallDataInput(event.value, true)}
-      >
-        <Editable.Label>Encoded call data</Editable.Label>
-        <Editable.Area>
-          <Editable.Input />
-          <Editable.Preview />
-        </Editable.Area>
-        <Editable.Context>
-          {(editable) => (
-            <Editable.Control>
-              {editable.editing ? (
-                <>
-                  <Editable.SubmitTrigger asChild>
-                    <Button variant="link">Save</Button>
-                  </Editable.SubmitTrigger>
-                  <Editable.CancelTrigger asChild>
-                    <Button variant="link">Cancel</Button>
-                  </Editable.CancelTrigger>
-                </>
-              ) : (
-                <Editable.EditTrigger asChild>
-                  <Button variant="link">Edit</Button>
-                </Editable.EditTrigger>
-              )}
-            </Editable.Control>
-          )}
-        </Editable.Context>
-      </Editable.Root>
       <div
         className={css({
-          display: "flex",
-          justifyContent: "end",
-          marginTop: "1rem",
+          position: "sticky",
+          bottom: 0,
+          paddingBottom: "1rem",
+          backgroundColor: "bg.canvas",
         })}
       >
-        <Button
-          loading={isPending}
-          disabled={
-            signer === undefined || args === INCOMPLETE || args === INVALID
-          }
-          onClick={() => submit()}
+        <hr className={css({ margin: "2rem 0 1rem 0" })} />
+        <Editable.Root
+          placeholder="0x0"
+          autoResize
+          value={draftCallDataInput}
+          onValueChange={(event) => setDraftCallDataInput(event.value)}
+          onValueRevert={() => setDraftCallDataInput(callDataInput)}
+          onValueCommit={(event) => setCallDataInput(event.value, true)}
         >
-          Sign and submit
-          <SignATransactionIcon fill="currentcolor" />
-        </Button>
+          <Editable.Label>Encoded call data</Editable.Label>
+          <Editable.Area>
+            <Editable.Input />
+            <Editable.Preview />
+          </Editable.Area>
+          <Editable.Context>
+            {(editable) => (
+              <Editable.Control>
+                {editable.editing ? (
+                  <>
+                    <Editable.SubmitTrigger asChild>
+                      <Button variant="link">Save</Button>
+                    </Editable.SubmitTrigger>
+                    <Editable.CancelTrigger asChild>
+                      <Button variant="link">Cancel</Button>
+                    </Editable.CancelTrigger>
+                  </>
+                ) : (
+                  <Editable.EditTrigger asChild>
+                    <Button variant="link">Edit</Button>
+                  </Editable.EditTrigger>
+                )}
+              </Editable.Control>
+            )}
+          </Editable.Context>
+        </Editable.Root>
+        <div
+          className={css({
+            display: "flex",
+            justifyContent: "end",
+            marginTop: "1rem",
+          })}
+        >
+          <Button
+            loading={isPending}
+            disabled={
+              signer === undefined || args === INCOMPLETE || args === INVALID
+            }
+            onClick={() => submit()}
+          >
+            Sign and submit
+            <SignATransactionIcon fill="currentcolor" />
+          </Button>
+        </div>
       </div>
     </div>
   );
