@@ -9,17 +9,24 @@ import { toaster } from "../__root";
 import type { Decoded, Shape } from "@polkadot-api/view-builder";
 import { idle, pending } from "@reactive-dot/core";
 import { SignerProvider, useMutation, useSigner } from "@reactive-dot/react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { zodValidator } from "@tanstack/zod-adapter";
 import SignATransactionIcon from "@w3f/polkadot-icons/solid/SignATransaction";
 import { Binary } from "polkadot-api";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { css } from "styled-system/css";
+import { z } from "zod";
 import { Select } from "~/components/select";
 import { Button } from "~/components/ui/button";
 import { Editable } from "~/components/ui/editable";
 
+const searchSchema = z.object({
+  callData: z.string().optional(),
+});
+
 export const Route = createFileRoute("/_layout/extrinsics")({
   component: ExtrinsicPage,
+  validateSearch: zodValidator(searchSchema),
 });
 
 type CallParamProps = {
@@ -69,6 +76,34 @@ function CallParam({
   const dynamicBuilder = useDynamicBuilder();
   const viewBuilder = useViewBuilder();
 
+  const navigate = useNavigate({ from: Route.fullPath });
+
+  const setCallDataInput = useCallback(
+    (callDataInput: string, forceRerender?: boolean) => {
+      if (callDataInput.trim() === "") {
+        return;
+      }
+
+      try {
+        const decodedCall = viewBuilder.callDecoder(callDataInput);
+
+        setDraftCallDataInput(callDataInput);
+        onChangePallet(decodedCall.pallet.value.idx);
+        onChangeCall(decodedCall.call.value.name);
+        setDefaultArgs(decodedCall.args.value);
+        navigate({ search: { callData: callDataInput } });
+
+        if (forceRerender) {
+          setArgsRenderCount((count) => count + 1);
+        }
+      } catch {
+        setDraftCallDataInput(callDataInput);
+        toaster.error({ id: callDataInput, title: "Invalid call data" });
+      }
+    },
+    [navigate, onChangeCall, onChangePallet, viewBuilder],
+  );
+
   const callData = useMemo(() => {
     if (args === INCOMPLETE || args === INVALID) {
       return undefined;
@@ -88,6 +123,8 @@ function CallParam({
     }
   }, [args, call, dynamicBuilder, pallet.name]);
 
+  const { callData: searchCallData } = Route.useSearch();
+
   const callDataHex = callData?.asHex();
 
   const [defaultArgs, setDefaultArgs] = useState<Decoded>();
@@ -99,29 +136,19 @@ function CallParam({
 
   const [callDataInput, _setCallDataInput] = useState(draftCallDataInput);
 
-  const setCallDataInput = useCallback(
-    (callDataInput: string, forceRerender?: boolean) => {
-      if (callDataInput.trim() === "") {
-        return;
-      }
-
-      const decodedCall = viewBuilder.callDecoder(callDataInput);
-
-      onChangePallet(decodedCall.pallet.value.idx);
-      onChangeCall(decodedCall.call.value.name);
-      setDefaultArgs(decodedCall.args.value);
-
-      if (forceRerender) {
-        setArgsRenderCount((count) => count + 1);
+  useEffect(
+    () => {
+      if (searchCallData) {
+        setCallDataInput(searchCallData, true);
       }
     },
-    [onChangeCall, onChangePallet, viewBuilder],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
   );
 
   useEffect(
     () => {
       if (callDataHex !== undefined) {
-        setDraftCallDataInput(callDataHex);
         setCallDataInput(callDataHex);
       }
     },
@@ -144,14 +171,7 @@ function CallParam({
         value={draftCallDataInput}
         onValueChange={(event) => setDraftCallDataInput(event.value)}
         onValueRevert={() => setDraftCallDataInput(callDataInput)}
-        onValueCommit={(event) => {
-          try {
-            setCallDataInput(event.value, true);
-          } catch {
-            setDraftCallDataInput(callDataInput);
-            toaster.error({ title: "Invalid call data" });
-          }
-        }}
+        onValueCommit={(event) => setCallDataInput(event.value, true)}
       >
         <Editable.Label>Encoded call data</Editable.Label>
         <Editable.Area>
@@ -228,13 +248,10 @@ function CallSelect({ pallet, onChangePallet }: CallSelectProps) {
 
   const defaultCallName = calls.at(0)!.name;
 
-  const [selectedCallName, setSelectedCallName] = useState(defaultCallName);
+  const [_selectedCallName, setSelectedCallName] = useState(defaultCallName);
 
-  useEffect(() => {
-    setSelectedCallName(defaultCallName);
-  }, [defaultCallName]);
-
-  const selectedCall = calls.find((call) => call.name === selectedCallName);
+  const selectedCall =
+    calls.find((call) => call.name === _selectedCallName) ?? calls.at(0)!;
 
   const callItems = calls
     .map((call) => ({
@@ -248,18 +265,16 @@ function CallSelect({ pallet, onChangePallet }: CallSelectProps) {
       <Select
         label="Call"
         options={callItems}
-        value={selectedCallName}
+        value={selectedCall.name}
         onChangeValue={setSelectedCallName}
       />
-      {selectedCall && (
-        <CallParam
-          pallet={pallet}
-          call={selectedCall.name}
-          param={selectedCall.param}
-          onChangePallet={onChangePallet}
-          onChangeCall={setSelectedCallName}
-        />
-      )}
+      <CallParam
+        pallet={pallet}
+        call={selectedCall.name}
+        param={selectedCall.param}
+        onChangePallet={onChangePallet}
+        onChangeCall={setSelectedCallName}
+      />
     </>
   );
 }

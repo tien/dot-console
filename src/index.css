@@ -6,3 +6,8 @@
   --dc-surface-color: var(--colors-bg-default);
   --dc-on-surface-color: var(--colors-fg-default);
 }
+
+/* TODO: remove once highlight bug of ParkUI is fixed */
+*::selection {
+  background: var(--colors-color-palette-default);
+}
