@@ -142,6 +142,8 @@ function Layout() {
                       chainIds.map((chainId) => (
                         <RouterLink
                           key={chainId}
+                          from={Route.fullPath}
+                          to="."
                           search={{ chain: chainId.replaceAll("_", "-") }}
                           className={css({ display: "contents" })}
                         >
