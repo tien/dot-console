@@ -87,6 +87,7 @@ function CallParam({
       try {
         const decodedCall = viewBuilder.callDecoder(callDataInput);
 
+        _setCallDataInput(callDataInput);
         setDraftCallDataInput(callDataInput);
         onChangePallet(decodedCall.pallet.value.idx);
         onChangeCall(decodedCall.call.value.name);
