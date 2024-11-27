@@ -1,9 +1,12 @@
 import { Select as BaseSelect } from "./ui/select";
 import { createListCollection } from "@ark-ui/react";
-import Check from "@w3f/polkadot-icons/solid/Check";
-import ChevronDown from "@w3f/polkadot-icons/solid/ChevronDown";
+import Check from "@w3f/polkadot-icons/keyline/Check";
+import DropDown from "@w3f/polkadot-icons/keyline/DropDown";
+import DropDownUp from "@w3f/polkadot-icons/keyline/DropDownUp";
 import type { ReactNode } from "react";
 import { css } from "styled-system/css";
+import type { SelectVariant } from "styled-system/recipes";
+import type { SystemProperties } from "styled-system/types";
 
 type Option<T> = { label: string; value: T };
 
@@ -18,6 +21,9 @@ export type SelectProps<
   renderOption?: (option: TOption) => ReactNode;
   label?: string;
   placeholder?: string;
+  variant?: SelectVariant["variant"];
+  size?: SelectVariant["size"];
+  width?: SystemProperties["width"];
 };
 
 export function Select<
@@ -31,6 +37,9 @@ export function Select<
   renderOption,
   label,
   placeholder,
+  variant,
+  size,
+  width,
 }: SelectProps<TValue, TOption>) {
   const collection = createListCollection({
     items: options,
@@ -54,7 +63,13 @@ export function Select<
           onChangeValue(selectedValue.value);
         }
       }}
-      positioning={{ fitViewport: true, sameWidth: true }}
+      positioning={{
+        fitViewport: true,
+        sameWidth: width === undefined ? true : false,
+      }}
+      variant={variant}
+      size={size}
+      width={width}
     >
       {label !== undefined && <BaseSelect.Label>{label}</BaseSelect.Label>}
       <BaseSelect.Control>
@@ -67,7 +82,15 @@ export function Select<
             <BaseSelect.ValueText placeholder={placeholder ?? ""} />
           )}
           <BaseSelect.Indicator>
-            <ChevronDown fill="currentcolor" />
+            <BaseSelect.Context>
+              {({ open }) =>
+                open ? (
+                  <DropDownUp fill="currentcolor" />
+                ) : (
+                  <DropDown fill="currentcolor" />
+                )
+              }
+            </BaseSelect.Context>
           </BaseSelect.Indicator>
         </BaseSelect.Trigger>
       </BaseSelect.Control>

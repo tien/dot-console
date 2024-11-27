@@ -1,3 +1,4 @@
+import { Select } from "../select";
 import { CodecParam } from "./codec";
 import type { ParamProps } from "./common";
 import type { EnumDecoded, EnumShape } from "@polkadot-api/view-builder";
@@ -40,13 +41,14 @@ export function INTERNAL_EnumParam({
 
   return (
     <div>
-      <select value={key} onChange={(event) => setKey(event.target.value)}>
-        {keys.map((key) => (
-          <option key={key} value={key}>
-            {key}
-          </option>
-        ))}
-      </select>
+      <Select
+        variant="ghost"
+        size="sm"
+        width="fit-content"
+        options={keys.map((key) => ({ value: key, label: key }))}
+        value={key}
+        onChangeValue={setKey}
+      />
       {valueShape && (
         <CodecParam
           shape={valueShape}
