@@ -12,7 +12,7 @@ import { SignerProvider, useMutation, useSigner } from "@reactive-dot/react";
 import { createFileRoute } from "@tanstack/react-router";
 import SignATransactionIcon from "@w3f/polkadot-icons/solid/SignATransaction";
 import { Binary } from "polkadot-api";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { css } from "styled-system/css";
 import { Select } from "~/components/select";
 import { Button } from "~/components/ui/button";
@@ -69,11 +69,6 @@ function CallParam({
   const dynamicBuilder = useDynamicBuilder();
   const viewBuilder = useViewBuilder();
 
-  const [defaultArgs, setDefaultArgs] = useState<{
-    id: string;
-    decoded: Decoded;
-  }>();
-
   const callData = useMemo(() => {
     if (args === INCOMPLETE || args === INVALID) {
       return undefined;
@@ -95,24 +90,51 @@ function CallParam({
 
   const callDataHex = callData?.asHex();
 
-  const [draftCallDataInput, setDraftCallDataInput] = useState(
-    callData?.asHex() ?? "",
-  );
-  const [callDataInput, setCallDataInput] = useState(draftCallDataInput);
+  const [defaultArgs, setDefaultArgs] = useState<Decoded>();
+  const [argsRenderCount, setArgsRenderCount] = useState(0);
 
-  useEffect(() => {
-    if (callDataHex !== undefined) {
-      setDraftCallDataInput(callDataHex);
-      setCallDataInput(callDataHex);
-    }
-  }, [callDataHex]);
+  const [draftCallDataInput, setDraftCallDataInput] = useState(
+    callDataHex ?? "",
+  );
+
+  const [callDataInput, _setCallDataInput] = useState(draftCallDataInput);
+
+  const setCallDataInput = useCallback(
+    (callDataInput: string, forceRerender?: boolean) => {
+      if (callDataInput.trim() === "") {
+        return;
+      }
+
+      const decodedCall = viewBuilder.callDecoder(callDataInput);
+
+      onChangePallet(decodedCall.pallet.value.idx);
+      onChangeCall(decodedCall.call.value.name);
+      setDefaultArgs(decodedCall.args.value);
+
+      if (forceRerender) {
+        setArgsRenderCount((count) => count + 1);
+      }
+    },
+    [onChangeCall, onChangePallet, viewBuilder],
+  );
+
+  useEffect(
+    () => {
+      if (callDataHex !== undefined) {
+        setDraftCallDataInput(callDataHex);
+        setCallDataInput(callDataHex);
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [callDataHex],
+  );
 
   return (
     <div className={css({ gridArea: "param-and-submit" })}>
       <CodecParam
-        key={defaultArgs?.id}
+        key={argsRenderCount}
         shape={param}
-        defaultValue={defaultArgs?.decoded}
+        defaultValue={defaultArgs}
         onChangeValue={setArgs}
       />
       <hr className={css({ margin: "2rem 0 1rem 0" })} />
@@ -124,15 +146,7 @@ function CallParam({
         onValueRevert={() => setDraftCallDataInput(callDataInput)}
         onValueCommit={(event) => {
           try {
-            const decodedCall = viewBuilder.callDecoder(event.value);
-
-            onChangePallet(decodedCall.pallet.value.idx);
-            onChangeCall(decodedCall.call.value.name);
-            setDefaultArgs({
-              id: globalThis.crypto.randomUUID(),
-              decoded: decodedCall.args.value,
-            });
-            setCallDataInput(draftCallDataInput);
+            setCallDataInput(event.value, true);
           } catch {
             setDraftCallDataInput(callDataInput);
             toaster.error({ title: "Invalid call data" });

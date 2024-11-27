@@ -2,7 +2,7 @@ import { AccountListItem } from "./account-list-item";
 import { Select } from "./select";
 import type { WalletAccount } from "@reactive-dot/core/wallets.js";
 import { useAccounts } from "@reactive-dot/react";
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 type ControlledAccountSelectProps = {
   accounts: WalletAccount[];
@@ -34,6 +34,12 @@ export function UnControlledAccountSelect({
 }: UnControlledAccountSelectProps) {
   const accounts = useAccounts();
   const [account, setAccount] = useState(accounts.at(0));
+
+  useEffect(() => {
+    if (account === undefined && accounts.length > 0) {
+      setAccount(accounts.at(0));
+    }
+  }, [account, accounts]);
 
   return (
     <>

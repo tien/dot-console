@@ -25,11 +25,13 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import type {
+  Decoded,
   SequenceDecoded,
   SequenceShape,
 } from "@polkadot-api/view-builder";
 import AddIcon from "@w3f/polkadot-icons/solid/Add";
 import CloseIcon from "@w3f/polkadot-icons/solid/Close";
+import CopyIcon from "@w3f/polkadot-icons/solid/Copy";
 import MoreMenuIcon from "@w3f/polkadot-icons/solid/MoreMenu";
 import { type PropsWithChildren, useEffect, useMemo, useState } from "react";
 import { css } from "styled-system/css";
@@ -42,6 +44,7 @@ export type SequenceParamProps<T> = ParamProps<T[]> & {
 type SortableValue<T> = {
   id: string;
   value: T;
+  defaultValue?: Decoded | undefined;
 };
 
 export function SequenceParam<T>({
@@ -51,14 +54,19 @@ export function SequenceParam<T>({
 }: SequenceParamProps<T>) {
   const [length, setLength] = useState(defaultValue?.value.length ?? 1);
 
-  const [sortableValues, setSortableValues] = useState(
-    Array.from({ length }).map(
-      (): SortableValue<ParamInput<T>> => ({
-        id: globalThis.crypto.randomUUID(),
-        value: INCOMPLETE,
-      }),
-    ),
+  const defaultValues = useMemo(
+    () =>
+      Array.from({ length }).map(
+        (_, index): SortableValue<ParamInput<T>> => ({
+          id: globalThis.crypto.randomUUID(),
+          value: INCOMPLETE,
+          defaultValue: defaultValue?.value.at(index),
+        }),
+      ),
+    [defaultValue?.value, length],
   );
+
+  const [sortableValues, setSortableValues] = useState(defaultValues);
 
   const values = useMemo(
     () => sortableValues.map((value) => value.value),
@@ -129,10 +137,22 @@ export function SequenceParam<T>({
                   values.filter((value) => value.id !== item.id),
                 )
               }
+              onRequestDuplicate={() => {
+                setLength((length) => length + 1);
+                setSortableValues((values) => [
+                  ...values.slice(0, index + 1),
+                  {
+                    id: globalThis.crypto.randomUUID(),
+                    value: values.at(index)?.value ?? INCOMPLETE,
+                    defaultValue: defaultValues.at(index)?.defaultValue,
+                  },
+                  ...values.slice(index + 1),
+                ]);
+              }}
             >
               <CodecParam
                 shape={sequence.shape}
-                defaultValue={defaultValue?.value.at(index)}
+                defaultValue={item.defaultValue}
                 onChangeValue={(value) =>
                   setSortableValues((array) =>
                     array.with(index, {
@@ -165,12 +185,14 @@ type SortableItemProps = PropsWithChildren<{
   id: string;
   sortable?: boolean;
   onRequestRemove: () => void;
+  onRequestDuplicate: () => void;
 }>;
 
 export function SortableItem({
   id,
   sortable,
   onRequestRemove,
+  onRequestDuplicate,
   children,
 }: SortableItemProps) {
   const { attributes, listeners, setNodeRef, transform, transition } =
@@ -214,8 +236,21 @@ export function SortableItem({
             </div>
           </IconButton>
         )}
-        <IconButton variant="ghost" size="xs" onClick={onRequestRemove}>
+        <IconButton
+          title="Delete item"
+          variant="ghost"
+          size="xs"
+          onClick={onRequestRemove}
+        >
           <CloseIcon fill="currentcolor" />
+        </IconButton>
+        <IconButton
+          title="Duplicate item"
+          variant="ghost"
+          size="xs"
+          onClick={onRequestDuplicate}
+        >
+          <CopyIcon fill="currentcolor" />
         </IconButton>
       </div>
     </div>
