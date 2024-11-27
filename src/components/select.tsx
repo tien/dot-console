@@ -79,7 +79,14 @@ export function Select<
           {selectedOption && renderValue !== undefined ? (
             renderValue(selectedOption)
           ) : (
-            <BaseSelect.ValueText placeholder={placeholder ?? ""} />
+            <BaseSelect.ValueText
+              placeholder={placeholder ?? ""}
+              className={css({
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+              })}
+            />
           )}
           <BaseSelect.Indicator>
             <BaseSelect.Context>
@@ -106,7 +113,15 @@ export function Select<
             <BaseSelect.Item key={item.value} item={item}>
               {renderOption?.(item) ?? (
                 <>
-                  <BaseSelect.ItemText>{item.label}</BaseSelect.ItemText>
+                  <BaseSelect.ItemText
+                    className={css({
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "nowrap",
+                    })}
+                  >
+                    {item.label}
+                  </BaseSelect.ItemText>
                   <BaseSelect.ItemIndicator>
                     <Check fill="currentcolor" />
                   </BaseSelect.ItemIndicator>
