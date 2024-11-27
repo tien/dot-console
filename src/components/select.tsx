@@ -1,8 +1,8 @@
 import { Select as BaseSelect } from "./ui/select";
 import { createListCollection } from "@ark-ui/react";
 import Check from "@w3f/polkadot-icons/solid/Check";
-import DropDown from "@w3f/polkadot-icons/solid/DropDown";
-import DropDownUp from "@w3f/polkadot-icons/solid/DropDownUp";
+import DropDown from "@w3f/polkadot-icons/solid/Dropdown";
+import DropDownUp from "@w3f/polkadot-icons/solid/DropdownUp";
 import type { ReactNode } from "react";
 import { css } from "styled-system/css";
 import type { SelectVariant } from "styled-system/recipes";
