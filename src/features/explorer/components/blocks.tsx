@@ -25,7 +25,7 @@ export function Blocks({ className }: BlocksProps) {
           position: "sticky",
           top: 0,
           padding: "0.5rem 1rem",
-          backgroundColor: "var(--colors-bg-default)",
+          backgroundColor: "bg.default",
           zIndex: 1,
         })}
       >
@@ -53,12 +53,11 @@ export function Blocks({ className }: BlocksProps) {
                         display: "flex",
                         alignItems: "center",
                         gap: "0.5rem",
-                        color: "var(--colors-color-palette-text)",
+                        color: "colorPalette.text",
                         "&>div": {
                           flex: 1,
                           height: "1px",
-                          backgroundColor:
-                            "var(--colors-color-palette-default)",
+                          backgroundColor: "colorPalette.default",
                         },
                       })}
                     >
@@ -82,7 +81,7 @@ export function Blocks({ className }: BlocksProps) {
                     variant="link"
                     onClick={() => setBlockInView(block.number)}
                     className={css({
-                      color: "var(--colors-color-palette-text)",
+                      color: "colorPalette.text",
                       "&:hover": { textDecoration: "underline" },
                     })}
                   >

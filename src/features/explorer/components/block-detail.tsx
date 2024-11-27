@@ -73,7 +73,7 @@ export function BlockDetail() {
                 gridTemplateColumns: "max-content minmax(0, 1fr)",
                 alignItems: "center",
                 gap: "1rem",
-                "& dt": { color: "var(--colors-fg-subtle)" },
+                "& dt": { color: "fg.subtle" },
               })}
             >
               <dt>Status</dt>

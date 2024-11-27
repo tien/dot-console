@@ -24,7 +24,7 @@ export function Events({ className }: EventsProps) {
           position: "sticky",
           top: 0,
           padding: "0.5rem 1rem",
-          backgroundColor: "var(--colors-bg-default)",
+          backgroundColor: "bg.default",
         })}
       >
         <Heading as="h3" size="xl">
