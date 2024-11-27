@@ -172,7 +172,9 @@ function Layout() {
             <Link asChild>
               <RouterLink
                 to="/explorer"
-                activeProps={{ className: css({ color: "accent.default" }) }}
+                activeProps={{
+                  className: css({ color: "colorPalette.default" }),
+                }}
               >
                 Explorer
               </RouterLink>
@@ -180,7 +182,9 @@ function Layout() {
             <Link asChild>
               <RouterLink
                 to="/queries"
-                activeProps={{ className: css({ color: "accent.default" }) }}
+                activeProps={{
+                  className: css({ color: "colorPalette.default" }),
+                }}
               >
                 Queries
               </RouterLink>
@@ -188,7 +192,9 @@ function Layout() {
             <Link asChild>
               <RouterLink
                 to="/extrinsics"
-                activeProps={{ className: css({ color: "accent.default" }) }}
+                activeProps={{
+                  className: css({ color: "colorPalette.default" }),
+                }}
               >
                 Extrinsics
               </RouterLink>
@@ -196,7 +202,9 @@ function Layout() {
             <Link asChild>
               <RouterLink
                 to="/utilities"
-                activeProps={{ className: css({ color: "accent.default" }) }}
+                activeProps={{
+                  className: css({ color: "colorPalette.default" }),
+                }}
               >
                 Utilities
               </RouterLink>
@@ -204,7 +212,9 @@ function Layout() {
             <Link asChild>
               <RouterLink
                 to="/accounts"
-                activeProps={{ className: css({ color: "accent.default" }) }}
+                activeProps={{
+                  className: css({ color: "colorPalette.default" }),
+                }}
               >
                 Accounts
               </RouterLink>
