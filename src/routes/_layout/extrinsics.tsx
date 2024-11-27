@@ -212,7 +212,7 @@ function CallParam({
           className={css({
             display: "flex",
             justifyContent: "end",
-            marginTop: "1rem",
+            marginTop: "0.5rem",
           })}
         >
           <Button
