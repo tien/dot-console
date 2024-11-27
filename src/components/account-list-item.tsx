@@ -9,6 +9,7 @@ import { PolkadotIdenticon } from "dot-identicon/react.js";
 import { Suspense } from "react";
 import { css, cx } from "styled-system/css";
 import { usePeopleChainId } from "~/hooks/chain";
+import { getIdentityDisplayValue } from "~/utils";
 
 export type AccountListItemProps = {
   address: string;
@@ -58,13 +59,13 @@ export function SuspendableAccountListItem({
   );
 
   const identityDisplay =
-    identity?.[0]?.info.display.value?.asText() ??
+    getIdentityDisplayValue(identity?.[0]?.info.display) ??
     (superIdentity === idle ||
     superIdentity === undefined ||
     superAccountIdentity === idle ||
     superAccountIdentity === undefined
       ? undefined
-      : `${superAccountIdentity[0].info.display.value?.asText()}/${superIdentity[1].value?.asText()}`);
+      : `${getIdentityDisplayValue(superAccountIdentity[0].info.display)}/${getIdentityDisplayValue(superIdentity[1])}`);
 
   const displayName = identityDisplay ?? name;
 

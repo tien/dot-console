@@ -1,3 +1,4 @@
+import type { IdentityData } from ".papi/descriptors/dist";
 import { FixedSizeBinary, Binary } from "@polkadot-api/substrate-bindings";
 
 export function stringifyCodec(variable: unknown) {
@@ -75,4 +76,20 @@ export function mergeUint8(...inputs: Array<Uint8Array>): Uint8Array {
   }
 
   return result;
+}
+
+export function getIdentityDisplayValue(
+  identityData: IdentityData | undefined,
+) {
+  const value = identityData?.value;
+
+  if (value === undefined) {
+    return undefined;
+  }
+
+  if (typeof value === "number") {
+    return value.toLocaleString();
+  }
+
+  return value.asText();
 }

@@ -15,6 +15,7 @@ import { Heading } from "~/components/ui/heading";
 import { Spinner } from "~/components/ui/spinner";
 import { Text } from "~/components/ui/text";
 import { usePeopleChainId } from "~/hooks/chain";
+import { getIdentityDisplayValue } from "~/utils";
 
 export const Route = createFileRoute("/_layout/accounts")({
   component: AccountsPage,
@@ -207,7 +208,7 @@ export function SuspendableAccountIdentity({ account }: AccountIdentityProps) {
             <dt>Super-identity</dt>
             <dd>{superAddress}</dd>
             <dt>Sub-identity</dt>
-            <dd>{subName.value?.asText()}</dd>
+            <dd>{getIdentityDisplayValue(subName)}</dd>
           </>
         )}
         {username !== undefined && (
@@ -221,7 +222,7 @@ export function SuspendableAccountIdentity({ account }: AccountIdentityProps) {
           .map(([key, value]) => (
             <Fragment key={key}>
               <dt className={css({ textTransform: "capitalize" })}>{key}</dt>
-              <dd>{value.value!.asText()}</dd>
+              <dd>{getIdentityDisplayValue(value)}</dd>
             </Fragment>
           ))}
       </dl>
