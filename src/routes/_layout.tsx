@@ -3,12 +3,15 @@ import { ChainProvider, useChainIds } from "@reactive-dot/react";
 import {
   createFileRoute,
   Outlet,
+  retainSearchParams,
   Link as RouterLink,
 } from "@tanstack/react-router";
+import { zodValidator } from "@tanstack/zod-adapter";
 import CloseIcon from "@w3f/polkadot-icons/solid/Close";
 import { ConnectionButton } from "dot-connect/react.js";
 import { Suspense, useEffect, useState } from "react";
 import { css } from "styled-system/css";
+import { z } from "zod";
 import { Button } from "~/components/ui/button";
 import { Drawer } from "~/components/ui/drawer";
 import { Heading } from "~/components/ui/heading";
@@ -17,15 +20,16 @@ import { Link } from "~/components/ui/link";
 import { Spinner } from "~/components/ui/spinner";
 import { Text } from "~/components/ui/text";
 
-type Search = {
-  chain?: string | undefined;
-};
+const searchSchema = z.object({
+  chain: z.string().optional(),
+});
 
 export const Route = createFileRoute("/_layout")({
   component: Layout,
-  validateSearch: (input): Search => ({
-    chain: input["chain"] as ChainId | undefined,
-  }),
+  validateSearch: zodValidator(searchSchema),
+  search: {
+    middlewares: [retainSearchParams(["chain"])],
+  },
 });
 
 function Layout() {
