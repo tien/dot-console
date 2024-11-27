@@ -222,10 +222,12 @@ function CallSelect({ pallet, onChangePallet }: CallSelectProps) {
 
   const selectedCall = calls.find((call) => call.name === selectedCallName);
 
-  const callItems = calls.map((call) => ({
-    label: call.name,
-    value: call.name,
-  }));
+  const callItems = calls
+    .map((call) => ({
+      label: call.name,
+      value: call.name,
+    }))
+    .toSorted((a, b) => a.label.localeCompare(b.label));
 
   return (
     <>
