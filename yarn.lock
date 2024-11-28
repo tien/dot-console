@@ -3352,35 +3352,35 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/router-devtools@npm:^1.83.0":
-  version: 1.83.0
-  resolution: "@tanstack/router-devtools@npm:1.83.0"
+"@tanstack/router-devtools@npm:^1.84.0":
+  version: 1.84.0
+  resolution: "@tanstack/router-devtools@npm:1.84.0"
   dependencies:
     clsx: "npm:^2.1.1"
     goober: "npm:^2.1.16"
   peerDependencies:
-    "@tanstack/react-router": ^1.83.0
+    "@tanstack/react-router": ^1.84.0
     react: ">=18"
     react-dom: ">=18"
-  checksum: 10c0/fca8a9be30710edd037a88c5d4321c42a42f35a1cac9df023e9f1ae4f4e8c8a16b602e213ebb8dbd01195ab3b3bbcf509eb567aa534e9cdf0747dda1d51e98cc
+  checksum: 10c0/4c3127576d08a4888bd39c1c8f28ce5e739e07f42ed3266ee6141f0e6004ba6de818139675d11d2d76b3ea79e41c3ba4d82ff71bfbb81d7aa9aadc150dbaa59e
   languageName: node
   linkType: hard
 
-"@tanstack/router-generator@npm:^1.83.0":
-  version: 1.83.0
-  resolution: "@tanstack/router-generator@npm:1.83.0"
+"@tanstack/router-generator@npm:^1.83.1":
+  version: 1.83.1
+  resolution: "@tanstack/router-generator@npm:1.83.1"
   dependencies:
     "@tanstack/virtual-file-routes": "npm:^1.81.9"
     prettier: "npm:^3.3.3"
     tsx: "npm:^4.19.2"
     zod: "npm:^3.23.8"
-  checksum: 10c0/0036b83b6317a3ea2ed543df06253782cd3e40540098c507b046ad2fa62a996cf4450711d35868b9f1947411824a792baeb9bb40003635f072e5af0641ab44d5
+  checksum: 10c0/afeb90a30c0b756ab96ac0f479850b5d63e03e05037f1b8710272713d87e233591c2092531d3f9078d84a6234298c91c82fadd0fa837ea1ba09788dfd12ed3dc
   languageName: node
   linkType: hard
 
-"@tanstack/router-plugin@npm:^1.83.0":
-  version: 1.83.0
-  resolution: "@tanstack/router-plugin@npm:1.83.0"
+"@tanstack/router-plugin@npm:^1.83.1":
+  version: 1.83.1
+  resolution: "@tanstack/router-plugin@npm:1.83.1"
   dependencies:
     "@babel/core": "npm:^7.26.0"
     "@babel/generator": "npm:^7.26.2"
@@ -3390,7 +3390,7 @@ __metadata:
     "@babel/template": "npm:^7.25.9"
     "@babel/traverse": "npm:^7.25.9"
     "@babel/types": "npm:^7.26.0"
-    "@tanstack/router-generator": "npm:^1.83.0"
+    "@tanstack/router-generator": "npm:^1.83.1"
     "@tanstack/virtual-file-routes": "npm:^1.81.9"
     "@types/babel__core": "npm:^7.20.5"
     "@types/babel__generator": "npm:^7.6.8"
@@ -3411,7 +3411,7 @@ __metadata:
       optional: true
     webpack:
       optional: true
-  checksum: 10c0/48d382c99e89778d1d76eb64f2021d123ee08647e1be69ae2fb41a9969d0f82d8b904a1b4bae6640efe1489b83347de444fb4c1a656f61a3a965d62a2ceb62b4
+  checksum: 10c0/f26c3bc0f087d5c8c967050dd1763b17d21a6db055522e43974c389f0b8837570f3e799e6f6db492a50800095c1b146f194eb11d083ea9eb06cd6d13b030e3f2
   languageName: node
   linkType: hard
 
@@ -6757,8 +6757,8 @@ __metadata:
     "@rsbuild/core": "npm:^1.1.6"
     "@rsbuild/plugin-react": "npm:^1.0.7"
     "@tanstack/react-router": "npm:^1.83.0"
-    "@tanstack/router-devtools": "npm:^1.83.0"
-    "@tanstack/router-plugin": "npm:^1.83.0"
+    "@tanstack/router-devtools": "npm:^1.84.0"
+    "@tanstack/router-plugin": "npm:^1.83.1"
     "@tanstack/zod-adapter": "npm:^1.83.0"
     "@trivago/prettier-plugin-sort-imports": "npm:^4.3.0"
     "@tsconfig/recommended": "npm:^1.0.8"
