@@ -2,7 +2,7 @@ import { Select } from "../select";
 import { CodecParam } from "./codec";
 import type { ParamProps } from "./common";
 import type { EnumDecoded, EnumShape } from "@polkadot-api/view-builder";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export type EnumParamProps = ParamProps<
   { type: string } | { type: string; value: unknown }
@@ -45,7 +45,13 @@ export function INTERNAL_EnumParam({
         variant="ghost"
         size="sm"
         width="fit-content"
-        options={keys.map((key) => ({ value: key, label: key }))}
+        options={useMemo(
+          () =>
+            keys
+              .toSorted((a, b) => a.localeCompare(b))
+              .map((key) => ({ value: key, label: key })),
+          [keys],
+        )}
         value={key}
         onChangeValue={setKey}
       />
