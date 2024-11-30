@@ -201,6 +201,12 @@ function CallParam({
     [navigate, onChangeCall, onChangePallet, viewBuilder],
   );
 
+  const clearCallDataInput = useCallback(() => {
+    _setCallDataInput("");
+    setDraftCallDataInput("");
+    navigate({ search: { callData: undefined } });
+  }, [navigate]);
+
   const callData = useMemo(() => {
     if (args === INCOMPLETE || args === INVALID) {
       return undefined;
@@ -245,7 +251,9 @@ function CallParam({
 
   useEffect(
     () => {
-      if (callDataHex !== undefined) {
+      if (callDataHex === undefined) {
+        clearCallDataInput();
+      } else {
         setCallDataInput(callDataHex);
       }
     },
