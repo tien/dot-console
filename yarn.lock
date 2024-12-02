@@ -2932,9 +2932,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rsbuild/core@npm:^1.1.6":
-  version: 1.1.6
-  resolution: "@rsbuild/core@npm:1.1.6"
+"@rsbuild/core@npm:^1.1.7":
+  version: 1.1.7
+  resolution: "@rsbuild/core@npm:1.1.7"
   dependencies:
     "@rspack/core": "npm:~1.1.4"
     "@rspack/lite-tapable": "npm:~1.0.1"
@@ -2942,7 +2942,7 @@ __metadata:
     core-js: "npm:~3.39.0"
   bin:
     rsbuild: bin/rsbuild.js
-  checksum: 10c0/b368d758bc07768c212022bc908c547842aeeabb6723009aec67d48b7f861123bff496d9bb0faa3da743ff5d70c24cc9a8ead31e704a257a7d1dfb51e872e399
+  checksum: 10c0/07492274c9ba7cd6d8c235762941b67895cc502fb7a6496164b4e5fa327ed39ede4314facf048d84362bceac7e55e9344f24b2a71efc8850a893197f4ab78310
   languageName: node
   linkType: hard
 
@@ -6754,7 +6754,7 @@ __metadata:
     "@reactive-dot/react": "npm:^0.26.2"
     "@reactive-dot/wallet-ledger": "npm:^0.16.18"
     "@reactive-dot/wallet-walletconnect": "npm:^0.16.18"
-    "@rsbuild/core": "npm:^1.1.6"
+    "@rsbuild/core": "npm:^1.1.7"
     "@rsbuild/plugin-react": "npm:^1.0.7"
     "@tanstack/react-router": "npm:^1.85.0"
     "@tanstack/router-devtools": "npm:^1.85.0"
