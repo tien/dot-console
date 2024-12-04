@@ -68,7 +68,6 @@ export function CompactParam({
       invalid={parsedValue === INVALID}
     >
       <Field.Input
-        type="number"
         inputMode="numeric"
         placeholder="Compact"
         value={value}

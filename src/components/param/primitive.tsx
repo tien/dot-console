@@ -59,7 +59,6 @@ export function PrimitiveParam({
     (primitive: keyof typeof integerPrimitives) =>
       ({
         ...commonProps,
-        type: "number",
         inputMode: "numeric",
         min:
           typeof integerPrimitives[primitive].min === "number"
