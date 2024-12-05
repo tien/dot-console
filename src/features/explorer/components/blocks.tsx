@@ -53,6 +53,7 @@ export function Blocks({ className }: BlocksProps) {
                         display: "flex",
                         alignItems: "center",
                         gap: "0.5rem",
+                        height: 0,
                         color: "colorPalette.text",
                         "&>div": {
                           flex: 1,
