@@ -42,7 +42,7 @@ export function CodecParam<T = unknown>({
         paddingLeft: depth <= 0 ? undefined : "1rem",
       }}
     >
-      <StorageParamDepthContext.Provider value={depth + 1}>
+      <StorageParamDepthContext value={depth + 1}>
         {useMemo(() => {
           switch (shape.codec) {
             case "_void":
@@ -135,7 +135,7 @@ export function CodecParam<T = unknown>({
               throw new Error("Unsupported codec type", { cause: shape.codec });
           }
         }, [props, shape])}
-      </StorageParamDepthContext.Provider>
+      </StorageParamDepthContext>
     </div>
   );
 }
