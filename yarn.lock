@@ -3297,9 +3297,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-router@npm:^1.85.10":
-  version: 1.85.10
-  resolution: "@tanstack/react-router@npm:1.85.10"
+"@tanstack/react-router@npm:^1.86.0":
+  version: 1.86.0
+  resolution: "@tanstack/react-router@npm:1.86.0"
   dependencies:
     "@tanstack/history": "npm:1.85.3"
     "@tanstack/react-store": "npm:^0.6.1"
@@ -3307,13 +3307,13 @@ __metadata:
     tiny-invariant: "npm:^1.3.3"
     tiny-warning: "npm:^1.0.3"
   peerDependencies:
-    "@tanstack/router-generator": ^1.85.3
+    "@tanstack/router-generator": ^1.86.0
     react: ">=18"
     react-dom: ">=18"
   peerDependenciesMeta:
     "@tanstack/router-generator":
       optional: true
-  checksum: 10c0/405a4fcc38674c4b2d9b79fc562189dffdfec0b983bb9968a8a406dc81e0880d6fcf5161afb6fab5a1ddd0b9c091f5264e2363b37b47992b9d4c80c1817cd86d
+  checksum: 10c0/e71b1ae3f9639918c06adb6a2a4edbcce73228fd22341b777bb01ac65965838244df88b82602ebff73ecac866bdcfa1a33844b7dd529448fa3c5629f4b25c072
   languageName: node
   linkType: hard
 
@@ -6739,7 +6739,7 @@ __metadata:
     "@reactive-dot/wallet-walletconnect": "npm:^0.16.20"
     "@rsbuild/core": "npm:^1.1.8"
     "@rsbuild/plugin-react": "npm:^1.0.7"
-    "@tanstack/react-router": "npm:^1.85.10"
+    "@tanstack/react-router": "npm:^1.86.0"
     "@tanstack/router-devtools": "npm:^1.85.10"
     "@tanstack/router-plugin": "npm:^1.85.9"
     "@tanstack/zod-adapter": "npm:^1.85.10"
