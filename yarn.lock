@@ -3330,35 +3330,35 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/router-devtools@npm:^1.85.10":
-  version: 1.85.10
-  resolution: "@tanstack/router-devtools@npm:1.85.10"
+"@tanstack/router-devtools@npm:^1.86.0":
+  version: 1.86.0
+  resolution: "@tanstack/router-devtools@npm:1.86.0"
   dependencies:
     clsx: "npm:^2.1.1"
     goober: "npm:^2.1.16"
   peerDependencies:
-    "@tanstack/react-router": ^1.85.10
+    "@tanstack/react-router": ^1.86.0
     react: ">=18"
     react-dom: ">=18"
-  checksum: 10c0/92659eae603d324880c9c2968f9aaed832db66951a95cbc924093381940270fe25acf5bf3c3b1c572ccf69b87c99e4f7258de2aaa20275ee7eb15643ad2a8bd7
+  checksum: 10c0/d08bb1b0d1bb0a62dd249673b8d5a9ebfb85df4d96ce3038ee3c605bcc97be8c3255209c63a53f49721c79e7af339ced8c258d3fd8aa254972e849246d087307
   languageName: node
   linkType: hard
 
-"@tanstack/router-generator@npm:^1.85.3":
-  version: 1.85.3
-  resolution: "@tanstack/router-generator@npm:1.85.3"
+"@tanstack/router-generator@npm:^1.86.0":
+  version: 1.86.0
+  resolution: "@tanstack/router-generator@npm:1.86.0"
   dependencies:
     "@tanstack/virtual-file-routes": "npm:^1.81.9"
     prettier: "npm:^3.4.1"
     tsx: "npm:^4.19.2"
     zod: "npm:^3.23.8"
-  checksum: 10c0/ac847826f3e8a2359fcd3220fa952e2d04880ad3cbcb0a1259c8a812c55745fb6547c2a3bffc053b7d0303ca38b629abf297aa2433b24ea3f71a9c66015941a8
+  checksum: 10c0/e91511ec81f2e30ef48e68b5ce97317ea2beca60102fc71dfc815edad67cbae7ed1f6937f6847d5bea430f97150c46a06553a07f69f367e2d8ba6395b13e3036
   languageName: node
   linkType: hard
 
-"@tanstack/router-plugin@npm:^1.85.9":
-  version: 1.85.9
-  resolution: "@tanstack/router-plugin@npm:1.85.9"
+"@tanstack/router-plugin@npm:^1.86.0":
+  version: 1.86.0
+  resolution: "@tanstack/router-plugin@npm:1.86.0"
   dependencies:
     "@babel/core": "npm:^7.26.0"
     "@babel/generator": "npm:^7.26.2"
@@ -3368,7 +3368,7 @@ __metadata:
     "@babel/template": "npm:^7.25.9"
     "@babel/traverse": "npm:^7.25.9"
     "@babel/types": "npm:^7.26.0"
-    "@tanstack/router-generator": "npm:^1.85.3"
+    "@tanstack/router-generator": "npm:^1.86.0"
     "@tanstack/virtual-file-routes": "npm:^1.81.9"
     "@types/babel__core": "npm:^7.20.5"
     "@types/babel__generator": "npm:^7.6.8"
@@ -3389,7 +3389,7 @@ __metadata:
       optional: true
     webpack:
       optional: true
-  checksum: 10c0/ecf937eaaff39226c92df54b97ae447ad80fc28304b929b98cb5d74db337a98bc5dc364ee876fc0ada1406fb9a0bac855bf6aea018669f5beff5e042e022377c
+  checksum: 10c0/fc6679617ff80e72626072db21f26858f63c21c16181a14d8d4d41320d0144a09194959de87bf17fe711ae73b9807160d61bebe3ea680db6fed88e91e5e378b1
   languageName: node
   linkType: hard
 
@@ -3589,12 +3589,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^19.0.0":
-  version: 19.0.0
-  resolution: "@types/react-dom@npm:19.0.0"
+"@types/react-dom@npm:^19.0.1":
+  version: 19.0.1
+  resolution: "@types/react-dom@npm:19.0.1"
   dependencies:
     "@types/react": "npm:*"
-  checksum: 10c0/bd480fc4a9c801fc6bbc7d26b37bb815fc382e76b5428511b1bdb2e8048f3dbd2ff9973bafc86b448e0593f9da4c02f7b39d47409e427daeed5a54f045de4596
+  checksum: 10c0/fb40069a7c5c70475155dff91d25ff5a51226c14d45c8ad55894480366876426981c8be63ef322486af879bb220bf48443f2344c1a89cb75a47a1a761acee9d3
   languageName: node
   linkType: hard
 
@@ -6740,15 +6740,15 @@ __metadata:
     "@rsbuild/core": "npm:^1.1.8"
     "@rsbuild/plugin-react": "npm:^1.0.7"
     "@tanstack/react-router": "npm:^1.85.10"
-    "@tanstack/router-devtools": "npm:^1.85.10"
-    "@tanstack/router-plugin": "npm:^1.85.9"
+    "@tanstack/router-devtools": "npm:^1.86.0"
+    "@tanstack/router-plugin": "npm:^1.86.0"
     "@tanstack/zod-adapter": "npm:^1.85.10"
     "@trivago/prettier-plugin-sort-imports": "npm:^5.0.1"
     "@tsconfig/recommended": "npm:^1.0.8"
     "@tsconfig/strictest": "npm:^2.0.5"
     "@types/eslint__js": "npm:^8.42.3"
     "@types/react": "npm:^19.0.0"
-    "@types/react-dom": "npm:^19.0.0"
+    "@types/react-dom": "npm:^19.0.1"
     "@w3f/polkadot-icons": "npm:^1.0.0"
     date-fns: "npm:^4.1.0"
     dot-connect: "npm:^0.13.2"
