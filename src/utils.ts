@@ -93,3 +93,7 @@ export function getIdentityDisplayValue(
 
   return value.asText();
 }
+
+export function ellipsize(value: string, length: number) {
+  return value.slice(0, length) + "..." + value.slice(-length);
+}

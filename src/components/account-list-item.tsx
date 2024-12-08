@@ -13,7 +13,7 @@ import { getIdentityDisplayValue } from "~/utils";
 
 export type AccountListItemProps = {
   address: string;
-  name: string | undefined;
+  name?: string | undefined;
   className?: string;
 };
 

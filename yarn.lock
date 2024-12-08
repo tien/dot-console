@@ -3297,9 +3297,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-router@npm:^1.86.1":
-  version: 1.86.1
-  resolution: "@tanstack/react-router@npm:1.86.1"
+"@tanstack/react-router@npm:^1.87.0":
+  version: 1.87.0
+  resolution: "@tanstack/react-router@npm:1.87.0"
   dependencies:
     "@tanstack/history": "npm:1.85.3"
     "@tanstack/react-store": "npm:^0.6.1"
@@ -3313,7 +3313,7 @@ __metadata:
   peerDependenciesMeta:
     "@tanstack/router-generator":
       optional: true
-  checksum: 10c0/8ab4fe0dde3530c16e40f2a46d41ba44f09edbc32fcfed996e3d7d92d540aa63447316cce622d7378bfc6f879325f5effb01f7baacc0cb9731b560e3d6fd3ce8
+  checksum: 10c0/d1bfe01ccee700dcd16d99f6e3d5369d15803847ef6f0ea7f963a443a8fee68a5325015610da2dd039583a824c3dfa6ab381dc339682e7a2d80a345f403fd005
   languageName: node
   linkType: hard
 
@@ -3330,17 +3330,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/router-devtools@npm:^1.86.1":
-  version: 1.86.1
-  resolution: "@tanstack/router-devtools@npm:1.86.1"
+"@tanstack/router-devtools@npm:^1.87.0":
+  version: 1.87.0
+  resolution: "@tanstack/router-devtools@npm:1.87.0"
   dependencies:
     clsx: "npm:^2.1.1"
     goober: "npm:^2.1.16"
   peerDependencies:
-    "@tanstack/react-router": ^1.86.1
+    "@tanstack/react-router": ^1.87.0
     react: ">=18"
     react-dom: ">=18"
-  checksum: 10c0/66879232ac86386dae77b4a68027d28927ac28deaee7ac85a196649dd2ba2f258994e33bfd08436740b4543a0c175dc0bfc2e53a458d0b82b1b23dd9d8ef2a9e
+  checksum: 10c0/9dc87c4065130e65499166b8ba6c9bd183e60cf88763f8becb1d788602af9d3eba7e3c23fbfbe1b92f7aee9acb17359da333f3248d4713670ac542e4302acb1d
   languageName: node
   linkType: hard
 
@@ -3407,13 +3407,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/zod-adapter@npm:^1.86.1":
-  version: 1.86.1
-  resolution: "@tanstack/zod-adapter@npm:1.86.1"
+"@tanstack/zod-adapter@npm:^1.87.0":
+  version: 1.87.0
+  resolution: "@tanstack/zod-adapter@npm:1.87.0"
   peerDependencies:
     "@tanstack/react-router": ">=1.43.2"
     zod: ^3.23.8
-  checksum: 10c0/abf245f50f3f470a927f43193fdf9a407b09c718c8d615217916f52f648438a9ef31651359dc072f1109006e9159cf3b597d8f37d22066711ee4c53cf417e3ea
+  checksum: 10c0/da80890b2ba9ac6cbc54fdfe4901ac601ed1124a537b69bf393d42730cd2f2ff6cea9255f6ee491cb8abe7f565132acc1f4f2831f2456523e29a1e02e3c5d660
   languageName: node
   linkType: hard
 
@@ -6739,10 +6739,10 @@ __metadata:
     "@reactive-dot/wallet-walletconnect": "npm:^0.16.20"
     "@rsbuild/core": "npm:^1.1.9"
     "@rsbuild/plugin-react": "npm:^1.1.0"
-    "@tanstack/react-router": "npm:^1.86.1"
-    "@tanstack/router-devtools": "npm:^1.86.1"
+    "@tanstack/react-router": "npm:^1.87.0"
+    "@tanstack/router-devtools": "npm:^1.87.0"
     "@tanstack/router-plugin": "npm:^1.86.0"
-    "@tanstack/zod-adapter": "npm:^1.86.1"
+    "@tanstack/zod-adapter": "npm:^1.87.0"
     "@trivago/prettier-plugin-sort-imports": "npm:^5.1.0"
     "@tsconfig/recommended": "npm:^1.0.8"
     "@tsconfig/strictest": "npm:^2.0.5"
