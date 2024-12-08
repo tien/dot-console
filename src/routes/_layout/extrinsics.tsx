@@ -13,7 +13,13 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { zodValidator } from "@tanstack/zod-adapter";
 import SignATransactionIcon from "@w3f/polkadot-icons/solid/SignATransaction";
 import { Binary } from "polkadot-api";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  useCallback,
+  useDeferredValue,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { css } from "styled-system/css";
 import { z } from "zod";
 import { Select } from "~/components/select";
@@ -140,7 +146,8 @@ function CallParam({
   onChangePallet,
   onChangeCall,
 }: CallParamProps) {
-  const [args, setArgs] = useState<unknown>(INCOMPLETE);
+  const [_args, setArgs] = useState<unknown>(INCOMPLETE);
+  const args = useDeferredValue<unknown>(_args);
 
   const signer = useSigner();
 
