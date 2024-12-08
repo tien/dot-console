@@ -204,22 +204,22 @@ function Layout() {
             </Link>
             <Link asChild>
               <RouterLink
-                to="/utilities"
-                activeProps={{
-                  className: css({ color: "colorPalette.default" }),
-                }}
-              >
-                Utilities
-              </RouterLink>
-            </Link>
-            <Link asChild>
-              <RouterLink
                 to="/accounts"
                 activeProps={{
                   className: css({ color: "colorPalette.default" }),
                 }}
               >
                 Accounts
+              </RouterLink>
+            </Link>
+            <Link asChild>
+              <RouterLink
+                to="/utilities"
+                activeProps={{
+                  className: css({ color: "colorPalette.default" }),
+                }}
+              >
+                Utilities
               </RouterLink>
             </Link>
           </nav>
