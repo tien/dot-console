@@ -17,7 +17,7 @@ import { Text } from "~/components/ui/text";
 import { usePeopleChainId } from "~/hooks/chain";
 import { getIdentityDisplayValue } from "~/utils";
 
-export const Route = createFileRoute("/_layout/accounts")({
+export const Route = createFileRoute("/_layout/accounts/_layout/")({
   component: AccountsPage,
 });
 
@@ -30,7 +30,7 @@ function AccountsPage() {
         display: "flex",
         flexDirection: "column",
         gap: "1rem",
-        padding: "2rem 4rem",
+        padding: "2rem 0",
       })}
     >
       {accounts.map((account) => (
@@ -123,15 +123,6 @@ function AccountBalancesTemplate({
   frozen,
   reserved,
 }: AccountBalancesTemplateProps) {
-  const Amount = ({ value }: { value: DenominatedNumber | "pending" }) => (
-    <Text
-      as="dd"
-      color={value === "pending" || value.planck === 0n ? undefined : "green"}
-    >
-      {value === "pending" ? <Spinner /> : value.toLocaleString()}
-    </Text>
-  );
-
   return (
     <dl className={css({ display: "flex", gap: "1rem", "&>*": { flex: 1 } })}>
       <div>
@@ -151,6 +142,17 @@ function AccountBalancesTemplate({
         <Amount value={reserved} />
       </div>
     </dl>
+  );
+}
+
+function Amount({ value }: { value: DenominatedNumber | "pending" }) {
+  return (
+    <Text
+      as="dd"
+      color={value === "pending" || value.planck === 0n ? undefined : "green"}
+    >
+      {value === "pending" ? <Spinner /> : value.toLocaleString()}
+    </Text>
   );
 }
 

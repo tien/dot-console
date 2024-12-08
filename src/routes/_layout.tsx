@@ -11,13 +11,14 @@ import CloseIcon from "@w3f/polkadot-icons/solid/Close";
 import { ConnectionButton } from "dot-connect/react.js";
 import { Suspense, useEffect, useState } from "react";
 import { css } from "styled-system/css";
+import { Center } from "styled-system/jsx";
 import { z } from "zod";
+import { CircularProgressIndicator } from "~/components/circular-progress-indicator";
 import { Button } from "~/components/ui/button";
 import { Drawer } from "~/components/ui/drawer";
 import { Heading } from "~/components/ui/heading";
 import { IconButton } from "~/components/ui/icon-button";
 import { Link } from "~/components/ui/link";
-import { Spinner } from "~/components/ui/spinner";
 import { Text } from "~/components/ui/text";
 
 const searchSchema = z.object({
@@ -263,30 +264,17 @@ function Layout() {
       </header>
       <main className={css({ display: "contents" })}>
         <ChainProvider key={chainId} chainId={chainId}>
-          <Suspense fallback={<SuspenseFallback />}>
+          <Suspense
+            fallback={
+              <Center className={css({ flex: 1 })}>
+                <CircularProgressIndicator size="xl" label="Loading data" />
+              </Center>
+            }
+          >
             <Outlet />
           </Suspense>
         </ChainProvider>
       </main>
-    </div>
-  );
-}
-
-function SuspenseFallback() {
-  return (
-    <div
-      className={css({
-        flex: 1,
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        gap: "0.5rem",
-        textAlign: "center",
-      })}
-    >
-      <Spinner size="xl" />
-      <Text>Loading data</Text>
     </div>
   );
 }
