@@ -55,11 +55,11 @@ export function useStakingChainId() {
     case "polkadot_collectives":
     case "polkadot_people":
     case "hydration":
+    case "invarch":
       return "polkadot" satisfies ChainId;
     case "kusama":
     case "kusama_asset_hub":
     case "kusama_people":
-    case "tinkernet":
       return "kusama" satisfies ChainId;
     case "paseo":
       return "paseo" satisfies ChainId;
