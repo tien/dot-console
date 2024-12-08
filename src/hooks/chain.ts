@@ -31,11 +31,11 @@ export function usePeopleChainId() {
     case "polkadot_collectives":
     case "polkadot_people":
     case "hydration":
+    case "invarch":
       return "polkadot_people" satisfies ChainId;
     case "kusama":
     case "kusama_asset_hub":
     case "kusama_people":
-    case "tinkernet":
       return "kusama_people" satisfies ChainId;
     case "westend":
     case "westend_asset_hub":
