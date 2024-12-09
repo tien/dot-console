@@ -1,7 +1,7 @@
-import type { ReactNode } from "react";
-import { css, cx } from "styled-system/css";
 import { Spinner } from "./ui/spinner";
 import { Text } from "./ui/text";
+import type { ReactNode } from "react";
+import { css, cx } from "styled-system/css";
 import type { SpinnerVariant } from "styled-system/recipes";
 
 export type CircularProgressIndicatorProps = {

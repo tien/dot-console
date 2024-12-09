@@ -1,5 +1,5 @@
-import type { PropsWithChildren, ReactNode } from "react";
 import { Tooltip as BaseTooltip } from "./ui/tooltip";
+import type { PropsWithChildren, ReactNode } from "react";
 import { css } from "styled-system/css";
 
 export type TooltipProps = PropsWithChildren<{

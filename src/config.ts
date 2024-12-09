@@ -1,3 +1,5 @@
+import { hydrationChainSpec } from "./chain-specs/hydration";
+import { invarchChainSpec } from "./chain-specs/invarch";
 import {
   hydration,
   invarch,
@@ -19,8 +21,6 @@ import { createLightClientProvider } from "@reactive-dot/core/providers/light-cl
 import { InjectedWalletProvider } from "@reactive-dot/core/wallets.js";
 import { LedgerWallet } from "@reactive-dot/wallet-ledger";
 import { WalletConnect } from "@reactive-dot/wallet-walletconnect";
-import { hydrationChainSpec } from "./chain-specs/hydration";
-import { invarchChainSpec } from "./chain-specs/invarch";
 
 const lightClientProvider = createLightClientProvider();
 
