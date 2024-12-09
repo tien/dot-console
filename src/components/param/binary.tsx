@@ -1,8 +1,8 @@
 import { Button } from "../ui/button";
 import { FileUpload } from "../ui/file-upload";
 import { IconButton } from "../ui/icon-button";
-import { Input } from "../ui/input";
 import { Switch } from "../ui/switch";
+import { Textarea } from "../ui/textarea";
 import { INCOMPLETE, type ParamInput, type ParamProps } from "./common";
 import { Binary } from "@polkadot-api/substrate-bindings";
 import Delete from "@w3f/polkadot-icons/solid/DeleteCancel";
@@ -63,7 +63,7 @@ function TextBinaryParam({ onChangeValue, defaultValue }: BinaryParamProps) {
   );
 
   return (
-    <Input
+    <Textarea
       placeholder="Binary (string or hex)"
       value={value}
       onChange={(event) => setValue(event.target.value)}
