@@ -33,7 +33,7 @@
     "@dnd-kit/sortable": "^10.0.0",
     "@polkadot-api/descriptors": "portal:.papi/descriptors",
     "@polkadot-api/view-builder": "^0.3.12",
-    "@reactive-dot/react": "^0.27.2",
+    "@reactive-dot/react": "^0.28.0",
     "@reactive-dot/wallet-ledger": "^0.16.20",
     "@reactive-dot/wallet-walletconnect": "^0.16.20",
     "@tanstack/react-router": "^1.87.2",
