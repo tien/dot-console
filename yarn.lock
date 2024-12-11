@@ -3290,30 +3290,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/history@npm:1.85.3":
-  version: 1.85.3
-  resolution: "@tanstack/history@npm:1.85.3"
-  checksum: 10c0/49a4e6ee6d137a33292491289f53f0ffb2517b7d3c3340da8704c3a08ff749c654a3232e04875faead9da8ce8f5a6871f3c8d5a65fd167a2cb5ea8ef0a6dbba3
+"@tanstack/history@npm:1.87.6":
+  version: 1.87.6
+  resolution: "@tanstack/history@npm:1.87.6"
+  checksum: 10c0/6f661c1c9f46f58ada98aed356fef5d383f78252834e0c54e07094793614bfee010a45f1e4e382bbe0563db68dad25819d077483b0365bcc2c5eba7f040fba03
   languageName: node
   linkType: hard
 
-"@tanstack/react-router@npm:^1.87.2":
-  version: 1.87.2
-  resolution: "@tanstack/react-router@npm:1.87.2"
+"@tanstack/react-router@npm:^1.87.7":
+  version: 1.87.7
+  resolution: "@tanstack/react-router@npm:1.87.7"
   dependencies:
-    "@tanstack/history": "npm:1.85.3"
+    "@tanstack/history": "npm:1.87.6"
     "@tanstack/react-store": "npm:^0.6.1"
     jsesc: "npm:^3.0.2"
     tiny-invariant: "npm:^1.3.3"
     tiny-warning: "npm:^1.0.3"
   peerDependencies:
-    "@tanstack/router-generator": ^1.86.0
+    "@tanstack/router-generator": ^1.87.7
     react: ">=18"
     react-dom: ">=18"
   peerDependenciesMeta:
     "@tanstack/router-generator":
       optional: true
-  checksum: 10c0/59504bd724298b290a4b999eaa130843ebeda0f388de3b8c85fb4cb02b88dfca9f640e88f54a3e2f6d1b3be6c215e2a5e4866326008354ad01c9e6b60e4183da
+  checksum: 10c0/9c4ee4b7b17eb54bc7ce19a68e1d07b886478ddad3a2f32d21165d6f3b3b5d8ac0c17776b6a716485969c7557171defb9fcef1a277da0bfda49b0e8c2f90a422
   languageName: node
   linkType: hard
 
@@ -6713,7 +6713,7 @@ __metadata:
     "@reactive-dot/wallet-walletconnect": "npm:^0.16.20"
     "@rsbuild/core": "npm:^1.1.9"
     "@rsbuild/plugin-react": "npm:^1.1.0"
-    "@tanstack/react-router": "npm:^1.87.2"
+    "@tanstack/react-router": "npm:^1.87.7"
     "@tanstack/router-devtools": "npm:^1.87.2"
     "@tanstack/router-plugin": "npm:^1.86.0"
     "@tanstack/zod-adapter": "npm:^1.87.2"
