@@ -3405,9 +3405,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/router-plugin@npm:^1.87.11":
-  version: 1.87.11
-  resolution: "@tanstack/router-plugin@npm:1.87.11"
+"@tanstack/router-plugin@npm:^1.87.13":
+  version: 1.87.13
+  resolution: "@tanstack/router-plugin@npm:1.87.13"
   dependencies:
     "@babel/core": "npm:^7.26.0"
     "@babel/generator": "npm:^7.26.3"
@@ -3438,7 +3438,7 @@ __metadata:
       optional: true
     webpack:
       optional: true
-  checksum: 10c0/a7979b2eacb80d7f6706b24ab011aec1a4acb27206985d338187e664b9742a3da715fd5c3bf43dde10519c3d554da384ba5d3adba52bf6cb7abdb48fc2677910
+  checksum: 10c0/88ea282d26cff6d58e0d0ce77306f5147f6e643fdeae90df70a5703c09b4ba9e3de5dacaca905baa6c834e060804ba9fbd5fc2b3b12d73bec0ee6f48185a0ff2
   languageName: node
   linkType: hard
 
@@ -6763,7 +6763,7 @@ __metadata:
     "@rsbuild/plugin-react": "npm:^1.1.0"
     "@tanstack/react-router": "npm:^1.87.12"
     "@tanstack/router-devtools": "npm:^1.87.12"
-    "@tanstack/router-plugin": "npm:^1.87.11"
+    "@tanstack/router-plugin": "npm:^1.87.13"
     "@tanstack/zod-adapter": "npm:^1.87.12"
     "@trivago/prettier-plugin-sort-imports": "npm:^5.2.0"
     "@tsconfig/recommended": "npm:^1.0.8"
