@@ -58,7 +58,7 @@
     "@rsbuild/core": "^1.2.3",
     "@rsbuild/plugin-react": "^1.1.0",
     "@tanstack/router-devtools": "^1.98.4",
-    "@tanstack/router-plugin": "^1.98.4",
+    "@tanstack/router-plugin": "^1.98.6",
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "@tsconfig/recommended": "^1.0.8",
     "@tsconfig/strictest": "^2.0.5",
