@@ -51,14 +51,14 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "@eslint/compat": "^1.2.5",
+    "@eslint/compat": "^1.2.6",
     "@eslint/js": "^9.19.0",
-    "@pandacss/dev": "^0.51.1",
+    "@pandacss/dev": "^0.52.0",
     "@park-ui/panda-preset": "^0.43.1",
-    "@rsbuild/core": "^1.2.3",
+    "@rsbuild/core": "^1.2.4",
     "@rsbuild/plugin-react": "^1.1.0",
-    "@tanstack/router-devtools": "^1.98.4",
-    "@tanstack/router-plugin": "^1.98.4",
+    "@tanstack/router-devtools": "^1.99.8",
+    "@tanstack/router-plugin": "^1.99.8",
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "@tsconfig/recommended": "^1.0.8",
     "@tsconfig/strictest": "^2.0.5",
@@ -70,6 +70,6 @@
     "eslint-plugin-react-hooks": "^5.1.0",
     "prettier": "^3.4.2",
     "typescript": "^5.7.3",
-    "typescript-eslint": "^8.22.0"
+    "typescript-eslint": "^8.23.0"
   }
 }
