@@ -84,7 +84,7 @@ function SuspendableQueryResult({ query, onDelete }: StorageQueryResultProps) {
     { chainId: query.chainId },
   );
 
-  const refreshable = query.type === "api" || query.type === "storage-entries";
+  const refreshable = query.type === "api";
   const [isRefreshing, startRefreshTransition] = useTransition();
 
   const unwrappedQueryArgs =
