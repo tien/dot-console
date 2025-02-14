@@ -58,8 +58,8 @@
     "@rsbuild/core": "^1.2.7",
     "@rsbuild/plugin-babel": "^1.0.3",
     "@rsbuild/plugin-react": "^1.1.0",
-    "@tanstack/router-devtools": "^1.102.3",
-    "@tanstack/router-plugin": "^1.102.3",
+    "@tanstack/router-devtools": "^1.104.3",
+    "@tanstack/router-plugin": "^1.104.1",
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "@tsconfig/recommended": "^1.0.8",
     "@tsconfig/strictest": "^2.0.5",
@@ -71,7 +71,7 @@
     "eslint-plugin-react": "^7.37.4",
     "eslint-plugin-react-compiler": "19.0.0-beta-30d8a17-20250209",
     "eslint-plugin-react-hooks": "^5.1.0",
-    "prettier": "^3.5.0",
+    "prettier": "^3.5.1",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.24.0"
   }
