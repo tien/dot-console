@@ -3514,13 +3514,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/zod-adapter@npm:^1.102.3":
-  version: 1.102.3
-  resolution: "@tanstack/zod-adapter@npm:1.102.3"
+"@tanstack/zod-adapter@npm:^1.104.1":
+  version: 1.104.1
+  resolution: "@tanstack/zod-adapter@npm:1.104.1"
   peerDependencies:
     "@tanstack/react-router": ">=1.43.2"
     zod: ^3.23.8
-  checksum: 10c0/d678946479f69577796074a1cf3356efbc6a70456d0dc824abfd7faaf6aa8bc73d8aa347438313d7cb3315fe601dbb975064fdcd7f141cbdf651a26e6187cb12
+  checksum: 10c0/c17561ae4e483ad3a73b6cc72694cab301e30dde7d0f235ce810d60ee89af57cc58e9f1656634b1c1bd057483962163b6172946c58682ab9ea20365f1b2ad76d
   languageName: node
   linkType: hard
 
@@ -6918,7 +6918,7 @@ __metadata:
     "@tanstack/react-router": "npm:^1.102.3"
     "@tanstack/router-devtools": "npm:^1.102.3"
     "@tanstack/router-plugin": "npm:^1.102.3"
-    "@tanstack/zod-adapter": "npm:^1.102.3"
+    "@tanstack/zod-adapter": "npm:^1.104.1"
     "@trivago/prettier-plugin-sort-imports": "npm:^5.2.2"
     "@tsconfig/recommended": "npm:^1.0.8"
     "@tsconfig/strictest": "npm:^2.0.5"
