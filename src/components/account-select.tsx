@@ -74,11 +74,19 @@ export function ControlledAccountSelect({
       label="Account"
       options={accountItems}
       renderOption={(option) => (
-        <AccountListItem address={option.address} name={option.name} />
+        <AccountListItem
+          address={option.address}
+          name={option.name}
+          interactive={false}
+        />
       )}
       value={account === undefined ? undefined : getAccountId(account)}
       renderValue={(value) => (
-        <AccountListItem address={value.address} name={value.name} />
+        <AccountListItem
+          address={value.address}
+          name={value.name}
+          interactive={false}
+        />
       )}
       onChangeValue={(value) => {
         const selectedAccount = accounts.find(

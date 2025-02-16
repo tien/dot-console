@@ -9,24 +9,19 @@ import { PolkadotIdenticon } from "dot-identicon/react.js";
 import { Suspense } from "react";
 import { css, cx } from "styled-system/css";
 import { usePeopleChainId } from "~/hooks/chain";
+import { toaster } from "~/routes/__root";
 import { getIdentityDisplayValue } from "~/utils";
 
 export type AccountListItemProps = {
   address: string;
   name?: string | undefined;
+  interactive?: boolean;
   className?: string;
 };
 
 export function AccountListItem(props: AccountListItemProps) {
   return (
-    <Suspense
-      fallback={
-        <AccountListItemTemplate
-          address={props.address}
-          displayName={props.name}
-        />
-      }
-    >
+    <Suspense fallback={<AccountListItemTemplate {...props} />}>
       <SuspendableAccountListItem {...props} />
     </Suspense>
   );
@@ -35,6 +30,7 @@ export function AccountListItem(props: AccountListItemProps) {
 export function SuspendableAccountListItem({
   address,
   name,
+  interactive,
   className,
 }: AccountListItemProps) {
   const identity = useLazyLoadQuery(
@@ -87,6 +83,7 @@ export function SuspendableAccountListItem({
             ? "sub-identity"
             : undefined
       }
+      interactive={interactive}
       className={className}
     />
   );
@@ -96,6 +93,7 @@ type AccountListItemTemplateProps = {
   address: string;
   displayName?: string | undefined;
   displayNameType?: "on-chain" | "sub-identity" | undefined;
+  interactive?: boolean | undefined;
   className?: string | undefined;
 };
 
@@ -103,6 +101,7 @@ function AccountListItemTemplate({
   address,
   displayName,
   displayNameType: identityType,
+  interactive = true,
   className,
 }: AccountListItemTemplateProps) {
   return (
@@ -123,6 +122,17 @@ function AccountListItemTemplate({
         address={address}
         size="2.2rem"
         backgroundColor="var(--colors-fg-default)"
+        onClick={
+          !interactive
+            ? undefined
+            : () =>
+                toaster.promise(navigator.clipboard.writeText(address), {
+                  loading: { title: "Copying address" },
+                  success: { title: "Copied address" },
+                  error: { title: "Failed to copy address" },
+                })
+        }
+        className={css({ cursor: !interactive ? undefined : "copy" })}
       />
       <div className={css({ overflow: "hidden" })}>
         <header
