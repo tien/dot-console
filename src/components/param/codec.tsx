@@ -11,7 +11,7 @@ import { StructParam, type StructParamProps } from "./struct";
 import { TupleParam, type TupleParamProps } from "./tuple";
 import { VoidParam, type VoidParamProps } from "./void";
 import type { Decoded, Shape } from "@polkadot-api/view-builder";
-import { createContext, Suspense, useContext, useMemo } from "react";
+import { createContext, Suspense, use, useMemo } from "react";
 import { css } from "styled-system/css";
 import { type CssProperties } from "styled-system/types";
 
@@ -26,7 +26,7 @@ export function CodecParam<T = unknown>({
   shape,
   ...props
 }: CodecParamProps<T>) {
-  const depth = useContext(StorageParamDepthContext);
+  const depth = use(StorageParamDepthContext);
 
   return (
     <div
