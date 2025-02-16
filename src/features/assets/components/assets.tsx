@@ -1,15 +1,54 @@
 import type { XcmV3Junctions } from "@polkadot-api/descriptors";
 import {
+  ChainProvider,
   useLazyLoadQuery,
   useNativeTokenAmountFromPlanck,
 } from "@reactive-dot/react";
 import { Suspense, useMemo } from "react";
 import { css } from "styled-system/css";
 import { AccountListItem } from "~/components/account-list-item";
+import { CircularProgressIndicator } from "~/components/circular-progress-indicator";
 import { Table } from "~/components/ui/table";
 import { useAssetHubChainId } from "~/hooks/chain";
+import { stringifyCodec } from "~/utils";
 
-export function SuspendableAssetList() {
+export function AssetList() {
+  return (
+    <Table.Root>
+      <Table.Head>
+        <Table.Row>
+          <Table.Header>Name</Table.Header>
+          <Table.Header>Supply</Table.Header>
+          <Table.Header>Native value</Table.Header>
+          <Table.Header>Holders</Table.Header>
+          <Table.Header>Status</Table.Header>
+          <Table.Header>Owner</Table.Header>
+        </Table.Row>
+      </Table.Head>
+      <Suspense
+        fallback={
+          <Table.Foot>
+            <Table.Row>
+              <Table.Cell colSpan={6}>
+                <div className={css({ display: "flex", padding: "1rem" })}>
+                  <div className={css({ margin: "auto" })}>
+                    <CircularProgressIndicator label="Loading assets" />
+                  </div>
+                </div>
+              </Table.Cell>
+            </Table.Row>
+          </Table.Foot>
+        }
+      >
+        <ChainProvider chainId={useAssetHubChainId()}>
+          <SuspendableAssetList />
+        </ChainProvider>
+      </Suspense>
+    </Table.Root>
+  );
+}
+
+function SuspendableAssetList() {
   const [nativeAssets, foreignAssets] = useLazyLoadQuery(
     (builder) =>
       builder
@@ -24,12 +63,12 @@ export function SuspendableAssetList() {
         .readStorages(
           "Assets",
           "Metadata",
-          nativeAssets.map(([[id]]) => [id] as const),
+          nativeAssets.map(([id]) => id),
         )
         .readStorages(
           "ForeignAssets",
           "Metadata",
-          foreignAssets.map(([[id]]) => [id] as const),
+          foreignAssets.map(([id]) => id),
         )
         .callApis(
           "AssetConversionApi",
@@ -105,46 +144,29 @@ export function SuspendableAssetList() {
   );
 
   return (
-    <Table.Root>
-      <Table.Head>
-        <Table.Row>
-          <Table.Header>Name</Table.Header>
-          <Table.Header>Supply</Table.Header>
-          <Table.Header>Native value</Table.Header>
-          <Table.Header>Holders</Table.Header>
-          <Table.Header>Status</Table.Header>
-          <Table.Header>Owner</Table.Header>
+    <Table.Body>
+      {assets.map((asset) => (
+        <Table.Row key={stringifyCodec(asset.id)}>
+          <Table.Cell>{asset.name.asText()}</Table.Cell>
+          <Table.Cell className={css({ maxWidth: "15rem" })}>
+            <div className={css({ overflow: "auto" })}>
+              {asset.supply.toLocaleString(undefined, {
+                notation: "compact",
+              })}
+            </div>
+          </Table.Cell>
+          <Table.Cell>
+            {asset.nativeValue?.toLocaleString(undefined, {
+              notation: "compact",
+            }) ?? "N/A"}
+          </Table.Cell>
+          <Table.Cell>{asset?.accounts.toLocaleString()}</Table.Cell>
+          <Table.Cell>{asset?.status.type}</Table.Cell>
+          <Table.Cell className={css({ maxWidth: "20rem", overflow: "auto" })}>
+            <AccountListItem address={asset!.owner} />
+          </Table.Cell>
         </Table.Row>
-      </Table.Head>
-      <Table.Body>
-        {assets.map((asset, index) => (
-          // INVESTIGATE: not having a suspense here will cause parent re-render for every child for some reason
-          <Suspense key={index}>
-            <Table.Row>
-              <Table.Cell>{asset.name.asText()}</Table.Cell>
-              <Table.Cell className={css({ maxWidth: "15rem" })}>
-                <div className={css({ overflow: "auto" })}>
-                  {asset.supply.toLocaleString(undefined, {
-                    notation: "compact",
-                  })}
-                </div>
-              </Table.Cell>
-              <Table.Cell>
-                {asset.nativeValue?.toLocaleString(undefined, {
-                  notation: "compact",
-                }) ?? "N/A"}
-              </Table.Cell>
-              <Table.Cell>{asset?.accounts.toLocaleString()}</Table.Cell>
-              <Table.Cell>{asset?.status.type}</Table.Cell>
-              <Table.Cell
-                className={css({ maxWidth: "20rem", overflow: "auto" })}
-              >
-                <AccountListItem address={asset!.owner} />
-              </Table.Cell>
-            </Table.Row>
-          </Suspense>
-        ))}
-      </Table.Body>
-    </Table.Root>
+      ))}
+    </Table.Body>
   );
 }
