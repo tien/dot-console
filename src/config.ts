@@ -7,6 +7,7 @@ import {
   kusama_asset_hub,
   kusama_people,
   paseo,
+  paseo_asset_hub,
   polkadot,
   polkadot_asset_hub,
   polkadot_collectives,
@@ -75,6 +76,10 @@ export const config = defineConfig({
     paseo: {
       descriptor: paseo,
       provider: paseoProvider,
+    },
+    paseo_asset_hub: {
+      descriptor: paseo_asset_hub,
+      provider: paseoProvider.addParachain({ id: "paseo_asset_hub" }),
     },
     westend: {
       descriptor: westend,

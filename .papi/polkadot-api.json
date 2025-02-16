@@ -38,6 +38,11 @@
       "chain": "paseo",
       "metadata": ".papi/metadata/paseo.scale"
     },
+    "paseo_asset_hub": {
+      "chain": "paseo_asset_hub",
+      "metadata": ".papi/metadata/paseo_asset_hub.scale",
+      "genesis": "0xd6eec26135305a8ad257a20d003357284c8aa03d0bdb2b357ab0a22371e11ef2"
+    },
     "westend": {
       "chain": "westend2",
       "metadata": ".papi/metadata/westend.scale"
