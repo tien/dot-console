@@ -8,17 +8,14 @@ import "dot-connect/font.css";
 import "react18-json-view/src/dark.css";
 import "react18-json-view/src/style.css";
 import { IconButton } from "~/components/ui/icon-button";
-import { createToaster, Toaster } from "~/components/ui/styled/toast";
+import { Toaster } from "~/components/ui/styled/toast";
 import { Toast } from "~/components/ui/toast";
+import { toaster } from "~/toaster";
 
 registerDotConnect({ wallets: config.wallets ?? [] });
 
 export const Route = createRootRoute({
   component: Root,
-});
-
-export const toaster = createToaster({
-  placement: "bottom-end",
 });
 
 function MutationToaster() {

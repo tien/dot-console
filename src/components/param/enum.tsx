@@ -17,7 +17,7 @@ export function EnumParam(props: EnumParamProps) {
   );
 }
 
-export function INTERNAL_EnumParam({
+function INTERNAL_EnumParam({
   onChangeValue,
   defaultValue,
   ...props

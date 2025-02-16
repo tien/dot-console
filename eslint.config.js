@@ -2,6 +2,7 @@ import { fixupConfigRules, fixupPluginRules } from "@eslint/compat";
 import eslint from "@eslint/js";
 import reactCompiler from "eslint-plugin-react-compiler";
 import reactHooks from "eslint-plugin-react-hooks/index.js";
+import reactRefresh from "eslint-plugin-react-refresh";
 import reactJsxRuntime from "eslint-plugin-react/configs/jsx-runtime.js";
 import reactRecommended from "eslint-plugin-react/configs/recommended.js";
 import tseslint from "typescript-eslint";
@@ -24,17 +25,15 @@ export default tseslint.config(
       ],
     },
   },
-  ...fixupConfigRules(reactRecommended),
-  {
-    languageOptions: reactJsxRuntime.languageOptions,
-    rules: reactJsxRuntime.rules,
-  },
+  reactRecommended,
+  reactJsxRuntime,
   {
     plugins: {
       "react-hooks": fixupPluginRules(reactHooks),
     },
     rules: reactHooks.configs.recommended.rules,
   },
+  reactRefresh.configs.recommended,
   {
     plugins: {
       "react-compiler": reactCompiler,

@@ -5,7 +5,6 @@ import { useDynamicBuilder } from "../../hooks/metadata-builder";
 import { useViewBuilder } from "../../hooks/view-builder";
 import type { Pallet } from "../../types";
 import { mergeUint8 } from "../../utils";
-import { toaster } from "../__root";
 import type { Decoded, Shape } from "@polkadot-api/view-builder";
 import { idle, pending } from "@reactive-dot/core";
 import { SignerProvider, useMutation, useSigner } from "@reactive-dot/react";
@@ -25,6 +24,7 @@ import { z } from "zod";
 import { Select } from "~/components/select";
 import { Button } from "~/components/ui/button";
 import { Editable } from "~/components/ui/editable";
+import { toaster } from "~/toaster";
 
 const searchSchema = z.object({
   callData: z.string().optional(),

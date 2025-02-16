@@ -9,7 +9,7 @@ import { PolkadotIdenticon } from "dot-identicon/react.js";
 import { Suspense } from "react";
 import { css, cx } from "styled-system/css";
 import { usePeopleChainId } from "~/hooks/chain";
-import { toaster } from "~/routes/__root";
+import { toaster } from "~/toaster";
 import { getIdentityDisplayValue } from "~/utils";
 
 export type AccountListItemProps = {

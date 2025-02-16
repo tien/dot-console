@@ -30,7 +30,7 @@ export function ConstantQueryForm(
   );
 }
 
-export function INTERNAL_ConstantQueryForm({
+function INTERNAL_ConstantQueryForm({
   pallet,
   palletSelect,
   onAddQuery,
