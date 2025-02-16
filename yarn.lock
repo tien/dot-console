@@ -2955,15 +2955,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@reactive-dot/react@npm:^0.31.3":
-  version: 0.31.3
-  resolution: "@reactive-dot/react@npm:0.31.3"
+"@reactive-dot/react@npm:^0.31.4":
+  version: 0.31.4
+  resolution: "@reactive-dot/react@npm:0.31.4"
   dependencies:
     "@reactive-dot/core": "npm:^0.31.0"
     jotai: "npm:^2.12.0"
   peerDependencies:
     react: 18.x || 19.x
-  checksum: 10c0/160b0334a37f51fa81a95757dffe48973de50fc00fb489e5d955ca51a69cd03109eafa8ddf668072b831b2a11140960cb30c175965542ac2b17f37d6595f73de
+  checksum: 10c0/24bcf0a5425b8b072a609d1c8dc877031d7e644c4aa2f3d6d273e868ef236cae6c8f71e979681671473452f1c170af2d6dfd6b6ec6553600780e3113640c97b2
   languageName: node
   linkType: hard
 
@@ -6913,7 +6913,7 @@ __metadata:
     "@park-ui/panda-preset": "npm:^0.43.1"
     "@polkadot-api/descriptors": "portal:.papi/descriptors"
     "@polkadot-api/view-builder": "npm:^0.4.2"
-    "@reactive-dot/react": "npm:^0.31.3"
+    "@reactive-dot/react": "npm:^0.31.4"
     "@reactive-dot/wallet-ledger": "npm:^0.16.23"
     "@reactive-dot/wallet-walletconnect": "npm:^0.17.3"
     "@rsbuild/core": "npm:^1.2.8"
