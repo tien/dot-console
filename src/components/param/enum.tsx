@@ -35,6 +35,7 @@ export function INTERNAL_EnumParam({
     () => {
       onChangeValue({ type: key, value });
     },
+    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [key, value],
   );

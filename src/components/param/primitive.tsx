@@ -129,6 +129,7 @@ export function PrimitiveParam({
     () => {
       onChangeValue(parsedValue);
     },
+    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [parsedValue],
   );

@@ -50,6 +50,7 @@ function INTERNAL_StructParam<T extends Record<string, unknown>>({
     () => {
       onChangeValue(derivedStruct);
     },
+    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [derivedStruct],
   );

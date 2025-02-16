@@ -95,6 +95,7 @@ export function SequenceParam<T>({
     () => {
       onChangeValue(derivedValue);
     },
+    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [derivedValue],
   );

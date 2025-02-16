@@ -58,6 +58,7 @@ function TextBinaryParam({ onChangeValue, defaultValue }: BinaryParamProps) {
         onChangeValue(Binary.fromText(value));
       }
     },
+    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [value],
   );
@@ -94,6 +95,7 @@ function FileUploadBinaryParam({ onChangeValue }: BinaryParamProps) {
         onChangeValue(Binary.fromBytes(new Uint8Array(arrayBuffer)));
       }
     },
+    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [arrayBuffer],
   );
