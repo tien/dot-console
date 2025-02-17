@@ -1,9 +1,11 @@
 import type { XcmV3Junctions } from "@polkadot-api/descriptors";
 import {
   ChainProvider,
+  QueryRenderer,
   useLazyLoadQuery,
   useNativeTokenAmountFromPlanck,
 } from "@reactive-dot/react";
+import { DenominatedNumber } from "@reactive-dot/utils";
 import { Suspense, useMemo } from "react";
 import { css } from "styled-system/css";
 import { AccountListItem } from "~/components/account-list-item";
@@ -49,77 +51,36 @@ export function AssetList() {
 }
 
 function SuspendableAssetList() {
+  const assetHubChainId = useAssetHubChainId();
+
   const [nativeAssets, foreignAssets] = useLazyLoadQuery(
     (builder) =>
       builder
         .readStorageEntries("Assets", "Asset", [])
         .readStorageEntries("ForeignAssets", "Asset", []),
-    { chainId: useAssetHubChainId() },
+    { chainId: assetHubChainId },
   );
 
-  const [nativeMetadatum, foreignMetadatum, nativeValues] = useLazyLoadQuery(
+  const nativeValues = useLazyLoadQuery(
     (builder) =>
-      builder
-        .readStorages(
-          "Assets",
-          "Metadata",
-          nativeAssets.map(([id]) => id),
-        )
-        .readStorages(
-          "ForeignAssets",
-          "Metadata",
-          foreignAssets.map(([id]) => id),
-        )
-        .callApis(
-          "AssetConversionApi",
-          "quote_price_tokens_for_exact_tokens",
-          [...nativeAssets, ...foreignAssets].map(
-            ([[id], asset]) =>
-              [
-                {
-                  parents: 1,
-                  interior: {
-                    type: "Here",
-                    value: undefined,
-                  },
-                },
-                typeof id === "number"
-                  ? {
-                      parents: 0,
-                      interior: {
-                        type: "X2",
-                        value: [
-                          { type: "PalletInstance", value: 50 },
-                          { type: "GeneralIndex", value: BigInt(id) },
-                        ],
-                      } as XcmV3Junctions,
-                    }
-                  : id,
-                asset.supply,
-                false,
-              ] as const,
-          ),
+      builder.callApis(
+        "AssetConversionApi",
+        "quote_price_tokens_for_exact_tokens",
+        [...nativeAssets, ...foreignAssets].map(
+          ([[id], asset]) =>
+            [nativeAssetId, getAssetId(id), asset.supply, false] as const,
         ),
-    { chainId: useAssetHubChainId() },
+      ),
+    { chainId: assetHubChainId },
   );
 
   const nativeTokenAmount = useNativeTokenAmountFromPlanck();
 
   const assets = useMemo(
     () =>
-      [
-        ...nativeAssets.map(([id, asset], index) => ({
+      [...nativeAssets, ...foreignAssets]
+        .map(([[id], asset], index) => ({
           id,
-          ...asset,
-          ...nativeMetadatum.at(index)!,
-        })),
-        ...foreignAssets.map(([id, asset], index) => ({
-          id,
-          ...asset,
-          ...foreignMetadatum.at(index)!,
-        })),
-      ]
-        .map((asset, index) => ({
           ...asset,
           nativeValue:
             nativeValues[index] === undefined
@@ -133,35 +94,58 @@ function SuspendableAssetList() {
               ? -1
               : 1,
         ),
-    [
-      foreignAssets,
-      foreignMetadatum,
-      nativeAssets,
-      nativeMetadatum,
-      nativeTokenAmount,
-      nativeValues,
-    ],
+    [foreignAssets, nativeAssets, nativeTokenAmount, nativeValues],
   );
 
   return (
     <Table.Body>
       {assets.map((asset) => (
         <Table.Row key={stringifyCodec(asset.id)}>
-          <Table.Cell>{asset.name.asText()}</Table.Cell>
+          <Table.Cell>
+            <Suspense fallback={<CircularProgressIndicator />}>
+              <QueryRenderer
+                chainId={assetHubChainId}
+                query={(builder) =>
+                  typeof asset.id === "number"
+                    ? builder.readStorage("Assets", "Metadata", [asset.id])
+                    : builder.readStorage("ForeignAssets", "Metadata", [
+                        asset.id,
+                      ])
+                }
+              >
+                {(metadata) => metadata.name.asText()}
+              </QueryRenderer>
+            </Suspense>
+          </Table.Cell>
           <Table.Cell className={css({ maxWidth: "15rem" })}>
             <div className={css({ overflow: "auto" })}>
-              {asset.supply.toLocaleString(undefined, {
-                notation: "compact",
-              })}
+              <Suspense fallback={<CircularProgressIndicator />}>
+                <QueryRenderer
+                  chainId={assetHubChainId}
+                  query={(builder) =>
+                    typeof asset.id === "number"
+                      ? builder.readStorage("Assets", "Metadata", [asset.id])
+                      : builder.readStorage("ForeignAssets", "Metadata", [
+                          asset.id,
+                        ])
+                  }
+                >
+                  {(metadata) =>
+                    new DenominatedNumber(
+                      asset!.supply,
+                      metadata.decimals,
+                      metadata.symbol.asText(),
+                    ).toLocaleString()
+                  }
+                </QueryRenderer>
+              </Suspense>
             </div>
           </Table.Cell>
           <Table.Cell>
-            {asset.nativeValue?.toLocaleString(undefined, {
-              notation: "compact",
-            }) ?? "N/A"}
+            {asset.nativeValue?.toLocaleString() ?? "N/A"}
           </Table.Cell>
           <Table.Cell>{asset?.accounts.toLocaleString()}</Table.Cell>
-          <Table.Cell>{asset?.status.type}</Table.Cell>
+          <Table.Cell>{asset?.status.value}</Table.Cell>
           <Table.Cell className={css({ maxWidth: "20rem", overflow: "auto" })}>
             <AccountListItem address={asset!.owner} />
           </Table.Cell>
@@ -169,4 +153,31 @@ function SuspendableAssetList() {
       ))}
     </Table.Body>
   );
+}
+
+type XcmAssetId = { parents: number; interior: XcmV3Junctions };
+
+type AssetId = number | XcmAssetId;
+
+const nativeAssetId = {
+  parents: 1,
+  interior: {
+    type: "Here",
+    value: undefined,
+  },
+} as const satisfies XcmAssetId;
+
+function getAssetId(id: AssetId): XcmAssetId {
+  return typeof id !== "number"
+    ? id
+    : {
+        parents: 0,
+        interior: {
+          type: "X2",
+          value: [
+            { type: "PalletInstance", value: 50 },
+            { type: "GeneralIndex", value: BigInt(id) },
+          ],
+        },
+      };
 }

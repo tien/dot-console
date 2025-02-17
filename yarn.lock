@@ -3162,57 +3162,57 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@reactive-dot/core@npm:^0.31.0":
-  version: 0.31.0
-  resolution: "@reactive-dot/core@npm:0.31.0"
+"@reactive-dot/core@npm:^0.32.0":
+  version: 0.32.0
+  resolution: "@reactive-dot/core@npm:0.32.0"
   dependencies:
-    "@reactive-dot/utils": "npm:^0.9.0"
+    "@reactive-dot/utils": "npm:^0.10.0"
     "@substrate/smoldot-discovery": "npm:^2.0.1"
   peerDependencies:
     polkadot-api: ">= 1.9.x"
-  checksum: 10c0/31f0bdda45b7e20586e21d5593c174f03e81748a417d024a5ba41508a54be7dbec9b1a2252cc12d7324f513d8cbc18ffbd9909c3e167ee3b3c3815516508de66
+  checksum: 10c0/176ec76d4d990061cc02c12ef957a19d8aec00cd77f0cfd492337b4e7fb8ef72cdc0fb62d179610e21cb419ad65bb15eeef8d12645f8fc7582251f18ec084e56
   languageName: node
   linkType: hard
 
-"@reactive-dot/react@npm:^0.31.4":
-  version: 0.31.4
-  resolution: "@reactive-dot/react@npm:0.31.4"
+"@reactive-dot/react@npm:^0.32.0":
+  version: 0.32.0
+  resolution: "@reactive-dot/react@npm:0.32.0"
   dependencies:
-    "@reactive-dot/core": "npm:^0.31.0"
+    "@reactive-dot/core": "npm:^0.32.0"
     jotai: "npm:^2.12.0"
   peerDependencies:
     react: 18.x || 19.x
-  checksum: 10c0/24bcf0a5425b8b072a609d1c8dc877031d7e644c4aa2f3d6d273e868ef236cae6c8f71e979681671473452f1c170af2d6dfd6b6ec6553600780e3113640c97b2
+  checksum: 10c0/5249c531d4839fdc3fa0f3ca8f018539e088b2de08e21e1ec9484a30370260bbda2649aababcf4593c96c3ef1a81d73822862611ca06e71ffc96fc2e4c1f646c
   languageName: node
   linkType: hard
 
-"@reactive-dot/utils@npm:^0.9.0":
-  version: 0.9.0
-  resolution: "@reactive-dot/utils@npm:0.9.0"
-  checksum: 10c0/07243e16e3d6d0f9ee1892637ba04ea112fa5adb50d7a11817efd7745d20532cd8640f13d37c80f2a5e50a18f3ed73e3e4cf30584350cc438a66e58e480d3d46
+"@reactive-dot/utils@npm:^0.10.0":
+  version: 0.10.0
+  resolution: "@reactive-dot/utils@npm:0.10.0"
+  checksum: 10c0/022b596155712589927f1852d31303135eefe3e830a8815b82ac8e2d0b95a7a5ebb1f8244b2bd5f7c3282e582ab6667f76cc494d589240bc5306f1f35d2712f9
   languageName: node
   linkType: hard
 
-"@reactive-dot/wallet-ledger@npm:^0.16.23":
-  version: 0.16.23
-  resolution: "@reactive-dot/wallet-ledger@npm:0.16.23"
+"@reactive-dot/wallet-ledger@npm:^0.16.24":
+  version: 0.16.24
+  resolution: "@reactive-dot/wallet-ledger@npm:0.16.24"
   dependencies:
     "@ledgerhq/hw-transport-webusb": "npm:^6.29.4"
     "@polkadot-api/ledger-signer": "npm:^0.1.10"
-    "@reactive-dot/core": "npm:^0.31.0"
+    "@reactive-dot/core": "npm:^0.32.0"
     buffer: "npm:^6.0.3"
-  checksum: 10c0/47a2f2c4845c6ca1c550648cf80a09a38c1f37497f01b98e1b7e59bbc6fba29e51c98a67c87cd6070d337db7d3584d9a1f30b25581420bd724f753adb4795f10
+  checksum: 10c0/befcae0bade50cdfffbf25f923ea0da22c2747681e89a7f6463651e82a34f05953aeb3a2230b87ff17f63cf3caabfc95d3d15fa1e47c8a06d57a53e5c24f7a5f
   languageName: node
   linkType: hard
 
-"@reactive-dot/wallet-walletconnect@npm:^0.17.3":
-  version: 0.17.3
-  resolution: "@reactive-dot/wallet-walletconnect@npm:0.17.3"
+"@reactive-dot/wallet-walletconnect@npm:^0.17.4":
+  version: 0.17.4
+  resolution: "@reactive-dot/wallet-walletconnect@npm:0.17.4"
   dependencies:
-    "@reactive-dot/core": "npm:^0.31.0"
+    "@reactive-dot/core": "npm:^0.32.0"
     "@walletconnect/modal": "npm:^2.7.0"
     "@walletconnect/universal-provider": "npm:^2.18.0"
-  checksum: 10c0/1c47e788f8f05656dc6f7efb91fb2501d3497b9874c316a287b2f57b0e71ad26e02e6f15f362a8c828c4f0de39dfe236be378ee0331c92c592a63426cc4b0e30
+  checksum: 10c0/545e19d92fa5c8fa3b0cb54bfb533e2cde19a79cae634b9bed0fd2a0d570624ffeb7a14b1ab2732d957553a9515b8a054934d60efd9c91fdde5138aeb07b8adb
   languageName: node
   linkType: hard
 
@@ -6887,9 +6887,9 @@ __metadata:
     "@park-ui/panda-preset": "npm:^0.43.1"
     "@polkadot-api/descriptors": "portal:.papi/descriptors"
     "@polkadot-api/view-builder": "npm:^0.4.2"
-    "@reactive-dot/react": "npm:^0.31.4"
-    "@reactive-dot/wallet-ledger": "npm:^0.16.23"
-    "@reactive-dot/wallet-walletconnect": "npm:^0.17.3"
+    "@reactive-dot/react": "npm:^0.32.0"
+    "@reactive-dot/wallet-ledger": "npm:^0.16.24"
+    "@reactive-dot/wallet-walletconnect": "npm:^0.17.4"
     "@rsbuild/core": "npm:^1.2.8"
     "@rsbuild/plugin-babel": "npm:^1.0.3"
     "@rsbuild/plugin-react": "npm:^1.1.0"
