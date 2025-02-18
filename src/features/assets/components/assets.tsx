@@ -1,7 +1,5 @@
-import type {
-  polkadot_asset_hub,
-  XcmV3Junctions,
-} from "@polkadot-api/descriptors";
+import { getAssetId, NATIVE_ASSET_ID } from "../utils";
+import type { polkadot_asset_hub } from "@polkadot-api/descriptors";
 import { Query } from "@reactive-dot/core";
 import {
   ChainProvider,
@@ -72,7 +70,7 @@ function SuspendableAssetList() {
         "quote_price_tokens_for_exact_tokens",
         [...nativeAssets, ...foreignAssets].map(
           ([[id], asset]) =>
-            [nativeAssetId, getAssetId(id), asset.supply, false] as const,
+            [NATIVE_ASSET_ID, getAssetId(id), asset.supply, false] as const,
         ),
       ),
     { chainId: assetHubChainId },
@@ -149,31 +147,4 @@ function SuspendableAssetList() {
       })}
     </Table.Body>
   );
-}
-
-type XcmAssetId = { parents: number; interior: XcmV3Junctions };
-
-type AssetId = number | XcmAssetId;
-
-const nativeAssetId = {
-  parents: 1,
-  interior: {
-    type: "Here",
-    value: undefined,
-  },
-} as const satisfies XcmAssetId;
-
-function getAssetId(id: AssetId): XcmAssetId {
-  return typeof id !== "number"
-    ? id
-    : {
-        parents: 0,
-        interior: {
-          type: "X2",
-          value: [
-            { type: "PalletInstance", value: 50 },
-            { type: "GeneralIndex", value: BigInt(id) },
-          ],
-        },
-      };
 }

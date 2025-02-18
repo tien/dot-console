@@ -94,3 +94,28 @@ export function useAssetHubChainId() {
       return "westend_asset_hub" satisfies ChainId;
   }
 }
+
+export function useCollectivesChainId<TForce = true>(
+  force: TForce = true as TForce,
+) {
+  switch (useChainId()) {
+    case "polkadot":
+    case "polkadot_asset_hub":
+    case "polkadot_collectives":
+    case "polkadot_people":
+    case "hydration":
+    case "invarch":
+      return "polkadot_collectives" satisfies ChainId;
+    case "westend":
+    case "westend_asset_hub":
+    case "westend_collectives":
+    case "westend_people":
+      return "westend_collectives" satisfies ChainId;
+    default:
+      if (force) {
+        throw new Error("Unsupported chain");
+      }
+
+      return undefined;
+  }
+}

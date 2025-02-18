@@ -20,15 +20,20 @@ import { Route as LayoutExtrinsicsImport } from './routes/_layout/extrinsics'
 import { Route as LayoutExplorerImport } from './routes/_layout/explorer'
 import { Route as LayoutAssetsImport } from './routes/_layout/assets'
 import { Route as LayoutUtilitiesIndexImport } from './routes/_layout/utilities/index'
+import { Route as LayoutCollectivesIndexImport } from './routes/_layout/collectives/index'
 import { Route as LayoutUtilitiesLayoutImport } from './routes/_layout/utilities/_layout'
+import { Route as LayoutCollectivesLayoutImport } from './routes/_layout/collectives/_layout'
 import { Route as LayoutAccountsLayoutImport } from './routes/_layout/accounts/_layout'
 import { Route as LayoutAccountsLayoutIndexImport } from './routes/_layout/accounts/_layout/index'
 import { Route as LayoutUtilitiesLayoutPlanckConvertorImport } from './routes/_layout/utilities/_layout/planck-convertor'
+import { Route as LayoutCollectivesLayoutFellowshipImport } from './routes/_layout/collectives/_layout/fellowship'
+import { Route as LayoutCollectivesLayoutAmbassadorImport } from './routes/_layout/collectives/_layout/ambassador'
 import { Route as LayoutAccountsLayoutValidatorsImport } from './routes/_layout/accounts/_layout/validators'
 
 // Create Virtual Routes
 
 const LayoutUtilitiesImport = createFileRoute('/_layout/utilities')()
+const LayoutCollectivesImport = createFileRoute('/_layout/collectives')()
 const LayoutAccountsImport = createFileRoute('/_layout/accounts')()
 
 // Create/Update Routes
@@ -47,6 +52,12 @@ const IndexRoute = IndexImport.update({
 const LayoutUtilitiesRoute = LayoutUtilitiesImport.update({
   id: '/utilities',
   path: '/utilities',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutCollectivesRoute = LayoutCollectivesImport.update({
+  id: '/collectives',
+  path: '/collectives',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -86,9 +97,20 @@ const LayoutUtilitiesIndexRoute = LayoutUtilitiesIndexImport.update({
   getParentRoute: () => LayoutUtilitiesRoute,
 } as any)
 
+const LayoutCollectivesIndexRoute = LayoutCollectivesIndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LayoutCollectivesRoute,
+} as any)
+
 const LayoutUtilitiesLayoutRoute = LayoutUtilitiesLayoutImport.update({
   id: '/_layout',
   getParentRoute: () => LayoutUtilitiesRoute,
+} as any)
+
+const LayoutCollectivesLayoutRoute = LayoutCollectivesLayoutImport.update({
+  id: '/_layout',
+  getParentRoute: () => LayoutCollectivesRoute,
 } as any)
 
 const LayoutAccountsLayoutRoute = LayoutAccountsLayoutImport.update({
@@ -107,6 +129,20 @@ const LayoutUtilitiesLayoutPlanckConvertorRoute =
     id: '/planck-convertor',
     path: '/planck-convertor',
     getParentRoute: () => LayoutUtilitiesLayoutRoute,
+  } as any)
+
+const LayoutCollectivesLayoutFellowshipRoute =
+  LayoutCollectivesLayoutFellowshipImport.update({
+    id: '/fellowship',
+    path: '/fellowship',
+    getParentRoute: () => LayoutCollectivesLayoutRoute,
+  } as any)
+
+const LayoutCollectivesLayoutAmbassadorRoute =
+  LayoutCollectivesLayoutAmbassadorImport.update({
+    id: '/ambassador',
+    path: '/ambassador',
+    getParentRoute: () => LayoutCollectivesLayoutRoute,
   } as any)
 
 const LayoutAccountsLayoutValidatorsRoute =
@@ -176,6 +212,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutAccountsLayoutImport
       parentRoute: typeof LayoutAccountsRoute
     }
+    '/_layout/collectives': {
+      id: '/_layout/collectives'
+      path: '/collectives'
+      fullPath: '/collectives'
+      preLoaderRoute: typeof LayoutCollectivesImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_layout/collectives/_layout': {
+      id: '/_layout/collectives/_layout'
+      path: '/collectives'
+      fullPath: '/collectives'
+      preLoaderRoute: typeof LayoutCollectivesLayoutImport
+      parentRoute: typeof LayoutCollectivesRoute
+    }
     '/_layout/utilities': {
       id: '/_layout/utilities'
       path: '/utilities'
@@ -190,6 +240,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutUtilitiesLayoutImport
       parentRoute: typeof LayoutUtilitiesRoute
     }
+    '/_layout/collectives/': {
+      id: '/_layout/collectives/'
+      path: '/'
+      fullPath: '/collectives/'
+      preLoaderRoute: typeof LayoutCollectivesIndexImport
+      parentRoute: typeof LayoutCollectivesImport
+    }
     '/_layout/utilities/': {
       id: '/_layout/utilities/'
       path: '/'
@@ -203,6 +260,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/accounts/validators'
       preLoaderRoute: typeof LayoutAccountsLayoutValidatorsImport
       parentRoute: typeof LayoutAccountsLayoutImport
+    }
+    '/_layout/collectives/_layout/ambassador': {
+      id: '/_layout/collectives/_layout/ambassador'
+      path: '/ambassador'
+      fullPath: '/collectives/ambassador'
+      preLoaderRoute: typeof LayoutCollectivesLayoutAmbassadorImport
+      parentRoute: typeof LayoutCollectivesLayoutImport
+    }
+    '/_layout/collectives/_layout/fellowship': {
+      id: '/_layout/collectives/_layout/fellowship'
+      path: '/fellowship'
+      fullPath: '/collectives/fellowship'
+      preLoaderRoute: typeof LayoutCollectivesLayoutFellowshipImport
+      parentRoute: typeof LayoutCollectivesLayoutImport
     }
     '/_layout/utilities/_layout/planck-convertor': {
       id: '/_layout/utilities/_layout/planck-convertor'
@@ -248,6 +319,37 @@ const LayoutAccountsRouteWithChildren = LayoutAccountsRoute._addFileChildren(
   LayoutAccountsRouteChildren,
 )
 
+interface LayoutCollectivesLayoutRouteChildren {
+  LayoutCollectivesLayoutAmbassadorRoute: typeof LayoutCollectivesLayoutAmbassadorRoute
+  LayoutCollectivesLayoutFellowshipRoute: typeof LayoutCollectivesLayoutFellowshipRoute
+}
+
+const LayoutCollectivesLayoutRouteChildren: LayoutCollectivesLayoutRouteChildren =
+  {
+    LayoutCollectivesLayoutAmbassadorRoute:
+      LayoutCollectivesLayoutAmbassadorRoute,
+    LayoutCollectivesLayoutFellowshipRoute:
+      LayoutCollectivesLayoutFellowshipRoute,
+  }
+
+const LayoutCollectivesLayoutRouteWithChildren =
+  LayoutCollectivesLayoutRoute._addFileChildren(
+    LayoutCollectivesLayoutRouteChildren,
+  )
+
+interface LayoutCollectivesRouteChildren {
+  LayoutCollectivesLayoutRoute: typeof LayoutCollectivesLayoutRouteWithChildren
+  LayoutCollectivesIndexRoute: typeof LayoutCollectivesIndexRoute
+}
+
+const LayoutCollectivesRouteChildren: LayoutCollectivesRouteChildren = {
+  LayoutCollectivesLayoutRoute: LayoutCollectivesLayoutRouteWithChildren,
+  LayoutCollectivesIndexRoute: LayoutCollectivesIndexRoute,
+}
+
+const LayoutCollectivesRouteWithChildren =
+  LayoutCollectivesRoute._addFileChildren(LayoutCollectivesRouteChildren)
+
 interface LayoutUtilitiesLayoutRouteChildren {
   LayoutUtilitiesLayoutPlanckConvertorRoute: typeof LayoutUtilitiesLayoutPlanckConvertorRoute
 }
@@ -282,6 +384,7 @@ interface LayoutRouteChildren {
   LayoutExtrinsicsRoute: typeof LayoutExtrinsicsRoute
   LayoutQueriesRoute: typeof LayoutQueriesRoute
   LayoutAccountsRoute: typeof LayoutAccountsRouteWithChildren
+  LayoutCollectivesRoute: typeof LayoutCollectivesRouteWithChildren
   LayoutUtilitiesRoute: typeof LayoutUtilitiesRouteWithChildren
 }
 
@@ -291,6 +394,7 @@ const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutExtrinsicsRoute: LayoutExtrinsicsRoute,
   LayoutQueriesRoute: LayoutQueriesRoute,
   LayoutAccountsRoute: LayoutAccountsRouteWithChildren,
+  LayoutCollectivesRoute: LayoutCollectivesRouteWithChildren,
   LayoutUtilitiesRoute: LayoutUtilitiesRouteWithChildren,
 }
 
@@ -305,9 +409,13 @@ export interface FileRoutesByFullPath {
   '/extrinsics': typeof LayoutExtrinsicsRoute
   '/queries': typeof LayoutQueriesRoute
   '/accounts': typeof LayoutAccountsLayoutRouteWithChildren
+  '/collectives': typeof LayoutCollectivesLayoutRouteWithChildren
   '/utilities': typeof LayoutUtilitiesLayoutRouteWithChildren
+  '/collectives/': typeof LayoutCollectivesIndexRoute
   '/utilities/': typeof LayoutUtilitiesIndexRoute
   '/accounts/validators': typeof LayoutAccountsLayoutValidatorsRoute
+  '/collectives/ambassador': typeof LayoutCollectivesLayoutAmbassadorRoute
+  '/collectives/fellowship': typeof LayoutCollectivesLayoutFellowshipRoute
   '/utilities/planck-convertor': typeof LayoutUtilitiesLayoutPlanckConvertorRoute
   '/accounts/': typeof LayoutAccountsLayoutIndexRoute
 }
@@ -320,8 +428,11 @@ export interface FileRoutesByTo {
   '/extrinsics': typeof LayoutExtrinsicsRoute
   '/queries': typeof LayoutQueriesRoute
   '/accounts': typeof LayoutAccountsLayoutIndexRoute
+  '/collectives': typeof LayoutCollectivesIndexRoute
   '/utilities': typeof LayoutUtilitiesIndexRoute
   '/accounts/validators': typeof LayoutAccountsLayoutValidatorsRoute
+  '/collectives/ambassador': typeof LayoutCollectivesLayoutAmbassadorRoute
+  '/collectives/fellowship': typeof LayoutCollectivesLayoutFellowshipRoute
   '/utilities/planck-convertor': typeof LayoutUtilitiesLayoutPlanckConvertorRoute
 }
 
@@ -335,10 +446,15 @@ export interface FileRoutesById {
   '/_layout/queries': typeof LayoutQueriesRoute
   '/_layout/accounts': typeof LayoutAccountsRouteWithChildren
   '/_layout/accounts/_layout': typeof LayoutAccountsLayoutRouteWithChildren
+  '/_layout/collectives': typeof LayoutCollectivesRouteWithChildren
+  '/_layout/collectives/_layout': typeof LayoutCollectivesLayoutRouteWithChildren
   '/_layout/utilities': typeof LayoutUtilitiesRouteWithChildren
   '/_layout/utilities/_layout': typeof LayoutUtilitiesLayoutRouteWithChildren
+  '/_layout/collectives/': typeof LayoutCollectivesIndexRoute
   '/_layout/utilities/': typeof LayoutUtilitiesIndexRoute
   '/_layout/accounts/_layout/validators': typeof LayoutAccountsLayoutValidatorsRoute
+  '/_layout/collectives/_layout/ambassador': typeof LayoutCollectivesLayoutAmbassadorRoute
+  '/_layout/collectives/_layout/fellowship': typeof LayoutCollectivesLayoutFellowshipRoute
   '/_layout/utilities/_layout/planck-convertor': typeof LayoutUtilitiesLayoutPlanckConvertorRoute
   '/_layout/accounts/_layout/': typeof LayoutAccountsLayoutIndexRoute
 }
@@ -353,9 +469,13 @@ export interface FileRouteTypes {
     | '/extrinsics'
     | '/queries'
     | '/accounts'
+    | '/collectives'
     | '/utilities'
+    | '/collectives/'
     | '/utilities/'
     | '/accounts/validators'
+    | '/collectives/ambassador'
+    | '/collectives/fellowship'
     | '/utilities/planck-convertor'
     | '/accounts/'
   fileRoutesByTo: FileRoutesByTo
@@ -367,8 +487,11 @@ export interface FileRouteTypes {
     | '/extrinsics'
     | '/queries'
     | '/accounts'
+    | '/collectives'
     | '/utilities'
     | '/accounts/validators'
+    | '/collectives/ambassador'
+    | '/collectives/fellowship'
     | '/utilities/planck-convertor'
   id:
     | '__root__'
@@ -380,10 +503,15 @@ export interface FileRouteTypes {
     | '/_layout/queries'
     | '/_layout/accounts'
     | '/_layout/accounts/_layout'
+    | '/_layout/collectives'
+    | '/_layout/collectives/_layout'
     | '/_layout/utilities'
     | '/_layout/utilities/_layout'
+    | '/_layout/collectives/'
     | '/_layout/utilities/'
     | '/_layout/accounts/_layout/validators'
+    | '/_layout/collectives/_layout/ambassador'
+    | '/_layout/collectives/_layout/fellowship'
     | '/_layout/utilities/_layout/planck-convertor'
     | '/_layout/accounts/_layout/'
   fileRoutesById: FileRoutesById
@@ -424,6 +552,7 @@ export const routeTree = rootRoute
         "/_layout/extrinsics",
         "/_layout/queries",
         "/_layout/accounts",
+        "/_layout/collectives",
         "/_layout/utilities"
       ]
     },
@@ -458,6 +587,22 @@ export const routeTree = rootRoute
         "/_layout/accounts/_layout/"
       ]
     },
+    "/_layout/collectives": {
+      "filePath": "_layout/collectives",
+      "parent": "/_layout",
+      "children": [
+        "/_layout/collectives/_layout",
+        "/_layout/collectives/"
+      ]
+    },
+    "/_layout/collectives/_layout": {
+      "filePath": "_layout/collectives/_layout.tsx",
+      "parent": "/_layout/collectives",
+      "children": [
+        "/_layout/collectives/_layout/ambassador",
+        "/_layout/collectives/_layout/fellowship"
+      ]
+    },
     "/_layout/utilities": {
       "filePath": "_layout/utilities",
       "parent": "/_layout",
@@ -473,6 +618,10 @@ export const routeTree = rootRoute
         "/_layout/utilities/_layout/planck-convertor"
       ]
     },
+    "/_layout/collectives/": {
+      "filePath": "_layout/collectives/index.tsx",
+      "parent": "/_layout/collectives"
+    },
     "/_layout/utilities/": {
       "filePath": "_layout/utilities/index.tsx",
       "parent": "/_layout/utilities"
@@ -480,6 +629,14 @@ export const routeTree = rootRoute
     "/_layout/accounts/_layout/validators": {
       "filePath": "_layout/accounts/_layout/validators.tsx",
       "parent": "/_layout/accounts/_layout"
+    },
+    "/_layout/collectives/_layout/ambassador": {
+      "filePath": "_layout/collectives/_layout/ambassador.tsx",
+      "parent": "/_layout/collectives/_layout"
+    },
+    "/_layout/collectives/_layout/fellowship": {
+      "filePath": "_layout/collectives/_layout/fellowship.tsx",
+      "parent": "/_layout/collectives/_layout"
     },
     "/_layout/utilities/_layout/planck-convertor": {
       "filePath": "_layout/utilities/_layout/planck-convertor.tsx",
