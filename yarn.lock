@@ -6912,7 +6912,7 @@ __metadata:
     eslint-plugin-react-compiler: "npm:19.0.0-beta-30d8a17-20250209"
     eslint-plugin-react-hooks: "npm:^5.1.0"
     eslint-plugin-react-refresh: "npm:^0.4.19"
-    jotai: "npm:^2.12.0"
+    jotai: "npm:^2.12.1"
     polkadot-api: "npm:^1.9.1"
     prettier: "npm:^3.5.1"
     react: "npm:^19.0.0"
@@ -8613,6 +8613,21 @@ __metadata:
     react:
       optional: true
   checksum: 10c0/8a66bcb15183ed4e8ce35d84fd32f72d239092f0c5226cf652f37757489cd1b635183105c3c23ea7e21eb646074a91a4585a3cdaa12d72dfce79e7397b0ed623
+  languageName: node
+  linkType: hard
+
+"jotai@npm:^2.12.1":
+  version: 2.12.1
+  resolution: "jotai@npm:2.12.1"
+  peerDependencies:
+    "@types/react": ">=17.0.0"
+    react: ">=17.0.0"
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    react:
+      optional: true
+  checksum: 10c0/8ef622b7d626919d87595d7382467cb81698a14925befdd27abc3b03d441077eca35328d51d10dc6fe3e91ee4d4e9ba7456bacbdf36940161bd2afeba861ac83
   languageName: node
   linkType: hard
 
