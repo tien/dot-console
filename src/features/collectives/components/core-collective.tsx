@@ -2,8 +2,8 @@ import { QueryRenderer, useLazyLoadQuery } from "@reactive-dot/react";
 import { DenominatedNumber } from "@reactive-dot/utils";
 import { useMemo } from "react";
 import { css } from "styled-system/css";
-import { AccountListItem } from "~/components/account-list-item";
 import { Table } from "~/components/ui/table";
+import { AccountListItem } from "~/features/accounts/components/account-list-item";
 import { USDT_ASSET_ID } from "~/features/assets/utils";
 import { useAssetHubChainId, useCollectivesChainId } from "~/hooks/chain";
 

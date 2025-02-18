@@ -10,9 +10,9 @@ import {
 import { DenominatedNumber } from "@reactive-dot/utils";
 import { Suspense, useMemo } from "react";
 import { css } from "styled-system/css";
-import { AccountListItem } from "~/components/account-list-item";
 import { CircularProgressIndicator } from "~/components/circular-progress-indicator";
 import { Table } from "~/components/ui/table";
+import { AccountListItem } from "~/features/accounts/components/account-list-item";
 import { useAssetHubChainId } from "~/hooks/chain";
 import { stringifyCodec } from "~/utils";
 

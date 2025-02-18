@@ -1,5 +1,5 @@
-import { AccountListItem } from "../../../components/account-list-item";
 import { useAuraChainId, useBabeChainId } from "../../../hooks/chain";
+import { AccountListItem } from "../../accounts/components/account-list-item";
 import { ScaleEnum, Struct, u32, u64 } from "@polkadot-api/substrate-bindings";
 import { idle } from "@reactive-dot/core";
 import { useLazyLoadQuery } from "@reactive-dot/react";

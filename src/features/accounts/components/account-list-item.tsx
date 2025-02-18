@@ -1,12 +1,13 @@
-import { Heading } from "./ui/heading";
-import { Icon } from "./ui/icon";
-import { Text } from "./ui/text";
+import { Heading } from "../../../components/ui/heading";
+import { Icon } from "../../../components/ui/icon";
+import { Text } from "../../../components/ui/text";
+import { AccountDialog } from "./account-info";
 import { idle } from "@reactive-dot/core";
 import { useLazyLoadQuery } from "@reactive-dot/react";
 import IdentityIcon from "@w3f/polkadot-icons/solid/Identity";
 import SubIdentityIcon from "@w3f/polkadot-icons/solid/Infrastructure";
 import { PolkadotIdenticon } from "dot-identicon/react.js";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { css, cx } from "styled-system/css";
 import { usePeopleChainId } from "~/hooks/chain";
 import { toaster } from "~/toaster";
@@ -15,15 +16,37 @@ import { getIdentityDisplayValue } from "~/utils";
 export type AccountListItemProps = {
   address: string;
   name?: string | undefined;
-  interactive?: boolean;
-  className?: string;
+  interactive?: boolean | undefined;
+  canCopyAddress?: boolean | undefined;
+  className?: string | undefined;
 };
 
 export function AccountListItem(props: AccountListItemProps) {
+  const [dialogOpen, setDialogOpen] = useState(false);
+
   return (
-    <Suspense fallback={<AccountListItemTemplate {...props} />}>
-      <SuspendableAccountListItem {...props} />
-    </Suspense>
+    <>
+      <Suspense
+        fallback={
+          <AccountListItemTemplate
+            {...props}
+            onOpenDialog={() => setDialogOpen(true)}
+          />
+        }
+      >
+        <SuspendableAccountListItem
+          {...props}
+          onOpenDialog={() => setDialogOpen(true)}
+        />
+      </Suspense>
+      {dialogOpen && (
+        <AccountDialog
+          address={props.address}
+          name={props.name}
+          onClose={() => setDialogOpen(false)}
+        />
+      )}
+    </>
   );
 }
 
@@ -31,8 +54,10 @@ export function SuspendableAccountListItem({
   address,
   name,
   interactive,
+  canCopyAddress,
+  onOpenDialog,
   className,
-}: AccountListItemProps) {
+}: AccountListItemProps & { onOpenDialog: () => unknown }) {
   const identity = useLazyLoadQuery(
     (builder) => builder.readStorage("Identity", "IdentityOf", [address]),
     { chainId: usePeopleChainId() },
@@ -84,6 +109,8 @@ export function SuspendableAccountListItem({
             : undefined
       }
       interactive={interactive}
+      canCopyAddress={canCopyAddress}
+      onOpenDialog={onOpenDialog}
       className={className}
     />
   );
@@ -94,6 +121,8 @@ type AccountListItemTemplateProps = {
   displayName?: string | undefined;
   displayNameType?: "on-chain" | "sub-identity" | undefined;
   interactive?: boolean | undefined;
+  canCopyAddress?: boolean | undefined;
+  onOpenDialog: () => unknown;
   className?: string | undefined;
 };
 
@@ -102,6 +131,8 @@ function AccountListItemTemplate({
   displayName,
   displayNameType: identityType,
   interactive = true,
+  canCopyAddress = interactive,
+  onOpenDialog,
   className,
 }: AccountListItemTemplateProps) {
   return (
@@ -123,7 +154,7 @@ function AccountListItemTemplate({
         size="2.2rem"
         backgroundColor="var(--colors-fg-default)"
         onClick={
-          !interactive
+          !canCopyAddress
             ? undefined
             : () =>
                 toaster.promise(navigator.clipboard.writeText(address), {
@@ -132,9 +163,18 @@ function AccountListItemTemplate({
                   error: { title: "Failed to copy address" },
                 })
         }
-        className={css({ cursor: !interactive ? undefined : "copy" })}
+        className={css({ cursor: !canCopyAddress ? undefined : "copy" })}
       />
-      <div className={css({ overflow: "hidden" })}>
+      <div
+        onClick={!interactive ? undefined : () => onOpenDialog?.()}
+        className={css({
+          overflow: "hidden",
+          cursor: !interactive ? undefined : "pointer",
+          "&:hover": {
+            textDecoration: !interactive ? undefined : "underline",
+          },
+        })}
+      >
         <header
           title={(() => {
             switch (identityType) {

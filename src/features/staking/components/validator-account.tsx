@@ -15,7 +15,6 @@ import {
 } from "react";
 import { css } from "styled-system/css";
 import { Center } from "styled-system/jsx";
-import { AccountListItem } from "~/components/account-list-item";
 import { CircularProgressIndicator } from "~/components/circular-progress-indicator";
 import { TooltipBox } from "~/components/tooltip-box";
 import { Button } from "~/components/ui/button";
@@ -23,6 +22,7 @@ import { Card } from "~/components/ui/card";
 import { IconButton } from "~/components/ui/icon-button";
 import { Progress } from "~/components/ui/progress";
 import { Table } from "~/components/ui/table";
+import { AccountListItem } from "~/features/accounts/components/account-list-item";
 import { useStakingChainId } from "~/hooks/chain";
 import { ellipsize } from "~/utils";
 

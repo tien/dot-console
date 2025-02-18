@@ -1,4 +1,4 @@
-import { AccountListItem } from "./account-list-item";
+import { AccountListItem } from "../features/accounts/components/account-list-item";
 import { Select } from "./select";
 import type { WalletAccount } from "@reactive-dot/core/wallets.js";
 import { useAccounts } from "@reactive-dot/react";
