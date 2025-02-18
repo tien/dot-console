@@ -1,4 +1,8 @@
-import type { XcmV3Junctions } from "@polkadot-api/descriptors";
+import type {
+  polkadot_asset_hub,
+  XcmV3Junctions,
+} from "@polkadot-api/descriptors";
+import { Query } from "@reactive-dot/core";
 import {
   ChainProvider,
   QueryRenderer,
@@ -87,70 +91,62 @@ function SuspendableAssetList() {
               ? undefined
               : nativeTokenAmount(nativeValues[index]),
         }))
-        .toSorted((a, b) =>
-          (a.nativeValue ?? 0n) === (b.nativeValue ?? 0n)
-            ? 0
-            : (a.nativeValue ?? 0n) > (b.nativeValue ?? 0n)
-              ? -1
-              : 1,
+        .toSorted(
+          (a, b) =>
+            (b.nativeValue?.valueOf() ?? 0) - (a.nativeValue?.valueOf() ?? 0),
         ),
     [foreignAssets, nativeAssets, nativeTokenAmount, nativeValues],
   );
 
   return (
     <Table.Body>
-      {assets.map((asset) => (
-        <Table.Row key={stringifyCodec(asset.id)}>
-          <Table.Cell>
-            <Suspense fallback={<CircularProgressIndicator />}>
-              <QueryRenderer
-                chainId={assetHubChainId}
-                query={(builder) =>
-                  typeof asset.id === "number"
-                    ? builder.readStorage("Assets", "Metadata", [asset.id])
-                    : builder.readStorage("ForeignAssets", "Metadata", [
-                        asset.id,
-                      ])
-                }
-              >
-                {(metadata) => metadata.name.asText()}
-              </QueryRenderer>
-            </Suspense>
-          </Table.Cell>
-          <Table.Cell className={css({ maxWidth: "15rem" })}>
-            <div className={css({ overflow: "auto" })}>
+      {assets.map((asset) => {
+        const query = new Query<[], typeof polkadot_asset_hub>([]);
+        const metadataQuery =
+          typeof asset.id === "number"
+            ? query.readStorage("Assets", "Metadata", [asset.id])
+            : query.readStorage("ForeignAssets", "Metadata", [asset.id]);
+
+        return (
+          <Table.Row key={stringifyCodec(asset.id)}>
+            <Table.Cell>
               <Suspense fallback={<CircularProgressIndicator />}>
-                <QueryRenderer
-                  chainId={assetHubChainId}
-                  query={(builder) =>
-                    typeof asset.id === "number"
-                      ? builder.readStorage("Assets", "Metadata", [asset.id])
-                      : builder.readStorage("ForeignAssets", "Metadata", [
-                          asset.id,
-                        ])
-                  }
-                >
-                  {(metadata) =>
-                    new DenominatedNumber(
-                      asset!.supply,
-                      metadata.decimals,
-                      metadata.symbol.asText(),
-                    ).toLocaleString()
-                  }
+                <QueryRenderer chainId={assetHubChainId} query={metadataQuery}>
+                  {(metadata) => metadata.name.asText()}
                 </QueryRenderer>
               </Suspense>
-            </div>
-          </Table.Cell>
-          <Table.Cell>
-            {asset.nativeValue?.toLocaleString() ?? "N/A"}
-          </Table.Cell>
-          <Table.Cell>{asset?.accounts.toLocaleString()}</Table.Cell>
-          <Table.Cell>{asset?.status.value}</Table.Cell>
-          <Table.Cell className={css({ maxWidth: "20rem", overflow: "auto" })}>
-            <AccountListItem address={asset!.owner} />
-          </Table.Cell>
-        </Table.Row>
-      ))}
+            </Table.Cell>
+            <Table.Cell className={css({ maxWidth: "15rem" })}>
+              <div className={css({ overflow: "auto" })}>
+                <Suspense fallback={<CircularProgressIndicator />}>
+                  <QueryRenderer
+                    chainId={assetHubChainId}
+                    query={metadataQuery}
+                  >
+                    {(metadata) =>
+                      new DenominatedNumber(
+                        asset!.supply,
+                        metadata.decimals,
+                        metadata.symbol.asText(),
+                      ).toLocaleString()
+                    }
+                  </QueryRenderer>
+                </Suspense>
+              </div>
+            </Table.Cell>
+            <Table.Cell>
+              {asset.nativeValue?.toLocaleString() ?? "N/A"}
+            </Table.Cell>
+            <Table.Cell>{asset?.accounts.toLocaleString()}</Table.Cell>
+            <Table.Cell>{asset?.status.value}</Table.Cell>
+            <Table.Cell
+              className={css({ maxWidth: "20rem", overflow: "auto" })}
+            >
+              <AccountListItem address={asset!.owner} />
+            </Table.Cell>
+          </Table.Row>
+        );
+      })}
     </Table.Body>
   );
 }
