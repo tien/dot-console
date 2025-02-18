@@ -138,7 +138,7 @@ function SuspendableAssetList() {
               {asset.nativeValue?.toLocaleString() ?? "N/A"}
             </Table.Cell>
             <Table.Cell>{asset?.accounts.toLocaleString()}</Table.Cell>
-            <Table.Cell>{asset?.status.value}</Table.Cell>
+            <Table.Cell>{asset?.status.type}</Table.Cell>
             <Table.Cell
               className={css({ maxWidth: "20rem", overflow: "auto" })}
             >
