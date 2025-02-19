@@ -135,8 +135,23 @@ function SuspendableAssetList() {
             <Table.Cell>
               {asset.nativeValue?.toLocaleString() ?? "N/A"}
             </Table.Cell>
-            <Table.Cell>{asset?.accounts.toLocaleString()}</Table.Cell>
-            <Table.Cell>{asset?.status.type}</Table.Cell>
+            <Table.Cell>{asset.accounts.toLocaleString()}</Table.Cell>
+            <Table.Cell
+              css={{
+                color: (() => {
+                  switch (asset.status.type) {
+                    case "Live":
+                      return "green";
+                    case "Frozen":
+                      return "aqua";
+                    case "Destroying":
+                      return "fg.error";
+                  }
+                })(),
+              }}
+            >
+              {asset.status.type}
+            </Table.Cell>
             <Table.Cell
               className={css({ maxWidth: "20rem", overflow: "auto" })}
             >
