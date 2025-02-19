@@ -11,6 +11,7 @@ import {
   polkadot,
   polkadot_asset_hub,
   polkadot_collectives,
+  polkadot_coretime,
   polkadot_people,
   westend,
   westend_asset_hub,
@@ -46,6 +47,10 @@ export const config = defineConfig({
     polkadot_collectives: {
       descriptor: polkadot_collectives,
       provider: polkadotProvider.addParachain({ id: "polkadot_collectives" }),
+    },
+    polkadot_coretime: {
+      descriptor: polkadot_coretime,
+      provider: polkadotProvider.addParachain({ id: "polkadot_coretime" }),
     },
     polkadot_people: {
       descriptor: polkadot_people,

@@ -14,6 +14,11 @@
       "chain": "polkadot_collectives",
       "metadata": ".papi/metadata/polkadot_collectives.scale"
     },
+    "polkadot_coretime": {
+      "chain": "polkadot_coretime",
+      "metadata": ".papi/metadata/polkadot_coretime.scale",
+      "genesis": "0xefb56e30d9b4a24099f88820987d0f45fb645992416535d87650d98e00f46fc4"
+    },
     "polkadot_people": {
       "chain": "polkadot_people",
       "metadata": ".papi/metadata/polkadot_people.scale"

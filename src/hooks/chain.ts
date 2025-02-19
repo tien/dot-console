@@ -28,6 +28,7 @@ export function usePeopleChainId() {
     case "polkadot":
     case "polkadot_asset_hub":
     case "polkadot_collectives":
+    case "polkadot_coretime":
     case "polkadot_people":
     case "hydration":
     case "invarch":
@@ -52,6 +53,7 @@ export function useStakingChainId() {
     case "polkadot":
     case "polkadot_asset_hub":
     case "polkadot_collectives":
+    case "polkadot_coretime":
     case "polkadot_people":
     case "hydration":
     case "invarch":
@@ -76,6 +78,7 @@ export function useAssetHubChainId() {
     case "polkadot":
     case "polkadot_asset_hub":
     case "polkadot_collectives":
+    case "polkadot_coretime":
     case "polkadot_people":
     case "hydration":
     case "invarch":
@@ -102,6 +105,7 @@ export function useCollectivesChainId<TForce = true>(
     case "polkadot":
     case "polkadot_asset_hub":
     case "polkadot_collectives":
+    case "polkadot_coretime":
     case "polkadot_people":
     case "hydration":
     case "invarch":
