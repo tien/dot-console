@@ -1,7 +1,8 @@
 import { QueryRenderer, useLazyLoadQuery } from "@reactive-dot/react";
 import { DenominatedNumber } from "@reactive-dot/utils";
-import { useMemo } from "react";
+import { Suspense, useMemo } from "react";
 import { css } from "styled-system/css";
+import { CircularProgressIndicator } from "~/components/circular-progress-indicator";
 import { Table } from "~/components/ui/table";
 import { AccountListItem } from "~/features/accounts/components/account-list-item";
 import { USDT_ASSET_ID } from "~/features/assets/utils";
@@ -83,20 +84,22 @@ export function CoreCollective({ type }: CoreCollectiveProps) {
               <AccountListItem address={member.address} />
             </Table.Cell>
             <Table.Cell>
-              <QueryRenderer
-                chainId={assetHubChainId}
-                query={(builder) =>
-                  builder.readStorage("Assets", "Metadata", [USDT_ASSET_ID])
-                }
-              >
-                {(metadata) =>
-                  new DenominatedNumber(
-                    member.salary,
-                    metadata.decimals,
-                    metadata.symbol.asText(),
-                  ).toLocaleString()
-                }
-              </QueryRenderer>
+              <Suspense fallback={<CircularProgressIndicator />}>
+                <QueryRenderer
+                  chainId={assetHubChainId}
+                  query={(builder) =>
+                    builder.readStorage("Assets", "Metadata", [USDT_ASSET_ID])
+                  }
+                >
+                  {(metadata) =>
+                    new DenominatedNumber(
+                      member.salary,
+                      metadata.decimals,
+                      metadata.symbol.asText(),
+                    ).toLocaleString()
+                  }
+                </QueryRenderer>
+              </Suspense>
             </Table.Cell>
             <Table.Cell
               className={css({
