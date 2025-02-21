@@ -9,11 +9,9 @@ import {
 import { zodValidator } from "@tanstack/zod-adapter";
 import CloseIcon from "@w3f/polkadot-icons/solid/Close";
 import { ConnectionButton } from "dot-connect/react.js";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { css } from "styled-system/css";
-import { Center } from "styled-system/jsx";
 import { z } from "zod";
-import { CircularProgressIndicator } from "~/components/circular-progress-indicator";
 import { Button } from "~/components/ui/button";
 import { Drawer } from "~/components/ui/drawer";
 import { Heading } from "~/components/ui/heading";
@@ -279,15 +277,7 @@ function Layout() {
         </header>
         <main className={css({ display: "contents" })}>
           <ChainProvider key={chainId} chainId={chainId}>
-            <Suspense
-              fallback={
-                <Center className={css({ flex: 1 })}>
-                  <CircularProgressIndicator size="xl" label="Loading data" />
-                </Center>
-              }
-            >
-              <Outlet />
-            </Suspense>
+            <Outlet />
           </ChainProvider>
         </main>
       </div>

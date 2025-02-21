@@ -37,16 +37,7 @@ function CollectivesPage() {
           <Tabs.Indicator />
         </Tabs.List>
       </Tabs.Root>
-      <Suspense
-        fallback={
-          <CircularProgressIndicator
-            label="Loading collective"
-            className={css({ width: "fit-content", margin: "auto" })}
-          />
-        }
-      >
-        <Outlet />
-      </Suspense>
+      <Outlet />
     </div>
   );
 }

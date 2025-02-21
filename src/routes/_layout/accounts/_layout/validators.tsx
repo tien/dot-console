@@ -1,31 +1,14 @@
 import { useAccounts, useLazyLoadQuery } from "@reactive-dot/react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Suspense } from "react";
 import { css } from "styled-system/css";
-import { Center } from "styled-system/jsx";
-import { CircularProgressIndicator } from "~/components/circular-progress-indicator";
 import { ValidatorAccount } from "~/features/staking/components/validator-account";
 import { useStakingChainId } from "~/hooks/chain";
 
 export const Route = createFileRoute("/_layout/accounts/_layout/validators")({
-  component: RouteComponent,
+  component: ValidatorsPage,
 });
 
-function RouteComponent() {
-  return (
-    <Suspense
-      fallback={
-        <Center>
-          <CircularProgressIndicator size="xl" label="Loading validators" />
-        </Center>
-      }
-    >
-      <Validators />
-    </Suspense>
-  );
-}
-
-function Validators() {
+function ValidatorsPage() {
   const accounts = useAccounts();
   const validatorPreferences = useLazyLoadQuery(
     (query) =>
