@@ -99,7 +99,7 @@ function SuspendableAssetList() {
   return (
     <Table.Body>
       {assets.map((asset) => {
-        const query = new Query<[], typeof polkadot_asset_hub>([]);
+        const query = new Query<[], typeof polkadot_asset_hub>();
         const metadataQuery =
           typeof asset.id === "number"
             ? query.readStorage("Assets", "Metadata", [asset.id])
