@@ -22,6 +22,7 @@ import { defineConfig } from "@reactive-dot/core";
 import { createLightClientProvider } from "@reactive-dot/core/providers/light-client.js";
 import { InjectedWalletProvider } from "@reactive-dot/core/wallets.js";
 import { LedgerWallet } from "@reactive-dot/wallet-ledger";
+import { MimirWalletProvider } from "@reactive-dot/wallet-mimir";
 import { WalletConnect } from "@reactive-dot/wallet-walletconnect";
 
 const lightClientProvider = createLightClientProvider();
@@ -105,6 +106,7 @@ export const config = defineConfig({
   },
   wallets: [
     new InjectedWalletProvider(),
+    new MimirWalletProvider(),
     new LedgerWallet(),
     new WalletConnect({
       projectId: import.meta.env.PUBLIC_WALLET_CONNECT_PROJECT_ID,

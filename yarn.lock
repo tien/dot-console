@@ -2234,6 +2234,45 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mimirdev/apps-inject@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "@mimirdev/apps-inject@npm:3.1.1"
+  dependencies:
+    "@mimirdev/apps-sdk": "npm:^3.1.0"
+  checksum: 10c0/0a7467b902c79763e7f98d505117d5ed1aa373a35dd42977e5320308af5fe2b34374d09d542e3cd3b370bd7c49f3abd1a923ed3dcec8646b7fdc8b627f67a8c7
+  languageName: node
+  linkType: hard
+
+"@mimirdev/apps-sdk@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "@mimirdev/apps-sdk@npm:3.1.0"
+  dependencies:
+    eventemitter3: "npm:^5.0.1"
+  checksum: 10c0/ea386ae9addc278c2b1bd2ca2c8782212b5bd8f4c506fc2faa8262c699aaa1e558c683e96884d00d1fd18a36a3aa3dd1c396864767bc05ca3799876995ead97e
+  languageName: node
+  linkType: hard
+
+"@mimirdev/apps-transports@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "@mimirdev/apps-transports@npm:3.1.0"
+  checksum: 10c0/66505dc5792348793b81e6c4a13147d0a4459a7584b788cd928ebe128cc1fe29ff1ab1c547d88043bb0074ab44a7ad97965525b6229e38665814568ad05c8eab
+  languageName: node
+  linkType: hard
+
+"@mimirdev/papi-signer@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "@mimirdev/papi-signer@npm:3.1.0"
+  dependencies:
+    "@mimirdev/apps-sdk": "npm:^3.1.0"
+    "@mimirdev/apps-transports": "npm:^3.1.0"
+  peerDependencies:
+    "@polkadot-api/polkadot-signer": "*"
+    "@polkadot-api/substrate-bindings": "*"
+    "@polkadot-api/utils": "*"
+  checksum: 10c0/81deafbcfe9455e0ae79d3b0de947909a90625402087da647f926800716e9bbd0a4997ae4bbe07047b9f556c26c21a3075fba7d7060b7e73959f0fd1aa8ded92
+  languageName: node
+  linkType: hard
+
 "@module-federation/error-codes@npm:0.8.4":
   version: 0.8.4
   resolution: "@module-federation/error-codes@npm:0.8.4"
@@ -3236,6 +3275,17 @@ __metadata:
     "@reactive-dot/core": "npm:^0.34.0"
     buffer: "npm:^6.0.3"
   checksum: 10c0/18d6a2f145a10bdb0292707152d6b0031a92a42a04ad2e49669c85aa8d3a72b484302467c1ac300eb6442ae5e331f61ee90f75835f33b6de9f5b9f9f234392b1
+  languageName: node
+  linkType: hard
+
+"@reactive-dot/wallet-mimir@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "@reactive-dot/wallet-mimir@npm:0.1.0"
+  dependencies:
+    "@mimirdev/apps-inject": "npm:^3.1.1"
+    "@mimirdev/papi-signer": "npm:^3.1.0"
+    "@reactive-dot/core": "npm:^0.34.0"
+  checksum: 10c0/23a380e4320e800de0a000ccc470980e5976004da8f4b766830fdd1e1a4b07f7a8bdf4e1c5c6f0d72b6838afeeec938a9f7b65e960875abc5ee82fcd1334a485
   languageName: node
   linkType: hard
 
@@ -6267,12 +6317,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-react-compiler@npm:19.0.0-beta-e552027-20250112":
-  version: 19.0.0-beta-e552027-20250112
-  resolution: "babel-plugin-react-compiler@npm:19.0.0-beta-e552027-20250112"
+"babel-plugin-react-compiler@npm:19.0.0-beta-e1e972c-20250221":
+  version: 19.0.0-beta-e1e972c-20250221
+  resolution: "babel-plugin-react-compiler@npm:19.0.0-beta-e1e972c-20250221"
   dependencies:
     "@babel/types": "npm:^7.19.0"
-  checksum: 10c0/f64c8f11b893b6bd355a8b3f20b4f15486cee18f98560f2df991abb315b4b037fbf6ccda832eede446fac6140a942e73984a6c5e7e8f5ea5fe1fb0b45d560482
+  checksum: 10c0/9a05a92fc27445c81b3d817258edde563e97975b765476178df29eafb99f3d62c9e1674e0e6bbec13fb0709c29bc464d99a83bd971b4b20f37c929e5866ebb5b
   languageName: node
   linkType: hard
 
@@ -6973,9 +7023,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dot-connect@npm:^0.14.2":
-  version: 0.14.2
-  resolution: "dot-connect@npm:0.14.2"
+"dot-connect@npm:^0.15.0":
+  version: 0.15.0
+  resolution: "dot-connect@npm:0.15.0"
   dependencies:
     "@lit-labs/preact-signals": "npm:^1.0.3"
     "@lit/react": "npm:^1.0.7"
@@ -6989,7 +7039,7 @@ __metadata:
   peerDependenciesMeta:
     react:
       optional: true
-  checksum: 10c0/88e5c6e933edea9a835333485d2d42b9d7f6c3a6eb3462e298f80aa7e80232a5fe77ea7a5e415a519702cfef57ae9c2dea36181a63ce405cdf8e80ad2984f04b
+  checksum: 10c0/f921d8dad08384879cc6b55788156b9f244b50b199940e0e6c3a87103985d4d47c8a05ec5792d60d8c0a180ed3af54e612eeef425ea80a71e678e79fcac5b0fe
   languageName: node
   linkType: hard
 
@@ -7010,6 +7060,7 @@ __metadata:
     "@polkadot-api/view-builder": "npm:^0.4.2"
     "@reactive-dot/react": "npm:^0.34.0"
     "@reactive-dot/wallet-ledger": "npm:^0.16.26"
+    "@reactive-dot/wallet-mimir": "npm:^0.1.0"
     "@reactive-dot/wallet-walletconnect": "npm:^0.17.6"
     "@rsbuild/core": "npm:^1.2.11"
     "@rsbuild/plugin-babel": "npm:^1.0.4"
@@ -7025,12 +7076,12 @@ __metadata:
     "@types/react": "npm:^19.0.10"
     "@types/react-dom": "npm:^19.0.4"
     "@w3f/polkadot-icons": "npm:^1.0.0"
-    babel-plugin-react-compiler: "npm:19.0.0-beta-e552027-20250112"
+    babel-plugin-react-compiler: "npm:19.0.0-beta-e1e972c-20250221"
     date-fns: "npm:^4.1.0"
-    dot-connect: "npm:^0.14.2"
+    dot-connect: "npm:^0.15.0"
     dot-identicon: "npm:^0.1.0"
     eslint: "npm:^9.21.0"
-    eslint-plugin-react-compiler: "npm:19.0.0-beta-e552027-20250112"
+    eslint-plugin-react-compiler: "npm:19.0.0-beta-e1e972c-20250221"
     eslint-plugin-react-hooks: "npm:^5.1.0"
     eslint-plugin-react-refresh: "npm:^0.4.19"
     jotai: "npm:^2.12.1"
@@ -7500,9 +7551,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react-compiler@npm:19.0.0-beta-e552027-20250112":
-  version: 19.0.0-beta-e552027-20250112
-  resolution: "eslint-plugin-react-compiler@npm:19.0.0-beta-e552027-20250112"
+"eslint-plugin-react-compiler@npm:19.0.0-beta-e1e972c-20250221":
+  version: 19.0.0-beta-e1e972c-20250221
+  resolution: "eslint-plugin-react-compiler@npm:19.0.0-beta-e1e972c-20250221"
   dependencies:
     "@babel/core": "npm:^7.24.4"
     "@babel/parser": "npm:^7.24.4"
@@ -7512,7 +7563,7 @@ __metadata:
     zod-validation-error: "npm:^3.0.3"
   peerDependencies:
     eslint: ">=7"
-  checksum: 10c0/d54bb2def851f79d88376ef108d5f682c07de820c9561a09051a8a5f3a4dbff0c22c8d014ad5e88db5f4db27947a371f497a8b07ddc561575f1601e47e0df6e4
+  checksum: 10c0/99b2de9c741a1dad540caf93054aa47745d0699afd1233fda232d41909cb951420ca66350bc63e3ce70309db06d16cdedce7494bc7def3a1639f7af092501330
   languageName: node
   linkType: hard
 
@@ -7852,6 +7903,13 @@ __metadata:
   version: 2.0.3
   resolution: "esutils@npm:2.0.3"
   checksum: 10c0/9a2fe69a41bfdade834ba7c42de4723c97ec776e40656919c62cbd13607c45e127a003f05f724a1ea55e5029a4cf2de444b13009f2af71271e42d93a637137c7
+  languageName: node
+  linkType: hard
+
+"eventemitter3@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "eventemitter3@npm:5.0.1"
+  checksum: 10c0/4ba5c00c506e6c786b4d6262cfbce90ddc14c10d4667e5c83ae993c9de88aa856033994dd2b35b83e8dc1170e224e66a319fa80adc4c32adcd2379bbc75da814
   languageName: node
   linkType: hard
 
