@@ -10,6 +10,7 @@ import CopyIcon from "@w3f/polkadot-icons/solid/Copy";
 import { useAtom } from "jotai";
 import { Suspense } from "react";
 import { css } from "styled-system/css";
+import { token } from "styled-system/tokens";
 import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
 import { Clipboard } from "~/components/ui/clipboard";
@@ -94,7 +95,7 @@ export function BlockDetail() {
                 ) : (
                   <span>
                     <CheckIcon
-                      fill="green"
+                      fill={token.var("colors.success.text")}
                       className={css({ width: "1em", height: "1em" })}
                     />{" "}
                     Finalised

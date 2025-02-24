@@ -167,7 +167,9 @@ function Amount({ value }: { value: DenominatedNumber | "pending" }) {
   return (
     <Text
       as="dd"
-      color={value === "pending" || value.planck === 0n ? undefined : "green"}
+      color={
+        value === "pending" || value.planck === 0n ? undefined : "success.text"
+      }
     >
       {value === "pending" ? <Spinner /> : value.toLocaleString()}
     </Text>

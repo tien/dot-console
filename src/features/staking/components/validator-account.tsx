@@ -180,7 +180,8 @@ function SuspendableStaked({ account }: AccountProps) {
         <dd
           className={css({
             fontWeight: "bold",
-            color: overview.total < minActiveStake ? "fg.error" : "green",
+            color:
+              overview.total < minActiveStake ? "error.text" : "success.text",
           })}
         >
           {nativeTokenAmountFromPlanck(

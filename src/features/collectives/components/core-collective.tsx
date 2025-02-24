@@ -103,7 +103,7 @@ export function CoreCollective({ type }: CoreCollectiveProps) {
             </Table.Cell>
             <Table.Cell
               className={css({
-                color: member.is_active ? "green" : "fg.error",
+                color: member.is_active ? "success.text" : "error.text",
               })}
             >
               {member.is_active ? "Active" : "Inactive"}

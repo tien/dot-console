@@ -10,6 +10,7 @@ import {
 import { DenominatedNumber } from "@reactive-dot/utils";
 import { Suspense, useMemo } from "react";
 import { css } from "styled-system/css";
+import { token } from "styled-system/tokens";
 import { CircularProgressIndicator } from "~/components/circular-progress-indicator";
 import { Table } from "~/components/ui/table";
 import { AccountListItem } from "~/features/accounts/components/account-list-item";
@@ -137,15 +138,15 @@ function SuspendableAssetList() {
             </Table.Cell>
             <Table.Cell>{asset.accounts.toLocaleString()}</Table.Cell>
             <Table.Cell
-              css={{
+              style={{
                 color: (() => {
                   switch (asset.status.type) {
                     case "Live":
-                      return "green";
+                      return token.var("colors.success.text");
                     case "Frozen":
-                      return "aqua";
+                      return token.var("colors.warning.text");
                     case "Destroying":
-                      return "fg.error";
+                      return token.var("colors.error.text");
                   }
                 })(),
               }}
