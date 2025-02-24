@@ -36,7 +36,7 @@
       "metadata": ".papi/metadata/kusama_asset_hub.scale"
     },
     "kusama_people": {
-      "wsUrl": "wss://kusama-people-rpc.polkadot.io",
+      "chain": "ksmcc3_people",
       "metadata": ".papi/metadata/kusama_people.scale"
     },
     "paseo": {
@@ -61,12 +61,13 @@
       "metadata": ".papi/metadata/westend_collectives.scale"
     },
     "westend_people": {
-      "wsUrl": "wss://westend-people-rpc.polkadot.io",
+      "chain": "westend2_people",
       "metadata": ".papi/metadata/westend_people.scale"
     },
     "invarch": {
       "wsUrl": "wss://invarch-rpc.dwellir.com",
-      "metadata": ".papi/metadata/invarch.scale"
+      "metadata": ".papi/metadata/invarch.scale",
+      "genesis": "0x31a7d8914fb31c249b972f18c115f1e22b4b039abbcb03c73b6774c5642f9efe"
     }
   }
 }
