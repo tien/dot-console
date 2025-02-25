@@ -3699,20 +3699,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-router@npm:1.111.3":
-  version: 1.111.3
-  resolution: "@tanstack/react-router@npm:1.111.3"
+"@tanstack/react-router@npm:1.111.7":
+  version: 1.111.7
+  resolution: "@tanstack/react-router@npm:1.111.7"
   dependencies:
     "@tanstack/history": "npm:1.99.13"
     "@tanstack/react-store": "npm:^0.7.0"
-    "@tanstack/router-core": "npm:^1.111.3"
+    "@tanstack/router-core": "npm:^1.111.7"
     jsesc: "npm:^3.1.0"
     tiny-invariant: "npm:^1.3.3"
     tiny-warning: "npm:^1.0.3"
   peerDependencies:
     react: ">=18.0.0 || >=19.0.0"
     react-dom: ">=18.0.0 || >=19.0.0"
-  checksum: 10c0/c58dd86816ed22efbf9277a169d9a20e47421c4cf9def332561606356835414ed528da655acff396682bb1247119bb6cbc0355b67fe3ebdfca5d542aeeed2f9a
+  checksum: 10c0/9a959224b38d973eea57128c3cd19e7e76bba63c886f1650779c8dab8fb23e8c1f159cacfb59e36a43926f40e805a790277e49bdaa71de756a30c1d525b0d376
   languageName: node
   linkType: hard
 
@@ -3729,13 +3729,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/router-core@npm:^1.111.3":
-  version: 1.111.3
-  resolution: "@tanstack/router-core@npm:1.111.3"
+"@tanstack/router-core@npm:^1.111.7":
+  version: 1.111.7
+  resolution: "@tanstack/router-core@npm:1.111.7"
   dependencies:
     "@tanstack/history": "npm:1.99.13"
     "@tanstack/store": "npm:^0.7.0"
-  checksum: 10c0/3f076416034319169490871d9c8e77cd1d4a61157b5078bed42c59d525bc89cc2699788ed935aa223b72830e37abbaa0be6e173522fd3ee3ac33f0098bbeb689
+  checksum: 10c0/5f4973a4af92122dfd9aadbbbe25fcfb1e2de62f09744963fb93a280d86f4b50835de801432c1dd5862379e050ace41ef20ff62a80c5cb553e56d7ad5b04428f
   languageName: node
   linkType: hard
 
@@ -7065,7 +7065,7 @@ __metadata:
     "@rsbuild/core": "npm:^1.2.11"
     "@rsbuild/plugin-babel": "npm:^1.0.4"
     "@rsbuild/plugin-react": "npm:^1.1.1"
-    "@tanstack/react-router": "npm:1.111.3"
+    "@tanstack/react-router": "npm:1.111.7"
     "@tanstack/router-devtools": "npm:1.111.3"
     "@tanstack/router-plugin": "npm:1.111.3"
     "@tanstack/zod-adapter": "npm:1.111.3"
