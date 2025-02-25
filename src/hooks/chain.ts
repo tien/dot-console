@@ -44,7 +44,8 @@ export function usePeopleChainId() {
       return "westend_people" satisfies ChainId;
     case "paseo":
     case "paseo_asset_hub":
-      return "paseo" satisfies ChainId;
+    case "paseo_people":
+      return "paseo_people" satisfies ChainId;
   }
 }
 
@@ -64,6 +65,7 @@ export function useStakingChainId() {
       return "kusama" satisfies ChainId;
     case "paseo":
     case "paseo_asset_hub":
+    case "paseo_people":
       return "paseo" satisfies ChainId;
     case "westend":
     case "westend_asset_hub":
@@ -89,6 +91,7 @@ export function useAssetHubChainId() {
       return "kusama_asset_hub" satisfies ChainId;
     case "paseo":
     case "paseo_asset_hub":
+    case "paseo_people":
       return "paseo_asset_hub" satisfies ChainId;
     case "westend":
     case "westend_asset_hub":

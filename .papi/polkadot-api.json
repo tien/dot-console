@@ -48,6 +48,11 @@
       "metadata": ".papi/metadata/paseo_asset_hub.scale",
       "genesis": "0xd6eec26135305a8ad257a20d003357284c8aa03d0bdb2b357ab0a22371e11ef2"
     },
+    "paseo_people": {
+      "chain": "paseo_people",
+      "metadata": ".papi/metadata/paseo_people.scale",
+      "genesis": "0xe6c30d6e148f250b887105237bcaa5cb9f16dd203bf7b5b9d4f1da7387cb86ec"
+    },
     "westend": {
       "chain": "westend2",
       "metadata": ".papi/metadata/westend.scale"
