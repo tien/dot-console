@@ -23,6 +23,31 @@ export function useAuraChainId() {
     : undefined;
 }
 
+export function useRelayChainId() {
+  switch (useChainId()) {
+    case "polkadot":
+    case "polkadot_asset_hub":
+    case "polkadot_collectives":
+    case "polkadot_coretime":
+    case "polkadot_people":
+    case "hydration":
+    case "invarch":
+      return "polkadot" satisfies ChainId;
+    case "kusama":
+    case "kusama_asset_hub":
+    case "kusama_people":
+      return "kusama" satisfies ChainId;
+    case "westend":
+    case "westend_asset_hub":
+    case "westend_collectives":
+    case "westend_people":
+      return "westend" satisfies ChainId;
+    case "paseo":
+    case "paseo_asset_hub":
+      return "paseo" satisfies ChainId;
+  }
+}
+
 export function usePeopleChainId() {
   switch (useChainId()) {
     case "polkadot":
@@ -46,6 +71,32 @@ export function usePeopleChainId() {
     case "paseo_asset_hub":
     case "paseo_people":
       return "paseo_people" satisfies ChainId;
+  }
+}
+
+export function useGovernanceChainId() {
+  switch (useChainId()) {
+    case "polkadot":
+    case "polkadot_asset_hub":
+    case "polkadot_collectives":
+    case "polkadot_coretime":
+    case "polkadot_people":
+    case "hydration":
+    case "invarch":
+      return "polkadot" satisfies ChainId;
+    case "kusama":
+    case "kusama_asset_hub":
+    case "kusama_people":
+      return "kusama" satisfies ChainId;
+    case "paseo":
+    case "paseo_asset_hub":
+    case "paseo_people":
+      return "paseo" satisfies ChainId;
+    case "westend":
+    case "westend_asset_hub":
+    case "westend_collectives":
+    case "westend_people":
+      return "westend" satisfies ChainId;
   }
 }
 

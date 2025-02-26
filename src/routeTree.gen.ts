@@ -16,12 +16,15 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as IndexImport } from './routes/index'
 import { Route as LayoutQueriesImport } from './routes/_layout/queries'
+import { Route as LayoutParachainsImport } from './routes/_layout/parachains'
 import { Route as LayoutExtrinsicsImport } from './routes/_layout/extrinsics'
 import { Route as LayoutExplorerImport } from './routes/_layout/explorer'
 import { Route as LayoutAssetsImport } from './routes/_layout/assets'
 import { Route as LayoutUtilitiesIndexImport } from './routes/_layout/utilities/index'
+import { Route as LayoutReferendaIndexImport } from './routes/_layout/referenda/index'
 import { Route as LayoutCollectivesIndexImport } from './routes/_layout/collectives/index'
 import { Route as LayoutUtilitiesLayoutImport } from './routes/_layout/utilities/_layout'
+import { Route as LayoutReferendaConcludedsImport } from './routes/_layout/referenda/concludeds'
 import { Route as LayoutCollectivesLayoutImport } from './routes/_layout/collectives/_layout'
 import { Route as LayoutAccountsLayoutImport } from './routes/_layout/accounts/_layout'
 import { Route as LayoutAccountsLayoutIndexImport } from './routes/_layout/accounts/_layout/index'
@@ -73,6 +76,12 @@ const LayoutQueriesRoute = LayoutQueriesImport.update({
   getParentRoute: () => LayoutRoute,
 } as any)
 
+const LayoutParachainsRoute = LayoutParachainsImport.update({
+  id: '/parachains',
+  path: '/parachains',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
 const LayoutExtrinsicsRoute = LayoutExtrinsicsImport.update({
   id: '/extrinsics',
   path: '/extrinsics',
@@ -97,6 +106,12 @@ const LayoutUtilitiesIndexRoute = LayoutUtilitiesIndexImport.update({
   getParentRoute: () => LayoutUtilitiesRoute,
 } as any)
 
+const LayoutReferendaIndexRoute = LayoutReferendaIndexImport.update({
+  id: '/referenda/',
+  path: '/referenda/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
 const LayoutCollectivesIndexRoute = LayoutCollectivesIndexImport.update({
   id: '/',
   path: '/',
@@ -106,6 +121,12 @@ const LayoutCollectivesIndexRoute = LayoutCollectivesIndexImport.update({
 const LayoutUtilitiesLayoutRoute = LayoutUtilitiesLayoutImport.update({
   id: '/_layout',
   getParentRoute: () => LayoutUtilitiesRoute,
+} as any)
+
+const LayoutReferendaConcludedsRoute = LayoutReferendaConcludedsImport.update({
+  id: '/referenda/concludeds',
+  path: '/referenda/concludeds',
+  getParentRoute: () => LayoutRoute,
 } as any)
 
 const LayoutCollectivesLayoutRoute = LayoutCollectivesLayoutImport.update({
@@ -191,6 +212,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutExtrinsicsImport
       parentRoute: typeof LayoutImport
     }
+    '/_layout/parachains': {
+      id: '/_layout/parachains'
+      path: '/parachains'
+      fullPath: '/parachains'
+      preLoaderRoute: typeof LayoutParachainsImport
+      parentRoute: typeof LayoutImport
+    }
     '/_layout/queries': {
       id: '/_layout/queries'
       path: '/queries'
@@ -226,6 +254,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutCollectivesLayoutImport
       parentRoute: typeof LayoutCollectivesRoute
     }
+    '/_layout/referenda/concludeds': {
+      id: '/_layout/referenda/concludeds'
+      path: '/referenda/concludeds'
+      fullPath: '/referenda/concludeds'
+      preLoaderRoute: typeof LayoutReferendaConcludedsImport
+      parentRoute: typeof LayoutImport
+    }
     '/_layout/utilities': {
       id: '/_layout/utilities'
       path: '/utilities'
@@ -246,6 +281,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/collectives/'
       preLoaderRoute: typeof LayoutCollectivesIndexImport
       parentRoute: typeof LayoutCollectivesImport
+    }
+    '/_layout/referenda/': {
+      id: '/_layout/referenda/'
+      path: '/referenda'
+      fullPath: '/referenda'
+      preLoaderRoute: typeof LayoutReferendaIndexImport
+      parentRoute: typeof LayoutImport
     }
     '/_layout/utilities/': {
       id: '/_layout/utilities/'
@@ -382,20 +424,26 @@ interface LayoutRouteChildren {
   LayoutAssetsRoute: typeof LayoutAssetsRoute
   LayoutExplorerRoute: typeof LayoutExplorerRoute
   LayoutExtrinsicsRoute: typeof LayoutExtrinsicsRoute
+  LayoutParachainsRoute: typeof LayoutParachainsRoute
   LayoutQueriesRoute: typeof LayoutQueriesRoute
   LayoutAccountsRoute: typeof LayoutAccountsRouteWithChildren
   LayoutCollectivesRoute: typeof LayoutCollectivesRouteWithChildren
+  LayoutReferendaConcludedsRoute: typeof LayoutReferendaConcludedsRoute
   LayoutUtilitiesRoute: typeof LayoutUtilitiesRouteWithChildren
+  LayoutReferendaIndexRoute: typeof LayoutReferendaIndexRoute
 }
 
 const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutAssetsRoute: LayoutAssetsRoute,
   LayoutExplorerRoute: LayoutExplorerRoute,
   LayoutExtrinsicsRoute: LayoutExtrinsicsRoute,
+  LayoutParachainsRoute: LayoutParachainsRoute,
   LayoutQueriesRoute: LayoutQueriesRoute,
   LayoutAccountsRoute: LayoutAccountsRouteWithChildren,
   LayoutCollectivesRoute: LayoutCollectivesRouteWithChildren,
+  LayoutReferendaConcludedsRoute: LayoutReferendaConcludedsRoute,
   LayoutUtilitiesRoute: LayoutUtilitiesRouteWithChildren,
+  LayoutReferendaIndexRoute: LayoutReferendaIndexRoute,
 }
 
 const LayoutRouteWithChildren =
@@ -407,11 +455,14 @@ export interface FileRoutesByFullPath {
   '/assets': typeof LayoutAssetsRoute
   '/explorer': typeof LayoutExplorerRoute
   '/extrinsics': typeof LayoutExtrinsicsRoute
+  '/parachains': typeof LayoutParachainsRoute
   '/queries': typeof LayoutQueriesRoute
   '/accounts': typeof LayoutAccountsLayoutRouteWithChildren
   '/collectives': typeof LayoutCollectivesLayoutRouteWithChildren
+  '/referenda/concludeds': typeof LayoutReferendaConcludedsRoute
   '/utilities': typeof LayoutUtilitiesLayoutRouteWithChildren
   '/collectives/': typeof LayoutCollectivesIndexRoute
+  '/referenda': typeof LayoutReferendaIndexRoute
   '/utilities/': typeof LayoutUtilitiesIndexRoute
   '/accounts/validators': typeof LayoutAccountsLayoutValidatorsRoute
   '/collectives/ambassador': typeof LayoutCollectivesLayoutAmbassadorRoute
@@ -426,10 +477,13 @@ export interface FileRoutesByTo {
   '/assets': typeof LayoutAssetsRoute
   '/explorer': typeof LayoutExplorerRoute
   '/extrinsics': typeof LayoutExtrinsicsRoute
+  '/parachains': typeof LayoutParachainsRoute
   '/queries': typeof LayoutQueriesRoute
   '/accounts': typeof LayoutAccountsLayoutIndexRoute
   '/collectives': typeof LayoutCollectivesIndexRoute
+  '/referenda/concludeds': typeof LayoutReferendaConcludedsRoute
   '/utilities': typeof LayoutUtilitiesIndexRoute
+  '/referenda': typeof LayoutReferendaIndexRoute
   '/accounts/validators': typeof LayoutAccountsLayoutValidatorsRoute
   '/collectives/ambassador': typeof LayoutCollectivesLayoutAmbassadorRoute
   '/collectives/fellowship': typeof LayoutCollectivesLayoutFellowshipRoute
@@ -443,14 +497,17 @@ export interface FileRoutesById {
   '/_layout/assets': typeof LayoutAssetsRoute
   '/_layout/explorer': typeof LayoutExplorerRoute
   '/_layout/extrinsics': typeof LayoutExtrinsicsRoute
+  '/_layout/parachains': typeof LayoutParachainsRoute
   '/_layout/queries': typeof LayoutQueriesRoute
   '/_layout/accounts': typeof LayoutAccountsRouteWithChildren
   '/_layout/accounts/_layout': typeof LayoutAccountsLayoutRouteWithChildren
   '/_layout/collectives': typeof LayoutCollectivesRouteWithChildren
   '/_layout/collectives/_layout': typeof LayoutCollectivesLayoutRouteWithChildren
+  '/_layout/referenda/concludeds': typeof LayoutReferendaConcludedsRoute
   '/_layout/utilities': typeof LayoutUtilitiesRouteWithChildren
   '/_layout/utilities/_layout': typeof LayoutUtilitiesLayoutRouteWithChildren
   '/_layout/collectives/': typeof LayoutCollectivesIndexRoute
+  '/_layout/referenda/': typeof LayoutReferendaIndexRoute
   '/_layout/utilities/': typeof LayoutUtilitiesIndexRoute
   '/_layout/accounts/_layout/validators': typeof LayoutAccountsLayoutValidatorsRoute
   '/_layout/collectives/_layout/ambassador': typeof LayoutCollectivesLayoutAmbassadorRoute
@@ -467,11 +524,14 @@ export interface FileRouteTypes {
     | '/assets'
     | '/explorer'
     | '/extrinsics'
+    | '/parachains'
     | '/queries'
     | '/accounts'
     | '/collectives'
+    | '/referenda/concludeds'
     | '/utilities'
     | '/collectives/'
+    | '/referenda'
     | '/utilities/'
     | '/accounts/validators'
     | '/collectives/ambassador'
@@ -485,10 +545,13 @@ export interface FileRouteTypes {
     | '/assets'
     | '/explorer'
     | '/extrinsics'
+    | '/parachains'
     | '/queries'
     | '/accounts'
     | '/collectives'
+    | '/referenda/concludeds'
     | '/utilities'
+    | '/referenda'
     | '/accounts/validators'
     | '/collectives/ambassador'
     | '/collectives/fellowship'
@@ -500,14 +563,17 @@ export interface FileRouteTypes {
     | '/_layout/assets'
     | '/_layout/explorer'
     | '/_layout/extrinsics'
+    | '/_layout/parachains'
     | '/_layout/queries'
     | '/_layout/accounts'
     | '/_layout/accounts/_layout'
     | '/_layout/collectives'
     | '/_layout/collectives/_layout'
+    | '/_layout/referenda/concludeds'
     | '/_layout/utilities'
     | '/_layout/utilities/_layout'
     | '/_layout/collectives/'
+    | '/_layout/referenda/'
     | '/_layout/utilities/'
     | '/_layout/accounts/_layout/validators'
     | '/_layout/collectives/_layout/ambassador'
@@ -550,10 +616,13 @@ export const routeTree = rootRoute
         "/_layout/assets",
         "/_layout/explorer",
         "/_layout/extrinsics",
+        "/_layout/parachains",
         "/_layout/queries",
         "/_layout/accounts",
         "/_layout/collectives",
-        "/_layout/utilities"
+        "/_layout/referenda/concludeds",
+        "/_layout/utilities",
+        "/_layout/referenda/"
       ]
     },
     "/_layout/assets": {
@@ -566,6 +635,10 @@ export const routeTree = rootRoute
     },
     "/_layout/extrinsics": {
       "filePath": "_layout/extrinsics.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/parachains": {
+      "filePath": "_layout/parachains.tsx",
       "parent": "/_layout"
     },
     "/_layout/queries": {
@@ -603,6 +676,10 @@ export const routeTree = rootRoute
         "/_layout/collectives/_layout/fellowship"
       ]
     },
+    "/_layout/referenda/concludeds": {
+      "filePath": "_layout/referenda/concludeds.tsx",
+      "parent": "/_layout"
+    },
     "/_layout/utilities": {
       "filePath": "_layout/utilities",
       "parent": "/_layout",
@@ -621,6 +698,10 @@ export const routeTree = rootRoute
     "/_layout/collectives/": {
       "filePath": "_layout/collectives/index.tsx",
       "parent": "/_layout/collectives"
+    },
+    "/_layout/referenda/": {
+      "filePath": "_layout/referenda/index.tsx",
+      "parent": "/_layout"
     },
     "/_layout/utilities/": {
       "filePath": "_layout/utilities/index.tsx",

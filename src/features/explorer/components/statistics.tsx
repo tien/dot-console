@@ -9,8 +9,7 @@ import {
 } from "@reactive-dot/react";
 import { differenceInMilliseconds, formatDuration } from "date-fns";
 import { useEffect, useState } from "react";
-import { css, cx } from "styled-system/css";
-import { Heading } from "~/components/ui/heading";
+import { InfoHeader } from "~/components/info-header";
 
 export type StatisticsProps = {
   className?: string | undefined;
@@ -22,60 +21,21 @@ export function Statistics({ className }: StatisticsProps) {
   );
 
   return (
-    <section
-      className={cx(
-        className,
-        css({
-          display: "flex",
-          flexDirection: "column",
-          padding: "1rem",
-          "&>*": {
-            flex: 1,
-            padding: "0 1rem",
-          },
-          "@media(min-width: 68rem)": {
-            flexDirection: "row",
-            "&>*:not(:first-child)": {
-              borderLeft: "1px solid",
-            },
-          },
-        }),
-      )}
-    >
-      <article>
-        <header>
-          <Heading as="h3">Block time</Heading>
-        </header>
-        <div>
-          <BlockTime />
-        </div>
-      </article>
-      <article>
-        <header>
-          <Heading as="h3">Total issuance</Heading>
-        </header>
-        <div>
-          {useNativeTokenAmountFromPlanck(totalIssuance).toLocaleString()}
-        </div>
-      </article>
+    <InfoHeader className={className}>
+      <InfoHeader.Item title="Block time">
+        <BlockTime />
+      </InfoHeader.Item>
+      <InfoHeader.Item title="Total issuance">
+        {useNativeTokenAmountFromPlanck(totalIssuance).toLocaleString()}
+      </InfoHeader.Item>
       <TotalStaked />
-      <article>
-        <header>
-          <Heading as="h3">Last finalised block</Heading>
-        </header>
-        <div>
-          <FinalizedBlockNumber />
-        </div>
-      </article>
-      <article>
-        <header>
-          <Heading as="h3">Last best block</Heading>
-        </header>
-        <div>
-          <BestBlockNumber />
-        </div>
-      </article>
-    </section>
+      <InfoHeader.Item title="Last finalised block">
+        <FinalizedBlockNumber />
+      </InfoHeader.Item>
+      <InfoHeader.Item title="Last best block">
+        <BestBlockNumber />
+      </InfoHeader.Item>
+    </InfoHeader>
   );
 }
 
@@ -195,18 +155,13 @@ function TotalStaked() {
   );
 
   return (
-    <article>
-      <header>
-        <Heading as="h3">
-          Total staked {chainId !== stakingChainId && `@ relay-chain`}
-        </Heading>
-      </header>
-      <div>
-        {useNativeTokenAmountFromPlanck(
-          queryResult === idle ? 0n : queryResult[0] + queryResult[1],
-          { chainId: stakingChainId },
-        ).toLocaleString()}
-      </div>
-    </article>
+    <InfoHeader.Item
+      title={`Total staked ${chainId !== stakingChainId && `@ relay-chain`}`}
+    >
+      {useNativeTokenAmountFromPlanck(
+        queryResult === idle ? 0n : queryResult[0] + queryResult[1],
+        { chainId: stakingChainId },
+      ).toLocaleString()}
+    </InfoHeader.Item>
   );
 }

@@ -1,10 +1,12 @@
 import { defineConfig } from "@pandacss/dev";
 import { createPreset } from "@park-ui/panda-preset";
+import amber from "@park-ui/panda-preset/colors/amber";
 import blue from "@park-ui/panda-preset/colors/blue";
 import crimson from "@park-ui/panda-preset/colors/crimson";
 import green from "@park-ui/panda-preset/colors/green";
 import neutral from "@park-ui/panda-preset/colors/neutral";
 import red from "@park-ui/panda-preset/colors/red";
+import violet from "@park-ui/panda-preset/colors/violet";
 import yellow from "@park-ui/panda-preset/colors/yellow";
 
 export default defineConfig({
@@ -20,29 +22,54 @@ export default defineConfig({
     extend: {
       tokens: {
         colors: {
+          [red.name]: red.tokens,
           [green.name]: green.tokens,
           [blue.name]: blue.tokens,
           [yellow.name]: yellow.tokens,
-          [red.name]: red.tokens,
+          [amber.name]: amber.tokens,
           success: green.tokens,
           info: blue.tokens,
-          warning: yellow.tokens,
+          warning: amber.tokens,
           error: red.tokens,
+          violet: violet.tokens,
         },
       },
       semanticTokens: {
         colors: {
+          [red.name]: red.semanticTokens,
           [green.name]: green.semanticTokens,
           [blue.name]: blue.semanticTokens,
           [yellow.name]: yellow.semanticTokens,
-          [red.name]: red.semanticTokens,
+          [amber.name]: amber.semanticTokens,
           success: green.semanticTokens,
           info: blue.semanticTokens,
-          warning: yellow.semanticTokens,
+          warning: amber.semanticTokens,
           error: red.semanticTokens,
+          violet: violet.semanticTokens,
         },
       },
     },
+  },
+  staticCss: {
+    css: [
+      {
+        properties: {
+          colorPalette: [
+            "success",
+            "info",
+            "warning",
+            "error",
+            "violet",
+            "red",
+            "green",
+            "blue",
+            "yellow",
+            "amber",
+            "violet",
+          ],
+        },
+      },
+    ],
   },
   include: ["./src/**/*.{js,jsx,ts,tsx}"],
   jsxFramework: "react",

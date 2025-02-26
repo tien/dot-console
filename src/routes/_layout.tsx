@@ -214,6 +214,16 @@ function Layout() {
                   Assets
                 </RouterLink>
               </Link>
+              <Link asChild>
+                <RouterLink
+                  to="/referenda"
+                  activeProps={{
+                    className: css({ color: "colorPalette.default" }),
+                  }}
+                >
+                  Referenda
+                </RouterLink>
+              </Link>
               <CollectivesNavItem />
               <Link asChild>
                 <RouterLink
