@@ -7093,7 +7093,7 @@ __metadata:
     react-dom: "npm:^19.0.0"
     react-error-boundary: "npm:^5.0.0"
     react-intersection-observer: "npm:^9.15.1"
-    react-scan: "npm:^0.1.4"
+    react-scan: "npm:^0.2.4"
     react18-json-view: "npm:0.2.9"
     typescript: "npm:^5.7.3"
     typescript-eslint: "npm:^8.25.0"
@@ -10583,9 +10583,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-scan@npm:^0.1.4":
-  version: 0.1.4
-  resolution: "react-scan@npm:0.1.4"
+"react-scan@npm:^0.2.4":
+  version: 0.2.4
+  resolution: "react-scan@npm:0.2.4"
   dependencies:
     "@babel/core": "npm:^7.26.0"
     "@babel/generator": "npm:^7.26.2"
@@ -10626,7 +10626,7 @@ __metadata:
       optional: true
   bin:
     react-scan: bin/cli.js
-  checksum: 10c0/7856f4425efda371fbc11ecb1169becd420f9c4e3c9f26efe2a5841bf802a703d090c92567b4ef8912f7005832ded9cdbfcd14d8a7d1add84a3dc58a584c0c28
+  checksum: 10c0/1d1c66f5206c4057829f3b85e2808e13ed397a827dcbdc5e6a9f930e1d6a3594308afa78448ebb5b856dabf61c7507a5fdf2f82fcf859306a2e60b72a48fe9cb
   languageName: node
   linkType: hard
 
