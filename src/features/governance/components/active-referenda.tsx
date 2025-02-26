@@ -1,4 +1,4 @@
-import { useReferendumOffChainDiscussion } from "../utils";
+import { ReferendumDiscussionLink } from "./referendum-discussion-link";
 import type { PreimagesBounded } from ".papi/descriptors/dist";
 import { idle } from "@reactive-dot/core";
 import {
@@ -7,24 +7,26 @@ import {
   useTypedApi,
 } from "@reactive-dot/react";
 import CloseIcon from "@w3f/polkadot-icons/solid/Close";
-import { Suspense, use, useMemo } from "react";
+import { atom } from "jotai";
+import { useAtomValue } from "jotai-suspense";
+import type { Binary, ChainDefinition, TypedApi } from "polkadot-api";
+import { Suspense, use } from "react";
 import { css } from "styled-system/css";
 import { CircularProgressIndicator } from "~/components/circular-progress-indicator";
 import { CodecView } from "~/components/codec-view";
-import { InfoHeader } from "~/components/info-header";
 import { Badge } from "~/components/ui/badge";
 import { Code } from "~/components/ui/code";
 import { Dialog } from "~/components/ui/dialog";
 import { Heading } from "~/components/ui/heading";
 import { HoverCard } from "~/components/ui/hover-card";
 import { IconButton } from "~/components/ui/icon-button";
-import { Link } from "~/components/ui/link";
 import * as Progress from "~/components/ui/styled/progress";
 import { Table } from "~/components/ui/table";
-import { Text } from "~/components/ui/text";
 import { AccountListItem } from "~/features/accounts/components/account-list-item";
 import { useGovernanceChainId } from "~/hooks/chain";
 import { range } from "~/utils";
+import { atomFamily } from "~/utils/atom-family";
+import { objectId } from "~/utils/object-id";
 
 export function ActiveReferenda() {
   const [referendumCount, decidingCount] = useLazyLoadQuery(
@@ -69,39 +71,29 @@ export function ActiveReferenda() {
   );
 
   return (
-    <section>
-      <InfoHeader>
-        <InfoHeader.Item title="Active Referenda">
-          {activeReferendumCount.toLocaleString()}
-        </InfoHeader.Item>
-        <InfoHeader.Item title="Total Referenda">
-          {referendumCount.toLocaleString()}
-        </InfoHeader.Item>
-      </InfoHeader>
-      <Table.Root>
-        <Table.Head>
-          <Table.Row>
-            <Table.Header>Number</Table.Header>
-            <Table.Header>Submitted at</Table.Header>
-            <Table.Header>Proposer</Table.Header>
-            <Table.Header>Proposed</Table.Header>
-            <Table.Header>Discussion</Table.Header>
-            <Table.Header>Status</Table.Header>
-            <Table.Header>Tally</Table.Header>
-          </Table.Row>
-        </Table.Head>
-        <Table.Body>
-          {Object.entries(activeRefByTrack).map(([trackNumber, refs]) => (
-            <Suspense key={trackNumber}>
-              <ReferendaTrack
-                number={Number(trackNumber)}
-                refNumbers={refs?.map((ref) => ref.number) ?? []}
-              />
-            </Suspense>
-          ))}
-        </Table.Body>
-      </Table.Root>
-    </section>
+    <Table.Root>
+      <Table.Head>
+        <Table.Row>
+          <Table.Header>Number</Table.Header>
+          <Table.Header>Submitted at</Table.Header>
+          <Table.Header>Proposer</Table.Header>
+          <Table.Header>Proposed</Table.Header>
+          <Table.Header>Discussion</Table.Header>
+          <Table.Header>Status</Table.Header>
+          <Table.Header>Tally</Table.Header>
+        </Table.Row>
+      </Table.Head>
+      <Table.Body>
+        {Object.entries(activeRefByTrack).map(([trackNumber, refs]) => (
+          <Suspense key={trackNumber}>
+            <ReferendaTrack
+              number={Number(trackNumber)}
+              refNumbers={refs?.map((ref) => ref.number) ?? []}
+            />
+          </Suspense>
+        ))}
+      </Table.Body>
+    </Table.Root>
   );
 }
 
@@ -167,7 +159,7 @@ function ReferendumRow({ number }: ReferendumProps) {
             </Suspense>
           </Table.Cell>
           <Table.Cell>
-            <ReferendumDiscussion number={number} />
+            <ReferendumDiscussionLink number={number} />
           </Table.Cell>
           <Table.Cell>
             <Badge
@@ -307,12 +299,8 @@ function ReferendaCall({ proposal }: ReferendaCallProps) {
         ? undefined
         : storagePreimage;
 
-  const callPromise = useMemo(
-    () =>
-      preimage === undefined
-        ? undefined
-        : api.txFromCallData(preimage).then((tx) => tx.decodedCall),
-    [api, preimage],
+  const callPromise = useAtomValue(
+    preimage === undefined ? atom(undefined) : callDataAtom(preimage, api),
   );
 
   if (callPromise === undefined) {
@@ -321,6 +309,12 @@ function ReferendaCall({ proposal }: ReferendaCallProps) {
 
   return <SuspendableReferendumCall callPromise={callPromise} />;
 }
+
+const callDataAtom = atomFamily(
+  (preimage: Binary, api: TypedApi<ChainDefinition>) =>
+    atom(() => api.txFromCallData(preimage).then((tx) => tx.decodedCall)),
+  (preimage, api) => [preimage.asHex(), objectId(api)].join(),
+);
 
 type SuspendableReferendumCallProps = {
   callPromise: Promise<{
@@ -364,30 +358,5 @@ function SuspendableReferendumCall({
         </Dialog.Content>
       </Dialog.Positioner>
     </Dialog.Root>
-  );
-}
-
-function ReferendumDiscussion({ number }: ReferendumProps) {
-  return (
-    <Suspense fallback={<CircularProgressIndicator />}>
-      <SuspendableReferndumDiscussion
-        dataPromise={useReferendumOffChainDiscussion(number)}
-      />
-    </Suspense>
-  );
-}
-
-type SuspendableReferndumDiscussionProps = {
-  dataPromise: ReturnType<typeof useReferendumOffChainDiscussion>;
-};
-
-function SuspendableReferndumDiscussion({
-  dataPromise,
-}: SuspendableReferndumDiscussionProps) {
-  const data = use(dataPromise);
-  return (
-    <Link href={data.url.toString()} target="_blank">
-      {data.title || <Text color="warning.text">NO TITLE</Text>}
-    </Link>
   );
 }

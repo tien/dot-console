@@ -1,5 +1,10 @@
+import { useReferendumOffChainDiscussion } from "../hooks/use-referendum-off-chain-discussion";
+import { SuspendableReferndumDiscussionLink } from "./referendum-discussion-link";
 import { useLazyLoadQuery } from "@reactive-dot/react";
 import { Suspense } from "react";
+import { useInView } from "react-intersection-observer";
+import { Center } from "styled-system/jsx";
+import { CircularProgressIndicator } from "~/components/circular-progress-indicator";
 import { Badge } from "~/components/ui/badge";
 import { Table } from "~/components/ui/table";
 import { AccountListItem } from "~/features/accounts/components/account-list-item";
@@ -34,30 +39,52 @@ export function ConcludedReferenda() {
           <Table.Cell>Referendum</Table.Cell>
           <Table.Cell>Concluded at</Table.Cell>
           <Table.Cell>Proposer</Table.Cell>
+          <Table.Cell>Discussion</Table.Cell>
           <Table.Cell>Outcome</Table.Cell>
         </Table.Row>
       </Table.Head>
       <Table.Body>
         {concludedRange.map((number) => (
-          <Suspense key={number}>
-            <ConcludedReferendaItem number={number} />
-          </Suspense>
+          <LazyReferendumItem key={number} number={number} />
         ))}
       </Table.Body>
     </Table.Root>
   );
 }
 
-type ConcludedReferendaItemProps = {
+type ReferendumProps = {
   number: number;
 };
 
-function ConcludedReferendaItem({ number }: ConcludedReferendaItemProps) {
+function LazyReferendumItem({ number }: ReferendumProps) {
+  const [ref, inView] = useInView({ triggerOnce: true, delay: 100 });
+
+  const fallback = (
+    <Table.Row ref={ref}>
+      <Table.Cell>{number.toLocaleString()}</Table.Cell>
+      <Table.Cell colSpan={4}>
+        <Center>
+          <CircularProgressIndicator />
+        </Center>
+      </Table.Cell>
+    </Table.Row>
+  );
+
+  return (
+    <Suspense key={number} fallback={fallback}>
+      {!inView ? fallback : <ConcludedReferendumItem number={number} />}
+    </Suspense>
+  );
+}
+
+function ConcludedReferendumItem({ number }: ReferendumProps) {
   const info = useLazyLoadQuery(
     (builder) =>
       builder.readStorage("Referenda", "ReferendumInfoFor", [number]),
     { chainId: useGovernanceChainId() },
   );
+
+  const offChainData = useReferendumOffChainDiscussion(number);
 
   switch (info?.type) {
     case "Ongoing":
@@ -81,6 +108,9 @@ function ConcludedReferendaItem({ number }: ConcludedReferendaItemProps) {
             {proposer === undefined ? undefined : (
               <AccountListItem address={proposer.who} />
             )}
+          </Table.Cell>
+          <Table.Cell>
+            <SuspendableReferndumDiscussionLink dataPromise={offChainData} />
           </Table.Cell>
           <Table.Cell>
             <Badge
