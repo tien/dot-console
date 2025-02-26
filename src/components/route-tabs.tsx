@@ -1,3 +1,4 @@
+import { Badge } from "./ui/badge";
 import {
   Link,
   Outlet,
@@ -33,12 +34,21 @@ export const RouteTabs = Object.assign(
 type RouteTabsItemProps = {
   to: NonNullable<LinkProps["to"]>;
   label: ReactNode;
+  badge?: ReactNode;
 };
 
-function RouteTabsItem({ to, label }: RouteTabsItemProps) {
+function RouteTabsItem({ to, label, badge }: RouteTabsItemProps) {
   return (
     <Tabs.Trigger value={to} asChild>
-      <Link to={to}>{label}</Link>
+      <Link to={to}>
+        {label}
+        {badge && (
+          <span className={css({ "&:has(> div:empty)": { display: "none" } })}>
+            {" "}
+            <Badge>{badge}</Badge>
+          </span>
+        )}
+      </Link>
     </Tabs.Trigger>
   );
 }

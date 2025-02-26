@@ -75,7 +75,9 @@ export function ActiveReferenda() {
       <Table.Head>
         <Table.Row>
           <Table.Header>Number</Table.Header>
-          <Table.Header>Submitted at</Table.Header>
+          <Table.Header className={css({ whiteSpace: "nowrap" })}>
+            Submitted at
+          </Table.Header>
           <Table.Header>Proposer</Table.Header>
           <Table.Header>Proposed</Table.Header>
           <Table.Header>Discussion</Table.Header>
