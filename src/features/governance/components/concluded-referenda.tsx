@@ -78,13 +78,13 @@ function LazyReferendumItem({ number }: ReferendumProps) {
 }
 
 function ConcludedReferendumItem({ number }: ReferendumProps) {
+  const offChainData = useReferendumOffChainDiscussion(number);
+
   const info = useLazyLoadQuery(
     (builder) =>
       builder.readStorage("Referenda", "ReferendumInfoFor", [number]),
     { chainId: useGovernanceChainId() },
   );
-
-  const offChainData = useReferendumOffChainDiscussion(number);
 
   switch (info?.type) {
     case "Ongoing":
