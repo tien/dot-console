@@ -1,7 +1,7 @@
 import { useReferendumOffChainDiscussion } from "../hooks/use-referendum-off-chain-discussion";
 import { SuspendableReferndumDiscussionLink } from "./referendum-discussion-link";
 import { useLazyLoadQuery } from "@reactive-dot/react";
-import { Suspense } from "react";
+import { Suspense, use } from "react";
 import { useInView } from "react-intersection-observer";
 import { Center } from "styled-system/jsx";
 import { CircularProgressIndicator } from "~/components/circular-progress-indicator";
@@ -37,7 +37,7 @@ export function ConcludedReferenda() {
       <Table.Head>
         <Table.Row>
           <Table.Cell>Referendum</Table.Cell>
-          <Table.Cell>Concluded at</Table.Cell>
+          <Table.Cell whiteSpace="nowrap">Concluded at</Table.Cell>
           <Table.Cell>Proposer</Table.Cell>
           <Table.Cell>Discussion</Table.Cell>
           <Table.Cell>Outcome</Table.Cell>
@@ -62,7 +62,7 @@ function LazyReferendumItem({ number }: ReferendumProps) {
   const fallback = (
     <Table.Row ref={ref}>
       <Table.Cell>{number.toLocaleString()}</Table.Cell>
-      <Table.Cell colSpan={4}>
+      <Table.Cell colSpan={4} display={inView ? undefined : "none"}>
         <Center>
           <CircularProgressIndicator />
         </Center>
@@ -105,9 +105,13 @@ function ConcludedReferendumItem({ number }: ReferendumProps) {
           <Table.Cell>{number.toLocaleString()}</Table.Cell>
           <Table.Cell>{at.toLocaleString()}</Table.Cell>
           <Table.Cell>
-            {proposer === undefined ? undefined : (
-              <AccountListItem address={proposer.who} />
-            )}
+            <AccountListItem
+              address={
+                proposer === undefined
+                  ? use(offChainData).proposer
+                  : proposer.who
+              }
+            />
           </Table.Cell>
           <Table.Cell>
             <SuspendableReferndumDiscussionLink dataPromise={offChainData} />

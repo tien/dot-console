@@ -28,7 +28,11 @@ const offchainDiscussionDataAtom = atomFamily(
       return fetch(new URL(`/api/gov2/referendums/${referendaNumber}`, baseUrl))
         .then(
           (response) =>
-            response.json() as Promise<{ title: string; content: string }>,
+            response.json() as Promise<{
+              title: string;
+              content: string;
+              proposer: string;
+            }>,
         )
         .then((data) => ({
           ...data,
