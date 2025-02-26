@@ -196,7 +196,12 @@ type TallyProps = { ayes: bigint; nays: bigint; support: bigint };
 function Tally({ ayes: _ayes, nays: _nays, support: _support }: TallyProps) {
   const ayes = useNativeTokenAmountFromPlanck(_ayes);
   const nays = useNativeTokenAmountFromPlanck(_nays);
-  const ayesPercent = ayes.valueOf() / (ayes.valueOf() + nays.valueOf());
+  const ayesPercent =
+    ayes.planck === 0n && nays.planck === 0n
+      ? 0.5
+      : ayes.planck === 0n
+        ? 0
+        : ayes.valueOf() / (ayes.valueOf() + nays.valueOf());
 
   const support = useNativeTokenAmountFromPlanck(_support);
 
@@ -210,11 +215,7 @@ function Tally({ ayes: _ayes, nays: _nays, support: _support }: TallyProps) {
             "&>*": { gridArea: "this" },
           })}
         >
-          <Progress.Root
-            value={ayesPercent * 100}
-            min={0}
-            max={ayes.planck === 0n && nays.planck === 0n ? 0 : 100}
-          >
+          <Progress.Root value={ayesPercent * 100} min={0} max={100}>
             <Progress.Track backgroundColor="error.default">
               <Progress.Range colorPalette="success" />
             </Progress.Track>
