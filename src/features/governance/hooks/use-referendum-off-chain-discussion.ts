@@ -32,6 +32,16 @@ const offchainDiscussionDataAtom = atomFamily(
               title: string;
               content: string;
               proposer: string;
+              onchainData: {
+                tally: {
+                  ayes: number | string;
+                  nays: number | string;
+                  support: number | string;
+                };
+                proposal?: {
+                  call: { section: string; method: string; args: unknown[] };
+                };
+              };
             }>,
         )
         .then((data) => ({
