@@ -40,9 +40,8 @@ export function PrimitiveParam({
   onChangeValue,
 }: PrimitiveParamProps) {
   const [value, setValue] = useState(
-    (defaultValue?.value.toString() ?? primitive.codec === "bool")
-      ? String(false)
-      : "",
+    defaultValue?.value.toString() ??
+      (primitive.codec === "bool" ? String(false) : ""),
   );
 
   const commonProps = useMemo(
