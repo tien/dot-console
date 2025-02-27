@@ -111,7 +111,12 @@ export function PrimitiveParam({
       case "i128":
       case "u256":
       case "i256": {
-        const bn = BigInt(value);
+        let bn;
+        try {
+          bn = BigInt(value);
+        } catch {
+          return INVALID;
+        }
 
         const { min, max } = commonNumberProps(primitive.codec);
 
