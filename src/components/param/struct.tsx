@@ -2,7 +2,7 @@ import { FormLabel } from "../ui/form-label";
 import { CodecParam } from "./codec";
 import { INCOMPLETE, INVALID, type ParamProps } from "./common";
 import type { StructDecoded, StructShape } from "@polkadot-api/view-builder";
-import { useEffect, useMemo, useState } from "react";
+import { useStateRef } from "~/hooks/use-state-ref";
 
 export type StructParamProps<T extends Record<string, unknown>> =
   ParamProps<T> & {
@@ -26,33 +26,23 @@ function INTERNAL_StructParam<T extends Record<string, unknown>>({
   defaultValue,
   onChangeValue,
 }: StructParamProps<T>) {
-  const [struct, setStruct] = useState(
+  const setStruct = useStateRef(
     Object.fromEntries(
       Object.keys(structShape.shape).map((key) => [key, INCOMPLETE] as const),
     ) as unknown as T,
-  );
+    (struct) => {
+      const values = Object.values(struct);
 
-  const derivedStruct = useMemo(() => {
-    const values = Object.values(struct);
+      if (values.some((value) => value === INVALID)) {
+        return onChangeValue(INVALID);
+      }
 
-    if (values.some((value) => value === INVALID)) {
-      return INVALID;
-    }
+      if (values.some((value) => value === INCOMPLETE)) {
+        return onChangeValue(INCOMPLETE);
+      }
 
-    if (values.some((value) => value === INCOMPLETE)) {
-      return INCOMPLETE;
-    }
-
-    return struct;
-  }, [struct]);
-
-  useEffect(
-    () => {
-      onChangeValue(derivedStruct);
+      onChangeValue(struct);
     },
-    // eslint-disable-next-line react-compiler/react-compiler
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [derivedStruct],
   );
 
   return (

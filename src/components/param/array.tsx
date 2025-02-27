@@ -6,8 +6,8 @@ import {
   type ParamProps,
 } from "./common";
 import type { ArrayDecoded, ArrayShape } from "@polkadot-api/view-builder";
-import { useEffect, useMemo, useState } from "react";
 import { css } from "styled-system/css";
+import { useStateRef } from "~/hooks/use-state-ref";
 
 export type ArrayParamProps<T> = ParamProps<T[]> & {
   array: ArrayShape;
@@ -23,29 +23,18 @@ function INTERNAL_ArrayParam<T>({
   defaultValue,
   onChangeValue,
 }: ArrayParamProps<T>) {
-  const [array, setArray] = useState(
+  const setArray = useStateRef(
     Array.from<ParamInput<T>>({
       length: arrayShape.len,
     }).fill(INCOMPLETE),
-  );
-
-  const derivedArray = useMemo(
-    () =>
-      array.some((value) => value === INVALID)
-        ? INVALID
-        : array.some((value) => value === INCOMPLETE)
-          ? INCOMPLETE
-          : (array as T[]),
-    [array],
-  );
-
-  useEffect(
-    () => {
-      onChangeValue(derivedArray);
-    },
-    // eslint-disable-next-line react-compiler/react-compiler
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [derivedArray],
+    (array) =>
+      onChangeValue(
+        array.some((value) => value === INVALID)
+          ? INVALID
+          : array.some((value) => value === INCOMPLETE)
+            ? INCOMPLETE
+            : (array as T[]),
+      ),
   );
 
   return (

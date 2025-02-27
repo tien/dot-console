@@ -1,7 +1,7 @@
 import { CodecParam } from "./codec";
 import { INCOMPLETE, INVALID, type ParamProps } from "./common";
 import type { TupleDecoded, TupleShape } from "@polkadot-api/view-builder";
-import { useEffect, useMemo, useState } from "react";
+import { useStateRef } from "~/hooks/use-state-ref";
 
 export type TupleParamProps<T extends Array<unknown>> = ParamProps<T> & {
   tuple: TupleShape;
@@ -19,29 +19,18 @@ function INTERNAL_TupleParam<T extends Array<unknown>>({
   defaultValue,
   onChangeValue,
 }: TupleParamProps<T>) {
-  const [tuple, setTuple] = useState(
+  const setTuple = useStateRef(
     Array.from({
       length: tupleShape.shape.length,
     }).fill(INCOMPLETE) as T,
-  );
-
-  const derivedTuple = useMemo(
-    () =>
-      tuple.some((value) => value === INVALID)
-        ? INVALID
-        : tuple.some((value) => value === INCOMPLETE)
-          ? INCOMPLETE
-          : tuple,
-    [tuple],
-  );
-
-  useEffect(
-    () => {
-      onChangeValue(derivedTuple);
-    },
-    // eslint-disable-next-line react-compiler/react-compiler
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [derivedTuple],
+    (tuple) =>
+      onChangeValue(
+        tuple.some((value) => value === INVALID)
+          ? INVALID
+          : tuple.some((value) => value === INCOMPLETE)
+            ? INCOMPLETE
+            : tuple,
+      ),
   );
 
   return (
