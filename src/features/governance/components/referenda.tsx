@@ -11,14 +11,13 @@ import CloseIcon from "@w3f/polkadot-icons/solid/Close";
 import { atom } from "jotai";
 import { useAtomValue } from "jotai-suspense";
 import type { Binary, ChainDefinition, TypedApi } from "polkadot-api";
-import { startTransition, Suspense, use, useState } from "react";
+import { Suspense, use, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { useInView } from "react-intersection-observer";
 import { css } from "styled-system/css";
 import { Center } from "styled-system/jsx";
 import { CircularProgressIndicator } from "~/components/circular-progress-indicator";
 import { CodecView } from "~/components/codec-view";
-import { ForeverSuspense } from "~/components/forever-suspense";
 import { Badge } from "~/components/ui/badge";
 import { Code } from "~/components/ui/code";
 import { Dialog } from "~/components/ui/dialog";
@@ -103,7 +102,10 @@ function LazyReferendaRow({ number }: ReferendumProps) {
           }
         >
           {!inViewOnce ? (
-            <ForeverSuspense />
+            <>
+              <Table.Cell>{number.toLocaleString()}</Table.Cell>
+              <Table.Cell colSpan={6} />
+            </>
           ) : (
             <QueryOptionsProvider active={inView}>
               <ReferendumRow number={number} />
