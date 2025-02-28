@@ -7269,7 +7269,7 @@ __metadata:
     eslint-plugin-react-refresh: "npm:^0.4.19"
     jotai: "npm:^2.12.1"
     jotai-suspense: "npm:^0.4.1"
-    polkadot-api: "npm:^1.9.2"
+    polkadot-api: "npm:^1.9.3"
     prettier: "npm:^3.5.2"
     react: "npm:^19.0.0"
     react-dom: "npm:^19.0.0"
@@ -10484,9 +10484,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"polkadot-api@npm:^1.9.2":
-  version: 1.9.2
-  resolution: "polkadot-api@npm:1.9.2"
+"polkadot-api@npm:^1.9.3":
+  version: 1.9.3
+  resolution: "polkadot-api@npm:1.9.3"
   dependencies:
     "@polkadot-api/cli": "npm:0.11.1"
     "@polkadot-api/ink-contracts": "npm:0.2.5"
@@ -10512,7 +10512,7 @@ __metadata:
   bin:
     papi: bin/cli.mjs
     polkadot-api: bin/cli.mjs
-  checksum: 10c0/c86444eaf760a2c04829a954c11413b6f612d6f574632d3f9810fbae3e6146603daf11720d02156331514f67dc3e723f584161b2195ada3a8be4fe46eb425437
+  checksum: 10c0/f76862ae080841d207bbce1cf37b1efda785f34980bfcbaa7d158a5f99c31c68ec29d64a05d7955ed152b7a0e1059ef93eeb1b0cf921bf1e64640e7748e6f2c1
   languageName: node
   linkType: hard
 
