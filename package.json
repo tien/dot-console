@@ -33,7 +33,7 @@
     "@dnd-kit/sortable": "^10.0.0",
     "@polkadot-api/descriptors": "portal:.papi/descriptors",
     "@polkadot-api/view-builder": "^0.4.2",
-    "@reactive-dot/react": "^0.35.0",
+    "@reactive-dot/react": "^0.35.1",
     "@reactive-dot/wallet-ledger": "^0.16.26",
     "@reactive-dot/wallet-mimir": "^0.1.0",
     "@reactive-dot/wallet-walletconnect": "^0.17.6",
