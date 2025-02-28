@@ -199,7 +199,7 @@ function ReferendumRow({ number }: ReferendumProps) {
             />
           </Table.Cell>
           <Table.Cell>
-            {offChainData.onchainData.proposal === undefined ? (
+            {offChainData.onchainData.proposal?.call === undefined ? (
               <NoCalldata />
             ) : (
               <CallData

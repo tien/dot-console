@@ -39,7 +39,7 @@ const offchainDiscussionDataAtom = atomFamily(
                   support: number | string;
                 };
                 proposal?: {
-                  call: { section: string; method: string; args: unknown[] };
+                  call?: { section: string; method: string; args: unknown[] };
                 };
               };
             }>,
