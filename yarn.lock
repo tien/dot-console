@@ -3625,9 +3625,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rsbuild/core@npm:^1.2.12":
-  version: 1.2.12
-  resolution: "@rsbuild/core@npm:1.2.12"
+"@rsbuild/core@npm:^1.2.13":
+  version: 1.2.13
+  resolution: "@rsbuild/core@npm:1.2.13"
   dependencies:
     "@rspack/core": "npm:1.2.6"
     "@rspack/lite-tapable": "npm:~1.0.1"
@@ -3636,7 +3636,7 @@ __metadata:
     jiti: "npm:^2.4.2"
   bin:
     rsbuild: bin/rsbuild.js
-  checksum: 10c0/242da5149fa55b1b2c9e5b06c920e684ddf8079bb46f95a3df08c7ecd4ea9d4ddd0f873fa2c07a84e3449276511d65910d795e3dde55d2816a55597b939d09cc
+  checksum: 10c0/9469f12c47932a65a4e02e7ea911001f3e5b1339bdf8ff78c096d14a8e12e5f8388fbaef3e1e7ecda4bee9f366fd30b8fa4a37466e8641eace4f722d99c3e045
   languageName: node
   linkType: hard
 
@@ -6502,12 +6502,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-react-compiler@npm:19.0.0-beta-e552027-20250112":
-  version: 19.0.0-beta-e552027-20250112
-  resolution: "babel-plugin-react-compiler@npm:19.0.0-beta-e552027-20250112"
+"babel-plugin-react-compiler@npm:19.0.0-beta-e1e972c-20250221":
+  version: 19.0.0-beta-e1e972c-20250221
+  resolution: "babel-plugin-react-compiler@npm:19.0.0-beta-e1e972c-20250221"
   dependencies:
     "@babel/types": "npm:^7.19.0"
-  checksum: 10c0/f64c8f11b893b6bd355a8b3f20b4f15486cee18f98560f2df991abb315b4b037fbf6ccda832eede446fac6140a942e73984a6c5e7e8f5ea5fe1fb0b45d560482
+  checksum: 10c0/9a05a92fc27445c81b3d817258edde563e97975b765476178df29eafb99f3d62c9e1674e0e6bbec13fb0709c29bc464d99a83bd971b4b20f37c929e5866ebb5b
   languageName: node
   linkType: hard
 
@@ -7245,7 +7245,7 @@ __metadata:
     "@reactive-dot/wallet-ledger": "npm:^0.16.26"
     "@reactive-dot/wallet-mimir": "npm:^0.1.0"
     "@reactive-dot/wallet-walletconnect": "npm:^0.17.6"
-    "@rsbuild/core": "npm:^1.2.12"
+    "@rsbuild/core": "npm:^1.2.13"
     "@rsbuild/plugin-babel": "npm:^1.0.4"
     "@rsbuild/plugin-react": "npm:^1.1.1"
     "@tanstack/react-router": "npm:1.112.0"
@@ -7259,12 +7259,12 @@ __metadata:
     "@types/react": "npm:^19.0.10"
     "@types/react-dom": "npm:^19.0.4"
     "@w3f/polkadot-icons": "npm:^1.0.0"
-    babel-plugin-react-compiler: "npm:19.0.0-beta-e552027-20250112"
+    babel-plugin-react-compiler: "npm:19.0.0-beta-e1e972c-20250221"
     date-fns: "npm:^4.1.0"
     dot-connect: "npm:^0.15.0"
     dot-identicon: "npm:^0.1.0"
     eslint: "npm:^9.21.0"
-    eslint-plugin-react-compiler: "npm:19.0.0-beta-e552027-20250112"
+    eslint-plugin-react-compiler: "npm:19.0.0-beta-e1e972c-20250221"
     eslint-plugin-react-hooks: "npm:^5.1.0"
     eslint-plugin-react-refresh: "npm:^0.4.19"
     jotai: "npm:^2.12.1"
@@ -7822,9 +7822,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react-compiler@npm:19.0.0-beta-e552027-20250112":
-  version: 19.0.0-beta-e552027-20250112
-  resolution: "eslint-plugin-react-compiler@npm:19.0.0-beta-e552027-20250112"
+"eslint-plugin-react-compiler@npm:19.0.0-beta-e1e972c-20250221":
+  version: 19.0.0-beta-e1e972c-20250221
+  resolution: "eslint-plugin-react-compiler@npm:19.0.0-beta-e1e972c-20250221"
   dependencies:
     "@babel/core": "npm:^7.24.4"
     "@babel/parser": "npm:^7.24.4"
@@ -7834,7 +7834,7 @@ __metadata:
     zod-validation-error: "npm:^3.0.3"
   peerDependencies:
     eslint: ">=7"
-  checksum: 10c0/d54bb2def851f79d88376ef108d5f682c07de820c9561a09051a8a5f3a4dbff0c22c8d014ad5e88db5f4db27947a371f497a8b07ddc561575f1601e47e0df6e4
+  checksum: 10c0/99b2de9c741a1dad540caf93054aa47745d0699afd1233fda232d41909cb951420ca66350bc63e3ce70309db06d16cdedce7494bc7def3a1639f7af092501330
   languageName: node
   linkType: hard
 
