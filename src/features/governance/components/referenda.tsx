@@ -72,6 +72,7 @@ type ReferendumProps = {
 function LazyReferendaRow({ number }: ReferendumProps) {
   const [inViewOnce, setInViewOnce] = useState(false);
   const [ref, inView] = useInView({
+    delay: 100,
     onChange: (inView) => {
       if (inView) {
         setInViewOnce(true);
