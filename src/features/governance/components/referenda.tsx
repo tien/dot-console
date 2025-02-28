@@ -2,18 +2,23 @@ import { useReferendumOffChainDiscussion } from "../hooks/use-referendum-off-cha
 import { Tally } from "./tally";
 import type { PreimagesBounded } from ".papi/descriptors/dist";
 import { idle } from "@reactive-dot/core";
-import { useLazyLoadQuery, useTypedApi } from "@reactive-dot/react";
+import {
+  QueryOptionsProvider,
+  useLazyLoadQuery,
+  useTypedApi,
+} from "@reactive-dot/react";
 import CloseIcon from "@w3f/polkadot-icons/solid/Close";
 import { atom } from "jotai";
 import { useAtomValue } from "jotai-suspense";
 import type { Binary, ChainDefinition, TypedApi } from "polkadot-api";
-import { Suspense, use } from "react";
+import { startTransition, Suspense, use, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { useInView } from "react-intersection-observer";
 import { css } from "styled-system/css";
 import { Center } from "styled-system/jsx";
 import { CircularProgressIndicator } from "~/components/circular-progress-indicator";
 import { CodecView } from "~/components/codec-view";
+import { ForeverSuspense } from "~/components/forever-suspense";
 import { Badge } from "~/components/ui/badge";
 import { Code } from "~/components/ui/code";
 import { Dialog } from "~/components/ui/dialog";
@@ -66,32 +71,47 @@ type ReferendumProps = {
 };
 
 function LazyReferendaRow({ number }: ReferendumProps) {
-  const [ref, inView] = useInView({ triggerOnce: true, delay: 100 });
-
-  const fallback = (
-    <Table.Row ref={ref}>
-      <Table.Cell>{number.toLocaleString()}</Table.Cell>
-      <Table.Cell colSpan={6} display={inView ? undefined : "none"}>
-        <Center>
-          <CircularProgressIndicator />
-        </Center>
-      </Table.Cell>
-    </Table.Row>
-  );
+  const [inViewOnce, setInViewOnce] = useState(false);
+  const [ref, inView] = useInView({
+    onChange: (inView) => {
+      if (inView) {
+        setInViewOnce(true);
+      }
+    },
+  });
 
   return (
-    <ErrorBoundary
-      fallback={
-        <Table.Row>
-          <Table.Cell>{number.toLocaleString()}</Table.Cell>
-          <Table.Cell colSpan={6}>Failed to load referendum</Table.Cell>
-        </Table.Row>
-      }
-    >
-      <Suspense fallback={fallback}>
-        {!inView ? fallback : <ReferendumRow number={number} />}
-      </Suspense>
-    </ErrorBoundary>
+    <Table.Row ref={ref}>
+      <ErrorBoundary
+        fallback={
+          <>
+            <Table.Cell>{number.toLocaleString()}</Table.Cell>
+            <Table.Cell colSpan={6}>Failed to load referendum</Table.Cell>
+          </>
+        }
+      >
+        <Suspense
+          fallback={
+            <>
+              <Table.Cell>{number.toLocaleString()}</Table.Cell>
+              <Table.Cell colSpan={6}>
+                <Center>
+                  <CircularProgressIndicator />
+                </Center>
+              </Table.Cell>
+            </>
+          }
+        >
+          {!inViewOnce ? (
+            <ForeverSuspense />
+          ) : (
+            <QueryOptionsProvider active={inView}>
+              <ReferendumRow number={number} />
+            </QueryOptionsProvider>
+          )}
+        </Suspense>
+      </ErrorBoundary>
+    </Table.Row>
   );
 }
 
@@ -111,7 +131,7 @@ function ReferendumRow({ number }: ReferendumProps) {
   switch (info.type) {
     case "Ongoing":
       return (
-        <Table.Row>
+        <>
           <Table.Cell>{number.toLocaleString()}</Table.Cell>
           <Table.Cell>{info.value.submitted.toLocaleString()}</Table.Cell>
           <Table.Cell>
@@ -150,7 +170,7 @@ function ReferendumRow({ number }: ReferendumProps) {
               support={info.value.tally.support}
             />
           </Table.Cell>
-        </Table.Row>
+        </>
       );
     case "Approved":
     case "Cancelled":
@@ -165,7 +185,7 @@ function ReferendumRow({ number }: ReferendumProps) {
           : info.value;
 
       return (
-        <Table.Row>
+        <>
           <Table.Cell>{number.toLocaleString()}</Table.Cell>
           <Table.Cell>{at.toLocaleString()}</Table.Cell>
           <Table.Cell>
@@ -217,7 +237,7 @@ function ReferendumRow({ number }: ReferendumProps) {
               support={BigInt(offChainData.onchainData.tally.support)}
             />
           </Table.Cell>
-        </Table.Row>
+        </>
       );
     }
   }
