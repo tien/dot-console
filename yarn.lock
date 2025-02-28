@@ -3422,16 +3422,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@reactive-dot/react@npm:^0.35.0":
-  version: 0.35.0
-  resolution: "@reactive-dot/react@npm:0.35.0"
+"@reactive-dot/react@npm:^0.35.1":
+  version: 0.35.1
+  resolution: "@reactive-dot/react@npm:0.35.1"
   dependencies:
     "@reactive-dot/core": "npm:^0.34.0"
     jotai: "npm:^2.12.1"
     jotai-effect: "npm:^2.0.1"
   peerDependencies:
     react: 19.x
-  checksum: 10c0/a346b7ee2b8dd776946a40bb2ea581744fa63bb7f786bb2739941edb089a75aa824af7f76a244cf78824953374d6481bee6a89d0c8b8b1fb776c6ca4838508ef
+  checksum: 10c0/c9a7d5a77c7d725282d00af31ddea76cc81c2e47372348546e3f56f06d2c1c5cc9cc6c2bd9ef5a9e1fecc88d5bf6fef137654b317c5a09d23f7b82f8b24b2246
   languageName: node
   linkType: hard
 
@@ -6502,12 +6502,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-react-compiler@npm:19.0.0-beta-e1e972c-20250221":
-  version: 19.0.0-beta-e1e972c-20250221
-  resolution: "babel-plugin-react-compiler@npm:19.0.0-beta-e1e972c-20250221"
+"babel-plugin-react-compiler@npm:19.0.0-beta-e552027-20250112":
+  version: 19.0.0-beta-e552027-20250112
+  resolution: "babel-plugin-react-compiler@npm:19.0.0-beta-e552027-20250112"
   dependencies:
     "@babel/types": "npm:^7.19.0"
-  checksum: 10c0/9a05a92fc27445c81b3d817258edde563e97975b765476178df29eafb99f3d62c9e1674e0e6bbec13fb0709c29bc464d99a83bd971b4b20f37c929e5866ebb5b
+  checksum: 10c0/f64c8f11b893b6bd355a8b3f20b4f15486cee18f98560f2df991abb315b4b037fbf6ccda832eede446fac6140a942e73984a6c5e7e8f5ea5fe1fb0b45d560482
   languageName: node
   linkType: hard
 
@@ -7241,7 +7241,7 @@ __metadata:
     "@park-ui/panda-preset": "npm:^0.43.1"
     "@polkadot-api/descriptors": "portal:.papi/descriptors"
     "@polkadot-api/view-builder": "npm:^0.4.2"
-    "@reactive-dot/react": "npm:^0.35.0"
+    "@reactive-dot/react": "npm:^0.35.1"
     "@reactive-dot/wallet-ledger": "npm:^0.16.26"
     "@reactive-dot/wallet-mimir": "npm:^0.1.0"
     "@reactive-dot/wallet-walletconnect": "npm:^0.17.6"
@@ -7259,17 +7259,17 @@ __metadata:
     "@types/react": "npm:^19.0.10"
     "@types/react-dom": "npm:^19.0.4"
     "@w3f/polkadot-icons": "npm:^1.0.0"
-    babel-plugin-react-compiler: "npm:19.0.0-beta-e1e972c-20250221"
+    babel-plugin-react-compiler: "npm:19.0.0-beta-e552027-20250112"
     date-fns: "npm:^4.1.0"
     dot-connect: "npm:^0.15.0"
     dot-identicon: "npm:^0.1.0"
     eslint: "npm:^9.21.0"
-    eslint-plugin-react-compiler: "npm:19.0.0-beta-e1e972c-20250221"
+    eslint-plugin-react-compiler: "npm:19.0.0-beta-e552027-20250112"
     eslint-plugin-react-hooks: "npm:^5.1.0"
     eslint-plugin-react-refresh: "npm:^0.4.19"
     jotai: "npm:^2.12.1"
     jotai-suspense: "npm:^0.4.1"
-    polkadot-api: "npm:^1.9.2"
+    polkadot-api: "npm:^1.9.3"
     prettier: "npm:^3.5.2"
     react: "npm:^19.0.0"
     react-dom: "npm:^19.0.0"
@@ -7822,9 +7822,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react-compiler@npm:19.0.0-beta-e1e972c-20250221":
-  version: 19.0.0-beta-e1e972c-20250221
-  resolution: "eslint-plugin-react-compiler@npm:19.0.0-beta-e1e972c-20250221"
+"eslint-plugin-react-compiler@npm:19.0.0-beta-e552027-20250112":
+  version: 19.0.0-beta-e552027-20250112
+  resolution: "eslint-plugin-react-compiler@npm:19.0.0-beta-e552027-20250112"
   dependencies:
     "@babel/core": "npm:^7.24.4"
     "@babel/parser": "npm:^7.24.4"
@@ -7834,7 +7834,7 @@ __metadata:
     zod-validation-error: "npm:^3.0.3"
   peerDependencies:
     eslint: ">=7"
-  checksum: 10c0/99b2de9c741a1dad540caf93054aa47745d0699afd1233fda232d41909cb951420ca66350bc63e3ce70309db06d16cdedce7494bc7def3a1639f7af092501330
+  checksum: 10c0/d54bb2def851f79d88376ef108d5f682c07de820c9561a09051a8a5f3a4dbff0c22c8d014ad5e88db5f4db27947a371f497a8b07ddc561575f1601e47e0df6e4
   languageName: node
   linkType: hard
 
@@ -10484,9 +10484,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"polkadot-api@npm:^1.9.2":
-  version: 1.9.2
-  resolution: "polkadot-api@npm:1.9.2"
+"polkadot-api@npm:^1.9.3":
+  version: 1.9.3
+  resolution: "polkadot-api@npm:1.9.3"
   dependencies:
     "@polkadot-api/cli": "npm:0.11.1"
     "@polkadot-api/ink-contracts": "npm:0.2.5"
@@ -10512,7 +10512,7 @@ __metadata:
   bin:
     papi: bin/cli.mjs
     polkadot-api: bin/cli.mjs
-  checksum: 10c0/c86444eaf760a2c04829a954c11413b6f612d6f574632d3f9810fbae3e6146603daf11720d02156331514f67dc3e723f584161b2195ada3a8be4fe46eb425437
+  checksum: 10c0/f76862ae080841d207bbce1cf37b1efda785f34980bfcbaa7d158a5f99c31c68ec29d64a05d7955ed152b7a0e1059ef93eeb1b0cf921bf1e64640e7748e6f2c1
   languageName: node
   linkType: hard
 
