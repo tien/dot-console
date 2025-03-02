@@ -5,7 +5,7 @@ import { StorageForm } from "../../components/storage-form";
 import type { Query } from "../../types";
 import { createFileRoute } from "@tanstack/react-router";
 import { atom, useAtom } from "jotai";
-import { Suspense } from "react";
+import { Suspense, useRef } from "react";
 import { css } from "styled-system/css";
 import { Heading } from "~/components/ui/heading";
 import { Progress } from "~/components/ui/progress";
@@ -19,7 +19,24 @@ export const Route = createFileRoute("/_layout/queries")({
 const queriesAtom = atom([] as Query[]);
 
 function QueryPage() {
-  const [queries, setQueries] = useAtom(queriesAtom);
+  const queriesContainerRef = useRef<HTMLElement>(null);
+  const [queries, _setQueries] = useAtom(queriesAtom);
+
+  const addQuery = (query: Query) => {
+    _setQueries((queries) => [...queries, query]);
+    queriesContainerRef.current?.scroll({ top: 0, behavior: "smooth" });
+  };
+
+  const deleteQuery = (query: Query) => {
+    _setQueries((queries) =>
+      queries
+        .with(
+          queries.findIndex((stateQuery) => stateQuery.id === query.id),
+          undefined as unknown as Query,
+        )
+        .filter((query) => query !== undefined),
+    );
+  };
 
   const tabOptions = [
     { id: "storage", label: "Storage" },
@@ -89,37 +106,26 @@ function QueryPage() {
                 value="storage"
                 className={css({ display: "contents" })}
               >
-                <StorageForm
-                  onAddQuery={(query) =>
-                    setQueries((queries) => [...queries, query])
-                  }
-                />
+                <StorageForm onAddQuery={addQuery} />
               </Tabs.Content>
               <Tabs.Content
                 value="constants"
                 className={css({ display: "contents" })}
               >
-                <ConstantQueryForm
-                  onAddQuery={(query) =>
-                    setQueries((queries) => [...queries, query])
-                  }
-                />
+                <ConstantQueryForm onAddQuery={addQuery} />
               </Tabs.Content>
               <Tabs.Content
                 value="apis"
                 className={css({ display: "contents" })}
               >
-                <RuntimeApiForm
-                  onAddQuery={(query) =>
-                    setQueries((queries) => [...queries, query])
-                  }
-                />
+                <RuntimeApiForm onAddQuery={addQuery} />
               </Tabs.Content>
             </div>
           </Tabs.Root>
         </Suspense>
       </aside>
       <section
+        ref={queriesContainerRef}
         className={css({
           flex: 1,
           display: "flex",
@@ -157,18 +163,7 @@ function QueryPage() {
               >
                 <QueryResult
                   query={query}
-                  onDelete={() =>
-                    setQueries((queries) =>
-                      queries
-                        .with(
-                          queries.findIndex(
-                            (stateQuery) => stateQuery.id === query.id,
-                          ),
-                          undefined as unknown as Query,
-                        )
-                        .filter((query) => query !== undefined),
-                    )
-                  }
+                  onDelete={() => deleteQuery(query)}
                 />
               </Suspense>
             ))}
