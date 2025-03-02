@@ -8,6 +8,11 @@ import {
   useTypedApi,
 } from "@reactive-dot/react";
 import CloseIcon from "@w3f/polkadot-icons/solid/Close";
+import {
+  differenceInDays,
+  intlFormatDistance,
+  subMilliseconds,
+} from "date-fns";
 import { atom } from "jotai";
 import { useAtomValue } from "jotai-suspense";
 import type { Binary, ChainDefinition, TypedApi } from "polkadot-api";
@@ -21,7 +26,6 @@ import { CodecView } from "~/components/codec-view";
 import { Badge } from "~/components/ui/badge";
 import { Code } from "~/components/ui/code";
 import { Dialog } from "~/components/ui/dialog";
-import { Heading } from "~/components/ui/heading";
 import { IconButton } from "~/components/ui/icon-button";
 import { Link } from "~/components/ui/link";
 import { Table } from "~/components/ui/table";
@@ -44,16 +48,21 @@ export function ReferendaTable() {
       <Table.Head>
         <Table.Row className={css({ "&>th": { whiteSpace: "nowrap" } })}>
           <Table.Header>Number</Table.Header>
-          <Table.Header>Submitted at</Table.Header>
+          <Table.Header>Status</Table.Header>
+          <Table.Header>Since</Table.Header>
+          <Table.Header>Discussion</Table.Header>
           <Table.Header>Proposer</Table.Header>
           <Table.Header>Proposed</Table.Header>
-          <Table.Header>Discussion</Table.Header>
-          <Table.Header>Status</Table.Header>
           <Table.Header minWidth="6rem">Tally</Table.Header>
         </Table.Row>
       </Table.Head>
       <Table.Body
-        className={css({ "&> tr > td:nth-child(3)": { maxWidth: "16rem" } })}
+        className={css({
+          "&> tr": {
+            "&> td:nth-child(3)": { whiteSpace: "nowrap" },
+            "&> td:nth-last-child(3)": { maxWidth: "16rem" },
+          },
+        })}
       >
         {range(0, referendumCount)
           .toReversed()
@@ -136,18 +145,6 @@ function ReferendumRow({ number }: ReferendumProps) {
       return (
         <>
           <Table.Cell>{number.toLocaleString()}</Table.Cell>
-          <Table.Cell>{info.value.submitted.toLocaleString()}</Table.Cell>
-          <Table.Cell>
-            <AccountListItem address={info.value.submission_deposit.who} />
-          </Table.Cell>
-          <Table.Cell>
-            <ReferendaCall proposal={info.value.proposal} />
-          </Table.Cell>
-          <Table.Cell>
-            <ReferendumDiscussionLink
-              offChainDataPromise={offChainDataPromise}
-            />
-          </Table.Cell>
           <Table.Cell>
             <Badge
               variant="solid"
@@ -165,6 +162,20 @@ function ReferendumRow({ number }: ReferendumProps) {
                   ? "Confirming"
                   : "Deciding"}
             </Badge>
+          </Table.Cell>
+          <Table.Cell>
+            <SubmissionDate blockNumber={info.value.submitted} />
+          </Table.Cell>
+          <Table.Cell>
+            <ReferendumDiscussionLink
+              offChainDataPromise={offChainDataPromise}
+            />
+          </Table.Cell>
+          <Table.Cell>
+            <AccountListItem address={info.value.submission_deposit.who} />
+          </Table.Cell>
+          <Table.Cell>
+            <ReferendaCall proposal={info.value.proposal} />
           </Table.Cell>
           <Table.Cell>
             <Tally
@@ -190,30 +201,6 @@ function ReferendumRow({ number }: ReferendumProps) {
       return (
         <>
           <Table.Cell>{number.toLocaleString()}</Table.Cell>
-          <Table.Cell>{at.toLocaleString()}</Table.Cell>
-          <Table.Cell>
-            <AccountListItem
-              address={
-                proposer === undefined ? offChainData.proposer : proposer.who
-              }
-            />
-          </Table.Cell>
-          <Table.Cell>
-            {offChainData.onchainData.proposal?.call === undefined ? (
-              <NoCalldata />
-            ) : (
-              <CallData
-                section={offChainData.onchainData.proposal.call.section}
-                method={offChainData.onchainData.proposal.call.method}
-                call={offChainData.onchainData.proposal.call}
-              />
-            )}
-          </Table.Cell>
-          <Table.Cell>
-            <ReferendumDiscussionLink
-              offChainDataPromise={offChainDataPromise}
-            />
-          </Table.Cell>
           <Table.Cell>
             <Badge
               variant="solid"
@@ -233,6 +220,32 @@ function ReferendumRow({ number }: ReferendumProps) {
               {info.type}
             </Badge>
           </Table.Cell>
+          <Table.Cell>
+            <SubmissionDate blockNumber={at} />
+          </Table.Cell>
+          <Table.Cell>
+            <ReferendumDiscussionLink
+              offChainDataPromise={offChainDataPromise}
+            />
+          </Table.Cell>
+          <Table.Cell>
+            <AccountListItem
+              address={
+                proposer === undefined ? offChainData.proposer : proposer.who
+              }
+            />
+          </Table.Cell>
+          <Table.Cell>
+            {offChainData.onchainData.proposal?.call === undefined ? (
+              <NoCalldata />
+            ) : (
+              <CallData
+                section={offChainData.onchainData.proposal.call.section}
+                method={offChainData.onchainData.proposal.call.method}
+                call={offChainData.onchainData.proposal.call}
+              />
+            )}
+          </Table.Cell>
           <Table.Cell minWidth="6rem">
             <Tally
               ayes={BigInt(offChainData.onchainData.tally.ayes)}
@@ -244,6 +257,29 @@ function ReferendumRow({ number }: ReferendumProps) {
       );
     }
   }
+}
+
+type SubmissionDateProps = {
+  blockNumber: number;
+};
+
+function SubmissionDate({ blockNumber }: SubmissionDateProps) {
+  const [expectedBlockTime, currentBlock] = useLazyLoadQuery(
+    (builder) =>
+      builder
+        .getConstant("Babe", "ExpectedBlockTime")
+        .readStorage("System", "Number", []),
+    { chainId: useGovernanceChainId() },
+  );
+
+  const msAgo = (currentBlock - blockNumber) * Number(expectedBlockTime);
+  const submissionDate = subMilliseconds(new Date(), msAgo);
+
+  if (differenceInDays(new Date(), submissionDate) >= 1) {
+    return submissionDate.toLocaleDateString();
+  }
+
+  return intlFormatDistance(submissionDate, new Date());
 }
 
 type ReferndumDiscussionLinkProps = {
@@ -332,9 +368,7 @@ function CallData({ section, method, call }: CallDataProps) {
           maxHeight="100dvh"
           overflow="auto"
         >
-          <Dialog.Title marginBottom="1rem">
-            <Heading>Decoded call</Heading>
-          </Dialog.Title>
+          <Dialog.Title marginBottom="1rem">Decoded call</Dialog.Title>
           <CodecView value={call} className={css({ overflow: "auto" })} />
           <Dialog.CloseTrigger asChild position="absolute" top="2" right="2">
             <IconButton variant="ghost" size="sm">
