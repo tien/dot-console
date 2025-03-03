@@ -82,7 +82,7 @@ export function PrimitiveParam({
 
     switch (primitive.codec) {
       case "bool":
-        return Boolean(value);
+        return Boolean(JSON.parse(value));
       case "char":
         return value.length === 1 ? value : INVALID;
       case "u8":
@@ -142,12 +142,10 @@ export function PrimitiveParam({
     switch (primitive.codec) {
       case "bool":
         return (
-          <Field.Input asChild>
-            <Switch
-              checked={Boolean(value)}
-              onCheckedChange={(event) => setValue(String(event.checked))}
-            />
-          </Field.Input>
+          <Switch
+            checked={Boolean(JSON.parse(value))}
+            onCheckedChange={(event) => setValue(JSON.stringify(event.checked))}
+          />
         );
       case "char":
         return <Field.Input {...commonProps} maxLength={1} />;
