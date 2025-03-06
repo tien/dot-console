@@ -26,7 +26,14 @@ function ValidatorsPage() {
     .map(({ account }) => account);
 
   return (
-    <ul className={css({ padding: "2rem" })}>
+    <ul
+      className={css({
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem",
+        padding: "2rem",
+      })}
+    >
       {validators.map((validator) => (
         <ValidatorAccount
           key={validator.wallet.id + validator.address}
