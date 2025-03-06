@@ -10,13 +10,19 @@ export const Route = createFileRoute("/_layout/accounts/_layout/")({
 function AccountsPage() {
   const accounts = useAccounts();
 
+  if (accounts.length === 0) {
+    return (
+      <p className={css({ textAlign: "center" })}>No connected accounts</p>
+    );
+  }
+
   return (
     <section
       className={css({
         display: "flex",
         flexDirection: "column",
         gap: "1rem",
-        padding: "2rem 0",
+        padding: "2rem",
       })}
     >
       {accounts.map((account) => (

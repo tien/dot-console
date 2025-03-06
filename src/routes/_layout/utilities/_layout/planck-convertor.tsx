@@ -24,7 +24,7 @@ function PlanckConvertor() {
   const [planck, setPlanck] = useState("");
 
   return (
-    <div>
+    <div className={css({ padding: "2rem" })}>
       <Card.Root className={css({ margin: "auto", maxWidth: "34rem" })}>
         <Card.Header>
           <Card.Title>Planck converter</Card.Title>

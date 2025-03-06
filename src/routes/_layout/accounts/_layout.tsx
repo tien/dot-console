@@ -1,14 +1,8 @@
 import { useAccounts, useLazyLoadQuery } from "@reactive-dot/react";
-import {
-  createFileRoute,
-  Link,
-  Outlet,
-  useLocation,
-} from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { Suspense } from "react";
-import { css } from "styled-system/css";
+import { RouteTabs } from "~/components/route-tabs";
 import { Badge } from "~/components/ui/badge";
-import { Tabs } from "~/components/ui/tabs";
 import { useStakingChainId } from "~/hooks/chain";
 
 export const Route = createFileRoute("/_layout/accounts/_layout")({
@@ -16,29 +10,19 @@ export const Route = createFileRoute("/_layout/accounts/_layout")({
 });
 
 function RouteComponent() {
-  const location = useLocation();
   return (
-    <div className={css({ padding: "2rem" })}>
-      <Tabs.Root value={location.pathname}>
-        <Tabs.List>
-          <Tabs.Trigger asChild value="/accounts">
-            <Link to="/accounts">General</Link>
-          </Tabs.Trigger>
-          <Tabs.Trigger asChild value="/accounts/validators">
-            <Link to="/accounts/validators">
-              Validators{" "}
-              <Suspense>
-                <SuspendableValidatorCountBadge />
-              </Suspense>
-            </Link>
-          </Tabs.Trigger>
-          <Tabs.Indicator />
-        </Tabs.List>
-        <Tabs.Content value={location.pathname}>
-          <Outlet />
-        </Tabs.Content>
-      </Tabs.Root>
-    </div>
+    <RouteTabs>
+      <RouteTabs.Item to="/accounts" label="General" />
+      <RouteTabs.Item
+        to="/accounts/validators"
+        label="Validators"
+        badge={
+          <Suspense>
+            <SuspendableValidatorCountBadge />
+          </Suspense>
+        }
+      />
+    </RouteTabs>
   );
 }
 

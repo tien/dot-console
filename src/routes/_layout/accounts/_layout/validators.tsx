@@ -25,6 +25,14 @@ function ValidatorsPage() {
     .filter(({ preference }) => preference.commission > 0)
     .map(({ account }) => account);
 
+  if (validators.length === 0) {
+    return (
+      <p className={css({ textAlign: "center" })}>
+        No connected validator accounts
+      </p>
+    );
+  }
+
   return (
     <ul
       className={css({
