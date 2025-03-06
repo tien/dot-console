@@ -1,3 +1,4 @@
+import { idle } from "@reactive-dot/core";
 import type { WalletAccount } from "@reactive-dot/core/wallets.js";
 import {
   useLazyLoadQuery,
@@ -19,7 +20,9 @@ import { CircularProgressIndicator } from "~/components/circular-progress-indica
 import { TooltipBox } from "~/components/tooltip-box";
 import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
+import { HoverCard } from "~/components/ui/hover-card";
 import { IconButton } from "~/components/ui/icon-button";
+import { Popover } from "~/components/ui/popover";
 import { Progress } from "~/components/ui/progress";
 import { Table } from "~/components/ui/table";
 import { AccountListItem } from "~/features/accounts/components/account-list-item";
@@ -120,14 +123,15 @@ function SuspendableStaked({ account }: AccountProps) {
 
   const overview = useLazyLoadQuery(
     (builder) =>
+      currentEra !== undefined &&
       builder.readStorage("Staking", "ErasStakersOverview", [
-        currentEra!,
+        currentEra,
         account.address,
       ]),
     { chainId: useStakingChainId() },
   );
 
-  if (overview === undefined) {
+  if (overview === idle || overview === undefined) {
     return null;
   }
 
@@ -293,33 +297,11 @@ function SuspendableSessionKeyValue({ account }: AccountProps) {
   }
 
   return (
-    <TooltipBox
-      tooltip={
-        <dl
-          className={css({
-            display: "grid",
-            gridTemplateColumns: "max-content minmax(0, 1fr)",
-            gap: "1em",
-          })}
-        >
-          {Object.entries(sessionKeys).map(([type, key]) => (
-            <Fragment key={type}>
-              <dt>{type}</dt>
-              <dd
-                className={css({
-                  justifySelf: "end",
-                  fontFamily: "monospace",
-                  fontWeight: "bold",
-                })}
-              >
-                {key.asHex()}
-              </dd>
-            </Fragment>
-          ))}
-        </dl>
-      }
-    >
-      <span className={css({ textDecoration: "underline" })}>
+    <Popover.Root>
+      <Popover.Trigger
+        textDecoration="underline"
+        className={css({ cursor: "pointer" })}
+      >
         {ellipsize(
           Binary.fromBytes(
             Object.values(sessionKeys)
@@ -331,8 +313,37 @@ function SuspendableSessionKeyValue({ account }: AccountProps) {
           ).asHex(),
           6,
         )}
-      </span>
-    </TooltipBox>
+      </Popover.Trigger>
+      <Popover.Positioner>
+        <Popover.Content maxWidth="unset">
+          <Popover.Arrow>
+            <Popover.ArrowTip />
+          </Popover.Arrow>
+          <dl
+            className={css({
+              display: "grid",
+              gridTemplateColumns: "max-content minmax(0, 1fr)",
+              gap: "1em",
+            })}
+          >
+            {Object.entries(sessionKeys).map(([type, key]) => (
+              <Fragment key={type}>
+                <dt>{type}</dt>
+                <dd
+                  className={css({
+                    justifySelf: "end",
+                    fontFamily: "monospace",
+                    fontWeight: "bold",
+                  })}
+                >
+                  {key.asHex()}
+                </dd>
+              </Fragment>
+            ))}
+          </dl>
+        </Popover.Content>
+      </Popover.Positioner>
+    </Popover.Root>
   );
 }
 
@@ -346,8 +357,9 @@ function SuspendableNominatorList({ account }: AccountProps) {
 
   const overview = useLazyLoadQuery(
     (builder) =>
+      currentEra !== undefined &&
       builder.readStorage("Staking", "ErasStakersOverview", [
-        currentEra!,
+        currentEra,
         account.address,
       ]),
     { chainId: useStakingChainId() },
@@ -355,11 +367,14 @@ function SuspendableNominatorList({ account }: AccountProps) {
 
   const nominatorPages = useLazyLoadQuery(
     (builder) =>
+      currentEra !== undefined &&
+      overview !== idle &&
+      overview !== undefined &&
       builder.readStorages(
         "Staking",
         "ErasStakersPaged",
-        Array.from({ length: overview!.page_count }).map(
-          (_, index) => [currentEra!, account.address, index] as const,
+        Array.from({ length: overview.page_count }).map(
+          (_, index) => [currentEra, account.address, index] as const,
         ),
       ),
     { chainId: useStakingChainId() },
@@ -367,10 +382,12 @@ function SuspendableNominatorList({ account }: AccountProps) {
 
   const nominators = useMemo(
     () =>
-      nominatorPages
-        .filter((page) => page !== undefined)
-        .flatMap((page) => page?.others)
-        .toSorted((a, b) => (b.value - a.value > 0 ? 1 : 0)),
+      nominatorPages === idle
+        ? []
+        : nominatorPages
+            .filter((page) => page !== undefined)
+            .flatMap((page) => page?.others)
+            .toSorted((a, b) => (b.value - a.value > 0 ? 1 : 0)),
     [nominatorPages],
   );
 
