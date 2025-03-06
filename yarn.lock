@@ -3321,16 +3321,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@reactive-dot/react@npm:^0.36.0":
-  version: 0.36.0
-  resolution: "@reactive-dot/react@npm:0.36.0"
+"@reactive-dot/react@npm:^0.36.2":
+  version: 0.36.2
+  resolution: "@reactive-dot/react@npm:0.36.2"
   dependencies:
     "@reactive-dot/core": "npm:^0.36.0"
     jotai: "npm:^2.12.1"
+    jotai-derive: "npm:^0.1.2"
     jotai-effect: "npm:^2.0.1"
   peerDependencies:
     react: 19.x
-  checksum: 10c0/8a2811e834c2e23163bd0656fb95bcc0c9b20a0c1551570d678f2b46e11175ee4bd907a1e06ac15f202446113ba034316a36a5f905d018a7af4da3d969295a9d
+  checksum: 10c0/25f4fe9a553b8424fb66da2cee96ac10a88993dae4be33134fce04ca80cd586fa8d3dc7664b1afc21887af19532c1aae14ae8841024b4ec99194f1ddc4a0e8cc
   languageName: node
   linkType: hard
 
@@ -7101,7 +7102,7 @@ __metadata:
     "@park-ui/panda-preset": "npm:^0.43.1"
     "@polkadot-api/descriptors": "portal:.papi/descriptors"
     "@polkadot-api/view-builder": "npm:^0.4.2"
-    "@reactive-dot/react": "npm:^0.36.0"
+    "@reactive-dot/react": "npm:^0.36.2"
     "@reactive-dot/wallet-ledger": "npm:^0.16.27"
     "@reactive-dot/wallet-mimir": "npm:^0.1.1"
     "@reactive-dot/wallet-walletconnect": "npm:^0.17.7"
@@ -8896,6 +8897,15 @@ __metadata:
   bin:
     jiti: lib/jiti-cli.mjs
   checksum: 10c0/4ceac133a08c8faff7eac84aabb917e85e8257f5ad659e843004ce76e981c457c390a220881748ac67ba1b940b9b729b30fb85cbaf6e7989f04b6002c94da331
+  languageName: node
+  linkType: hard
+
+"jotai-derive@npm:^0.1.2":
+  version: 0.1.2
+  resolution: "jotai-derive@npm:0.1.2"
+  peerDependencies:
+    jotai: ">=2.0.0"
+  checksum: 10c0/72ad1769dcdcd08edae2c6e829bc51313653edbb3693cb271e43dde8779239967a80d5d0af56cca786097c395213b629aff08a10aed31d13bdfcc666aadd1ace
   languageName: node
   linkType: hard
 
