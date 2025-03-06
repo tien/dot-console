@@ -2,14 +2,16 @@ import type { ChainId } from "@reactive-dot/core";
 import { ChainProvider, useChainIds } from "@reactive-dot/react";
 import {
   createFileRoute,
-  type LinkProps,
   Outlet,
+  retainSearchParams,
   Link as RouterLink,
   useLocation,
 } from "@tanstack/react-router";
+import { zodValidator } from "@tanstack/zod-adapter";
 import CloseIcon from "@w3f/polkadot-icons/solid/Close";
 import { ConnectionButton } from "dot-connect/react.js";
 import { css } from "styled-system/css";
+import { z } from "zod";
 import { Button } from "~/components/ui/button";
 import { Drawer } from "~/components/ui/drawer";
 import { Heading } from "~/components/ui/heading";
@@ -18,17 +20,26 @@ import { Link } from "~/components/ui/link";
 import { Text } from "~/components/ui/text";
 import { useCollectivesChainId } from "~/hooks/chain";
 
+const searchSchema = z.object({
+  chain: z.string().optional(),
+});
+
 export const Route = createFileRoute("/_layout")({
   component: Layout,
+  validateSearch: zodValidator(searchSchema),
+  search: {
+    middlewares: [retainSearchParams(["chain"])],
+  },
 });
 
 function Layout() {
   const location = useLocation();
   const chainIds = useChainIds();
 
-  const { chain: _searchChainId } = Route.useSearch();
+  const { chain: searchChainId } = Route.useSearch();
+
   const chainId =
-    (_searchChainId?.replaceAll("-", "_") as ChainId | undefined) ?? "polkadot";
+    (searchChainId?.replaceAll("-", "_") as ChainId | undefined) ?? "polkadot";
 
   return (
     <ChainProvider key={chainId} chainId={chainId}>
@@ -127,12 +138,7 @@ function Layout() {
                         chainIds.map((chainId) => (
                           <RouterLink
                             key={chainId}
-                            from={
-                              location.pathname as NonNullable<
-                                LinkProps["from"]
-                              >
-                            }
-                            to="."
+                            to={location.pathname}
                             search={{ chain: chainId.replaceAll("_", "-") }}
                             className={css({ display: "contents" })}
                           >

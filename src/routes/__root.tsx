@@ -1,18 +1,12 @@
 import { config } from "../config";
 import { pending } from "@reactive-dot/core";
 import { ReactiveDotProvider, useMutationEffect } from "@reactive-dot/react";
-import {
-  createRootRoute,
-  Outlet,
-  retainSearchParams,
-} from "@tanstack/react-router";
-import { zodValidator } from "@tanstack/zod-adapter";
+import { createRootRoute, Outlet } from "@tanstack/react-router";
 import Close from "@w3f/polkadot-icons/solid/Close";
 import { registerDotConnect } from "dot-connect";
 import "dot-connect/font.css";
 import "react18-json-view/src/dark.css";
 import "react18-json-view/src/style.css";
-import { z } from "zod";
 import { IconButton } from "~/components/ui/icon-button";
 import { Toaster } from "~/components/ui/styled/toast";
 import { Toast } from "~/components/ui/toast";
@@ -20,16 +14,8 @@ import { toaster } from "~/toaster";
 
 registerDotConnect({ wallets: config.wallets ?? [] });
 
-const searchSchema = z.object({
-  chain: z.string().optional(),
-});
-
 export const Route = createRootRoute({
   component: Root,
-  validateSearch: zodValidator(searchSchema),
-  search: {
-    middlewares: [retainSearchParams(["chain"])],
-  },
 });
 
 function MutationToaster() {
