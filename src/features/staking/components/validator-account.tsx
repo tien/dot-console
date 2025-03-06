@@ -20,7 +20,6 @@ import { CircularProgressIndicator } from "~/components/circular-progress-indica
 import { TooltipBox } from "~/components/tooltip-box";
 import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
-import { HoverCard } from "~/components/ui/hover-card";
 import { IconButton } from "~/components/ui/icon-button";
 import { Popover } from "~/components/ui/popover";
 import { Progress } from "~/components/ui/progress";
