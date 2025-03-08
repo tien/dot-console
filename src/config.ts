@@ -1,5 +1,5 @@
-import { hydrationChainSpec } from "./chain-specs/hydration";
-import { invarchChainSpec } from "./chain-specs/invarch";
+import hydrationChainSpec from "./chain-specs/hydration.json" with { type: "json" };
+import invarchChainSpec from "./chain-specs/invarch.json" with { type: "json" };
 import {
   hydration,
   invarch,
