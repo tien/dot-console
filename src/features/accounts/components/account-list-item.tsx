@@ -58,10 +58,12 @@ export function SuspendableAccountListItem({
   onOpenDialog,
   className,
 }: AccountListItemProps & { onOpenDialog: () => unknown }) {
-  const identity = useLazyLoadQuery(
+  const _identity = useLazyLoadQuery(
     (builder) => builder.readStorage("Identity", "IdentityOf", [address]),
     { chainId: usePeopleChainId() },
   );
+
+  const identity = Array.isArray(_identity) ? _identity[0] : _identity;
 
   const superIdentity = useLazyLoadQuery(
     (builder) =>
@@ -71,7 +73,7 @@ export function SuspendableAccountListItem({
     { chainId: usePeopleChainId() },
   );
 
-  const superAccountIdentity = useLazyLoadQuery(
+  const _superAccountIdentity = useLazyLoadQuery(
     (builder) =>
       superIdentity === idle || superIdentity === undefined
         ? undefined
@@ -79,14 +81,18 @@ export function SuspendableAccountListItem({
     { chainId: usePeopleChainId() },
   );
 
+  const superAccountIdentity = Array.isArray(_superAccountIdentity)
+    ? _superAccountIdentity[0]
+    : _superAccountIdentity;
+
   const identityDisplay =
-    getIdentityDisplayValue(identity?.[0]?.info.display) ??
+    getIdentityDisplayValue(identity?.info.display) ??
     (superIdentity === idle ||
     superIdentity === undefined ||
     superAccountIdentity === idle ||
     superAccountIdentity === undefined
       ? undefined
-      : `${getIdentityDisplayValue(superAccountIdentity[0].info.display)}/${getIdentityDisplayValue(superIdentity[1])}`);
+      : `${getIdentityDisplayValue(superAccountIdentity.info.display)}/${getIdentityDisplayValue(superIdentity[1])}`);
 
   const displayName = identityDisplay ?? name;
 

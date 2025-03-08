@@ -193,19 +193,19 @@ export function SuspendableAccountIdentity({ address }: AccountInfoProps) {
     { chainId: usePeopleChainId() },
   );
 
-  const [registration, username] = result[0] ?? [];
+  const identity = Array.isArray(result[0]) ? result[0][0] : result[0];
   const [superAddress, subName] = result[1] ?? [];
 
-  if (registration === undefined && subName === undefined) {
+  if (identity === undefined && subName === undefined) {
     return null;
   }
 
   const { additional, pgp_fingerprint, ...knowns } =
-    registration === undefined
+    identity === undefined
       ? { additional: undefined, pgp_fingerprint: undefined }
-      : "additional" in registration.info
-        ? registration.info
-        : { ...registration.info, additional: undefined };
+      : "additional" in identity.info
+        ? identity.info
+        : { ...identity.info, additional: undefined };
 
   return (
     <section>
@@ -227,12 +227,6 @@ export function SuspendableAccountIdentity({ address }: AccountInfoProps) {
             <dd>
               <AccountListItem address={superAddress} />
             </dd>
-          </>
-        )}
-        {username !== undefined && (
-          <>
-            <dt>Username</dt>
-            <dd>{username.asText()}</dd>
           </>
         )}
         {Object.entries(knowns)
