@@ -27,6 +27,11 @@
       "metadata": ".papi/metadata/polkadot_people.scale",
       "genesis": "0x67fa177a097bfa18f77ea95ab56e9bcdfeb0e5b8a40e46298bb93e16b6fc5008"
     },
+    "acala": {
+      "chainSpec": "src/chain-specs/acala.json",
+      "metadata": ".papi/metadata/acala.scale",
+      "genesis": "0xfc41b9bd8ef8fe53d58c7ea67c794c7ec9a73daf05e6d54b14ff6342c99ba64c"
+    },
     "hydration": {
       "chainSpec": "src/chain-specs/hydration.json",
       "metadata": ".papi/metadata/hydration.scale",

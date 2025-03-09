@@ -30,6 +30,7 @@ export function useRelayChainId() {
     case "polkadot_collectives":
     case "polkadot_coretime":
     case "polkadot_people":
+    case "acala":
     case "hydration":
     case "invarch":
       return "polkadot" satisfies ChainId;
@@ -44,6 +45,7 @@ export function useRelayChainId() {
       return "westend" satisfies ChainId;
     case "paseo":
     case "paseo_asset_hub":
+    case "paseo_people":
       return "paseo" satisfies ChainId;
   }
 }
@@ -55,6 +57,7 @@ export function usePeopleChainId() {
     case "polkadot_collectives":
     case "polkadot_coretime":
     case "polkadot_people":
+    case "acala":
     case "hydration":
     case "invarch":
       return "polkadot_people" satisfies ChainId;
@@ -81,6 +84,7 @@ export function useGovernanceChainId() {
     case "polkadot_collectives":
     case "polkadot_coretime":
     case "polkadot_people":
+    case "acala":
     case "hydration":
     case "invarch":
       return "polkadot" satisfies ChainId;
@@ -107,6 +111,7 @@ export function useStakingChainId() {
     case "polkadot_collectives":
     case "polkadot_coretime":
     case "polkadot_people":
+    case "acala":
     case "hydration":
     case "invarch":
       return "polkadot" satisfies ChainId;
@@ -133,6 +138,7 @@ export function useAssetHubChainId() {
     case "polkadot_collectives":
     case "polkadot_coretime":
     case "polkadot_people":
+    case "acala":
     case "hydration":
     case "invarch":
       return "polkadot_asset_hub" satisfies ChainId;
@@ -161,6 +167,7 @@ export function useCollectivesChainId<TForce = true>(
     case "polkadot_collectives":
     case "polkadot_coretime":
     case "polkadot_people":
+    case "acala":
     case "hydration":
     case "invarch":
       return "polkadot_collectives" satisfies ChainId;
