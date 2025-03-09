@@ -68,7 +68,6 @@
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "@tsconfig/recommended": "^1.0.8",
     "@tsconfig/strictest": "^2.0.5",
-    "@types/eslint__js": "^9.14.0",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "babel-plugin-react-compiler": "19.0.0-beta-e552027-20250112",
