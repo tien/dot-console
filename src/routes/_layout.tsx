@@ -17,8 +17,9 @@ import { Drawer } from "~/components/ui/drawer";
 import { Heading } from "~/components/ui/heading";
 import { IconButton } from "~/components/ui/icon-button";
 import { Link } from "~/components/ui/link";
+import { RadioButtonGroup } from "~/components/ui/radio-button-group";
 import { Text } from "~/components/ui/text";
-import { useCollectivesChainId } from "~/hooks/chain";
+import { getRelayChainId, useCollectivesChainId } from "~/hooks/chain";
 
 const searchSchema = z.object({
   chain: z.string().optional(),
@@ -32,14 +33,15 @@ export const Route = createFileRoute("/_layout")({
   },
 });
 
-function Layout() {
-  const location = useLocation();
-  const chainIds = useChainIds();
-
+function useRouteChainId() {
   const { chain: searchChainId } = Route.useSearch();
+  return (
+    (searchChainId?.replaceAll("-", "_") as ChainId | undefined) ?? "polkadot"
+  );
+}
 
-  const chainId =
-    (searchChainId?.replaceAll("-", "_") as ChainId | undefined) ?? "polkadot";
+function Layout() {
+  const chainId = useRouteChainId();
 
   return (
     <ChainProvider key={chainId} chainId={chainId}>
@@ -96,67 +98,7 @@ function Layout() {
               },
             })}
           >
-            <Drawer.Root>
-              <div
-                className={css({
-                  borderRightWidth: 1,
-                  borderLeftWidth: 1,
-                  padding: "0 0.5rem",
-                })}
-              >
-                <Drawer.Trigger asChild>
-                  <Button
-                    variant="ghost"
-                    className={css({ textTransform: "capitalize" })}
-                  >
-                    {chainId.replaceAll("_", " ")}
-                  </Button>
-                </Drawer.Trigger>
-              </div>
-              <Drawer.Backdrop />
-              <Drawer.Positioner>
-                <Drawer.Content>
-                  <Drawer.Header>
-                    <Drawer.Title>Chain</Drawer.Title>
-                    <Drawer.Description>Select a chain</Drawer.Description>
-                    <Drawer.CloseTrigger
-                      asChild
-                      position="absolute"
-                      top="3"
-                      right="4"
-                    >
-                      <IconButton variant="ghost">
-                        <CloseIcon fill="currentcolor" />
-                      </IconButton>
-                    </Drawer.CloseTrigger>
-                  </Drawer.Header>
-                  <Drawer.Body
-                    className={css({ display: "flex", gap: "1rem" })}
-                  >
-                    <Drawer.Context>
-                      {({ setOpen }) =>
-                        chainIds.map((chainId) => (
-                          <RouterLink
-                            key={chainId}
-                            to={location.pathname}
-                            search={{ chain: chainId.replaceAll("_", "-") }}
-                            className={css({ display: "contents" })}
-                          >
-                            <Button
-                              variant="outline"
-                              onClick={() => setOpen(false)}
-                              className={css({ textTransform: "capitalize" })}
-                            >
-                              {chainId.replaceAll("_", " ")}
-                            </Button>
-                          </RouterLink>
-                        ))
-                      }
-                    </Drawer.Context>
-                  </Drawer.Body>
-                </Drawer.Content>
-              </Drawer.Positioner>
-            </Drawer.Root>
+            <ChainSelect />
             <nav
               className={css({
                 display: "flex",
@@ -284,6 +226,109 @@ function Layout() {
         </main>
       </div>
     </ChainProvider>
+  );
+}
+
+function ChainSelect() {
+  const chainId = useRouteChainId();
+
+  const location = useLocation();
+  const chainIds = useChainIds();
+
+  const groupedChainIds = Object.groupBy(chainIds, getRelayChainId);
+
+  return (
+    <Drawer.Root>
+      <div
+        className={css({
+          borderRightWidth: 1,
+          borderLeftWidth: 1,
+          padding: "0 0.5rem",
+        })}
+      >
+        <Drawer.Trigger asChild>
+          <Button
+            variant="ghost"
+            className={css({ textTransform: "capitalize" })}
+          >
+            {chainId.replaceAll("_", " ")}
+          </Button>
+        </Drawer.Trigger>
+      </div>
+      <Drawer.Backdrop />
+      <Drawer.Positioner>
+        <Drawer.Content>
+          <Drawer.Header>
+            <Drawer.Title>Chain</Drawer.Title>
+            <Drawer.Description>Select a chain</Drawer.Description>
+            <Drawer.CloseTrigger asChild position="absolute" top="3" right="4">
+              <IconButton variant="ghost">
+                <CloseIcon fill="currentcolor" />
+              </IconButton>
+            </Drawer.CloseTrigger>
+          </Drawer.Header>
+          <Drawer.Body>
+            <Drawer.Context>
+              {({ setOpen }) => (
+                <RadioButtonGroup.Root
+                  variant="outline"
+                  value={chainId}
+                  display="flex"
+                  flexDirection="column"
+                  gap="1rem"
+                >
+                  {Object.entries(groupedChainIds).map(
+                    ([relayChainId, chainIds]) => (
+                      <section key={relayChainId}>
+                        <header
+                          className={css({
+                            textStyle: "sm",
+                            marginBottom: "0.35em",
+                            fontWeight: "bold",
+                            textTransform: "capitalize",
+                          })}
+                        >
+                          {relayChainId.replaceAll("_", " ")}
+                        </header>
+                        <div
+                          className={css({
+                            display: "grid",
+                            gridTemplateColumns: "repeat(3, 1fr)",
+                            gap: "0.3em 0.4em",
+                            width: "stretch",
+                          })}
+                        >
+                          {chainIds.map((chainId) => (
+                            <RouterLink
+                              key={chainId}
+                              to={location.pathname}
+                              search={{ chain: chainId.replaceAll("_", "-") }}
+                              onClick={() => setOpen(false)}
+                              className={css({ display: "contents" })}
+                            >
+                              <RadioButtonGroup.Item value={chainId}>
+                                <RadioButtonGroup.ItemControl />
+                                <RadioButtonGroup.ItemText textTransform="capitalize">
+                                  {chainId
+                                    .replace(relayChainId, "")
+                                    .replaceAll("_", " ")
+                                    .trim() || "Relay"}
+                                </RadioButtonGroup.ItemText>
+                                <RadioButtonGroup.ItemHiddenInput />
+                              </RadioButtonGroup.Item>
+                            </RouterLink>
+                          ))}
+                        </div>
+                      </section>
+                    ),
+                  )}
+                </RadioButtonGroup.Root>
+              )}
+            </Drawer.Context>
+          </Drawer.Body>
+        </Drawer.Content>
+      </Drawer.Positioner>
+    </Drawer.Root>
   );
 }
 

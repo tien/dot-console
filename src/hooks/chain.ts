@@ -23,8 +23,8 @@ export function useAuraChainId() {
     : undefined;
 }
 
-export function useRelayChainId() {
-  switch (useChainId()) {
+export function getRelayChainId(chainId: ChainId) {
+  switch (chainId) {
     case "polkadot":
     case "polkadot_asset_hub":
     case "polkadot_collectives":
@@ -48,6 +48,10 @@ export function useRelayChainId() {
     case "paseo_people":
       return "paseo" satisfies ChainId;
   }
+}
+
+export function useRelayChainId() {
+  return getRelayChainId(useChainId());
 }
 
 export function usePeopleChainId() {
