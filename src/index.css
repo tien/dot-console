@@ -11,3 +11,8 @@
 *::selection {
   background: var(--colors-color-palette-default);
 }
+
+.skeleton {
+  /* Else will add extra ~1px */
+  line-height: 0 !important;
+}

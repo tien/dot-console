@@ -21,13 +21,17 @@ import { Route as LayoutExtrinsicsImport } from './routes/_layout/extrinsics'
 import { Route as LayoutExplorerImport } from './routes/_layout/explorer'
 import { Route as LayoutAssetsImport } from './routes/_layout/assets'
 import { Route as LayoutUtilitiesIndexImport } from './routes/_layout/utilities/index'
+import { Route as LayoutStakingIndexImport } from './routes/_layout/staking/index'
 import { Route as LayoutReferendaIndexImport } from './routes/_layout/referenda/index'
 import { Route as LayoutCollectivesIndexImport } from './routes/_layout/collectives/index'
 import { Route as LayoutUtilitiesLayoutImport } from './routes/_layout/utilities/_layout'
+import { Route as LayoutStakingLayoutImport } from './routes/_layout/staking/_layout'
 import { Route as LayoutCollectivesLayoutImport } from './routes/_layout/collectives/_layout'
 import { Route as LayoutAccountsLayoutImport } from './routes/_layout/accounts/_layout'
 import { Route as LayoutAccountsLayoutIndexImport } from './routes/_layout/accounts/_layout/index'
 import { Route as LayoutUtilitiesLayoutPlanckConvertorImport } from './routes/_layout/utilities/_layout/planck-convertor'
+import { Route as LayoutStakingLayoutValidatorsImport } from './routes/_layout/staking/_layout/validators'
+import { Route as LayoutStakingLayoutNominationPoolsImport } from './routes/_layout/staking/_layout/nomination-pools'
 import { Route as LayoutCollectivesLayoutFellowshipImport } from './routes/_layout/collectives/_layout/fellowship'
 import { Route as LayoutCollectivesLayoutAmbassadorImport } from './routes/_layout/collectives/_layout/ambassador'
 import { Route as LayoutAccountsLayoutValidatorsImport } from './routes/_layout/accounts/_layout/validators'
@@ -35,6 +39,7 @@ import { Route as LayoutAccountsLayoutValidatorsImport } from './routes/_layout/
 // Create Virtual Routes
 
 const LayoutUtilitiesImport = createFileRoute('/_layout/utilities')()
+const LayoutStakingImport = createFileRoute('/_layout/staking')()
 const LayoutCollectivesImport = createFileRoute('/_layout/collectives')()
 const LayoutAccountsImport = createFileRoute('/_layout/accounts')()
 
@@ -54,6 +59,12 @@ const IndexRoute = IndexImport.update({
 const LayoutUtilitiesRoute = LayoutUtilitiesImport.update({
   id: '/utilities',
   path: '/utilities',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutStakingRoute = LayoutStakingImport.update({
+  id: '/staking',
+  path: '/staking',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -105,6 +116,12 @@ const LayoutUtilitiesIndexRoute = LayoutUtilitiesIndexImport.update({
   getParentRoute: () => LayoutUtilitiesRoute,
 } as any)
 
+const LayoutStakingIndexRoute = LayoutStakingIndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LayoutStakingRoute,
+} as any)
+
 const LayoutReferendaIndexRoute = LayoutReferendaIndexImport.update({
   id: '/referenda/',
   path: '/referenda/',
@@ -120,6 +137,11 @@ const LayoutCollectivesIndexRoute = LayoutCollectivesIndexImport.update({
 const LayoutUtilitiesLayoutRoute = LayoutUtilitiesLayoutImport.update({
   id: '/_layout',
   getParentRoute: () => LayoutUtilitiesRoute,
+} as any)
+
+const LayoutStakingLayoutRoute = LayoutStakingLayoutImport.update({
+  id: '/_layout',
+  getParentRoute: () => LayoutStakingRoute,
 } as any)
 
 const LayoutCollectivesLayoutRoute = LayoutCollectivesLayoutImport.update({
@@ -143,6 +165,20 @@ const LayoutUtilitiesLayoutPlanckConvertorRoute =
     id: '/planck-convertor',
     path: '/planck-convertor',
     getParentRoute: () => LayoutUtilitiesLayoutRoute,
+  } as any)
+
+const LayoutStakingLayoutValidatorsRoute =
+  LayoutStakingLayoutValidatorsImport.update({
+    id: '/validators',
+    path: '/validators',
+    getParentRoute: () => LayoutStakingLayoutRoute,
+  } as any)
+
+const LayoutStakingLayoutNominationPoolsRoute =
+  LayoutStakingLayoutNominationPoolsImport.update({
+    id: '/nomination-pools',
+    path: '/nomination-pools',
+    getParentRoute: () => LayoutStakingLayoutRoute,
   } as any)
 
 const LayoutCollectivesLayoutFellowshipRoute =
@@ -247,6 +283,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutCollectivesLayoutImport
       parentRoute: typeof LayoutCollectivesRoute
     }
+    '/_layout/staking': {
+      id: '/_layout/staking'
+      path: '/staking'
+      fullPath: '/staking'
+      preLoaderRoute: typeof LayoutStakingImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_layout/staking/_layout': {
+      id: '/_layout/staking/_layout'
+      path: '/staking'
+      fullPath: '/staking'
+      preLoaderRoute: typeof LayoutStakingLayoutImport
+      parentRoute: typeof LayoutStakingRoute
+    }
     '/_layout/utilities': {
       id: '/_layout/utilities'
       path: '/utilities'
@@ -275,6 +325,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutReferendaIndexImport
       parentRoute: typeof LayoutImport
     }
+    '/_layout/staking/': {
+      id: '/_layout/staking/'
+      path: '/'
+      fullPath: '/staking/'
+      preLoaderRoute: typeof LayoutStakingIndexImport
+      parentRoute: typeof LayoutStakingImport
+    }
     '/_layout/utilities/': {
       id: '/_layout/utilities/'
       path: '/'
@@ -302,6 +359,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/collectives/fellowship'
       preLoaderRoute: typeof LayoutCollectivesLayoutFellowshipImport
       parentRoute: typeof LayoutCollectivesLayoutImport
+    }
+    '/_layout/staking/_layout/nomination-pools': {
+      id: '/_layout/staking/_layout/nomination-pools'
+      path: '/nomination-pools'
+      fullPath: '/staking/nomination-pools'
+      preLoaderRoute: typeof LayoutStakingLayoutNominationPoolsImport
+      parentRoute: typeof LayoutStakingLayoutImport
+    }
+    '/_layout/staking/_layout/validators': {
+      id: '/_layout/staking/_layout/validators'
+      path: '/validators'
+      fullPath: '/staking/validators'
+      preLoaderRoute: typeof LayoutStakingLayoutValidatorsImport
+      parentRoute: typeof LayoutStakingLayoutImport
     }
     '/_layout/utilities/_layout/planck-convertor': {
       id: '/_layout/utilities/_layout/planck-convertor'
@@ -378,6 +449,34 @@ const LayoutCollectivesRouteChildren: LayoutCollectivesRouteChildren = {
 const LayoutCollectivesRouteWithChildren =
   LayoutCollectivesRoute._addFileChildren(LayoutCollectivesRouteChildren)
 
+interface LayoutStakingLayoutRouteChildren {
+  LayoutStakingLayoutNominationPoolsRoute: typeof LayoutStakingLayoutNominationPoolsRoute
+  LayoutStakingLayoutValidatorsRoute: typeof LayoutStakingLayoutValidatorsRoute
+}
+
+const LayoutStakingLayoutRouteChildren: LayoutStakingLayoutRouteChildren = {
+  LayoutStakingLayoutNominationPoolsRoute:
+    LayoutStakingLayoutNominationPoolsRoute,
+  LayoutStakingLayoutValidatorsRoute: LayoutStakingLayoutValidatorsRoute,
+}
+
+const LayoutStakingLayoutRouteWithChildren =
+  LayoutStakingLayoutRoute._addFileChildren(LayoutStakingLayoutRouteChildren)
+
+interface LayoutStakingRouteChildren {
+  LayoutStakingLayoutRoute: typeof LayoutStakingLayoutRouteWithChildren
+  LayoutStakingIndexRoute: typeof LayoutStakingIndexRoute
+}
+
+const LayoutStakingRouteChildren: LayoutStakingRouteChildren = {
+  LayoutStakingLayoutRoute: LayoutStakingLayoutRouteWithChildren,
+  LayoutStakingIndexRoute: LayoutStakingIndexRoute,
+}
+
+const LayoutStakingRouteWithChildren = LayoutStakingRoute._addFileChildren(
+  LayoutStakingRouteChildren,
+)
+
 interface LayoutUtilitiesLayoutRouteChildren {
   LayoutUtilitiesLayoutPlanckConvertorRoute: typeof LayoutUtilitiesLayoutPlanckConvertorRoute
 }
@@ -414,6 +513,7 @@ interface LayoutRouteChildren {
   LayoutQueriesRoute: typeof LayoutQueriesRoute
   LayoutAccountsRoute: typeof LayoutAccountsRouteWithChildren
   LayoutCollectivesRoute: typeof LayoutCollectivesRouteWithChildren
+  LayoutStakingRoute: typeof LayoutStakingRouteWithChildren
   LayoutUtilitiesRoute: typeof LayoutUtilitiesRouteWithChildren
   LayoutReferendaIndexRoute: typeof LayoutReferendaIndexRoute
 }
@@ -426,6 +526,7 @@ const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutQueriesRoute: LayoutQueriesRoute,
   LayoutAccountsRoute: LayoutAccountsRouteWithChildren,
   LayoutCollectivesRoute: LayoutCollectivesRouteWithChildren,
+  LayoutStakingRoute: LayoutStakingRouteWithChildren,
   LayoutUtilitiesRoute: LayoutUtilitiesRouteWithChildren,
   LayoutReferendaIndexRoute: LayoutReferendaIndexRoute,
 }
@@ -443,13 +544,17 @@ export interface FileRoutesByFullPath {
   '/queries': typeof LayoutQueriesRoute
   '/accounts': typeof LayoutAccountsLayoutRouteWithChildren
   '/collectives': typeof LayoutCollectivesLayoutRouteWithChildren
+  '/staking': typeof LayoutStakingLayoutRouteWithChildren
   '/utilities': typeof LayoutUtilitiesLayoutRouteWithChildren
   '/collectives/': typeof LayoutCollectivesIndexRoute
   '/referenda': typeof LayoutReferendaIndexRoute
+  '/staking/': typeof LayoutStakingIndexRoute
   '/utilities/': typeof LayoutUtilitiesIndexRoute
   '/accounts/validators': typeof LayoutAccountsLayoutValidatorsRoute
   '/collectives/ambassador': typeof LayoutCollectivesLayoutAmbassadorRoute
   '/collectives/fellowship': typeof LayoutCollectivesLayoutFellowshipRoute
+  '/staking/nomination-pools': typeof LayoutStakingLayoutNominationPoolsRoute
+  '/staking/validators': typeof LayoutStakingLayoutValidatorsRoute
   '/utilities/planck-convertor': typeof LayoutUtilitiesLayoutPlanckConvertorRoute
   '/accounts/': typeof LayoutAccountsLayoutIndexRoute
 }
@@ -464,11 +569,14 @@ export interface FileRoutesByTo {
   '/queries': typeof LayoutQueriesRoute
   '/accounts': typeof LayoutAccountsLayoutIndexRoute
   '/collectives': typeof LayoutCollectivesIndexRoute
+  '/staking': typeof LayoutStakingIndexRoute
   '/utilities': typeof LayoutUtilitiesIndexRoute
   '/referenda': typeof LayoutReferendaIndexRoute
   '/accounts/validators': typeof LayoutAccountsLayoutValidatorsRoute
   '/collectives/ambassador': typeof LayoutCollectivesLayoutAmbassadorRoute
   '/collectives/fellowship': typeof LayoutCollectivesLayoutFellowshipRoute
+  '/staking/nomination-pools': typeof LayoutStakingLayoutNominationPoolsRoute
+  '/staking/validators': typeof LayoutStakingLayoutValidatorsRoute
   '/utilities/planck-convertor': typeof LayoutUtilitiesLayoutPlanckConvertorRoute
 }
 
@@ -485,14 +593,19 @@ export interface FileRoutesById {
   '/_layout/accounts/_layout': typeof LayoutAccountsLayoutRouteWithChildren
   '/_layout/collectives': typeof LayoutCollectivesRouteWithChildren
   '/_layout/collectives/_layout': typeof LayoutCollectivesLayoutRouteWithChildren
+  '/_layout/staking': typeof LayoutStakingRouteWithChildren
+  '/_layout/staking/_layout': typeof LayoutStakingLayoutRouteWithChildren
   '/_layout/utilities': typeof LayoutUtilitiesRouteWithChildren
   '/_layout/utilities/_layout': typeof LayoutUtilitiesLayoutRouteWithChildren
   '/_layout/collectives/': typeof LayoutCollectivesIndexRoute
   '/_layout/referenda/': typeof LayoutReferendaIndexRoute
+  '/_layout/staking/': typeof LayoutStakingIndexRoute
   '/_layout/utilities/': typeof LayoutUtilitiesIndexRoute
   '/_layout/accounts/_layout/validators': typeof LayoutAccountsLayoutValidatorsRoute
   '/_layout/collectives/_layout/ambassador': typeof LayoutCollectivesLayoutAmbassadorRoute
   '/_layout/collectives/_layout/fellowship': typeof LayoutCollectivesLayoutFellowshipRoute
+  '/_layout/staking/_layout/nomination-pools': typeof LayoutStakingLayoutNominationPoolsRoute
+  '/_layout/staking/_layout/validators': typeof LayoutStakingLayoutValidatorsRoute
   '/_layout/utilities/_layout/planck-convertor': typeof LayoutUtilitiesLayoutPlanckConvertorRoute
   '/_layout/accounts/_layout/': typeof LayoutAccountsLayoutIndexRoute
 }
@@ -509,13 +622,17 @@ export interface FileRouteTypes {
     | '/queries'
     | '/accounts'
     | '/collectives'
+    | '/staking'
     | '/utilities'
     | '/collectives/'
     | '/referenda'
+    | '/staking/'
     | '/utilities/'
     | '/accounts/validators'
     | '/collectives/ambassador'
     | '/collectives/fellowship'
+    | '/staking/nomination-pools'
+    | '/staking/validators'
     | '/utilities/planck-convertor'
     | '/accounts/'
   fileRoutesByTo: FileRoutesByTo
@@ -529,11 +646,14 @@ export interface FileRouteTypes {
     | '/queries'
     | '/accounts'
     | '/collectives'
+    | '/staking'
     | '/utilities'
     | '/referenda'
     | '/accounts/validators'
     | '/collectives/ambassador'
     | '/collectives/fellowship'
+    | '/staking/nomination-pools'
+    | '/staking/validators'
     | '/utilities/planck-convertor'
   id:
     | '__root__'
@@ -548,14 +668,19 @@ export interface FileRouteTypes {
     | '/_layout/accounts/_layout'
     | '/_layout/collectives'
     | '/_layout/collectives/_layout'
+    | '/_layout/staking'
+    | '/_layout/staking/_layout'
     | '/_layout/utilities'
     | '/_layout/utilities/_layout'
     | '/_layout/collectives/'
     | '/_layout/referenda/'
+    | '/_layout/staking/'
     | '/_layout/utilities/'
     | '/_layout/accounts/_layout/validators'
     | '/_layout/collectives/_layout/ambassador'
     | '/_layout/collectives/_layout/fellowship'
+    | '/_layout/staking/_layout/nomination-pools'
+    | '/_layout/staking/_layout/validators'
     | '/_layout/utilities/_layout/planck-convertor'
     | '/_layout/accounts/_layout/'
   fileRoutesById: FileRoutesById
@@ -598,6 +723,7 @@ export const routeTree = rootRoute
         "/_layout/queries",
         "/_layout/accounts",
         "/_layout/collectives",
+        "/_layout/staking",
         "/_layout/utilities",
         "/_layout/referenda/"
       ]
@@ -653,6 +779,22 @@ export const routeTree = rootRoute
         "/_layout/collectives/_layout/fellowship"
       ]
     },
+    "/_layout/staking": {
+      "filePath": "_layout/staking",
+      "parent": "/_layout",
+      "children": [
+        "/_layout/staking/_layout",
+        "/_layout/staking/"
+      ]
+    },
+    "/_layout/staking/_layout": {
+      "filePath": "_layout/staking/_layout.tsx",
+      "parent": "/_layout/staking",
+      "children": [
+        "/_layout/staking/_layout/nomination-pools",
+        "/_layout/staking/_layout/validators"
+      ]
+    },
     "/_layout/utilities": {
       "filePath": "_layout/utilities",
       "parent": "/_layout",
@@ -676,6 +818,10 @@ export const routeTree = rootRoute
       "filePath": "_layout/referenda/index.tsx",
       "parent": "/_layout"
     },
+    "/_layout/staking/": {
+      "filePath": "_layout/staking/index.tsx",
+      "parent": "/_layout/staking"
+    },
     "/_layout/utilities/": {
       "filePath": "_layout/utilities/index.tsx",
       "parent": "/_layout/utilities"
@@ -691,6 +837,14 @@ export const routeTree = rootRoute
     "/_layout/collectives/_layout/fellowship": {
       "filePath": "_layout/collectives/_layout/fellowship.tsx",
       "parent": "/_layout/collectives/_layout"
+    },
+    "/_layout/staking/_layout/nomination-pools": {
+      "filePath": "_layout/staking/_layout/nomination-pools.tsx",
+      "parent": "/_layout/staking/_layout"
+    },
+    "/_layout/staking/_layout/validators": {
+      "filePath": "_layout/staking/_layout/validators.tsx",
+      "parent": "/_layout/staking/_layout"
     },
     "/_layout/utilities/_layout/planck-convertor": {
       "filePath": "_layout/utilities/_layout/planck-convertor.tsx",

@@ -150,6 +150,16 @@ function Layout() {
               </Link>
               <Link asChild>
                 <RouterLink
+                  to="/staking"
+                  activeProps={{
+                    className: css({ color: "colorPalette.default" }),
+                  }}
+                >
+                  Staking
+                </RouterLink>
+              </Link>
+              <Link asChild>
+                <RouterLink
                   to="/referenda"
                   activeProps={{
                     className: css({ color: "colorPalette.default" }),
