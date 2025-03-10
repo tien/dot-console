@@ -76,19 +76,19 @@ export function ValidatorAccount({
             </Suspense>
             <dt>Reward destination</dt>
             <dd>
-              <Suspense fallback={<CircularProgressIndicator />}>
+              <Suspense fallback={<CircularProgressIndicator size="text" />}>
                 <SuspendableRewardDestination account={account} />
               </Suspense>
             </dd>
             <dt>Commission</dt>
             <dd>
-              <Suspense fallback={<CircularProgressIndicator />}>
+              <Suspense fallback={<CircularProgressIndicator size="text" />}>
                 <SuspendableCommission account={account} />
               </Suspense>
             </dd>
             <dt>Session keys</dt>
             <dd>
-              <Suspense fallback={<CircularProgressIndicator />}>
+              <Suspense fallback={<CircularProgressIndicator size="text" />}>
                 <SuspendableSessionKey account={account} />
               </Suspense>
             </dd>

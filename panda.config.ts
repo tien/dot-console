@@ -48,6 +48,15 @@ export default defineConfig({
           violet: violet.semanticTokens,
         },
       },
+      recipes: {
+        spinner: {
+          variants: {
+            size: {
+              text: { "--size": "min(1lh, 1em)" },
+            },
+          },
+        },
+      },
     },
   },
   staticCss: {
@@ -70,6 +79,9 @@ export default defineConfig({
         },
       },
     ],
+    recipes: {
+      spinner: [{ size: ["text"] }],
+    },
   },
   include: ["./src/**/*.{js,jsx,ts,tsx}"],
   jsxFramework: "react",

@@ -4,9 +4,9 @@ import { useBlock } from "@reactive-dot/react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { Fragment } from "react";
 import { css } from "styled-system/css";
+import { CircularProgressIndicator } from "~/components/circular-progress-indicator";
 import { Button } from "~/components/ui/button";
 import { Heading } from "~/components/ui/heading";
-import { Spinner } from "~/components/ui/spinner";
 import { Table } from "~/components/ui/table";
 
 export type BlocksProps = {
@@ -95,7 +95,9 @@ export function Blocks({ className }: BlocksProps) {
                   <BlockAuthor blockHash={block.hash} />
                 </Table.Cell>
                 <Table.Cell>
-                  {block.extrinsics?.length.toLocaleString() ?? <Spinner />}
+                  {block.extrinsics?.length.toLocaleString() ?? (
+                    <CircularProgressIndicator size="text" />
+                  )}
                 </Table.Cell>
               </Table.Row>
             </Fragment>

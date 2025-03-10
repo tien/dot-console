@@ -15,7 +15,9 @@ import { Card } from "~/components/ui/card";
 import { Skeleton } from "~/components/ui/skeleton";
 import { useStakingChainId } from "~/hooks/chain";
 
-export const Route = createFileRoute("/_layout/staking/_layout/nomination-pools")({
+export const Route = createFileRoute(
+  "/_layout/staking/_layout/nomination-pools",
+)({
   component: NominationPoolsPage,
 });
 
@@ -24,12 +26,12 @@ function NominationPoolsPage() {
     <ChainProvider chainId={useStakingChainId()}>
       <InfoHeader>
         <InfoHeader.Item title="Total staked">
-          <Suspense fallback={<CircularProgressIndicator />}>
+          <Suspense fallback={<CircularProgressIndicator size="text" />}>
             <SuspendableTotalValueLocked />
           </Suspense>
         </InfoHeader.Item>
         <InfoHeader.Item title="Pools">
-          <Suspense fallback={<CircularProgressIndicator />}>
+          <Suspense fallback={<CircularProgressIndicator size="text" />}>
             <QueryRenderer
               chainId={useStakingChainId()}
               query={(builder) =>
@@ -45,7 +47,7 @@ function NominationPoolsPage() {
           </Suspense>
         </InfoHeader.Item>
         <InfoHeader.Item title="Pool stakers">
-          <Suspense fallback={<CircularProgressIndicator />}>
+          <Suspense fallback={<CircularProgressIndicator size="text" />}>
             <QueryRenderer
               chainId={useStakingChainId()}
               query={(builder) =>

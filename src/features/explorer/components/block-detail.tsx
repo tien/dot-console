@@ -11,13 +11,13 @@ import { useAtom } from "jotai";
 import { Suspense } from "react";
 import { css } from "styled-system/css";
 import { token } from "styled-system/tokens";
+import { CircularProgressIndicator } from "~/components/circular-progress-indicator";
 import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
 import { Clipboard } from "~/components/ui/clipboard";
 import { Heading } from "~/components/ui/heading";
 import { IconButton } from "~/components/ui/icon-button";
 import { Progress } from "~/components/ui/progress";
-import { Spinner } from "~/components/ui/spinner";
 import { Tabs } from "~/components/ui/tabs";
 import { Text } from "~/components/ui/text";
 
@@ -89,8 +89,7 @@ export function BlockDetail() {
               >
                 {block.number > finalizedBlock.number ? (
                   <span>
-                    <Spinner className={css({ width: "1em", height: "1em" })} />{" "}
-                    Pending
+                    <CircularProgressIndicator size="text" /> Pending
                   </span>
                 ) : (
                   <span>

@@ -24,22 +24,22 @@ function ValidatorsPage() {
     <ChainProvider chainId={useStakingChainId()}>
       <InfoHeader>
         <InfoHeader.Item title="Total staked">
-          <Suspense fallback={<CircularProgressIndicator />}>
+          <Suspense fallback={<CircularProgressIndicator size="text" />}>
             <SuspendableTotalStaked />
           </Suspense>
         </InfoHeader.Item>
         <InfoHeader.Item title="Active validators">
-          <Suspense fallback={<CircularProgressIndicator />}>
+          <Suspense fallback={<CircularProgressIndicator size="text" />}>
             <SuspendableActiveValidators />
           </Suspense>
         </InfoHeader.Item>
         <InfoHeader.Item title="Total validators">
-          <Suspense fallback={<CircularProgressIndicator />}>
+          <Suspense fallback={<CircularProgressIndicator size="text" />}>
             <SuspendableTotalValidators />
           </Suspense>
         </InfoHeader.Item>
         <InfoHeader.Item title="Nominators">
-          <Suspense fallback={<CircularProgressIndicator />}>
+          <Suspense fallback={<CircularProgressIndicator size="text" />}>
             <QueryRenderer
               chainId={useStakingChainId()}
               query={(builder) =>

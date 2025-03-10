@@ -5,7 +5,7 @@ import { idle } from "@reactive-dot/core";
 import { useLazyLoadQuery } from "@reactive-dot/react";
 import { Suspense, useMemo } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import { Spinner } from "~/components/ui/spinner";
+import { CircularProgressIndicator } from "~/components/circular-progress-indicator";
 
 const babeDigestCodec = ScaleEnum({
   authority_index: u32,
@@ -23,7 +23,7 @@ export type BlockAuthorProps = {
 export function BlockAuthor(props: BlockAuthorProps) {
   return (
     <ErrorBoundary fallback={<>Error fetching block's author</>}>
-      <Suspense fallback={<Spinner />}>
+      <Suspense fallback={<CircularProgressIndicator size="text" />}>
         <SuspendableBlockAuthor {...props} />
       </Suspense>
     </ErrorBoundary>

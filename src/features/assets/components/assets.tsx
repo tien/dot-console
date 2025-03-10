@@ -109,7 +109,7 @@ function SuspendableAssetList() {
         return (
           <Table.Row key={stringifyCodec(asset.id)}>
             <Table.Cell>
-              <Suspense fallback={<CircularProgressIndicator />}>
+              <Suspense fallback={<CircularProgressIndicator size="text" />}>
                 <QueryRenderer chainId={assetHubChainId} query={metadataQuery}>
                   {(metadata) => metadata.name.asText()}
                 </QueryRenderer>
@@ -117,7 +117,7 @@ function SuspendableAssetList() {
             </Table.Cell>
             <Table.Cell className={css({ maxWidth: "15rem" })}>
               <div className={css({ overflow: "auto" })}>
-                <Suspense fallback={<CircularProgressIndicator />}>
+                <Suspense fallback={<CircularProgressIndicator size="text" />}>
                   <QueryRenderer
                     chainId={assetHubChainId}
                     query={metadataQuery}

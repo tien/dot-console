@@ -8,12 +8,12 @@ import CloseIcon from "@w3f/polkadot-icons/solid/Close";
 import { Suspense, useState } from "react";
 import { Fragment } from "react/jsx-runtime";
 import { css } from "styled-system/css";
+import { CircularProgressIndicator } from "~/components/circular-progress-indicator";
 import { Card } from "~/components/ui/card";
 import { Dialog } from "~/components/ui/dialog";
 import { Heading } from "~/components/ui/heading";
 import { IconButton } from "~/components/ui/icon-button";
 import { Link } from "~/components/ui/link";
-import { Spinner } from "~/components/ui/spinner";
 import { Text } from "~/components/ui/text";
 import { AccountListItem } from "~/features/accounts/components/account-list-item";
 import { usePeopleChainId } from "~/hooks/chain";
@@ -171,7 +171,11 @@ function Amount({ value }: { value: DenominatedNumber | "pending" }) {
         value === "pending" || value.planck === 0n ? undefined : "success.text"
       }
     >
-      {value === "pending" ? <Spinner /> : value.toLocaleString()}
+      {value === "pending" ? (
+        <CircularProgressIndicator size="text" />
+      ) : (
+        value.toLocaleString()
+      )}
     </Text>
   );
 }

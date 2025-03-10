@@ -84,7 +84,7 @@ export function CoreCollective({ type }: CoreCollectiveProps) {
               <AccountListItem address={member.address} />
             </Table.Cell>
             <Table.Cell>
-              <Suspense fallback={<CircularProgressIndicator />}>
+              <Suspense fallback={<CircularProgressIndicator size="text" />}>
                 <QueryRenderer
                   chainId={assetHubChainId}
                   query={(builder) =>

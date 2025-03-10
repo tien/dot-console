@@ -12,7 +12,7 @@ export function Parachains() {
     <section>
       <InfoHeader>
         <InfoHeader.Item title="Parachains">
-          <Suspense fallback={<CircularProgressIndicator />}>
+          <Suspense fallback={<CircularProgressIndicator size="text" />}>
             <QueryRenderer
               chainId={useRelayChainId()}
               query={(builder) =>
@@ -24,7 +24,7 @@ export function Parachains() {
           </Suspense>
         </InfoHeader.Item>
         <InfoHeader.Item title="Cores">
-          <Suspense fallback={<CircularProgressIndicator />}>
+          <Suspense fallback={<CircularProgressIndicator size="text" />}>
             <QueryRenderer
               chainId="polkadot_coretime"
               query={(builder) => builder.readStorage("Broker", "Status", [])}
