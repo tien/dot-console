@@ -3612,6 +3612,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tanstack/history@npm:1.114.12":
+  version: 1.114.12
+  resolution: "@tanstack/history@npm:1.114.12"
+  checksum: 10c0/87733ddaf8796a5106fb24e2d3240ed29a00b8a27d71ca66d12901d9ffed3811d2a3af8557776f9bd9621aa5acf63cd2504442254aa83032985c75965d249a9f
+  languageName: node
+  linkType: hard
+
 "@tanstack/history@npm:1.114.6":
   version: 1.114.6
   resolution: "@tanstack/history@npm:1.114.6"
@@ -3631,20 +3638,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-router@npm:1.114.7":
-  version: 1.114.7
-  resolution: "@tanstack/react-router@npm:1.114.7"
+"@tanstack/react-router@npm:1.114.12":
+  version: 1.114.12
+  resolution: "@tanstack/react-router@npm:1.114.12"
   dependencies:
-    "@tanstack/history": "npm:1.114.6"
+    "@tanstack/history": "npm:1.114.12"
     "@tanstack/react-store": "npm:^0.7.0"
-    "@tanstack/router-core": "npm:^1.114.7"
+    "@tanstack/router-core": "npm:^1.114.12"
     jsesc: "npm:^3.1.0"
     tiny-invariant: "npm:^1.3.3"
     tiny-warning: "npm:^1.0.3"
   peerDependencies:
     react: ">=18.0.0 || >=19.0.0"
     react-dom: ">=18.0.0 || >=19.0.0"
-  checksum: 10c0/9036de91108cb38ccc820d3adc95ded41d95a8ef23d40e658f0629dd993f5491a5b41232243d939f344ac117ec74651a748986a01d218ce57a33c8e3895f94a4
+  checksum: 10c0/31f0c781e6cf19e62c2218577e805e71857b67c8797999e12697d8420b2affd4f951dfd8e04a566b5e2d6f13d4508dee258324ca5c44991e05745ec867b323cc
   languageName: node
   linkType: hard
 
@@ -3658,6 +3665,16 @@ __metadata:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
   checksum: 10c0/7e971ae3c547d0d803133f07737e7cc7cf381e959b4fab3f55755b28c194688392f5b921d3d43b8c9c81bdc721ea8878c680d4ca28a1ccd59e8a64ab7bcfd0f8
+  languageName: node
+  linkType: hard
+
+"@tanstack/router-core@npm:^1.114.12":
+  version: 1.114.12
+  resolution: "@tanstack/router-core@npm:1.114.12"
+  dependencies:
+    "@tanstack/history": "npm:1.114.12"
+    "@tanstack/store": "npm:^0.7.0"
+  checksum: 10c0/52562efdb09caaa691833442fc090196f47abfe565d582199414d9e2c772c55480da9b71eab43ca7ac37f419cce8b9c9b4fa34a93ced0af3f75366538fba769e
   languageName: node
   linkType: hard
 
@@ -6920,7 +6937,7 @@ __metadata:
     "@rsbuild/core": "npm:^1.2.16"
     "@rsbuild/plugin-babel": "npm:^1.0.4"
     "@rsbuild/plugin-react": "npm:^1.1.1"
-    "@tanstack/react-router": "npm:1.114.7"
+    "@tanstack/react-router": "npm:1.114.12"
     "@tanstack/router-devtools": "npm:1.114.7"
     "@tanstack/router-plugin": "npm:1.114.7"
     "@tanstack/zod-adapter": "npm:1.114.7"
