@@ -23,7 +23,7 @@ export type BlockAuthorProps = {
 export function BlockAuthor(props: BlockAuthorProps) {
   return (
     <ErrorBoundary fallback={<>Error fetching block's author</>}>
-      <Suspense fallback={<CircularProgressIndicator size="text" />}>
+      <Suspense fallback={<CircularProgressIndicator />}>
         <SuspendableBlockAuthor {...props} />
       </Suspense>
     </ErrorBoundary>

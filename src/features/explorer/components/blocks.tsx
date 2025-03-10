@@ -96,7 +96,7 @@ export function Blocks({ className }: BlocksProps) {
                 </Table.Cell>
                 <Table.Cell>
                   {block.extrinsics?.length.toLocaleString() ?? (
-                    <CircularProgressIndicator size="text" />
+                    <CircularProgressIndicator />
                   )}
                 </Table.Cell>
               </Table.Row>
