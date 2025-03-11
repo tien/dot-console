@@ -32,6 +32,7 @@ const offchainDiscussionDataAtom = atomFamily(
               title: string;
               content: string;
               proposer: string;
+              trackInfo: { id: number; name?: string };
               onchainData: {
                 tally: {
                   ayes: number | string;

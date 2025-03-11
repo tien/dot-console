@@ -48,6 +48,7 @@ export function ReferendaTable() {
       <Table.Head>
         <Table.Row className={css({ "&>th": { whiteSpace: "nowrap" } })}>
           <Table.Header>Number</Table.Header>
+          <Table.Header>Track</Table.Header>
           <Table.Header>Status</Table.Header>
           <Table.Header>Since</Table.Header>
           <Table.Header>Discussion</Table.Header>
@@ -59,6 +60,7 @@ export function ReferendaTable() {
       <Table.Body
         className={css({
           "&> tr": {
+            "&> td:nth-child(1)": { fontWeight: "bold" },
             "&> td:nth-child(3)": { whiteSpace: "nowrap" },
             "&> td:nth-last-child(3)": { maxWidth: "16rem" },
           },
@@ -130,9 +132,11 @@ function LazyReferendaRow({ number }: ReferendumProps) {
 function ReferendumRow({ number }: ReferendumProps) {
   const offChainDataPromise = useReferendumOffChainDiscussion(number);
 
-  const info = useLazyLoadQuery(
+  const [tracks, info] = useLazyLoadQuery(
     (builder) =>
-      builder.readStorage("Referenda", "ReferendumInfoFor", [number]),
+      builder
+        .getConstant("Referenda", "Tracks")
+        .readStorage("Referenda", "ReferendumInfoFor", [number]),
     { chainId: useGovernanceChainId() },
   );
 
@@ -141,10 +145,26 @@ function ReferendumRow({ number }: ReferendumProps) {
   }
 
   switch (info.type) {
-    case "Ongoing":
+    case "Ongoing": {
+      const _trackName = tracks
+        .map((track) =>
+          Array.isArray(track) ? { id: track[0], info: track[1] } : track,
+        )
+        .find((track) => track.id === info.value.track)?.info.name;
+
+      const trackName =
+        _trackName === undefined
+          ? info.value.track.toLocaleString()
+          : typeof _trackName === "string"
+            ? _trackName
+            : _trackName.asText();
+
       return (
         <>
           <Table.Cell>{number.toLocaleString()}</Table.Cell>
+          <Table.Cell>
+            <Code size="sm">{trackName}</Code>
+          </Table.Cell>
           <Table.Cell>
             <Badge
               variant="solid"
@@ -186,6 +206,7 @@ function ReferendumRow({ number }: ReferendumProps) {
           </Table.Cell>
         </>
       );
+    }
     case "Approved":
     case "Cancelled":
     case "Killed":
@@ -201,6 +222,12 @@ function ReferendumRow({ number }: ReferendumProps) {
       return (
         <>
           <Table.Cell>{number.toLocaleString()}</Table.Cell>
+          <Table.Cell>
+            <Code size="sm">
+              {offChainData.trackInfo.name ??
+                offChainData.trackInfo.id.toLocaleString()}
+            </Code>
+          </Table.Cell>
           <Table.Cell>
             <Badge
               variant="solid"
