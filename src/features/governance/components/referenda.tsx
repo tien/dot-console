@@ -97,7 +97,7 @@ function LazyReferendaRow({ number }: ReferendumProps) {
         fallback={
           <>
             <Table.Cell>{number.toLocaleString()}</Table.Cell>
-            <Table.Cell colSpan={6}>Failed to load referendum</Table.Cell>
+            <Table.Cell colSpan={7}>Failed to load referendum</Table.Cell>
           </>
         }
       >
@@ -105,7 +105,7 @@ function LazyReferendaRow({ number }: ReferendumProps) {
           fallback={
             <>
               <Table.Cell>{number.toLocaleString()}</Table.Cell>
-              <Table.Cell colSpan={6}>
+              <Table.Cell colSpan={7}>
                 <Center>
                   <CircularProgressIndicator />
                 </Center>
@@ -116,7 +116,7 @@ function LazyReferendaRow({ number }: ReferendumProps) {
           {!inViewOnce ? (
             <>
               <Table.Cell>{number.toLocaleString()}</Table.Cell>
-              <Table.Cell colSpan={6} />
+              <Table.Cell colSpan={7} />
             </>
           ) : (
             <QueryOptionsProvider active={inView}>
