@@ -3615,20 +3615,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-router@npm:1.114.13":
-  version: 1.114.13
-  resolution: "@tanstack/react-router@npm:1.114.13"
+"@tanstack/react-router@npm:1.114.17":
+  version: 1.114.17
+  resolution: "@tanstack/react-router@npm:1.114.17"
   dependencies:
     "@tanstack/history": "npm:1.114.12"
     "@tanstack/react-store": "npm:^0.7.0"
-    "@tanstack/router-core": "npm:1.114.12"
+    "@tanstack/router-core": "npm:1.114.17"
     jsesc: "npm:^3.1.0"
     tiny-invariant: "npm:^1.3.3"
     tiny-warning: "npm:^1.0.3"
   peerDependencies:
     react: ">=18.0.0 || >=19.0.0"
     react-dom: ">=18.0.0 || >=19.0.0"
-  checksum: 10c0/1a5e70346609cd5f64f136e289a97fa2510c4ed46c05d9bc196328490d1f68c460a06569095ca167e7c43a77509efffe42510a7d1f825e3e1444b2c97d6a9d09
+  checksum: 10c0/3296cf626275ae994af933ba4064ea5de56745287187897537c57d965a793ad68ecc2c3165dce8ae85ba28977b5f6158bf7fa59944c46114bb3c2e69f94b8fdd
   languageName: node
   linkType: hard
 
@@ -3645,7 +3645,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/router-core@npm:1.114.12, @tanstack/router-core@npm:^1.114.12":
+"@tanstack/router-core@npm:1.114.17":
+  version: 1.114.17
+  resolution: "@tanstack/router-core@npm:1.114.17"
+  dependencies:
+    "@tanstack/history": "npm:1.114.12"
+    "@tanstack/store": "npm:^0.7.0"
+  checksum: 10c0/b9b8f03dac1c44ba0e47557cd2fdc2099e88f7bbb85765e1d6351ac81e9c31ab8646a57c8cdad54339943832f3968e88681979f2ce17f5ea4337ecc5a1d48e95
+  languageName: node
+  linkType: hard
+
+"@tanstack/router-core@npm:^1.114.12":
   version: 1.114.12
   resolution: "@tanstack/router-core@npm:1.114.12"
   dependencies:
@@ -6997,7 +7007,7 @@ __metadata:
     "@rsbuild/core": "npm:^1.2.16"
     "@rsbuild/plugin-babel": "npm:^1.0.4"
     "@rsbuild/plugin-react": "npm:^1.1.1"
-    "@tanstack/react-router": "npm:1.114.13"
+    "@tanstack/react-router": "npm:1.114.17"
     "@tanstack/router-devtools": "npm:1.114.13"
     "@tanstack/router-plugin": "npm:1.114.13"
     "@tanstack/zod-adapter": "npm:1.114.13"
