@@ -27,14 +27,14 @@ export function CoreCollective({ type }: CoreCollectiveProps) {
   const [coreMembers, params] = useLazyLoadQuery(
     (builder) =>
       builder
-        .readStorageEntries(`${palletName}Core`, "Member", [])
-        .readStorage(`${palletName}Core`, "Params", []),
+        .storageEntries(`${palletName}Core`, "Member", [])
+        .storage(`${palletName}Core`, "Params", []),
     { chainId: collectivesChainId },
   );
 
   const ranks = useLazyLoadQuery(
     (builder) =>
-      builder.readStorages(
+      builder.storages(
         `${palletName}Collective`,
         "Members",
         coreMembers.map(([key]) => key),
@@ -88,7 +88,7 @@ export function CoreCollective({ type }: CoreCollectiveProps) {
                 <QueryRenderer
                   chainId={assetHubChainId}
                   query={(builder) =>
-                    builder.readStorage("Assets", "Metadata", [USDT_ASSET_ID])
+                    builder.storage("Assets", "Metadata", [USDT_ASSET_ID])
                   }
                 >
                   {(metadata) =>

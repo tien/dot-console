@@ -50,13 +50,13 @@ function ExplorerPage() {
 
             void loadQuery((builder) =>
               builder
-                .readStorage("System", "Digest", [], {
+                .storage("System", "Digest", [], {
                   at: block.hash as `0x${string}`,
                 })
-                .readStorage("Session", "Validators", [], {
+                .storage("Session", "Validators", [], {
                   at: block.hash as `0x${string}`,
                 })
-                .readStorage("System", "Events", [], {
+                .storage("System", "Events", [], {
                   at: block.hash as `0x${string}`,
                 }),
             );
@@ -64,7 +64,7 @@ function ExplorerPage() {
             if (babeChainId !== undefined) {
               loadQuery(
                 (builder) =>
-                  builder.readStorage("Session", "Validators", [], {
+                  builder.storage("Session", "Validators", [], {
                     at: block.hash as `0x${string}`,
                   }),
                 { chainId: babeChainId },
@@ -74,14 +74,9 @@ function ExplorerPage() {
             if (auraChainId !== undefined) {
               void loadQuery(
                 (builder) =>
-                  builder.readStorage(
-                    "CollatorSelection",
-                    "Invulnerables",
-                    [],
-                    {
-                      at: block.hash as `0x${string}`,
-                    },
-                  ),
+                  builder.storage("CollatorSelection", "Invulnerables", [], {
+                    at: block.hash as `0x${string}`,
+                  }),
                 { chainId: auraChainId },
               );
             }

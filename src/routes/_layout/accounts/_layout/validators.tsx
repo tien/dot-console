@@ -12,7 +12,7 @@ function ValidatorsPage() {
   const accounts = useAccounts();
   const validatorPreferences = useLazyLoadQuery(
     (query) =>
-      query.readStorages(
+      query.storages(
         "Staking",
         "Validators",
         accounts.map((account) => [account.address] as const),

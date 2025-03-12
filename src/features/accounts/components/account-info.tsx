@@ -109,7 +109,7 @@ function AccountBalances(props: AccountInfoProps) {
 
 function SuspendableAccountBalances({ address }: AccountInfoProps) {
   const systemAccount = useLazyLoadQuery((builder) =>
-    builder.readStorage("System", "Account", [address]),
+    builder.storage("System", "Account", [address]),
   );
 
   const { free, frozen, reserved } = systemAccount.data;
@@ -192,8 +192,8 @@ export function SuspendableAccountIdentity({ address }: AccountInfoProps) {
   const result = useLazyLoadQuery(
     (builder) =>
       builder
-        .readStorage("Identity", "IdentityOf", [address])
-        .readStorage("Identity", "SuperOf", [address]),
+        .storage("Identity", "IdentityOf", [address])
+        .storage("Identity", "SuperOf", [address]),
     { chainId: usePeopleChainId() },
   );
 

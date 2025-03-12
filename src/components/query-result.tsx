@@ -53,27 +53,27 @@ function SuspendableQueryResult({ query, onDelete }: StorageQueryResultProps) {
     (builder) => {
       switch (query.type) {
         case "constant":
-          return builder.getConstant(
+          return builder.constant(
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             query.pallet as any,
             query.constant,
           );
         case "storage":
-          return builder.readStorage(
+          return builder.storage(
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             query.pallet as any,
             query.storage,
             queryArgs,
           );
         case "storage-entries":
-          return builder.readStorageEntries(
+          return builder.storageEntries(
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             query.pallet as any,
             query.storage,
             queryArgs,
           );
         case "api":
-          return builder.callApi(
+          return builder.runtimeApi(
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             query.api as any,
             query.method,

@@ -115,15 +115,15 @@ function SuspendableStaked({ account }: AccountProps) {
   const [currentEra, minActiveStake] = useLazyLoadQuery(
     (builder) =>
       builder
-        .readStorage("Staking", "CurrentEra", [])
-        .readStorage("Staking", "MinimumActiveStake", []),
+        .storage("Staking", "CurrentEra", [])
+        .storage("Staking", "MinimumActiveStake", []),
     { chainId: useStakingChainId() },
   );
 
   const overview = useLazyLoadQuery(
     (builder) =>
       currentEra !== undefined &&
-      builder.readStorage("Staking", "ErasStakersOverview", [
+      builder.storage("Staking", "ErasStakersOverview", [
         currentEra,
         account.address,
       ]),
@@ -210,7 +210,7 @@ function SuspendableStaked({ account }: AccountProps) {
 
 function SuspendableControllerAccount({ account }: AccountProps) {
   const controller = useLazyLoadQuery(
-    (query) => query.readStorage("Staking", "Bonded", [account.address]),
+    (query) => query.storage("Staking", "Bonded", [account.address]),
     { chainId: useStakingChainId() },
   );
 
@@ -240,7 +240,7 @@ function SuspendableRewardDestination({ account }: AccountProps) {
 
 function SuspendableRewardDestinationType({ account }: AccountProps) {
   const payee = useLazyLoadQuery(
-    (query) => query.readStorage("Staking", "Payee", [account.address]),
+    (query) => query.storage("Staking", "Payee", [account.address]),
     { chainId: useStakingChainId() },
   );
 
@@ -257,7 +257,7 @@ function SuspendableRewardDestinationType({ account }: AccountProps) {
 
 function SuspendableCommission({ account }: AccountProps) {
   const preferences = useLazyLoadQuery(
-    (query) => query.readStorage("Staking", "Validators", [account.address]),
+    (query) => query.storage("Staking", "Validators", [account.address]),
     { chainId: useStakingChainId() },
   );
 
@@ -284,7 +284,7 @@ function SuspendableSessionKey({ account }: AccountProps) {
 
 function SuspendableSessionKeyValue({ account }: AccountProps) {
   const sessionKeys = useLazyLoadQuery((query) =>
-    query.readStorage("Session", "NextKeys", [account.address]),
+    query.storage("Session", "NextKeys", [account.address]),
   );
 
   if (sessionKeys === undefined) {
@@ -350,14 +350,14 @@ function SuspendableNominatorList({ account }: AccountProps) {
   const nativeTokenAmountFromPlanck = useNativeTokenAmountFromPlanck();
 
   const currentEra = useLazyLoadQuery(
-    (builder) => builder.readStorage("Staking", "CurrentEra", []),
+    (builder) => builder.storage("Staking", "CurrentEra", []),
     { chainId: useStakingChainId() },
   );
 
   const overview = useLazyLoadQuery(
     (builder) =>
       currentEra !== undefined &&
-      builder.readStorage("Staking", "ErasStakersOverview", [
+      builder.storage("Staking", "ErasStakersOverview", [
         currentEra,
         account.address,
       ]),
@@ -369,7 +369,7 @@ function SuspendableNominatorList({ account }: AccountProps) {
       currentEra !== undefined &&
       overview !== idle &&
       overview !== undefined &&
-      builder.readStorages(
+      builder.storages(
         "Staking",
         "ErasStakersPaged",
         Array.from({ length: overview.page_count }).map(

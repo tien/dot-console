@@ -43,7 +43,7 @@ function ValidatorsPage() {
             <QueryRenderer
               chainId={useStakingChainId()}
               query={(builder) =>
-                builder.readStorage("Staking", "CounterForNominators", [])
+                builder.storage("Staking", "CounterForNominators", [])
               }
             >
               {(count) => count.toLocaleString()}
@@ -60,14 +60,14 @@ function SuspendableActiveValidators() {
   const [activeEra, idealValidatorCount] = useLazyLoadQuery(
     (builder) =>
       builder
-        .readStorage("Staking", "ActiveEra", [])
-        .readStorage("Staking", "ValidatorCount", []),
+        .storage("Staking", "ActiveEra", [])
+        .storage("Staking", "ValidatorCount", []),
     { chainId: useStakingChainId() },
   );
 
   const stakers = useLazyLoadQuery(
     (builder) =>
-      builder.readStorageEntries("Staking", "ErasStakersOverview", [
+      builder.storageEntries("Staking", "ErasStakersOverview", [
         activeEra?.index ?? 0,
       ]),
     { chainId: useStakingChainId() },
@@ -80,8 +80,8 @@ function SuspendableTotalValidators() {
   const [validatorCount, maxValidatorCount] = useLazyLoadQuery(
     (builder) =>
       builder
-        .readStorage("Staking", "CounterForValidators", [])
-        .readStorage("Staking", "MaxValidatorsCount", []),
+        .storage("Staking", "CounterForValidators", [])
+        .storage("Staking", "MaxValidatorsCount", []),
     { chainId: useStakingChainId() },
   );
 
@@ -90,14 +90,14 @@ function SuspendableTotalValidators() {
 
 function SuspendableTotalStaked() {
   const activeEra = useLazyLoadQuery(
-    (builder) => builder.readStorage("Staking", "ActiveEra", []),
+    (builder) => builder.storage("Staking", "ActiveEra", []),
     { chainId: useStakingChainId() },
   );
 
   const totalStaked = useLazyLoadQuery(
     (builder) =>
       activeEra !== undefined &&
-      builder.readStorage("Staking", "ErasTotalStake", [activeEra.index]),
+      builder.storage("Staking", "ErasTotalStake", [activeEra.index]),
     { chainId: useStakingChainId() },
   );
 
@@ -123,13 +123,13 @@ function ValidatorList() {
 
 function SuspendableValidatorList() {
   const activeEra = useLazyLoadQuery(
-    (builder) => builder.readStorage("Staking", "ActiveEra", []),
+    (builder) => builder.storage("Staking", "ActiveEra", []),
     { chainId: useStakingChainId() },
   );
 
   const validators = useLazyLoadQuery(
     (builder) =>
-      builder.readStorageEntries("Staking", "ErasStakersOverview", [
+      builder.storageEntries("Staking", "ErasStakersOverview", [
         activeEra?.index ?? 0,
       ]),
     { chainId: useStakingChainId() },
@@ -190,14 +190,14 @@ function SuspendableValidatorRow({ address }: ValidatorProps) {
   const [activeEra, preferences] = useLazyLoadQuery(
     (builder) =>
       builder
-        .readStorage("Staking", "ActiveEra", [])
-        .readStorage("Staking", "Validators", [address]),
+        .storage("Staking", "ActiveEra", [])
+        .storage("Staking", "Validators", [address]),
     { chainId: useStakingChainId() },
   );
 
   const overview = useLazyLoadQuery(
     (builder) =>
-      builder.readStorage("Staking", "ErasStakersOverview", [
+      builder.storage("Staking", "ErasStakersOverview", [
         activeEra?.index ?? 0,
         address,
       ]),

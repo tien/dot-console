@@ -107,7 +107,7 @@ export function BlockEvents({
   filterNoise = true,
 }: BlockEventsProps) {
   const events = useLazyLoadQuery((builder) =>
-    builder.readStorage("System", "Events", [], {
+    builder.storage("System", "Events", [], {
       at: blockHash as `0x${string}`,
     }),
   );

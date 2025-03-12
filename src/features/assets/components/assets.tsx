@@ -59,14 +59,14 @@ function SuspendableAssetList() {
   const [nativeAssets, foreignAssets] = useLazyLoadQuery(
     (builder) =>
       builder
-        .readStorageEntries("Assets", "Asset", [])
-        .readStorageEntries("ForeignAssets", "Asset", []),
+        .storageEntries("Assets", "Asset", [])
+        .storageEntries("ForeignAssets", "Asset", []),
     { chainId: assetHubChainId },
   );
 
   const nativeValues = useLazyLoadQuery(
     (builder) =>
-      builder.callApis(
+      builder.runtimeApis(
         "AssetConversionApi",
         "quote_price_tokens_for_exact_tokens",
         [...nativeAssets, ...foreignAssets].map(
@@ -103,8 +103,8 @@ function SuspendableAssetList() {
         const query = new Query<[], typeof polkadot_asset_hub>();
         const metadataQuery =
           typeof asset.id === "number"
-            ? query.readStorage("Assets", "Metadata", [asset.id])
-            : query.readStorage("ForeignAssets", "Metadata", [asset.id]);
+            ? query.storage("Assets", "Metadata", [asset.id])
+            : query.storage("ForeignAssets", "Metadata", [asset.id]);
 
         return (
           <Table.Row key={stringifyCodec(asset.id)}>

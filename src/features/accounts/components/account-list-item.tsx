@@ -59,7 +59,7 @@ export function SuspendableAccountListItem({
   className,
 }: AccountListItemProps & { onOpenDialog: () => unknown }) {
   const _identity = useLazyLoadQuery(
-    (builder) => builder.readStorage("Identity", "IdentityOf", [address]),
+    (builder) => builder.storage("Identity", "IdentityOf", [address]),
     { chainId: usePeopleChainId() },
   );
 
@@ -69,7 +69,7 @@ export function SuspendableAccountListItem({
     (builder) =>
       identity !== undefined
         ? undefined
-        : builder.readStorage("Identity", "SuperOf", [address]),
+        : builder.storage("Identity", "SuperOf", [address]),
     { chainId: usePeopleChainId() },
   );
 
@@ -77,7 +77,7 @@ export function SuspendableAccountListItem({
     (builder) =>
       superIdentity === idle || superIdentity === undefined
         ? undefined
-        : builder.readStorage("Identity", "IdentityOf", [superIdentity[0]]),
+        : builder.storage("Identity", "IdentityOf", [superIdentity[0]]),
     { chainId: usePeopleChainId() },
   );
 

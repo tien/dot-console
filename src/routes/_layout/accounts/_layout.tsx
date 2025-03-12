@@ -30,7 +30,7 @@ function SuspendableValidatorCountBadge() {
   const accounts = useAccounts();
   const validators = useLazyLoadQuery(
     (builder) =>
-      builder.readStorages(
+      builder.storages(
         "Staking",
         "Validators",
         accounts.map((account) => [account.address] as const),

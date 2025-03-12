@@ -37,7 +37,7 @@ import { objectId } from "~/utils/object-id";
 
 export function ReferendaTable() {
   const referendumCount = useLazyLoadQuery(
-    (builder) => builder.readStorage("Referenda", "ReferendumCount", []),
+    (builder) => builder.storage("Referenda", "ReferendumCount", []),
     {
       chainId: useGovernanceChainId(),
     },
@@ -135,8 +135,8 @@ function ReferendumRow({ number }: ReferendumProps) {
   const [tracks, info] = useLazyLoadQuery(
     (builder) =>
       builder
-        .getConstant("Referenda", "Tracks")
-        .readStorage("Referenda", "ReferendumInfoFor", [number]),
+        .constant("Referenda", "Tracks")
+        .storage("Referenda", "ReferendumInfoFor", [number]),
     { chainId: useGovernanceChainId() },
   );
 
@@ -294,8 +294,8 @@ function SubmissionDate({ blockNumber }: SubmissionDateProps) {
   const [expectedBlockTime, currentBlock] = useLazyLoadQuery(
     (builder) =>
       builder
-        .getConstant("Babe", "ExpectedBlockTime")
-        .readStorage("System", "Number", []),
+        .constant("Babe", "ExpectedBlockTime")
+        .storage("System", "Number", []),
     { chainId: useGovernanceChainId() },
   );
 
@@ -339,7 +339,7 @@ function ReferendaCall({ proposal }: ReferendaCallProps) {
     (builder) =>
       proposal.type !== "Lookup"
         ? undefined
-        : builder.readStorage("Preimage", "PreimageFor", [
+        : builder.storage("Preimage", "PreimageFor", [
             [proposal.value.hash, proposal.value.len],
           ]),
     { chainId: useGovernanceChainId() },

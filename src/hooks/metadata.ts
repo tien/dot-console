@@ -4,8 +4,8 @@ import { useLazyLoadQuery } from "@reactive-dot/react";
 export function useMetadata() {
   const [v14, v15] = useLazyLoadQuery((builder) =>
     builder
-      .callApi("Metadata", "metadata_at_version", [14])
-      .callApi("Metadata", "metadata_at_version", [15]),
+      .runtimeApi("Metadata", "metadata_at_version", [14])
+      .runtimeApi("Metadata", "metadata_at_version", [15]),
   );
 
   const latestMetadata = v15 ?? v14;

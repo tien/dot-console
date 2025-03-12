@@ -35,11 +35,7 @@ function NominationPoolsPage() {
             <QueryRenderer
               chainId={useStakingChainId()}
               query={(builder) =>
-                builder.readStorage(
-                  "NominationPools",
-                  "CounterForBondedPools",
-                  [],
-                )
+                builder.storage("NominationPools", "CounterForBondedPools", [])
               }
             >
               {(count) => `${count.toLocaleString()} pools`}
@@ -51,11 +47,7 @@ function NominationPoolsPage() {
             <QueryRenderer
               chainId={useStakingChainId()}
               query={(builder) =>
-                builder.readStorage(
-                  "NominationPools",
-                  "CounterForPoolMembers",
-                  [],
-                )
+                builder.storage("NominationPools", "CounterForPoolMembers", [])
               }
             >
               {(count) => `${count.toLocaleString()} members`}
@@ -79,8 +71,7 @@ function NominationPoolsPage() {
 function SuspendableTotalValueLocked() {
   return useNativeTokenAmountFromPlanck(
     useLazyLoadQuery(
-      (builder) =>
-        builder.readStorage("NominationPools", "TotalValueLocked", []),
+      (builder) => builder.storage("NominationPools", "TotalValueLocked", []),
       { chainId: useStakingChainId() },
     ),
   ).toLocaleString();
@@ -88,8 +79,7 @@ function SuspendableTotalValueLocked() {
 
 function SuspendableNominationPoolList() {
   const nominationPools = useLazyLoadQuery(
-    (builder) =>
-      builder.readStorageEntries("NominationPools", "BondedPools", []),
+    (builder) => builder.storageEntries("NominationPools", "BondedPools", []),
     { chainId: useStakingChainId() },
   );
 
@@ -161,8 +151,8 @@ function SuspendableNominationPoolCard({ number }: NominationPoolProps) {
   const [bondedPool, metadata] = useLazyLoadQuery(
     (builder) =>
       builder
-        .readStorage("NominationPools", "BondedPools", [number])
-        .readStorage("NominationPools", "Metadata", [number]),
+        .storage("NominationPools", "BondedPools", [number])
+        .storage("NominationPools", "Metadata", [number]),
     { chainId: stakingChainId },
   );
 
@@ -241,15 +231,14 @@ function SuspendableNominationPoolCard({ number }: NominationPoolProps) {
 
 function SuspendablePoolBalance({ number }: NominationPoolProps) {
   const bondedPool = useLazyLoadQuery(
-    (builder) =>
-      builder.readStorage("NominationPools", "BondedPools", [number]),
+    (builder) => builder.storage("NominationPools", "BondedPools", [number]),
     { chainId: useStakingChainId() },
   );
 
   const balance = useNativeTokenAmountFromPlanck(
     useLazyLoadQuery(
       (builder) =>
-        builder.callApi("NominationPoolsApi", "points_to_balance", [
+        builder.runtimeApi("NominationPoolsApi", "points_to_balance", [
           number,
           bondedPool?.points ?? 0n,
         ]),

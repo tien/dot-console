@@ -17,7 +17,7 @@ export type StatisticsProps = {
 
 export function Statistics({ className }: StatisticsProps) {
   const totalIssuance = useLazyLoadQuery((builder) =>
-    builder.readStorage("Balances", "TotalIssuance", []),
+    builder.storage("Balances", "TotalIssuance", []),
   );
 
   return (
@@ -59,7 +59,7 @@ function BlockTime() {
     (builder) =>
       babeChainId === undefined
         ? undefined
-        : builder.getConstant("Babe", "ExpectedBlockTime"),
+        : builder.constant("Babe", "ExpectedBlockTime"),
     { chainId: babeChainId! },
   );
 
@@ -67,7 +67,7 @@ function BlockTime() {
     (builder) =>
       auraChainId === undefined
         ? undefined
-        : builder.callApi("AuraApi", "slot_duration", []),
+        : builder.runtimeApi("AuraApi", "slot_duration", []),
     { chainId: auraChainId! },
   );
 
@@ -140,7 +140,7 @@ function TotalStaked() {
   const stakingChainId = useStakingChainId();
 
   const activeEra = useLazyLoadQuery(
-    (builder) => builder.readStorage("Staking", "ActiveEra", []),
+    (builder) => builder.storage("Staking", "ActiveEra", []),
     { chainId: stakingChainId },
   );
 
@@ -149,8 +149,8 @@ function TotalStaked() {
       activeEra === undefined
         ? false
         : builder
-            .readStorage("Staking", "ErasTotalStake", [activeEra.index])
-            .readStorage("NominationPools", "TotalValueLocked", []),
+            .storage("Staking", "ErasTotalStake", [activeEra.index])
+            .storage("NominationPools", "TotalValueLocked", []),
     { chainId: stakingChainId },
   );
 
