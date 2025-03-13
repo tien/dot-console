@@ -3552,18 +3552,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-router-devtools@npm:^1.114.17":
-  version: 1.114.17
-  resolution: "@tanstack/react-router-devtools@npm:1.114.17"
+"@tanstack/react-router-devtools@npm:^1.114.18":
+  version: 1.114.18
+  resolution: "@tanstack/react-router-devtools@npm:1.114.18"
   dependencies:
     "@tanstack/router-devtools-core": "npm:^1.114.17"
     solid-js: "npm:^1.9.5"
   peerDependencies:
     "@tanstack/react-router": ^1.114.17
-    "@tanstack/router-devtools-core": ^1.114.17
     react: ">=18.0.0 || >=19.0.0"
     react-dom: ">=18.0.0 || >=19.0.0"
-  checksum: 10c0/c81baa1f1175330788755d6df2ded0f38a78e8f8fe53ad5643cd27b350c46be4ef45e3c9893c2757c4b97da180475b2c91703d705d9542e6772fb4c0c5873df8
+  checksum: 10c0/85f7ff349625adcecf4b565164c88816bfa120560e03cffd1ca2dce998692ff283b32265de3f4fe61fdaa56c028fa564bfa4916c0882c53d03a743953ba3c535
   languageName: node
   linkType: hard
 
@@ -3625,11 +3624,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/router-devtools@npm:1.114.17":
-  version: 1.114.17
-  resolution: "@tanstack/router-devtools@npm:1.114.17"
+"@tanstack/router-devtools@npm:1.114.18":
+  version: 1.114.18
+  resolution: "@tanstack/router-devtools@npm:1.114.18"
   dependencies:
-    "@tanstack/react-router-devtools": "npm:^1.114.17"
+    "@tanstack/react-router-devtools": "npm:^1.114.18"
     clsx: "npm:^2.1.1"
     goober: "npm:^2.1.16"
   peerDependencies:
@@ -3640,7 +3639,7 @@ __metadata:
   peerDependenciesMeta:
     csstype:
       optional: true
-  checksum: 10c0/e88d01eed0cfefb5c95496ac4c2097f10aa5e041ea9aac9b6f187645d7466ae92eea4c55dcf89f3231b4d95aa4b4660b4d23e350f53b1b75041921df0c0b881b
+  checksum: 10c0/79cc4bb419583f9970df23cc39f92e5d160e9988186aeeb09ba81419587a1fcf91d6f924eb166ae02b4008515acea3a655799f2ddb7955edd0c6cd439074cf50
   languageName: node
   linkType: hard
 
@@ -6142,12 +6141,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-react-compiler@npm:19.0.0-beta-e552027-20250112":
-  version: 19.0.0-beta-e552027-20250112
-  resolution: "babel-plugin-react-compiler@npm:19.0.0-beta-e552027-20250112"
+"babel-plugin-react-compiler@npm:19.0.0-beta-714736e-20250131":
+  version: 19.0.0-beta-714736e-20250131
+  resolution: "babel-plugin-react-compiler@npm:19.0.0-beta-714736e-20250131"
   dependencies:
     "@babel/types": "npm:^7.19.0"
-  checksum: 10c0/f64c8f11b893b6bd355a8b3f20b4f15486cee18f98560f2df991abb315b4b037fbf6ccda832eede446fac6140a942e73984a6c5e7e8f5ea5fe1fb0b45d560482
+  checksum: 10c0/b0e16cadc72792acad1de9821e776ba063dee888d6f77c0a754a78235922404cc59bf384968fbf65085f87ae45c3b38f2074ec6b654662ffef72bd594f781795
   languageName: node
   linkType: hard
 
@@ -6875,7 +6874,7 @@ __metadata:
     "@rsbuild/plugin-babel": "npm:^1.0.4"
     "@rsbuild/plugin-react": "npm:^1.1.1"
     "@tanstack/react-router": "npm:1.114.17"
-    "@tanstack/router-devtools": "npm:1.114.17"
+    "@tanstack/router-devtools": "npm:1.114.18"
     "@tanstack/router-plugin": "npm:1.114.17"
     "@tanstack/zod-adapter": "npm:1.114.17"
     "@trivago/prettier-plugin-sort-imports": "npm:^5.2.2"
@@ -6884,12 +6883,12 @@ __metadata:
     "@types/react": "npm:^19.0.10"
     "@types/react-dom": "npm:^19.0.4"
     "@w3f/polkadot-icons": "npm:^1.0.0"
-    babel-plugin-react-compiler: "npm:19.0.0-beta-e552027-20250112"
+    babel-plugin-react-compiler: "npm:19.0.0-beta-714736e-20250131"
     date-fns: "npm:^4.1.0"
     dot-connect: "npm:^0.16.0"
     dot-identicon: "npm:^0.1.1"
     eslint: "npm:^9.22.0"
-    eslint-plugin-react-compiler: "npm:19.0.0-beta-e552027-20250112"
+    eslint-plugin-react-compiler: "npm:19.0.0-beta-714736e-20250131"
     eslint-plugin-react-hooks: "npm:^5.2.0"
     eslint-plugin-react-refresh: "npm:^0.4.19"
     jotai: "npm:^2.12.2"
@@ -7348,9 +7347,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react-compiler@npm:19.0.0-beta-e552027-20250112":
-  version: 19.0.0-beta-e552027-20250112
-  resolution: "eslint-plugin-react-compiler@npm:19.0.0-beta-e552027-20250112"
+"eslint-plugin-react-compiler@npm:19.0.0-beta-714736e-20250131":
+  version: 19.0.0-beta-714736e-20250131
+  resolution: "eslint-plugin-react-compiler@npm:19.0.0-beta-714736e-20250131"
   dependencies:
     "@babel/core": "npm:^7.24.4"
     "@babel/parser": "npm:^7.24.4"
@@ -7360,7 +7359,7 @@ __metadata:
     zod-validation-error: "npm:^3.0.3"
   peerDependencies:
     eslint: ">=7"
-  checksum: 10c0/d54bb2def851f79d88376ef108d5f682c07de820c9561a09051a8a5f3a4dbff0c22c8d014ad5e88db5f4db27947a371f497a8b07ddc561575f1601e47e0df6e4
+  checksum: 10c0/c3b758d7ea75a059de4b36009a44664f57ba056c236583910429a3b0e94fe9f806a3a9ea7f14cc8a64b3ccc9e77cf782de128660747222391bac13fa8787c24b
   languageName: node
   linkType: hard
 
