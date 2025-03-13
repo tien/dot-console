@@ -37,7 +37,7 @@ import { objectId } from "~/utils/object-id";
 
 export function ReferendaTable() {
   const referendumCount = useLazyLoadQuery(
-    (builder) => builder.storage("Referenda", "ReferendumCount", []),
+    (builder) => builder.storage("Referenda", "ReferendumCount"),
     {
       chainId: useGovernanceChainId(),
     },
@@ -293,9 +293,7 @@ type SubmissionDateProps = {
 function SubmissionDate({ blockNumber }: SubmissionDateProps) {
   const [expectedBlockTime, currentBlock] = useLazyLoadQuery(
     (builder) =>
-      builder
-        .constant("Babe", "ExpectedBlockTime")
-        .storage("System", "Number", []),
+      builder.constant("Babe", "ExpectedBlockTime").storage("System", "Number"),
     { chainId: useGovernanceChainId() },
   );
 

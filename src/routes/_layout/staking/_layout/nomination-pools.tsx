@@ -35,7 +35,7 @@ function NominationPoolsPage() {
             <QueryRenderer
               chainId={useStakingChainId()}
               query={(builder) =>
-                builder.storage("NominationPools", "CounterForBondedPools", [])
+                builder.storage("NominationPools", "CounterForBondedPools")
               }
             >
               {(count) => `${count.toLocaleString()} pools`}
@@ -47,7 +47,7 @@ function NominationPoolsPage() {
             <QueryRenderer
               chainId={useStakingChainId()}
               query={(builder) =>
-                builder.storage("NominationPools", "CounterForPoolMembers", [])
+                builder.storage("NominationPools", "CounterForPoolMembers")
               }
             >
               {(count) => `${count.toLocaleString()} members`}
@@ -71,7 +71,7 @@ function NominationPoolsPage() {
 function SuspendableTotalValueLocked() {
   return useNativeTokenAmountFromPlanck(
     useLazyLoadQuery(
-      (builder) => builder.storage("NominationPools", "TotalValueLocked", []),
+      (builder) => builder.storage("NominationPools", "TotalValueLocked"),
       { chainId: useStakingChainId() },
     ),
   ).toLocaleString();
@@ -79,7 +79,7 @@ function SuspendableTotalValueLocked() {
 
 function SuspendableNominationPoolList() {
   const nominationPools = useLazyLoadQuery(
-    (builder) => builder.storageEntries("NominationPools", "BondedPools", []),
+    (builder) => builder.storageEntries("NominationPools", "BondedPools"),
     { chainId: useStakingChainId() },
   );
 

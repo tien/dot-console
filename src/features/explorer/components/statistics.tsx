@@ -17,7 +17,7 @@ export type StatisticsProps = {
 
 export function Statistics({ className }: StatisticsProps) {
   const totalIssuance = useLazyLoadQuery((builder) =>
-    builder.storage("Balances", "TotalIssuance", []),
+    builder.storage("Balances", "TotalIssuance"),
   );
 
   return (
@@ -67,7 +67,7 @@ function BlockTime() {
     (builder) =>
       auraChainId === undefined
         ? undefined
-        : builder.runtimeApi("AuraApi", "slot_duration", []),
+        : builder.runtimeApi("AuraApi", "slot_duration"),
     { chainId: auraChainId! },
   );
 
@@ -140,7 +140,7 @@ function TotalStaked() {
   const stakingChainId = useStakingChainId();
 
   const activeEra = useLazyLoadQuery(
-    (builder) => builder.storage("Staking", "ActiveEra", []),
+    (builder) => builder.storage("Staking", "ActiveEra"),
     { chainId: stakingChainId },
   );
 
@@ -150,7 +150,7 @@ function TotalStaked() {
         ? false
         : builder
             .storage("Staking", "ErasTotalStake", [activeEra.index])
-            .storage("NominationPools", "TotalValueLocked", []),
+            .storage("NominationPools", "TotalValueLocked"),
     { chainId: stakingChainId },
   );
 

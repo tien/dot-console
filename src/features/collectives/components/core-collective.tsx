@@ -27,8 +27,8 @@ export function CoreCollective({ type }: CoreCollectiveProps) {
   const [coreMembers, params] = useLazyLoadQuery(
     (builder) =>
       builder
-        .storageEntries(`${palletName}Core`, "Member", [])
-        .storage(`${palletName}Core`, "Params", []),
+        .storageEntries(`${palletName}Core`, "Member")
+        .storage(`${palletName}Core`, "Params"),
     { chainId: collectivesChainId },
   );
 

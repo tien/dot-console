@@ -16,7 +16,7 @@ export function Parachains() {
             <QueryRenderer
               chainId={useRelayChainId()}
               query={(builder) =>
-                builder.storageEntries("Paras", "ParaLifecycles", [])
+                builder.storageEntries("Paras", "ParaLifecycles")
               }
             >
               {(lifecycles) => lifecycles.length.toLocaleString()}
@@ -27,7 +27,7 @@ export function Parachains() {
           <Suspense fallback={<CircularProgressIndicator size="text" />}>
             <QueryRenderer
               chainId="polkadot_coretime"
-              query={(builder) => builder.storage("Broker", "Status", [])}
+              query={(builder) => builder.storage("Broker", "Status")}
             >
               {(data) => data?.core_count.toLocaleString() ?? "N/A"}
             </QueryRenderer>
@@ -56,17 +56,17 @@ function ParachainsTable() {
       chainId: "polkadot",
       query: (builder) =>
         builder
-          .storageEntries("Paras", "ParaLifecycles", [])
-          .storage("OnDemand", "FreeEntries", [])
-          .storageEntries("OnDemand", "AffinityEntries", []),
+          .storageEntries("Paras", "ParaLifecycles")
+          .storage("OnDemand", "FreeEntries")
+          .storageEntries("OnDemand", "AffinityEntries"),
     },
     {
       chainId: "polkadot_coretime",
       query: (builder) =>
         builder
-          .storageEntries("Broker", "Workload", [])
-          .storage("Broker", "Reservations", [])
-          .storage("Broker", "Leases", []),
+          .storageEntries("Broker", "Workload")
+          .storage("Broker", "Reservations")
+          .storage("Broker", "Leases"),
     },
   ]);
 

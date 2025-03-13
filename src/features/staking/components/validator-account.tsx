@@ -115,8 +115,8 @@ function SuspendableStaked({ account }: AccountProps) {
   const [currentEra, minActiveStake] = useLazyLoadQuery(
     (builder) =>
       builder
-        .storage("Staking", "CurrentEra", [])
-        .storage("Staking", "MinimumActiveStake", []),
+        .storage("Staking", "CurrentEra")
+        .storage("Staking", "MinimumActiveStake"),
     { chainId: useStakingChainId() },
   );
 
@@ -350,7 +350,7 @@ function SuspendableNominatorList({ account }: AccountProps) {
   const nativeTokenAmountFromPlanck = useNativeTokenAmountFromPlanck();
 
   const currentEra = useLazyLoadQuery(
-    (builder) => builder.storage("Staking", "CurrentEra", []),
+    (builder) => builder.storage("Staking", "CurrentEra"),
     { chainId: useStakingChainId() },
   );
 

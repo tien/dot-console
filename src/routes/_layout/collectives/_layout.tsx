@@ -25,7 +25,7 @@ function CollectivesPage() {
             <QueryRenderer
               chainId={collectivesChainId}
               query={(builder) =>
-                builder.storageEntries("FellowshipCore", "Member", [])
+                builder.storageEntries("FellowshipCore", "Member")
               }
             >
               {(members) => members.length.toLocaleString()}
@@ -41,7 +41,7 @@ function CollectivesPage() {
             <QueryRenderer
               chainId={collectivesChainId}
               query={(builder) =>
-                builder.storageEntries("AmbassadorCore", "Member", [])
+                builder.storageEntries("AmbassadorCore", "Member")
               }
             >
               {(members) => members.length.toLocaleString()}

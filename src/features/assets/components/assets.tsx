@@ -59,8 +59,8 @@ function SuspendableAssetList() {
   const [nativeAssets, foreignAssets] = useLazyLoadQuery(
     (builder) =>
       builder
-        .storageEntries("Assets", "Asset", [])
-        .storageEntries("ForeignAssets", "Asset", []),
+        .storageEntries("Assets", "Asset")
+        .storageEntries("ForeignAssets", "Asset"),
     { chainId: assetHubChainId },
   );
 

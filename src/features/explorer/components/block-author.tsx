@@ -32,7 +32,7 @@ export function BlockAuthor(props: BlockAuthorProps) {
 
 export function SuspendableBlockAuthor({ blockHash }: BlockAuthorProps) {
   const digest = useLazyLoadQuery((builder) =>
-    builder.storage("System", "Digest", [], {
+    builder.storage("System", "Digest", undefined, {
       at: blockHash as `0x${string}`,
     }),
   );
@@ -64,7 +64,7 @@ export function SuspendableBlockAuthor({ blockHash }: BlockAuthorProps) {
     (builder) =>
       authorIdOrSlotNumber === undefined || babeChainId === undefined
         ? undefined
-        : builder.storage("Session", "Validators", [], {
+        : builder.storage("Session", "Validators", undefined, {
             at: blockHash as `0x${string}`,
           }),
     { chainId: babeChainId! },
@@ -76,7 +76,7 @@ export function SuspendableBlockAuthor({ blockHash }: BlockAuthorProps) {
     (builder) =>
       authorIdOrSlotNumber === undefined || auraChainId === undefined
         ? undefined
-        : builder.storage("CollatorSelection", "Invulnerables", [], {
+        : builder.storage("CollatorSelection", "Invulnerables", undefined, {
             at: blockHash as `0x${string}`,
           }),
     { chainId: auraChainId! },

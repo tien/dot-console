@@ -43,7 +43,7 @@ function ValidatorsPage() {
             <QueryRenderer
               chainId={useStakingChainId()}
               query={(builder) =>
-                builder.storage("Staking", "CounterForNominators", [])
+                builder.storage("Staking", "CounterForNominators")
               }
             >
               {(count) => count.toLocaleString()}
@@ -60,8 +60,8 @@ function SuspendableActiveValidators() {
   const [activeEra, idealValidatorCount] = useLazyLoadQuery(
     (builder) =>
       builder
-        .storage("Staking", "ActiveEra", [])
-        .storage("Staking", "ValidatorCount", []),
+        .storage("Staking", "ActiveEra")
+        .storage("Staking", "ValidatorCount"),
     { chainId: useStakingChainId() },
   );
 
@@ -80,8 +80,8 @@ function SuspendableTotalValidators() {
   const [validatorCount, maxValidatorCount] = useLazyLoadQuery(
     (builder) =>
       builder
-        .storage("Staking", "CounterForValidators", [])
-        .storage("Staking", "MaxValidatorsCount", []),
+        .storage("Staking", "CounterForValidators")
+        .storage("Staking", "MaxValidatorsCount"),
     { chainId: useStakingChainId() },
   );
 
@@ -90,7 +90,7 @@ function SuspendableTotalValidators() {
 
 function SuspendableTotalStaked() {
   const activeEra = useLazyLoadQuery(
-    (builder) => builder.storage("Staking", "ActiveEra", []),
+    (builder) => builder.storage("Staking", "ActiveEra"),
     { chainId: useStakingChainId() },
   );
 
@@ -123,7 +123,7 @@ function ValidatorList() {
 
 function SuspendableValidatorList() {
   const activeEra = useLazyLoadQuery(
-    (builder) => builder.storage("Staking", "ActiveEra", []),
+    (builder) => builder.storage("Staking", "ActiveEra"),
     { chainId: useStakingChainId() },
   );
 
@@ -190,7 +190,7 @@ function SuspendableValidatorRow({ address }: ValidatorProps) {
   const [activeEra, preferences] = useLazyLoadQuery(
     (builder) =>
       builder
-        .storage("Staking", "ActiveEra", [])
+        .storage("Staking", "ActiveEra")
         .storage("Staking", "Validators", [address]),
     { chainId: useStakingChainId() },
   );
