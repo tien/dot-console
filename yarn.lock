@@ -6832,9 +6832,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dot-connect@npm:^0.16.0":
-  version: 0.16.0
-  resolution: "dot-connect@npm:0.16.0"
+"dot-connect@npm:^0.17.0":
+  version: 0.17.0
+  resolution: "dot-connect@npm:0.17.0"
   dependencies:
     "@lit-labs/preact-signals": "npm:^1.0.3"
     "@lit/react": "npm:^1.0.7"
@@ -6848,7 +6848,7 @@ __metadata:
   peerDependenciesMeta:
     react:
       optional: true
-  checksum: 10c0/3637c8355d08e5517a2505b32633b8606cddb8938d8af9b0c3fa440499fed73754cfe204f46658abf7420cb848f459079b65dd5d0903a4441eaee3b3624ed2f6
+  checksum: 10c0/0c3cdf2b80ad13cdb15e82dcd15533cf52f4ede7790c6332543bbc01bd6387778cabd14da5de06f53a6d0bb3413c0a4eb22451902af21285032b267cffbbe794
   languageName: node
   linkType: hard
 
@@ -6886,7 +6886,7 @@ __metadata:
     "@w3f/polkadot-icons": "npm:^1.0.0"
     babel-plugin-react-compiler: "npm:19.0.0-beta-e552027-20250112"
     date-fns: "npm:^4.1.0"
-    dot-connect: "npm:^0.16.0"
+    dot-connect: "npm:^0.17.0"
     dot-identicon: "npm:^0.1.1"
     eslint: "npm:^9.22.0"
     eslint-plugin-react-compiler: "npm:19.0.0-beta-e552027-20250112"

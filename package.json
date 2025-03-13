@@ -41,7 +41,7 @@
     "@tanstack/zod-adapter": "1.114.17",
     "@w3f/polkadot-icons": "^1.0.0",
     "date-fns": "^4.1.0",
-    "dot-connect": "^0.16.0",
+    "dot-connect": "^0.17.0",
     "dot-identicon": "^0.1.1",
     "jotai": "^2.12.2",
     "jotai-suspense": "^0.4.1",
