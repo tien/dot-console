@@ -56,8 +56,8 @@ export function CoreCollective({ type }: CoreCollectiveProps) {
               (rank === undefined
                 ? 0n
                 : member.is_active
-                  ? params.active_salary[rank]
-                  : params.passive_salary[rank]) ?? 0n,
+                  ? params.active_salary[rank - 1]
+                  : params.passive_salary[rank - 1]) ?? 0n,
           };
         })
         .toSorted((a, b) => (b.rank ?? -Infinity) - (a.rank ?? -Infinity)),
