@@ -4,7 +4,7 @@ import { BinaryParam, type BinaryParamProps } from "./binary";
 import { type ParamProps } from "./common";
 import { CompactParam, type CompactParamProps } from "./compact";
 import { EnumParam, type EnumParamProps } from "./enum";
-import { OptionParam, type OptionParamProps } from "./options";
+import { OptionParam, type OptionParamProps } from "./option";
 import { PrimitiveParam, type PrimitiveParamProps } from "./primitive";
 import { SequenceParam, type SequenceParamProps } from "./sequence";
 import { StructParam, type StructParamProps } from "./struct";

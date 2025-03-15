@@ -14,7 +14,9 @@ export function OptionParam<T>({
   defaultValue,
   onChangeValue,
 }: OptionParamProps<T>) {
-  const [includeOptional, setIncludeOptional] = useState(true);
+  const [includeOptional, setIncludeOptional] = useState(
+    defaultValue?.value !== undefined,
+  );
   const [value, setValue] = useState<ParamInput<T>>(INCOMPLETE);
 
   const derivedValue = useMemo(
