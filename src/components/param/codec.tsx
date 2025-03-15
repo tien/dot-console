@@ -98,7 +98,14 @@ export function CodecParam<T = unknown>({
               );
             case "Bytes":
             case "BytesArray":
-              return <BinaryParam {...(props as BinaryParamProps)} />;
+              return (
+                <BinaryParam
+                  {...(props as BinaryParamProps)}
+                  {...(shape.codec === "BytesArray"
+                    ? { bytesArray: shape }
+                    : {})}
+                />
+              );
             case "compactBn":
             case "compactNumber":
               return (

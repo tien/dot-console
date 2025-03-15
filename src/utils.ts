@@ -1,5 +1,5 @@
 import type { IdentityData } from ".papi/descriptors/dist";
-import { FixedSizeBinary, Binary } from "@polkadot-api/substrate-bindings";
+import { Binary } from "@polkadot-api/substrate-bindings";
 
 export function stringifyCodec(variable: unknown) {
   return JSON.stringify(
@@ -9,12 +9,8 @@ export function stringifyCodec(variable: unknown) {
         return value.toLocaleString();
       }
 
-      if (value instanceof FixedSizeBinary) {
-        return value.asHex();
-      }
-
       if (value instanceof Binary) {
-        return value.asText();
+        return bytesToString(value);
       }
 
       return value;
@@ -24,12 +20,8 @@ export function stringifyCodec(variable: unknown) {
 }
 
 export function unbinary(data: unknown): unknown {
-  if (data instanceof FixedSizeBinary) {
-    return data.asHex();
-  }
-
   if (data instanceof Binary) {
-    return data.asText();
+    return bytesToString(data);
   }
 
   if (typeof data !== "object") {
@@ -47,6 +39,18 @@ export function unbinary(data: unknown): unknown {
   return Object.fromEntries(
     Object.entries(data).map(([key, value]) => [key, unbinary(value)] as const),
   );
+}
+
+const textDecoder = new TextDecoder("utf-8", { fatal: true });
+
+export function bytesToString(value: Binary) {
+  try {
+    const bytes = value.asBytes();
+    if (bytes.slice(0, 5).every((b) => b < 32)) throw null;
+    return textDecoder.decode(bytes);
+  } catch {
+    return value.asHex();
+  }
 }
 
 export function memoize<TArguments extends unknown[], TReturn>(
