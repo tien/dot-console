@@ -214,7 +214,7 @@ export function SortableItem({
         "&>*:first-child": { flex: 1 },
       })}
     >
-      {children}
+      <div>{children}</div>
       <div
         className={css({
           display: "flex",
