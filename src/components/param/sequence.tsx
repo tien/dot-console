@@ -1,3 +1,4 @@
+import { TooltipBox } from "../tooltip-box";
 import { Button } from "../ui/button";
 import { IconButton } from "../ui/icon-button";
 import { CodecParam } from "./codec";
@@ -237,22 +238,16 @@ export function SortableItem({
             </div>
           </IconButton>
         )}
-        <IconButton
-          title="Delete item"
-          variant="ghost"
-          size="xs"
-          onClick={onRequestRemove}
-        >
-          <CloseIcon fill="currentcolor" />
-        </IconButton>
-        <IconButton
-          title="Duplicate item"
-          variant="ghost"
-          size="xs"
-          onClick={onRequestDuplicate}
-        >
-          <CopyIcon fill="currentcolor" />
-        </IconButton>
+        <TooltipBox tooltip="Delete item">
+          <IconButton variant="ghost" size="xs" onClick={onRequestRemove}>
+            <CloseIcon fill="currentcolor" />
+          </IconButton>
+        </TooltipBox>
+        <TooltipBox tooltip="Duplicate item">
+          <IconButton variant="ghost" size="xs" onClick={onRequestDuplicate}>
+            <CopyIcon fill="currentcolor" />
+          </IconButton>
+        </TooltipBox>
       </div>
     </div>
   );

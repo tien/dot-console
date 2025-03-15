@@ -8,17 +8,30 @@ export type TooltipProps = PropsWithChildren<{
 
 export function TooltipBox({ tooltip, children }: TooltipProps) {
   return (
-    <BaseTooltip.Root openDelay={250} closeDelay={0}>
+    <BaseTooltip.Root>
       <BaseTooltip.Trigger>{children}</BaseTooltip.Trigger>
       <BaseTooltip.Positioner>
+        <BaseTooltip.Arrow>
+          <BaseTooltip.ArrowTip />
+        </BaseTooltip.Arrow>
         <BaseTooltip.Content
           className={css({
-            fontSize: "xs",
-            backgroundColor: "colorPalette.default",
-            color: "colorPalette.fg",
-            borderRadius: "0.5rem",
-            padding: "0.5rem",
-            zIndex: 1,
+            background: "gray.a12",
+            borderRadius: "l2",
+            boxShadow: "sm",
+            color: "bg.default",
+            fontWeight: "semibold",
+            px: "3",
+            py: "2",
+            textStyle: "xs",
+            maxWidth: "2xs",
+            zIndex: "tooltip",
+            _open: {
+              animation: "fadeIn 0.25s ease-out",
+            },
+            _closed: {
+              animation: "fadeOut 0.2s ease-out",
+            },
           })}
         >
           {tooltip}
