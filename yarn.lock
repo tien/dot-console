@@ -941,16 +941,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/types@npm:^7.19.0, @babel/types@npm:^7.26.8":
-  version: 7.26.8
-  resolution: "@babel/types@npm:7.26.8"
-  dependencies:
-    "@babel/helper-string-parser": "npm:^7.25.9"
-    "@babel/helper-validator-identifier": "npm:^7.25.9"
-  checksum: 10c0/cd41ea47bb3d7baf2b3bf5e70e9c3a16f2eab699fab8575b2b31a7b1cb64166eb52c97124313863dde0581747bfc7a1810c838ad60b5b7ad1897d8004c7b95a9
-  languageName: node
-  linkType: hard
-
 "@babel/types@npm:^7.23.6, @babel/types@npm:^7.24.8, @babel/types@npm:^7.24.9":
   version: 7.24.9
   resolution: "@babel/types@npm:7.24.9"
@@ -979,6 +969,16 @@ __metadata:
     "@babel/helper-string-parser": "npm:^7.25.9"
     "@babel/helper-validator-identifier": "npm:^7.25.9"
   checksum: 10c0/7810a2bca97b13c253f07a0863a628d33dbe76ee3c163367f24be93bfaf4c8c0a325f73208abaaa050a6b36059efc2950c2e4b71fb109c0f07fa62221d8473d4
+  languageName: node
+  linkType: hard
+
+"@babel/types@npm:^7.26.8":
+  version: 7.26.8
+  resolution: "@babel/types@npm:7.26.8"
+  dependencies:
+    "@babel/helper-string-parser": "npm:^7.25.9"
+    "@babel/helper-validator-identifier": "npm:^7.25.9"
+  checksum: 10c0/cd41ea47bb3d7baf2b3bf5e70e9c3a16f2eab699fab8575b2b31a7b1cb64166eb52c97124313863dde0581747bfc7a1810c838ad60b5b7ad1897d8004c7b95a9
   languageName: node
   linkType: hard
 
@@ -6141,12 +6141,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-react-compiler@npm:19.0.0-beta-bafa41b-20250307":
-  version: 19.0.0-beta-bafa41b-20250307
-  resolution: "babel-plugin-react-compiler@npm:19.0.0-beta-bafa41b-20250307"
+"babel-plugin-react-compiler@npm:19.0.0-beta-3229e95-20250315":
+  version: 19.0.0-beta-3229e95-20250315
+  resolution: "babel-plugin-react-compiler@npm:19.0.0-beta-3229e95-20250315"
   dependencies:
-    "@babel/types": "npm:^7.19.0"
-  checksum: 10c0/8b0fbfb01ac08764e94f9fcd3b479444626c890202b3a3520f32569bcc8385bb03e445a0e0f38dc8c2caa480e972cfece8d126132d3d64fb81895ce06a34e336
+    "@babel/types": "npm:^7.26.0"
+  checksum: 10c0/0f958aa5647b218d5ed3ecf7f97eb79eefd887722edce77d30abcc1db61acd2709a1c04446bae7c85722aba1928670b59b123d42f04b274cc6eca83448e75d1b
   languageName: node
   linkType: hard
 
@@ -6883,12 +6883,12 @@ __metadata:
     "@types/react": "npm:^19.0.10"
     "@types/react-dom": "npm:^19.0.4"
     "@w3f/polkadot-icons": "npm:^1.0.0"
-    babel-plugin-react-compiler: "npm:19.0.0-beta-bafa41b-20250307"
+    babel-plugin-react-compiler: "npm:19.0.0-beta-3229e95-20250315"
     date-fns: "npm:^4.1.0"
     dot-connect: "npm:^0.18.0"
     dot-identicon: "npm:^0.1.1"
     eslint: "npm:^9.22.0"
-    eslint-plugin-react-compiler: "npm:19.0.0-beta-bafa41b-20250307"
+    eslint-plugin-react-compiler: "npm:19.0.0-beta-3229e95-20250315"
     eslint-plugin-react-hooks: "npm:^5.2.0"
     eslint-plugin-react-refresh: "npm:^0.4.19"
     jotai: "npm:^2.12.2"
@@ -7347,9 +7347,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react-compiler@npm:19.0.0-beta-bafa41b-20250307":
-  version: 19.0.0-beta-bafa41b-20250307
-  resolution: "eslint-plugin-react-compiler@npm:19.0.0-beta-bafa41b-20250307"
+"eslint-plugin-react-compiler@npm:19.0.0-beta-3229e95-20250315":
+  version: 19.0.0-beta-3229e95-20250315
+  resolution: "eslint-plugin-react-compiler@npm:19.0.0-beta-3229e95-20250315"
   dependencies:
     "@babel/core": "npm:^7.24.4"
     "@babel/parser": "npm:^7.24.4"
@@ -7359,7 +7359,7 @@ __metadata:
     zod-validation-error: "npm:^3.0.3"
   peerDependencies:
     eslint: ">=7"
-  checksum: 10c0/2bae946104649186c2001f21b0c3e89f6f821a2959253441a821bbce6e1acc7ff783a4bcf1474c876ee3f53b9a2dd11a202b3a2374a99f90124e4b17751fecf9
+  checksum: 10c0/d6c38b9539c078bf23cf385cf724c7fc8291f70ead1e686f8460a1b3a8776bd66857f1cb7371944f6c038a44b09ec323113a52d19bbcc6565797db456e3ed639
   languageName: node
   linkType: hard
 
