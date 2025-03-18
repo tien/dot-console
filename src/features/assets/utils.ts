@@ -2,7 +2,7 @@ import type { XcmV3Junctions } from "@polkadot-api/descriptors";
 
 type XcmAssetId = { parents: number; interior: XcmV3Junctions };
 
-type AssetId = number | XcmAssetId;
+export type AssetId = number | XcmAssetId;
 
 export const NATIVE_ASSET_ID = {
   parents: 1,

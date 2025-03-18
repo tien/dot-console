@@ -1,6 +1,6 @@
-import { getAssetId, NATIVE_ASSET_ID } from "../utils";
+import { type AssetId, getAssetId, NATIVE_ASSET_ID } from "../utils";
 import type { polkadot_asset_hub } from "@polkadot-api/descriptors";
-import { Query } from "@reactive-dot/core";
+import { idle, Query } from "@reactive-dot/core";
 import {
   ChainProvider,
   QueryRenderer,
@@ -9,7 +9,7 @@ import {
 } from "@reactive-dot/react";
 import { DenominatedNumber } from "@reactive-dot/utils";
 import CloseIcon from "@w3f/polkadot-icons/solid/Close";
-import { Suspense, useMemo } from "react";
+import { Suspense } from "react";
 import { css } from "styled-system/css";
 import { token } from "styled-system/tokens";
 import { CircularProgressIndicator } from "~/components/circular-progress-indicator";
@@ -30,7 +30,7 @@ export function AssetList() {
           <Table.Header>Id</Table.Header>
           <Table.Header>Name</Table.Header>
           <Table.Header>Supply</Table.Header>
-          <Table.Header>Native value</Table.Header>
+          <Table.Header>TVL</Table.Header>
           <Table.Header>Holders</Table.Header>
           <Table.Header>Status</Table.Header>
           <Table.Header>Owner</Table.Header>
@@ -70,53 +70,22 @@ function SuspendableAssetList() {
     { chainId: assetHubChainId },
   );
 
-  const nativeValues = useLazyLoadQuery(
-    (builder) =>
-      builder.runtimeApis(
-        "AssetConversionApi",
-        "quote_price_tokens_for_exact_tokens",
-        [...nativeAssets, ...foreignAssets].map(
-          ([[id], asset]) =>
-            [NATIVE_ASSET_ID, getAssetId(id), asset.supply, false] as const,
-        ),
-      ),
-    { chainId: assetHubChainId },
-  );
-
-  const nativeTokenAmount = useNativeTokenAmountFromPlanck();
-
-  const assets = useMemo(
-    () =>
-      [...nativeAssets, ...foreignAssets]
-        .map(([[id], asset], index) => ({
-          id,
-          ...asset,
-          nativeValue:
-            nativeValues[index] === undefined
-              ? undefined
-              : nativeTokenAmount(nativeValues[index]),
-        }))
-        .toSorted(
-          (a, b) =>
-            (b.nativeValue?.valueOf() ?? 0) - (a.nativeValue?.valueOf() ?? 0),
-        ),
-    [foreignAssets, nativeAssets, nativeTokenAmount, nativeValues],
-  );
+  const assets = [...nativeAssets, ...foreignAssets];
 
   return (
     <Table.Body>
-      {assets.map((asset) => {
+      {assets.map(([[id], asset]) => {
         const query = new Query<[], typeof polkadot_asset_hub>();
         const metadataQuery =
-          typeof asset.id === "number"
-            ? query.storage("Assets", "Metadata", [asset.id])
-            : query.storage("ForeignAssets", "Metadata", [asset.id]);
+          typeof id === "number"
+            ? query.storage("Assets", "Metadata", [id])
+            : query.storage("ForeignAssets", "Metadata", [id]);
 
         return (
-          <Table.Row key={stringifyCodec(asset.id)}>
+          <Table.Row key={stringifyCodec(id)}>
             <Table.Cell>
-              {typeof asset.id === "number" ? (
-                asset.id
+              {typeof id === "number" ? (
+                id
               ) : (
                 <Dialog.Root>
                   <Dialog.Trigger asChild>
@@ -134,7 +103,7 @@ function SuspendableAssetList() {
                         MultiLocation
                       </Dialog.Title>
                       <CodecView
-                        value={asset.id}
+                        value={id}
                         className={css({ overflow: "auto" })}
                       />
                       <Dialog.CloseTrigger
@@ -178,7 +147,9 @@ function SuspendableAssetList() {
               </div>
             </Table.Cell>
             <Table.Cell>
-              {asset.nativeValue?.toLocaleString() ?? "N/A"}
+              <Suspense fallback={<CircularProgressIndicator size="text" />}>
+                <AssetTvl id={id} />
+              </Suspense>
             </Table.Cell>
             <Table.Cell>{asset.accounts.toLocaleString()}</Table.Cell>
             <Table.Cell
@@ -207,4 +178,50 @@ function SuspendableAssetList() {
       })}
     </Table.Body>
   );
+}
+
+type AssetTvlProps = { id: AssetId };
+
+function AssetTvl({ id }: AssetTvlProps) {
+  const poolId = useLazyLoadQuery(
+    (builder) =>
+      builder.storage("AssetConversion", "Pools", [
+        [NATIVE_ASSET_ID, getAssetId(id)],
+      ]),
+    { chainId: useAssetHubChainId() },
+  );
+
+  const poolAsset = useLazyLoadQuery(
+    (builder) =>
+      poolId !== undefined && builder.storage("PoolAssets", "Asset", [poolId]),
+    { chainId: useAssetHubChainId() },
+  );
+
+  const poolOwnerAsset = useLazyLoadQuery(
+    (builder) =>
+      poolAsset !== idle &&
+      poolAsset !== undefined &&
+      (typeof id === "number"
+        ? builder.storage("Assets", "Account", [id, poolAsset.owner])
+        : builder.storage("ForeignAssets", "Account", [id, poolAsset.owner])),
+    { chainId: useAssetHubChainId() },
+  );
+
+  const tvl = useLazyLoadQuery(
+    (builder) =>
+      poolOwnerAsset !== idle &&
+      poolOwnerAsset !== undefined &&
+      builder.runtimeApi(
+        "AssetConversionApi",
+        "quote_price_tokens_for_exact_tokens",
+        [NATIVE_ASSET_ID, getAssetId(id), poolOwnerAsset.balance, false],
+      ),
+    { chainId: useAssetHubChainId() },
+  );
+
+  const nativeTokenAmountFromPlank = useNativeTokenAmountFromPlanck();
+
+  return tvl === idle || tvl === undefined
+    ? "N/A"
+    : nativeTokenAmountFromPlank(tvl).toLocaleString();
 }
