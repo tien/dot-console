@@ -8,10 +8,15 @@ import {
   useNativeTokenAmountFromPlanck,
 } from "@reactive-dot/react";
 import { DenominatedNumber } from "@reactive-dot/utils";
+import CloseIcon from "@w3f/polkadot-icons/solid/Close";
 import { Suspense, useMemo } from "react";
 import { css } from "styled-system/css";
 import { token } from "styled-system/tokens";
 import { CircularProgressIndicator } from "~/components/circular-progress-indicator";
+import { CodecView } from "~/components/codec-view";
+import { Code } from "~/components/ui/code";
+import { Dialog } from "~/components/ui/dialog";
+import { IconButton } from "~/components/ui/icon-button";
 import { Table } from "~/components/ui/table";
 import { AccountListItem } from "~/features/accounts/components/account-list-item";
 import { useAssetHubChainId } from "~/hooks/chain";
@@ -22,6 +27,7 @@ export function AssetList() {
     <Table.Root>
       <Table.Head>
         <Table.Row>
+          <Table.Header>Id</Table.Header>
           <Table.Header>Name</Table.Header>
           <Table.Header>Supply</Table.Header>
           <Table.Header>Native value</Table.Header>
@@ -34,7 +40,7 @@ export function AssetList() {
         fallback={
           <Table.Foot>
             <Table.Row>
-              <Table.Cell colSpan={6}>
+              <Table.Cell colSpan={7}>
                 <div className={css({ display: "flex", padding: "1rem" })}>
                   <div className={css({ margin: "auto" })}>
                     <CircularProgressIndicator label="Loading assets" />
@@ -108,6 +114,44 @@ function SuspendableAssetList() {
 
         return (
           <Table.Row key={stringifyCodec(asset.id)}>
+            <Table.Cell>
+              {typeof asset.id === "number" ? (
+                asset.id
+              ) : (
+                <Dialog.Root>
+                  <Dialog.Trigger asChild>
+                    <Code cursor="pointer">MultiLocation</Code>
+                  </Dialog.Trigger>
+                  <Dialog.Backdrop />
+                  <Dialog.Positioner>
+                    <Dialog.Content
+                      padding="2rem"
+                      width="min(100dvw, 50rem)"
+                      maxHeight="100dvh"
+                      overflow="auto"
+                    >
+                      <Dialog.Title marginBottom="1em">
+                        MultiLocation
+                      </Dialog.Title>
+                      <CodecView
+                        value={asset.id}
+                        className={css({ overflow: "auto" })}
+                      />
+                      <Dialog.CloseTrigger
+                        asChild
+                        position="absolute"
+                        top="2"
+                        right="2"
+                      >
+                        <IconButton variant="ghost" size="sm">
+                          <CloseIcon fill="currentcolor" />
+                        </IconButton>
+                      </Dialog.CloseTrigger>
+                    </Dialog.Content>
+                  </Dialog.Positioner>
+                </Dialog.Root>
+              )}
+            </Table.Cell>
             <Table.Cell>
               <Suspense fallback={<CircularProgressIndicator size="text" />}>
                 <QueryRenderer chainId={assetHubChainId} query={metadataQuery}>
