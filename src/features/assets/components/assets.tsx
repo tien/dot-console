@@ -70,7 +70,9 @@ function SuspendableAssetList() {
     { chainId: assetHubChainId },
   );
 
-  const assets = [...nativeAssets, ...foreignAssets];
+  const assets = [...nativeAssets, ...foreignAssets].toSorted(
+    ([_, a], [__, b]) => b.accounts - a.accounts,
+  );
 
   return (
     <Table.Body>
