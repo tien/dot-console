@@ -941,16 +941,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/types@npm:^7.19.0":
-  version: 7.26.10
-  resolution: "@babel/types@npm:7.26.10"
-  dependencies:
-    "@babel/helper-string-parser": "npm:^7.25.9"
-    "@babel/helper-validator-identifier": "npm:^7.25.9"
-  checksum: 10c0/7a7f83f568bfc3dfabfaf9ae3a97ab5c061726c0afa7dcd94226d4f84a81559da368ed79671e3a8039d16f12476cf110381a377ebdea07587925f69628200dac
-  languageName: node
-  linkType: hard
-
 "@babel/types@npm:^7.23.6, @babel/types@npm:^7.24.8, @babel/types@npm:^7.24.9":
   version: 7.24.9
   resolution: "@babel/types@npm:7.24.9"
@@ -3109,9 +3099,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@reactive-dot/react@npm:^0.38.3":
-  version: 0.38.3
-  resolution: "@reactive-dot/react@npm:0.38.3"
+"@reactive-dot/react@npm:^0.38.4":
+  version: 0.38.4
+  resolution: "@reactive-dot/react@npm:0.38.4"
   dependencies:
     "@reactive-dot/core": "npm:^0.38.1"
     jotai: "npm:^2.12.2"
@@ -3119,7 +3109,7 @@ __metadata:
     jotai-effect: "npm:^2.0.1"
   peerDependencies:
     react: 19.x
-  checksum: 10c0/6cf7cec566ce4b0ad16df7d1a29ccc371fc5043434c870de401cb1289c27d7caca6566c5177d8ff4b70878ba304ec116dc6eb931452910ba7574b358c7053626
+  checksum: 10c0/41e466a3e58ea7ef3373ce4a59ee6bdd87af78fa0228eb735c8f83553dcef074a0674cad695c7ba93a80f02f05ff0207ff0ddeb2af36685ce8d0d316c57c48d9
   languageName: node
   linkType: hard
 
@@ -6166,12 +6156,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-react-compiler@npm:19.0.0-beta-e552027-20250112":
-  version: 19.0.0-beta-e552027-20250112
-  resolution: "babel-plugin-react-compiler@npm:19.0.0-beta-e552027-20250112"
+"babel-plugin-react-compiler@npm:19.0.0-beta-3229e95-20250315":
+  version: 19.0.0-beta-3229e95-20250315
+  resolution: "babel-plugin-react-compiler@npm:19.0.0-beta-3229e95-20250315"
   dependencies:
-    "@babel/types": "npm:^7.19.0"
-  checksum: 10c0/f64c8f11b893b6bd355a8b3f20b4f15486cee18f98560f2df991abb315b4b037fbf6ccda832eede446fac6140a942e73984a6c5e7e8f5ea5fe1fb0b45d560482
+    "@babel/types": "npm:^7.26.0"
+  checksum: 10c0/0f958aa5647b218d5ed3ecf7f97eb79eefd887722edce77d30abcc1db61acd2709a1c04446bae7c85722aba1928670b59b123d42f04b274cc6eca83448e75d1b
   languageName: node
   linkType: hard
 
@@ -6891,7 +6881,7 @@ __metadata:
     "@park-ui/panda-preset": "npm:^0.43.1"
     "@polkadot-api/descriptors": "portal:.papi/descriptors"
     "@polkadot-api/view-builder": "npm:^0.4.3"
-    "@reactive-dot/react": "npm:^0.38.3"
+    "@reactive-dot/react": "npm:^0.38.4"
     "@reactive-dot/wallet-ledger": "npm:^0.16.31"
     "@reactive-dot/wallet-mimir": "npm:^0.1.5"
     "@reactive-dot/wallet-walletconnect": "npm:^0.17.11"
@@ -6908,12 +6898,12 @@ __metadata:
     "@types/react": "npm:^19.0.12"
     "@types/react-dom": "npm:^19.0.4"
     "@w3f/polkadot-icons": "npm:^1.0.0"
-    babel-plugin-react-compiler: "npm:19.0.0-beta-e552027-20250112"
+    babel-plugin-react-compiler: "npm:19.0.0-beta-3229e95-20250315"
     date-fns: "npm:^4.1.0"
     dot-connect: "npm:^0.18.0"
     dot-identicon: "npm:^0.1.1"
     eslint: "npm:^9.22.0"
-    eslint-plugin-react-compiler: "npm:19.0.0-beta-e552027-20250112"
+    eslint-plugin-react-compiler: "npm:19.0.0-beta-3229e95-20250315"
     eslint-plugin-react-hooks: "npm:^5.2.0"
     eslint-plugin-react-refresh: "npm:^0.4.19"
     jotai: "npm:^2.12.2"
@@ -7378,9 +7368,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react-compiler@npm:19.0.0-beta-e552027-20250112":
-  version: 19.0.0-beta-e552027-20250112
-  resolution: "eslint-plugin-react-compiler@npm:19.0.0-beta-e552027-20250112"
+"eslint-plugin-react-compiler@npm:19.0.0-beta-3229e95-20250315":
+  version: 19.0.0-beta-3229e95-20250315
+  resolution: "eslint-plugin-react-compiler@npm:19.0.0-beta-3229e95-20250315"
   dependencies:
     "@babel/core": "npm:^7.24.4"
     "@babel/parser": "npm:^7.24.4"
@@ -7390,7 +7380,7 @@ __metadata:
     zod-validation-error: "npm:^3.0.3"
   peerDependencies:
     eslint: ">=7"
-  checksum: 10c0/d54bb2def851f79d88376ef108d5f682c07de820c9561a09051a8a5f3a4dbff0c22c8d014ad5e88db5f4db27947a371f497a8b07ddc561575f1601e47e0df6e4
+  checksum: 10c0/d6c38b9539c078bf23cf385cf724c7fc8291f70ead1e686f8460a1b3a8776bd66857f1cb7371944f6c038a44b09ec323113a52d19bbcc6565797db456e3ed639
   languageName: node
   linkType: hard
 
