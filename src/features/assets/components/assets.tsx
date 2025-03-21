@@ -3,6 +3,7 @@ import type { polkadot_asset_hub } from "@polkadot-api/descriptors";
 import { idle, Query } from "@reactive-dot/core";
 import {
   ChainProvider,
+  QueryOptionsProvider,
   QueryRenderer,
   useLazyLoadQuery,
   useNativeTokenAmountFromPlanck,
@@ -75,110 +76,118 @@ function SuspendableAssetList() {
   );
 
   return (
-    <Table.Body>
-      {assets.map(([[id], asset]) => {
-        const query = new Query<[], typeof polkadot_asset_hub>();
-        const metadataQuery =
-          typeof id === "number"
-            ? query.storage("Assets", "Metadata", [id])
-            : query.storage("ForeignAssets", "Metadata", [id]);
+    // TODO: implement subscription in view
+    <QueryOptionsProvider active={false}>
+      <Table.Body>
+        {assets.map(([[id], asset]) => {
+          const query = new Query<[], typeof polkadot_asset_hub>();
+          const metadataQuery =
+            typeof id === "number"
+              ? query.storage("Assets", "Metadata", [id])
+              : query.storage("ForeignAssets", "Metadata", [id]);
 
-        return (
-          <Table.Row key={stringifyCodec(id)}>
-            <Table.Cell>
-              {typeof id === "number" ? (
-                id
-              ) : (
-                <Dialog.Root>
-                  <Dialog.Trigger asChild>
-                    <Code cursor="pointer">MultiLocation</Code>
-                  </Dialog.Trigger>
-                  <Dialog.Backdrop />
-                  <Dialog.Positioner>
-                    <Dialog.Content
-                      padding="2rem"
-                      width="min(100dvw, 50rem)"
-                      maxHeight="100dvh"
-                      overflow="auto"
-                    >
-                      <Dialog.Title marginBottom="1em">
-                        MultiLocation
-                      </Dialog.Title>
-                      <CodecView
-                        value={id}
-                        className={css({ overflow: "auto" })}
-                      />
-                      <Dialog.CloseTrigger
-                        asChild
-                        position="absolute"
-                        top="2"
-                        right="2"
+          return (
+            <Table.Row key={stringifyCodec(id)}>
+              <Table.Cell>
+                {typeof id === "number" ? (
+                  id
+                ) : (
+                  <Dialog.Root>
+                    <Dialog.Trigger asChild>
+                      <Code cursor="pointer">MultiLocation</Code>
+                    </Dialog.Trigger>
+                    <Dialog.Backdrop />
+                    <Dialog.Positioner>
+                      <Dialog.Content
+                        padding="2rem"
+                        width="min(100dvw, 50rem)"
+                        maxHeight="100dvh"
+                        overflow="auto"
                       >
-                        <IconButton variant="ghost" size="sm">
-                          <CloseIcon fill="currentcolor" />
-                        </IconButton>
-                      </Dialog.CloseTrigger>
-                    </Dialog.Content>
-                  </Dialog.Positioner>
-                </Dialog.Root>
-              )}
-            </Table.Cell>
-            <Table.Cell>
-              <Suspense fallback={<CircularProgressIndicator size="text" />}>
-                <QueryRenderer chainId={assetHubChainId} query={metadataQuery}>
-                  {(metadata) => metadata.name.asText()}
-                </QueryRenderer>
-              </Suspense>
-            </Table.Cell>
-            <Table.Cell className={css({ maxWidth: "15rem" })}>
-              <div className={css({ overflow: "auto" })}>
+                        <Dialog.Title marginBottom="1em">
+                          MultiLocation
+                        </Dialog.Title>
+                        <CodecView
+                          value={id}
+                          className={css({ overflow: "auto" })}
+                        />
+                        <Dialog.CloseTrigger
+                          asChild
+                          position="absolute"
+                          top="2"
+                          right="2"
+                        >
+                          <IconButton variant="ghost" size="sm">
+                            <CloseIcon fill="currentcolor" />
+                          </IconButton>
+                        </Dialog.CloseTrigger>
+                      </Dialog.Content>
+                    </Dialog.Positioner>
+                  </Dialog.Root>
+                )}
+              </Table.Cell>
+              <Table.Cell>
                 <Suspense fallback={<CircularProgressIndicator size="text" />}>
                   <QueryRenderer
                     chainId={assetHubChainId}
                     query={metadataQuery}
                   >
-                    {(metadata) =>
-                      new DenominatedNumber(
-                        asset!.supply,
-                        metadata.decimals,
-                        metadata.symbol.asText(),
-                      ).toLocaleString()
-                    }
+                    {(metadata) => metadata.name.asText()}
                   </QueryRenderer>
                 </Suspense>
-              </div>
-            </Table.Cell>
-            <Table.Cell>
-              <Suspense fallback={<CircularProgressIndicator size="text" />}>
-                <AssetTvl id={id} />
-              </Suspense>
-            </Table.Cell>
-            <Table.Cell>{asset.accounts.toLocaleString()}</Table.Cell>
-            <Table.Cell
-              style={{
-                color: (() => {
-                  switch (asset.status.type) {
-                    case "Live":
-                      return token.var("colors.success.text");
-                    case "Frozen":
-                      return token.var("colors.warning.text");
-                    case "Destroying":
-                      return token.var("colors.error.text");
-                  }
-                })(),
-              }}
-            >
-              {asset.status.type}
-            </Table.Cell>
-            <Table.Cell
-              className={css({ maxWidth: "20rem", overflow: "auto" })}
-            >
-              <AccountListItem address={asset!.owner} />
-            </Table.Cell>
-          </Table.Row>
-        );
-      })}
-    </Table.Body>
+              </Table.Cell>
+              <Table.Cell className={css({ maxWidth: "15rem" })}>
+                <div className={css({ overflow: "auto" })}>
+                  <Suspense
+                    fallback={<CircularProgressIndicator size="text" />}
+                  >
+                    <QueryRenderer
+                      chainId={assetHubChainId}
+                      query={metadataQuery}
+                    >
+                      {(metadata) =>
+                        new DenominatedNumber(
+                          asset!.supply,
+                          metadata.decimals,
+                          metadata.symbol.asText(),
+                        ).toLocaleString()
+                      }
+                    </QueryRenderer>
+                  </Suspense>
+                </div>
+              </Table.Cell>
+              <Table.Cell>
+                <Suspense fallback={<CircularProgressIndicator size="text" />}>
+                  <AssetTvl id={id} />
+                </Suspense>
+              </Table.Cell>
+              <Table.Cell>{asset.accounts.toLocaleString()}</Table.Cell>
+              <Table.Cell
+                style={{
+                  color: (() => {
+                    switch (asset.status.type) {
+                      case "Live":
+                        return token.var("colors.success.text");
+                      case "Frozen":
+                        return token.var("colors.warning.text");
+                      case "Destroying":
+                        return token.var("colors.error.text");
+                    }
+                  })(),
+                }}
+              >
+                {asset.status.type}
+              </Table.Cell>
+              <Table.Cell
+                className={css({ maxWidth: "20rem", overflow: "auto" })}
+              >
+                <AccountListItem address={asset!.owner} />
+              </Table.Cell>
+            </Table.Row>
+          );
+        })}
+      </Table.Body>
+    </QueryOptionsProvider>
   );
 }
 
