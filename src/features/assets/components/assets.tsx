@@ -9,7 +9,7 @@ import {
 } from "@reactive-dot/react";
 import { DenominatedNumber } from "@reactive-dot/utils";
 import CloseIcon from "@w3f/polkadot-icons/solid/Close";
-import { Suspense } from "react";
+import { Suspense, useDeferredValue } from "react";
 import { css } from "styled-system/css";
 import { token } from "styled-system/tokens";
 import { CircularProgressIndicator } from "~/components/circular-progress-indicator";
@@ -199,14 +199,16 @@ function AssetTvl({ id }: AssetTvlProps) {
     { chainId: useAssetHubChainId() },
   );
 
-  const poolOwnerAsset = useLazyLoadQuery(
-    (builder) =>
-      poolAsset !== idle &&
-      poolAsset !== undefined &&
-      (typeof id === "number"
-        ? builder.storage("Assets", "Account", [id, poolAsset.owner])
-        : builder.storage("ForeignAssets", "Account", [id, poolAsset.owner])),
-    { chainId: useAssetHubChainId() },
+  const poolOwnerAsset = useDeferredValue(
+    useLazyLoadQuery(
+      (builder) =>
+        poolAsset !== idle &&
+        poolAsset !== undefined &&
+        (typeof id === "number"
+          ? builder.storage("Assets", "Account", [id, poolAsset.owner])
+          : builder.storage("ForeignAssets", "Account", [id, poolAsset.owner])),
+      { chainId: useAssetHubChainId() },
+    ),
   );
 
   const tvl = useLazyLoadQuery(
