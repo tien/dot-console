@@ -10,7 +10,7 @@ import {
 } from "@reactive-dot/react";
 import { DenominatedNumber } from "@reactive-dot/utils";
 import CloseIcon from "@w3f/polkadot-icons/solid/Close";
-import { Suspense, useDeferredValue } from "react";
+import { Suspense, useDeferredValue, useMemo } from "react";
 import { css } from "styled-system/css";
 import { token } from "styled-system/tokens";
 import { CircularProgressIndicator } from "~/components/circular-progress-indicator";
@@ -71,8 +71,12 @@ function SuspendableAssetList() {
     { chainId: assetHubChainId },
   );
 
-  const assets = [...nativeAssets, ...foreignAssets].toSorted(
-    ([_, a], [__, b]) => b.accounts - a.accounts,
+  const assets = useMemo(
+    () =>
+      [...nativeAssets, ...foreignAssets].toSorted(
+        ([_, a], [__, b]) => b.accounts - a.accounts,
+      ),
+    [foreignAssets, nativeAssets],
   );
 
   return (
