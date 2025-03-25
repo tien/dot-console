@@ -26,7 +26,7 @@ export function Blocks({ className }: BlocksProps) {
           top: 0,
           padding: "0.5rem 1rem",
           backgroundColor: "bg.default",
-          zIndex: 1,
+          zIndex: "sticky",
         })}
       >
         <Heading as="h3" size="xl">
