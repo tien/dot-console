@@ -115,6 +115,7 @@ function AssetHubBalances({ account }: AssetHubBalancesProps) {
       ),
     { chainId: useAssetHubChainId() },
   );
+
   const treasuryAssetHoldings = _treasuryAssetHoldings
     .map(
       (holding, index) =>
@@ -125,7 +126,11 @@ function AssetHubBalances({ account }: AssetHubBalancesProps) {
   return (
     <ul className={css({ display: "flex", gap: "0.5ch", flexWrap: "wrap" })}>
       {treasuryAssetHoldings.map(([assetId, balance]) => (
-        <AssetBalance key={assetId} assetId={assetId} balance={balance} />
+        // TODO: investigate why the suspense boundary is needed
+        // flickers will happen without it
+        <Suspense key={assetId}>
+          <AssetBalance assetId={assetId} balance={balance} />
+        </Suspense>
       ))}
     </ul>
   );
