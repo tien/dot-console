@@ -4,6 +4,7 @@ import { CodecParam, INCOMPLETE, INVALID } from "./param";
 import { Select } from "./select";
 import { Button } from "./ui/button";
 import { Code } from "./ui/code";
+import { Field } from "./ui/field";
 import { useChainId } from "@reactive-dot/react";
 import { useState } from "react";
 import { css } from "styled-system/css";
@@ -138,13 +139,24 @@ function INTERNAL_ApiMethodArguments({
           })}
         >
           {method.inputs.map((input, index) => (
-            <CodecParam
+            <Field.Root
               key={input.name}
-              shape={viewBuilder.buildDefinition(input.type).shape}
-              onChangeValue={(value) =>
-                setArgs((args) => args.with(index, value))
-              }
-            />
+              className={css({
+                borderRadius: "md",
+                backgroundColor: "bg.default",
+                padding: "0.75rem 1rem",
+              })}
+            >
+              <Field.Label color="colorPalette.text">{input.name}</Field.Label>
+              <Field.Input asChild>
+                <CodecParam
+                  shape={viewBuilder.buildDefinition(input.type).shape}
+                  onChangeValue={(value) =>
+                    setArgs((args) => args.with(index, value))
+                  }
+                />
+              </Field.Input>
+            </Field.Root>
           ))}
         </div>
       )}
