@@ -6,16 +6,14 @@ import { Code } from "./ui/code";
 import { FormLabel } from "./ui/form-label";
 import { IconButton } from "./ui/icon-button";
 import { Progress } from "./ui/progress";
-import {
-  useLazyLoadQueryWithRefresh,
-  useQueryErrorResetter,
-} from "@reactive-dot/react";
+import { useLazyLoadQuery, useQueryErrorResetter } from "@reactive-dot/react";
 import Close from "@w3f/polkadot-icons/solid/Close";
 import Refresh from "@w3f/polkadot-icons/solid/RefreshRedo";
 import {
   type PropsWithChildren,
   Suspense,
   useMemo,
+  useState,
   useTransition,
 } from "react";
 import { ErrorBoundary } from "react-error-boundary";
@@ -49,7 +47,9 @@ function SuspendableQueryResult({ query, onDelete }: StorageQueryResultProps) {
     }
   }, [query]);
 
-  const [result, refresh] = useLazyLoadQueryWithRefresh(
+  const [fetchCount, setFetchCount] = useState(0);
+
+  const result = useLazyLoadQuery(
     (builder) => {
       switch (query.type) {
         case "constant":
@@ -81,11 +81,15 @@ function SuspendableQueryResult({ query, onDelete }: StorageQueryResultProps) {
           );
       }
     },
-    { chainId: query.chainId },
+    { chainId: query.chainId, fetchKey: fetchCount },
   );
 
   const refreshable = query.type === "api";
-  const [isRefreshing, startRefreshTransition] = useTransition();
+
+  const [isPending, startTransition] = useTransition();
+
+  const refresh = () =>
+    startTransition(() => setFetchCount((count) => count + 1));
 
   const unwrappedQueryArgs =
     queryArgs.length === 1 ? queryArgs.at(0) : queryArgs;
@@ -129,8 +133,8 @@ function SuspendableQueryResult({ query, onDelete }: StorageQueryResultProps) {
             {refreshable && (
               <IconButton
                 variant="ghost"
-                disabled={isRefreshing}
-                onClick={() => startRefreshTransition(() => refresh())}
+                disabled={isPending}
+                onClick={refresh}
               >
                 <Refresh fill="currentcolor" />
               </IconButton>
