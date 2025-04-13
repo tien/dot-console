@@ -4,7 +4,6 @@ import { CodecParam, INCOMPLETE, INVALID } from "./param";
 import { Select } from "./select";
 import { Button } from "./ui/button";
 import { Code } from "./ui/code";
-import { Field } from "./ui/field";
 import { useChainId } from "@reactive-dot/react";
 import { useState } from "react";
 import { css } from "styled-system/css";
@@ -139,7 +138,7 @@ function INTERNAL_ApiMethodArguments({
           })}
         >
           {method.inputs.map((input, index) => (
-            <Field.Root
+            <section
               key={input.name}
               className={css({
                 borderRadius: "md",
@@ -147,16 +146,23 @@ function INTERNAL_ApiMethodArguments({
                 padding: "0.75rem 1rem",
               })}
             >
-              <Field.Label color="colorPalette.text">{input.name}</Field.Label>
-              <Field.Input asChild>
-                <CodecParam
-                  shape={viewBuilder.buildDefinition(input.type).shape}
-                  onChangeValue={(value) =>
-                    setArgs((args) => args.with(index, value))
-                  }
-                />
-              </Field.Input>
-            </Field.Root>
+              <p
+                className={css({
+                  textStyle: "sm",
+                  color: "colorPalette.text",
+                  fontWeight: "medium",
+                  marginBottom: "0.25lh",
+                })}
+              >
+                {input.name}
+              </p>
+              <CodecParam
+                shape={viewBuilder.buildDefinition(input.type).shape}
+                onChangeValue={(value) =>
+                  setArgs((args) => args.with(index, value))
+                }
+              />
+            </section>
           ))}
         </div>
       )}
