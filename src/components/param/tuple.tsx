@@ -1,4 +1,5 @@
 import { CodecParam } from "./codec";
+import { CollapsibleParam } from "./collapsible";
 import { INCOMPLETE, INVALID, type ParamProps } from "./common";
 import type { TupleDecoded, TupleShape } from "@polkadot-api/view-builder";
 import { useStateRef } from "~/hooks/use-state-ref";
@@ -36,14 +37,16 @@ function INTERNAL_TupleParam<T extends Array<unknown>>({
   return (
     <>
       {tupleShape.shape.map((entry, index) => (
-        <CodecParam
-          key={index}
-          shape={entry}
-          defaultValue={defaultValue?.value.at(index)}
-          onChangeValue={(value) =>
-            setTuple((tuple) => tuple.with(index, value) as T)
-          }
-        />
+        // eslint-disable-next-line @eslint-react/no-array-index-key
+        <CollapsibleParam key={index} label={`Item ${index}`}>
+          <CodecParam
+            shape={entry}
+            defaultValue={defaultValue?.value.at(index)}
+            onChangeValue={(value) =>
+              setTuple((tuple) => tuple.with(index, value) as T)
+            }
+          />
+        </CollapsibleParam>
       ))}
     </>
   );

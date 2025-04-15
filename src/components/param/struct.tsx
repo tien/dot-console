@@ -1,5 +1,5 @@
-import { FormLabel } from "../ui/form-label";
 import { CodecParam } from "./codec";
+import { CollapsibleParam } from "./collapsible";
 import { INCOMPLETE, INVALID, type ParamProps } from "./common";
 import type { StructDecoded, StructShape } from "@polkadot-api/view-builder";
 import { useStateRef } from "~/hooks/use-state-ref";
@@ -48,8 +48,7 @@ function INTERNAL_StructParam<T extends Record<string, unknown>>({
   return (
     <>
       {Object.entries(structShape.shape).map(([key, value]) => (
-        <section key={key}>
-          <FormLabel>{key}</FormLabel>
+        <CollapsibleParam key={key} label={key}>
           <CodecParam
             shape={value}
             defaultValue={defaultValue?.value?.[key]}
@@ -57,7 +56,7 @@ function INTERNAL_StructParam<T extends Record<string, unknown>>({
               setStruct((struct) => ({ ...struct, [key]: value }))
             }
           />
-        </section>
+        </CollapsibleParam>
       ))}
     </>
   );

@@ -2,6 +2,7 @@ import { TooltipBox } from "../tooltip-box";
 import { Button } from "../ui/button";
 import { IconButton } from "../ui/icon-button";
 import { CodecParam } from "./codec";
+import { CollapsibleParam } from "./collapsible";
 import {
   INCOMPLETE,
   INVALID,
@@ -126,13 +127,14 @@ export function SequenceParam<T>({
         }}
       >
         <SortableContext
-          items={sortableValues}
+          items={sortableValues.map((value) => value.id)}
           strategy={verticalListSortingStrategy}
         >
           {sortableValues.map((item, index, array) => (
             <SortableItem
               key={item.id}
               id={item.id}
+              index={index}
               sortable={array.length > 1}
               onRequestRemove={() =>
                 setSortableValues((values) =>
@@ -185,6 +187,7 @@ export function SequenceParam<T>({
 
 type SortableItemProps = PropsWithChildren<{
   id: string;
+  index: number;
   sortable?: boolean;
   onRequestRemove: () => void;
   onRequestDuplicate: () => void;
@@ -192,6 +195,7 @@ type SortableItemProps = PropsWithChildren<{
 
 export function SortableItem({
   id,
+  index,
   sortable,
   onRequestRemove,
   onRequestDuplicate,
@@ -206,22 +210,11 @@ export function SortableItem({
   };
 
   return (
-    <div
+    <CollapsibleParam
       style={style}
-      className={css({
-        display: "flex",
-        // gap: "0.5rem",
-        "&>*:first-child": { flex: 1 },
-      })}
-    >
-      <div>{children}</div>
-      <div
-        className={css({
-          display: "flex",
-          flexDirection: "column",
-        })}
-      >
-        {sortable && (
+      label={`Item ${index + 1}`}
+      leadingLabel={
+        sortable && (
           <IconButton
             ref={setNodeRef}
             variant="ghost"
@@ -237,18 +230,37 @@ export function SortableItem({
               <MoreMenuIcon fill="currentcolor" />
             </div>
           </IconButton>
-        )}
+        )
+      }
+      trailingLabel={
         <TooltipBox tooltip="Delete item">
           <IconButton variant="ghost" size="xs" onClick={onRequestRemove}>
             <CloseIcon fill="currentcolor" />
           </IconButton>
         </TooltipBox>
-        <TooltipBox tooltip="Duplicate item">
-          <IconButton variant="ghost" size="xs" onClick={onRequestDuplicate}>
-            <CopyIcon fill="currentcolor" />
-          </IconButton>
-        </TooltipBox>
+      }
+    >
+      <div
+        className={css({
+          display: "flex",
+          // gap: "0.5rem",
+          "&>*:first-child": { flex: 1 },
+        })}
+      >
+        <div>{children}</div>
+        <div
+          className={css({
+            display: "flex",
+            flexDirection: "column",
+          })}
+        >
+          <TooltipBox tooltip="Duplicate item">
+            <IconButton variant="ghost" size="xs" onClick={onRequestDuplicate}>
+              <CopyIcon fill="currentcolor" />
+            </IconButton>
+          </TooltipBox>
+        </div>
       </div>
-    </div>
+    </CollapsibleParam>
   );
 }

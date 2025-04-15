@@ -1,4 +1,5 @@
 import { CodecParam } from "./codec";
+import { CollapsibleParam } from "./collapsible";
 import {
   INCOMPLETE,
   INVALID,
@@ -46,15 +47,16 @@ function INTERNAL_ArrayParam<T>({
       })}
     >
       {Array.from<T>({ length: arrayShape.len }).map((_, index) => (
-        <CodecParam
-          // eslint-disable-next-line @eslint-react/no-array-index-key
-          key={index}
-          shape={arrayShape.shape}
-          defaultValue={defaultValue?.value.at(index)}
-          onChangeValue={(value) =>
-            setArray((array) => array.with(index, value as T))
-          }
-        />
+        // eslint-disable-next-line @eslint-react/no-array-index-key
+        <CollapsibleParam key={index} label={`Item ${index}`}>
+          <CodecParam
+            shape={arrayShape.shape}
+            defaultValue={defaultValue?.value.at(index)}
+            onChangeValue={(value) =>
+              setArray((array) => array.with(index, value as T))
+            }
+          />
+        </CollapsibleParam>
       ))}
     </div>
   );
