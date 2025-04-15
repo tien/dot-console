@@ -44,6 +44,10 @@ export function unbinary(data: unknown): unknown {
 const textDecoder = new TextDecoder("utf-8", { fatal: true });
 
 export function bytesToString(value: Binary) {
+  if (value.asText() === "") {
+    return "";
+  }
+
   try {
     const bytes = value.asBytes();
     if (bytes.slice(0, 5).every((b) => b < 32)) throw null;
