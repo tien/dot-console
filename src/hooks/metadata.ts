@@ -5,23 +5,20 @@ import {
 import { useLazyLoadQuery } from "@reactive-dot/react";
 
 export function useMetadata() {
-  const [v14, v15] = useLazyLoadQuery((builder) =>
+  const [v14, v15, v16] = useLazyLoadQuery((builder) =>
     builder
       .runtimeApi("Metadata", "metadata_at_version", [14])
-      .runtimeApi("Metadata", "metadata_at_version", [15]),
+      .runtimeApi("Metadata", "metadata_at_version", [15])
+      .runtimeApi("Metadata", "metadata_at_version", [16]),
   );
 
-  const latestMetadata = v15 ?? v14;
+  const latestMetadata = v16 ?? v15 ?? v14;
 
   if (latestMetadata === undefined) {
     throw new Error("Unsupported metadata version");
   }
 
   const { metadata } = metadataCodec.dec(latestMetadata.asBytes());
-
-  if (metadata.tag !== "v14" && metadata.tag !== "v15") {
-    throw new Error("Unsupported metadata version");
-  }
 
   return unifyMetadata(metadata);
 }
