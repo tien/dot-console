@@ -7,7 +7,7 @@ import { Code } from "./ui/code";
 import { useChainId } from "@reactive-dot/react";
 import { useState } from "react";
 import { css } from "styled-system/css";
-import { useViewBuilder } from "~/hooks/view-builder";
+import { useDefinitionBuilder } from "~/hooks/view-builder";
 
 export type RuntimeApiFormProps = {
   onAddQuery: (query: RuntimeApiQuery) => void;
@@ -114,7 +114,7 @@ function INTERNAL_ApiMethodArguments({
   onAddQuery,
 }: ApiMethodArgumentsProps) {
   const chainId = useChainId();
-  const viewBuilder = useViewBuilder();
+  const buildDefinition = useDefinitionBuilder();
 
   const [args, setArgs] = useState(
     Array.from({ length: method.inputs.length }).fill(INCOMPLETE),
@@ -157,7 +157,7 @@ function INTERNAL_ApiMethodArguments({
                 {input.name}
               </p>
               <CodecParam
-                shape={viewBuilder.buildDefinition(input.type).shape}
+                shape={buildDefinition(input.type).shape}
                 onChangeValue={(value) =>
                   setArgs((args) => args.with(index, value))
                 }

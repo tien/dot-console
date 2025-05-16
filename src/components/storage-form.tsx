@@ -20,7 +20,7 @@ import { Text } from "./ui/text";
 import { useChainId } from "@reactive-dot/react";
 import { useMemo, useState, type ReactNode } from "react";
 import { css } from "styled-system/css";
-import { useViewBuilder } from "~/hooks/view-builder";
+import { useDefinitionBuilder } from "~/hooks/view-builder";
 
 type StorageFormProps = {
   pallet: Pallet;
@@ -124,12 +124,12 @@ function StorageKey(props: StorageKeyProps) {
 
 function INTERNAL_StorageKey({ pallet, storage, onAddQuery }: StorageKeyProps) {
   const chainId = useChainId();
-  const viewBuilder = useViewBuilder();
+  const buildDefinition = useDefinitionBuilder();
 
   const keyShapeDecoder =
     storage.type.tag === "plain"
       ? undefined
-      : viewBuilder.buildDefinition(storage.type.value.key);
+      : buildDefinition(storage.type.value.key);
 
   const [key, setKey] = useState<ParamInput<unknown>>(INCOMPLETE);
 

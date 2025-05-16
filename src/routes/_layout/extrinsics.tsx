@@ -2,7 +2,7 @@ import { AccountSelect } from "../../components/account-select";
 import { PalletSelect } from "../../components/pallet-select";
 import { CodecParam, INCOMPLETE, INVALID } from "../../components/param";
 import { useDynamicBuilder } from "../../hooks/metadata-builder";
-import { useViewBuilder } from "../../hooks/view-builder";
+import { useDefinitionBuilder, useViewBuilder } from "../../hooks/view-builder";
 import type { Pallet } from "../../types";
 import { mergeUint8 } from "../../utils";
 import type { Decoded, Shape } from "@polkadot-api/view-builder";
@@ -83,10 +83,10 @@ function CallSelect({ pallet, onChangePallet }: CallSelectProps) {
     throw new Error("Pallet doesn't have any calls");
   }
 
-  const viewBuilder = useViewBuilder();
+  const buildDefinition = useDefinitionBuilder();
   const callsEntry = useMemo(
-    () => viewBuilder.buildDefinition(pallet.calls!.type),
-    [pallet.calls, viewBuilder],
+    () => buildDefinition(pallet.calls!.type, [pallet.name]),
+    [buildDefinition, pallet.calls, pallet.name],
   );
 
   if (callsEntry.shape.codec !== "Enum") {

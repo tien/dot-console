@@ -4,6 +4,7 @@ import { BinaryParam, type BinaryParamProps } from "./binary";
 import { type ParamProps } from "./common";
 import { CompactParam, type CompactParamProps } from "./compact";
 import { EnumParam, type EnumParamProps } from "./enum";
+import { NativeAmountParam, type NativeAmountProps } from "./native-amount";
 import { OptionParam, type OptionParamProps } from "./option";
 import { PrimitiveParam, type PrimitiveParamProps } from "./primitive";
 import { SequenceParam, type SequenceParamProps } from "./sequence";
@@ -14,6 +15,7 @@ import type { Decoded, Shape } from "@polkadot-api/view-builder";
 import { createContext, Suspense, use, useMemo } from "react";
 import { css } from "styled-system/css";
 import { type CssProperties } from "styled-system/types";
+import { isNativeTokenShape } from "~/hooks/view-builder";
 
 const StorageParamDepthContext = createContext(0);
 
@@ -44,6 +46,15 @@ export function CodecParam<T = unknown>({
     >
       <StorageParamDepthContext value={depth + 1}>
         {useMemo(() => {
+          if (isNativeTokenShape(shape)) {
+            return (
+              <NativeAmountParam
+                {...(props as NativeAmountProps)}
+                shape={shape}
+              />
+            );
+          }
+
           switch (shape.codec) {
             case "_void":
               return <VoidParam {...(props as VoidParamProps)} />;
