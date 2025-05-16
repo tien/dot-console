@@ -85,8 +85,8 @@ function CallSelect({ pallet, onChangePallet }: CallSelectProps) {
 
   const buildDefinition = useDefinitionBuilder();
   const callsEntry = useMemo(
-    () => buildDefinition(pallet.calls!.type, [pallet.name]),
-    [buildDefinition, pallet.calls, pallet.name],
+    () => buildDefinition(pallet.calls!.type),
+    [buildDefinition, pallet.calls],
   );
 
   if (callsEntry.shape.codec !== "Enum") {
@@ -274,6 +274,7 @@ function CallParam({
     <div className={css({ gridArea: "param-and-submit" })}>
       <CodecParam
         key={argsRenderCount}
+        basePath={[pallet.name, call]}
         shape={param}
         defaultValue={defaultArgs}
         onChangeValue={setArgs}

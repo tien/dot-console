@@ -50,6 +50,7 @@ function INTERNAL_StructParam<T extends Record<string, unknown>>({
       {Object.entries(structShape.shape).map(([key, value]) => (
         <CollapsibleParam key={key} label={key}>
           <CodecParam
+            currentPath={key}
             shape={value}
             defaultValue={defaultValue?.value?.[key]}
             onChangeValue={(value) =>
