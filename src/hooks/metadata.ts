@@ -1,4 +1,7 @@
-import { metadata as metadataCodec } from "@polkadot-api/substrate-bindings";
+import {
+  metadata as metadataCodec,
+  unifyMetadata,
+} from "@polkadot-api/substrate-bindings";
 import { useLazyLoadQuery } from "@reactive-dot/react";
 
 export function useMetadata() {
@@ -20,5 +23,5 @@ export function useMetadata() {
     throw new Error("Unsupported metadata version");
   }
 
-  return metadata;
+  return unifyMetadata(metadata);
 }

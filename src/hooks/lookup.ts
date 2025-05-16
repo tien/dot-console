@@ -4,5 +4,5 @@ import { useMemo } from "react";
 
 export function useLookup() {
   const metadata = useMetadata();
-  return useMemo(() => getLookupFn(metadata.value), [metadata.value]);
+  return useMemo(() => getLookupFn(metadata), [metadata]);
 }

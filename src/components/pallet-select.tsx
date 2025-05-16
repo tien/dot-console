@@ -17,7 +17,7 @@ const previouslySelectedPalletAtom = atom<number | undefined>();
 
 export function PalletSelect({ filter, children }: PalletSelectProps) {
   const metadata = useMetadata();
-  const pallets = metadata.value.pallets.filter(filter);
+  const pallets = metadata.pallets.filter(filter);
 
   const [previouslySelectedPallet, setPreviouslySelectedPallet] = useAtom(
     previouslySelectedPalletAtom,

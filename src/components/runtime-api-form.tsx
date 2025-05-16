@@ -15,7 +15,7 @@ export type RuntimeApiFormProps = {
 
 export function RuntimeApiForm(props: RuntimeApiFormProps) {
   const metadata = useMetadata();
-  const apis = metadata.value.apis;
+  const apis = metadata.apis;
 
   const [selectedApiName, setSelectedApiName] = useState(apis.at(0)!.name);
   const selectedApi = apis.find((api) => api.name === selectedApiName);

@@ -85,7 +85,7 @@ function CallSelect({ pallet, onChangePallet }: CallSelectProps) {
 
   const viewBuilder = useViewBuilder();
   const callsEntry = useMemo(
-    () => viewBuilder.buildDefinition(pallet.calls!),
+    () => viewBuilder.buildDefinition(pallet.calls!.type),
     [pallet.calls, viewBuilder],
   );
 
