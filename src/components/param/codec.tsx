@@ -15,7 +15,7 @@ import type { Decoded, Shape } from "@polkadot-api/view-builder";
 import { createContext, Suspense, use, useMemo } from "react";
 import { css } from "styled-system/css";
 import { type CssProperties } from "styled-system/types";
-import { nativeBalancesFields } from "~/consts/native-balance-fields";
+import { nativeAmountFields } from "~/consts/native-amount-fields";
 
 const StorageParamDepthContext = createContext(0);
 
@@ -190,7 +190,7 @@ export function CodecParam<T = unknown>({
 }
 
 function isNativeTokenShape(path: Array<string | undefined>) {
-  return nativeBalancesFields.some(
+  return nativeAmountFields.some(
     (field) =>
       path.slice(-field.length).length === field.length &&
       path.slice(-field.length).every((part, index) => part === field[index]),

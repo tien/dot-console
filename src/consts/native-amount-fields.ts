@@ -1,4 +1,4 @@
-export const nativeBalancesFields = [
+export const nativeAmountFields = [
   ["Balances", "force_set_balance", "new_free"],
   ["Balances", "force_transfer", "value"],
   ["Balances", "force_unreserved", "amount"],
