@@ -15,6 +15,7 @@ export const nativeAmountFields = [
   ["ConvictionVoting", "vote", "vote", "SplitAbstain", "nay"],
   ["ConvictionVoting", "vote", "vote", "SplitAbstain", "abstain"],
   ["ConvictionVoting", "vote", "vote", "Standard", "balance"],
+  ["Treasury", "spend_local", "amount"],
   ["Bounties", "propose_bounty", "value"],
   ["Bounties", "propose_curator", "fee"],
   ["ChildBounties", "add_child_bounty", "value"],
