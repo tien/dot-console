@@ -60,7 +60,11 @@ function INTERNAL_EnumParam({
         <CodecParam
           currentPath={key}
           shape={valueShape}
-          defaultValue={defaultValue?.value.value}
+          defaultValue={
+            defaultValue?.value.type === key
+              ? defaultValue?.value.value
+              : undefined
+          }
           // @ts-expect-error TODO: improve Enum type
           onChangeValue={setValue}
         />
