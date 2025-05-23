@@ -78,7 +78,7 @@ function TextBinaryParam({
     },
     // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [validBinary],
+    [validBinary instanceof Binary ? validBinary.asHex() : validBinary],
   );
 
   return (
@@ -145,7 +145,7 @@ function FileUploadBinaryParam({
     },
     // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [binary],
+    [binary instanceof Binary ? binary.asHex() : binary],
   );
 
   return (
