@@ -15,17 +15,17 @@ const offchainDiscussionDataAtom = atomFamily(
       const baseUrl = (() => {
         switch (chainId) {
           case "polkadot":
-            return new URL(`https://polkadot.subsquare.io`);
+            return new URL(`https://polkadot-api.subsquare.io`);
           case "kusama":
-            return new URL("https://kusama.subsquare.io");
+            return new URL("https://kusama-api.subsquare.io");
           case "paseo":
-            return new URL("https://paseo.subsquare.io");
+            return new URL("https://paseo-api.subsquare.io");
           case "westend":
-            return new URL("https://westend.subsquare.io");
+            return new URL("https://westend-api.subsquare.io");
         }
       })();
 
-      return fetch(new URL(`/api/gov2/referendums/${referendaNumber}`, baseUrl))
+      return fetch(new URL(`/gov2/referendums/${referendaNumber}`, baseUrl))
         .then(
           (response) =>
             response.json() as Promise<{
@@ -47,7 +47,11 @@ const offchainDiscussionDataAtom = atomFamily(
         )
         .then((data) => ({
           ...data,
-          url: new URL(`/referenda/${referendaNumber}`, baseUrl),
+          url: new URL(
+            new URL(`/referenda/${referendaNumber}`, baseUrl)
+              .toString()
+              .replace("-api", ""),
+          ),
         }));
     }),
 );
