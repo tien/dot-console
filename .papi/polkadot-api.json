@@ -85,12 +85,14 @@
     "westend_collectives": {
       "chain": "westend2_collectives",
       "metadata": ".papi/metadata/westend_collectives.scale",
-      "genesis": "0x713daf193a6301583ff467be736da27ef0a72711b248927ba413f573d2b38e44"
+      "genesis": "0x713daf193a6301583ff467be736da27ef0a72711b248927ba413f573d2b38e44",
+      "codeHash": "0x34e3f1283908eb5d448d41308d8145300506e6c73b190034401b6aa5db549e1f"
     },
     "westend_people": {
       "chain": "westend2_people",
       "metadata": ".papi/metadata/westend_people.scale",
-      "genesis": "0x1eb6fb0ba5187434de017a70cb84d4f47142df1d571d0ef9e7e1407f2b80b93c"
+      "genesis": "0x1eb6fb0ba5187434de017a70cb84d4f47142df1d571d0ef9e7e1407f2b80b93c",
+      "codeHash": "0x016408470c90ed6aec5fa1eed13a82ee686e7d0d32bd5677018eedea6b5ffb9f"
     }
   }
 }
