@@ -37,11 +37,6 @@
       "metadata": ".papi/metadata/hydration.scale",
       "genesis": "0xafdc188f45c71dacbaa0b62e16a91f726c7b8699a9748cdf715459de6b7f366d"
     },
-    "invarch": {
-      "chainSpec": "src/chain-specs/invarch.json",
-      "metadata": ".papi/metadata/invarch.scale",
-      "genesis": "0x31a7d8914fb31c249b972f18c115f1e22b4b039abbcb03c73b6774c5642f9efe"
-    },
     "kusama": {
       "chain": "ksmcc3",
       "metadata": ".papi/metadata/kusama.scale",

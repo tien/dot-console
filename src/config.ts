@@ -1,10 +1,8 @@
 import acalaChainSpec from "./chain-specs/acala.json" with { type: "json" };
 import hydrationChainSpec from "./chain-specs/hydration.json" with { type: "json" };
-import invarchChainSpec from "./chain-specs/invarch.json" with { type: "json" };
 import {
   acala,
   hydration,
-  invarch,
   kusama,
   kusama_asset_hub,
   kusama_people,
@@ -70,12 +68,6 @@ export const config = defineConfig({
       descriptor: hydration,
       provider: polkadotProvider.addParachain({
         chainSpec: JSON.stringify(hydrationChainSpec),
-      }),
-    },
-    invarch: {
-      descriptor: invarch,
-      provider: polkadotProvider.addParachain({
-        chainSpec: JSON.stringify(invarchChainSpec),
       }),
     },
     kusama: {

@@ -32,7 +32,6 @@ export function getRelayChainId(chainId: ChainId) {
     case "polkadot_people":
     case "acala":
     case "hydration":
-    case "invarch":
       return "polkadot" satisfies ChainId;
     case "kusama":
     case "kusama_asset_hub":
@@ -63,7 +62,6 @@ export function usePeopleChainId() {
     case "polkadot_people":
     case "acala":
     case "hydration":
-    case "invarch":
       return "polkadot_people" satisfies ChainId;
     case "kusama":
     case "kusama_asset_hub":
@@ -90,7 +88,6 @@ export function useGovernanceChainId() {
     case "polkadot_people":
     case "acala":
     case "hydration":
-    case "invarch":
       return "polkadot" satisfies ChainId;
     case "kusama":
     case "kusama_asset_hub":
@@ -117,7 +114,6 @@ export function useStakingChainId() {
     case "polkadot_people":
     case "acala":
     case "hydration":
-    case "invarch":
       return "polkadot" satisfies ChainId;
     case "kusama":
     case "kusama_asset_hub":
@@ -144,7 +140,6 @@ export function useAssetHubChainId() {
     case "polkadot_people":
     case "acala":
     case "hydration":
-    case "invarch":
       return "polkadot_asset_hub" satisfies ChainId;
     case "kusama":
     case "kusama_asset_hub":
@@ -173,7 +168,6 @@ export function useCollectivesChainId<TForce = true>(
     case "polkadot_people":
     case "acala":
     case "hydration":
-    case "invarch":
       return "polkadot_collectives" satisfies ChainId;
     case "westend":
     case "westend_asset_hub":
