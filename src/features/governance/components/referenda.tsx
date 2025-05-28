@@ -155,9 +155,7 @@ function ReferendumRow({ number }: ReferendumProps) {
       const trackName =
         _trackName === undefined
           ? info.value.track.toLocaleString()
-          : typeof _trackName === "string"
-            ? _trackName
-            : _trackName.asText();
+          : _trackName;
 
       return (
         <>

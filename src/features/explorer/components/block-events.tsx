@@ -121,19 +121,23 @@ export function BlockEvents({
             !filterNoise ||
             (event.type !== "System" &&
               (!["Balances", "Treasury"].includes(event.type) ||
-                !["Deposit", "UpdatedInactive", "Withdraw"].includes(
-                  event.value.type,
-                )) &&
+                (event.value !== undefined &&
+                  !["Deposit", "UpdatedInactive", "Withdraw"].includes(
+                    event.value.type,
+                  ))) &&
               (!["TransactionPayment"].includes(event.type) ||
-                !["TransactionFeePaid"].includes(event.value.type)) &&
+                (event.value !== undefined &&
+                  !["TransactionFeePaid"].includes(event.value.type))) &&
               (!["ParaInclusion", "ParasInclusion", "Inclusion"].includes(
                 event.type,
               ) ||
-                !["CandidateBacked", "CandidateIncluded"].includes(
-                  event.value.type,
-                )) &&
+                (event.value !== undefined &&
+                  !["CandidateBacked", "CandidateIncluded"].includes(
+                    event.value.type,
+                  ))) &&
               (!["RelayChainInfo"].includes(event.type) ||
-                !["CurrentBlockNumbers"].includes(event.value.type))),
+                (event.value !== undefined &&
+                  !["CurrentBlockNumbers"].includes(event.value.type)))),
         )
         .map(({ event, eventIndex }, index) => (
           <Collapsible.Root
@@ -143,22 +147,25 @@ export function BlockEvents({
             <Collapsible.Trigger asChild>
               <Table.Row className={css({ cursor: "pointer" })}>
                 <Table.Cell>
-                  {event.type}.{event.value.type}
+                  {event.type}
+                  {event.value === undefined ? "" : `.${event.value.type}`}
                 </Table.Cell>
                 <Table.Cell>{blockNumber.toLocaleString()}</Table.Cell>
                 <Table.Cell>{eventIndex}</Table.Cell>
               </Table.Row>
             </Collapsible.Trigger>
-            <Collapsible.Content asChild>
-              <Table.Row>
-                <Table.Cell colSpan={3} className={css({ padding: 0 })}>
-                  <CodecView
-                    value={event.value.value}
-                    className={css({ borderRadius: 0 })}
-                  />
-                </Table.Cell>
-              </Table.Row>
-            </Collapsible.Content>
+            {event.value !== undefined && (
+              <Collapsible.Content asChild>
+                <Table.Row>
+                  <Table.Cell colSpan={3} className={css({ padding: 0 })}>
+                    <CodecView
+                      value={event.value.value}
+                      className={css({ borderRadius: 0 })}
+                    />
+                  </Table.Cell>
+                </Table.Row>
+              </Collapsible.Content>
+            )}
           </Collapsible.Root>
         ))}
     </>
