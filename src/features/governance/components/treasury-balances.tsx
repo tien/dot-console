@@ -78,7 +78,7 @@ function MaybeAssetHubBalances() {
     (builder) =>
       builder.runtimeApi("LocationToAccountApi", "convert_location", [
         {
-          type: "V2",
+          type: "V5",
           value: {
             parents: 1,
             interior: {
