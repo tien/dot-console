@@ -90,7 +90,7 @@
       "chain": "westend2_asset_hub",
       "metadata": ".papi/metadata/westend_asset_hub.scale",
       "genesis": "0x67f9723393ef76214df0118c34bbbd3dbebc8ed46a10973a8c969d48fe7598c9",
-      "codeHash": "0xb9d3cbf052f2a2ac61a91b3be23d7a3e628f6233415a8240a2713ce193c863a4"
+      "codeHash": "0x3718afcbb1126a4c6b7f53375034b2f28a07f16df48a8b0b758566b4ffe3170e"
     },
     "westend_collectives": {
       "chain": "westend2_collectives",
