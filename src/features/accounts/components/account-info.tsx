@@ -197,7 +197,7 @@ export function SuspendableAccountIdentity({ address }: AccountInfoProps) {
     { chainId: usePeopleChainId() },
   );
 
-  const identity = Array.isArray(result[0]) ? result[0][0] : result[0];
+  const identity = result[0];
   const [superAddress, subName] = result[1] ?? [];
 
   if (identity === undefined && subName === undefined) {
