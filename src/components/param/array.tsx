@@ -7,6 +7,7 @@ import {
   type ParamProps,
 } from "./common";
 import type { ArrayDecoded, ArrayShape } from "@polkadot-api/view-builder";
+import { useCallback } from "react";
 import { css } from "styled-system/css";
 import { useStateRef } from "~/hooks/use-state-ref";
 
@@ -28,14 +29,19 @@ function INTERNAL_ArrayParam<T>({
     Array.from<ParamInput<T>>({
       length: arrayShape.len,
     }).fill(INCOMPLETE),
-    (array) =>
-      onChangeValue(
-        array.some((value) => value === INVALID)
-          ? INVALID
-          : array.some((value) => value === INCOMPLETE)
-            ? INCOMPLETE
-            : (array as T[]),
-      ),
+    useCallback(
+      (array) =>
+        onChangeValue(
+          array.some((value) => value === INVALID)
+            ? INVALID
+            : array.some((value) => value === INCOMPLETE)
+              ? INCOMPLETE
+              : (array as T[]),
+        ),
+      // eslint-disable-next-line react-compiler/react-compiler
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [],
+    ),
   );
 
   return (

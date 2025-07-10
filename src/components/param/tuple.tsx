@@ -2,6 +2,7 @@ import { CodecParam } from "./codec";
 import { CollapsibleParam } from "./collapsible";
 import { INCOMPLETE, INVALID, type ParamProps } from "./common";
 import type { TupleDecoded, TupleShape } from "@polkadot-api/view-builder";
+import { useCallback } from "react";
 import { useStateRef } from "~/hooks/use-state-ref";
 
 export type TupleParamProps<T extends Array<unknown>> = ParamProps<T> & {
@@ -24,14 +25,19 @@ function INTERNAL_TupleParam<T extends Array<unknown>>({
     Array.from({
       length: tupleShape.shape.length,
     }).fill(INCOMPLETE) as T,
-    (tuple) =>
-      onChangeValue(
-        tuple.some((value) => value === INVALID)
-          ? INVALID
-          : tuple.some((value) => value === INCOMPLETE)
-            ? INCOMPLETE
-            : tuple,
-      ),
+    useCallback(
+      (tuple) =>
+        onChangeValue(
+          tuple.some((value) => value === INVALID)
+            ? INVALID
+            : tuple.some((value) => value === INCOMPLETE)
+              ? INCOMPLETE
+              : tuple,
+        ),
+      // eslint-disable-next-line react-compiler/react-compiler
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [],
+    ),
   );
 
   return (

@@ -2,6 +2,7 @@ import { CodecParam } from "./codec";
 import { CollapsibleParam } from "./collapsible";
 import { INCOMPLETE, INVALID, type ParamProps } from "./common";
 import type { StructDecoded, StructShape } from "@polkadot-api/view-builder";
+import { useCallback } from "react";
 import { useStateRef } from "~/hooks/use-state-ref";
 
 export type StructParamProps<T extends Record<string, unknown>> =
@@ -30,19 +31,24 @@ function INTERNAL_StructParam<T extends Record<string, unknown>>({
     Object.fromEntries(
       Object.keys(structShape.shape).map((key) => [key, INCOMPLETE] as const),
     ) as unknown as T,
-    (struct) => {
-      const values = Object.values(struct);
+    useCallback(
+      (struct) => {
+        const values = Object.values(struct);
 
-      if (values.some((value) => value === INVALID)) {
-        return onChangeValue(INVALID);
-      }
+        if (values.some((value) => value === INVALID)) {
+          return onChangeValue(INVALID);
+        }
 
-      if (values.some((value) => value === INCOMPLETE)) {
-        return onChangeValue(INCOMPLETE);
-      }
+        if (values.some((value) => value === INCOMPLETE)) {
+          return onChangeValue(INCOMPLETE);
+        }
 
-      onChangeValue(struct);
-    },
+        onChangeValue(struct);
+      },
+      // eslint-disable-next-line react-compiler/react-compiler
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [],
+    ),
   );
 
   return (
