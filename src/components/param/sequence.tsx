@@ -158,12 +158,18 @@ export function SequenceParam<T>({
                 shape={sequence.shape}
                 defaultValue={item.defaultValue}
                 onChangeValue={(value) =>
-                  setSortableValues((array) =>
-                    array.with(index, {
-                      id: array[index]!.id,
+                  setSortableValues((array) => {
+                    const id = array[index]?.id;
+
+                    if (id === undefined) {
+                      return array;
+                    }
+
+                    return array.with(index, {
+                      id,
                       value: value as ParamInput<T>,
-                    }),
-                  )
+                    });
+                  })
                 }
               />
             </SortableItem>
